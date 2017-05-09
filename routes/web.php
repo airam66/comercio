@@ -11,8 +11,17 @@
 |
 */
 
-Route::get('/', 'MainController@home'); 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+
+//Rutas para la pagina web
+
+Route::get('/home', 'MainController@home')->name('home');
+
+Route::get('/aboutUs', 'AboutUsController@aboutUs')->name('aboutUs');
+
+Route::get('/contactUs', 'ContactUsController@contactUs')->name('contactUs');
+
+
+Route::resource('cotillon','AboutUsController');

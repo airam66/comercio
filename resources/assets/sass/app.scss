@@ -1,10 +1,89 @@
 
-
-
 // Variables
 @import "variables";
 
+//Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+a{
+    text-decoration: none;
+}
+
 body{
-	
-	background-color:red;
+    /*  font-family: 'Lato', sans-serif;*/
+  /*  font-family: 'Signika Negative', sans-serif;*/
+}
+
+.content figure{
+    margin: 0;
+}
+
+.content h1{
+    font-family: 'Kaushan Script', cursive;
+    color: #D74942;
+    font-size: 50px;
+    text-shadow: 4px 4px 5px rgba(0,0,0,0.5);
+}
+
+.content{
+    text-align: center;
+}
+
+.cover{
+    position: relative;
+    background: url(../images/botones.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+}
+
+
+/*Footer*/
+footer{
+    width: 100%;
+    clear: both;
+    color: #666;
+    background: #141419;
+    line-height: 40px;
+    overflow: hidden;
+}
+footer .left{
+    float: left;
+    margin-left: 20px;
+}
+footer .right{
+    float: right;
+    margin-right: 20px;
+}
+footer ul{
+    list-style: none;
+}
+footer ul li{
+    display: inline-block;
+    margin-right: 5px;
+}
+footer ul li a{
+  color: #666;
+}
+footer ul li a:hover{
+    color: #666;
+    text-decoration: underline;
+}
+
+.logo{
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* Media queries*/
+@media all and (min-width: 769px){
+    .content h1{
+        font-size: 100px;
+    }
 }

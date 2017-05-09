@@ -10,7 +10,7 @@ use App\Http\Requests;
 class MainController extends Controller{
  
    public function home(){
-  return view('main.home',[]);   //crear una vista dentro de la carpeta main q se llame home.
+  return view('main.pagine.home',[]);   //crear una vista dentro de la carpeta main q se llame home.
 
 }
 }
