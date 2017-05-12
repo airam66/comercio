@@ -13,12 +13,6 @@ class MainController extends Controller{
   return view('main.pagine.home',[]);   //crear una vista dentro de la carpeta main q se llame home.
 
 }
-
-
-public function homeCon(){
-  return view('main.pagine.homeCon',[]);   //crear una vista dentro de la carpeta main q se llame home.
-
-}
 }
 
 ?>

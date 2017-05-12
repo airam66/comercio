@@ -2,12 +2,16 @@
 
 @section('content')
 
-<div class="cover">
-        <div class="content">
+<!-- Portada -->
+   
             
             <h1>Cotillon Crea Tu</h1>
             
-        </div>
- </div>
+            <a href="#bienvenida" , class="icon fa fa-arrow-down"></a>
+      
+    <!-- Bienvenida -->
+    
+
+    
 
 @endsection
