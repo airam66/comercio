@@ -8,9 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Cotillon Crea Tu</title>
 
     <!-- Styles -->
+
+
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
 
 
@@ -22,6 +24,12 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('my_style/style.css') }}" rel="stylesheet">
+    <!--son para la imagen-->
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -29,9 +37,9 @@
         ]) !!};
     </script>
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-inverse navbar-static-top">
+<body class="login-img3-body">
+   <div id="app">
+        <nav class="navbar-mio navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -44,7 +52,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ route('home') }}">
                         Cotillon Crea Tu
                     </a>
                 </div>
@@ -52,13 +60,20 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                       &nbsp;
+                       
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="{{ route('home') }}">Inicio</a></li>
+                            <li><a href="{{ route('aboutUs') }}">Sobre Nosotros</a></li>
+                             <li><a href="{{ route('contactUs') }}">Contacto</a></li>
+
+
                         <!-- Authentication Links -->
-                        @if (Auth::guest())
+                      <!--  @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
@@ -81,14 +96,25 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif-->
                     </ul>
                 </div>
             </div>
         </nav>
 
         @yield('content')
-    </div>
+   </div>
+   
+
+
+    <footer>
+        <div class="left">
+           Todos los derechos reservados &copy {{date('Y')}}
+        </div>
+        <div class="right">
+           Sitio web desarrollado por GYMSoftware
+        </div>
+    </footer>
 
     <!-- Scripts -->
 
@@ -103,16 +129,16 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
 
+
     <script>
-     $.material.init();   //para inicializar todas las ventajas que ofrece material desing bootstrap en la parte de javascript
+      $.material.init();   //para inicializar todas las ventajas que ofrece material desing bootstrap en la parte de javascript
     </script>
 
     
-
-
     <script src="{{ asset('js/app.js') }}"></script>
     
 
 
 </body>
+
 </html>
