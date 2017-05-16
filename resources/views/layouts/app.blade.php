@@ -12,6 +12,7 @@
 
     <!-- Styles -->
 
+
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
 
 
@@ -23,6 +24,12 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('my_style/style.css') }}" rel="stylesheet">
+    <!--son para la imagen-->
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -30,7 +37,7 @@
         ]) !!};
     </script>
 </head>
-<body>
+<body class="login-img3-body">
    <div id="app">
         <nav class="navbar-mio navbar-static-top">
             <div class="container">
@@ -105,7 +112,7 @@
            Todos los derechos reservados &copy {{date('Y')}}
         </div>
         <div class="right">
-            GYM
+           Sitio web desarrollado por GYMSoftware
         </div>
     </footer>
 
@@ -122,13 +129,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
 
+
     <script>
-    // $.material.init();   //para inicializar todas las ventajas que ofrece material desing bootstrap en la parte de javascript
+      $.material.init();   //para inicializar todas las ventajas que ofrece material desing bootstrap en la parte de javascript
     </script>
 
     
-
-
     <script src="{{ asset('js/app.js') }}"></script>
     
 

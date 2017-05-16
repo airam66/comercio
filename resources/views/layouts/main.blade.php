@@ -4,23 +4,13 @@
     <meta charset="UTF-8">
     <title>Panel de Administracion</title>
    
-  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
-
-
-<style>
-body{width:80%;
-margin:auto;}
-</style>
+   <link href="plugins/nicebootstrap/css/style.css" rel="stylesheet"/>
 
 </head>
 
-<body>
+<body class="login-img3-body">
     
-    nav class="navbar navbar-inverse">
+   <div nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
