@@ -52,7 +52,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ route('home') }}">
+                    <a class="navbar-brand" href="{{ route('index') }}">
                         Cotillon Crea Tu
                     </a>
                 </div>
@@ -67,7 +67,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
 
-                            <li><a href="{{ route('home') }}">Inicio</a></li>
+                            <li><a href="{{ route('index') }}">Inicio</a></li>
                             <li><a href="{{ route('aboutUs') }}">Sobre Nosotros</a></li>
                              <li><a href="{{ route('contactUs') }}">Contacto</a></li>
 

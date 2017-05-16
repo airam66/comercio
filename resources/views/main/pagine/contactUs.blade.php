@@ -17,23 +17,23 @@
 
    @foreach($cotillones as $cotillon)
 
-      <h4>Direccion</h4>
+      <h4><b>Direccion</b></h4>
        {{$cotillon->address}}
 
-     <h4>Telefonos</h4>
+     <h4><b>Telefonos</b></h4>
       {{$cotillon->phones}}
 
-     <h4>Email</h4>
+     <h4><b>Email</b></h4>
        {{$cotillon->email}}
 
-      <h4>Horarios de atencion</h4>
+      <h4><b>Horarios de atencion</b></h4>
   
        {{$cotillon->business_hours}}
 
     @endforeach
  
 
-    <h4>Mapa</h4>
+    <h4><b>Mapa</b></h4>
 
      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.4936392216555!2d-65.58252658499464!3d-24.98333698399607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3968e07f9c65ce87!2sLibrer%C3%ADa+del+Rosario!5e0!3m2!1ses-419!2sus!4v1493346864818" width="520" height="450" frameborder="0" style="border:0"></iframe>
 
@@ -50,8 +50,12 @@
             <div class="panel panel-transparent">
                
                 <div class="panel-body">
+
+
             
                 <h2>Enviénos su consulta</h2>
+
+                @include('flash::message')
 
  {!! Form::open(['route' => 'send', 'method' => 'post']) !!}
 
