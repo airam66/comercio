@@ -31,7 +31,9 @@ public function send(Request $request)
            $message->to(env('CONTACT_MAIL'), env('CONTACT_NAME'));
  
        });
-       return \View::make('success');
+
+       flash("Mensaje enviado correctamente" , 'success')->important();
+       return redirect()->route('contactUs');
    }
 
 }

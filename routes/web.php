@@ -9,22 +9,43 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => 'auth'], function () {
+       // Route::get('/link1', function ()    {
+//        // Uses Auth Middleware
+  // });
+	Route::get('/admin', function(){
+	return view('admin.home');
+});
+
+    //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
+    #adminlte_routes
+
+});
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('main.pagine.index');
 });
 Auth::routes();
 //Rutas para la pagina web
-Route::get('/home', 'MainController@home')->name('home');
-Route::get('/homeCon', 'MainController@homeCon')->name('homeCon');
+Route::get('/index', 'MainController@index')->name('index');
+
 Route::get('/aboutUs', 'AboutUsController@aboutUs')->name('aboutUs');
 Route::get('/contactUs', 'ContactUsController@contactUs')->name('contactUs');
 Route::post('/contactForm', 'ContactUsController@contact')->name('contactForm');
 Route::resource('cotillon','AboutUsController');
-//para el mapa
-Route::get('/mapa',function(){
-	return view('main.pagine.add');
-})->name('mapa');
-
 	
 Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
 Route::get('contact', ['as' => 'contact', 'uses' => 'MailController@index'] );
+
+
+
+// rutas para la pagina de administracion del sistema
+
+Route::group(['prefix'=>'admin'], function(){
+
+	Route::resource('categories','CategoriesController');
+	
+
+});
+
+

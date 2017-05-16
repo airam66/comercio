@@ -16,7 +16,7 @@ body {
 
     color: #797979;
 
-    background: #eeeeee;
+    
 
     font-family: 'Lato', sans-serif;
 
@@ -168,7 +168,7 @@ table tr th { color: #688a7e;}
 
 .login-img3-body{
 
-  background: url('../images/globos.jpg') no-repeat center center fixed; 
+  background:url('../images/globos.jpg') no-repeat center center fixed; 
 
   -webkit-background-size: cover;
 

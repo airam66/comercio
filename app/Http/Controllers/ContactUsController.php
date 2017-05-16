@@ -38,8 +38,10 @@ class ContactUsController extends Controller
 
         	});
 
-          $mesaje='<div class="text-info">Mensaje enviado con exito</<div>';
+         
         }
-    	return view('email.contact',array('mensaje'=>$mensaje));
+
+       
+    	return view('email.contact');
     }
 }
