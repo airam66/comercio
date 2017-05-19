@@ -12,9 +12,23 @@
      
                    <h2>Sobre Nosotros</h2>
                    @foreach($cotillones as $cotillon)
-                     <h4> {{$cotillon->description_AboutUs}}</h4>
+                  
+                     @if(empty($cotillon->address))
+
+                     <p>Sobre Nosotros.Sobre Nosotros.Sobre Nosotros.Sobre NosotrosSobre NosotrosSobre Nosotros
+                     Sobre Nosotros.Sobre NosotrosSobre NosotrosSobre Nosotros.Sobre Nosotros.Sobre Nosotros
+                     Sobre Nosotros.Sobre NosotrosSobre NosotrosSobre Nosotros.Sobre Nosotros.Sobre Nosotros</p>
+                   
+                     @else
+                    
+                   
+                   
+                     <p>{{$cotillon->description_AboutUs}}</p>
+                     @endif
 
                    @endforeach
+                   
+                  
                  </div>
              </div>
            </div>

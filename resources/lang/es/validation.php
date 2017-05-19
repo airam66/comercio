@@ -117,7 +117,12 @@ return [
     */
 
     'attributes' => [
-    'name' => 'nombre',
+    'name'                   =>        'nombre',
+    'category_id'            =>        'categoria',
+    'price'                  =>        'precio',
+    'description'            =>        'descripcion',
+    'code'                   =>        'codigo',
+
     ],
 
 ];

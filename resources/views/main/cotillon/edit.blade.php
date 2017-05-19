@@ -10,50 +10,43 @@
                 <div class="panel-heading">Datos de Cotillon</div>
                 <div class="panel-body">
 
-   {!! Form::open(['route'=>'cotillon.store', 'method'=>'POST'])!!}
-
-   <div class="form-group">
-
-      {!! Form::label('name','Nombre')!!}
-      {!! Form::text('name',null, ['class'=>'form-control','placeholder'=>'Nombre del cotillon'])!!}
-   </div>
-
+   {!! Form::open(['route'=>['cotillon.update','$cotillon'], 'method'=>'PUT'])!!}
 
    <div class="form-group">
 
       {!! Form::label('description_AboutUs','Descripcion')!!}
-      {!! Form::textarea('description_AboutUs',null, ['class'=>'form-control'])!!}
+      {!! Form::textarea('description_AboutUs',$cotillon->description_AboutUs, ['class'=>'form-control'])!!}
    </div>
 
     <div class="form-group">
 
       {!! Form::label('address','Direccion')!!}
-      {!! Form::text('address',null, ['class'=>'form-control'])!!}
+      {!! Form::text('address',$cotillon->address, ['class'=>'form-control'])!!}
    </div>
 
    <div class="form-group">
 
       {!! Form::label('phones','Telefono/s')!!}
-      {!! Form::text('phones',null, ['class'=>'form-control'])!!}
+      {!! Form::text('phones',$cotillon->phones, ['class'=>'form-control'])!!}
 
    </div>
 
    <div class="form-group">
 
       {!! Form::label('email','Email')!!}
-      {!! Form::email('email',null, ['class'=>'form-control'])!!}
+      {!! Form::email('email',$cotillon->email, ['class'=>'form-control'])!!}
    </div>
 
     <div class="form-group">
 
-      {!! Form::label('facebook','Facebook')!!}
-      {!! Form::text('facebook',null, ['class'=>'form-control'])!!}
+      {!! Form::label('facebook','facebook')!!}
+      {!! Form::text('facebook',$cotillon->facebook, ['class'=>'form-control'])!!}
    </div>
 
     <div class="form-group"> 
 
       {!! Form::label('business_hours','Horarios de Atencion')!!}
-      {!! Form::text('business_hours',null, ['class'=>'form-control'])!!}
+      {!! Form::text('business_hours',$cotillon->business_hours, ['class'=>'form-control'])!!}
    </div>
 
    <div class="form-group">

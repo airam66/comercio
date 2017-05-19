@@ -183,6 +183,10 @@ return [
         Collective\Html\HtmlServiceProvider::class,
        
        Laracasts\Flash\FlashServiceProvider::class,
+       Styde\Html\HtmlServiceProvider::class,
+
+       // ...
+        
 
     ],
 
@@ -236,6 +240,11 @@ return [
          //Alias Personales
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Alert' => Styde\Html\Facades\Alert::class,
+        'Field' => Styde\Html\Facades\Field::class,
+        'Menu' => Styde\Html\Facades\Menu::class,
+        'Access' => Styde\Html\Facades\Access::class,
+        
 
     ],
 
