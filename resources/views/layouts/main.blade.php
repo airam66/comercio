@@ -68,6 +68,9 @@
               <!-- User Account: style can be found in dropdown.less -->
 
                   <!-- Authentication Links -->
+                 @if (Auth::guest())
+
+                 @else
                    
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
@@ -85,22 +88,34 @@
                                        <small>Miembro desde {{Auth::user()->created_at}}</small>
                                    </p>
                                    </li>
+                                <!-- Menu footer-->
                                     <li class="user-footer">
-                                      <div class="pull-left">
+                                      <!--!<div class="pull-left">
                                       <a href="#" class="btn btn-default btn-flat">Perfil</a>
-                                     </div>
+                                     </div>-->
                                     <div class="pull-right">
-                                    <a href="{{ route('logout') }}"  onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">
-                                                     Salir</a>
-                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
+
+                                       <a href="{{ route('logout') }}" class="btn btn-default btn-flat" id="logout"
+                                       onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        Salir
+                                       </a>
+
+                                       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                        <input type="submit" value="logout" style="display: none;">
+                                       </form>
+
+
+
+                                    
                                     </div>     
                                    </li>
                                    
                                  </ul>
-                              </li>    
+                              </li> 
+                  @endif   
+                 
   
                 </ul>
           </div>
@@ -116,7 +131,7 @@
               <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>{{ Auth::user()->name }}</p>
+               <p>{{ Auth::user()->name }}</p>
              <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
             </div>
           </div>
@@ -133,17 +148,29 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MENU PRINCIPAL</li>
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                  <i class="fa fa-magic"></i>
                  <span>Categorias</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
                <ul class="treeview-menu">
                 <li class="active"><a href="{{route('categories.create')}}"><i class="fa fa-circle-o"></i> Nueva categoria</a></li>
-               <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
+              
               </ul>
             </li>
           
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-gift"></i>
+                 <span>Productos</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+               <ul class="treeview-menu">
+                <li class="active"><a href="{{route('products.create')}}"><i class="fa fa-circle-o"></i> Nuevo producto</a></li>
+                <li class="active"><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> Lista de productos</a></li>
+               <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
+              </ul>
+            </li>
+
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -163,7 +190,7 @@
         <section class="content">
 
          @include('flash::message')  
-         @include('partials.errors')
+         <!--@include('partials.errors')-->
              
             @yield('content')
 

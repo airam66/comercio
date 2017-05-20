@@ -11,13 +11,16 @@ class MainPagineController extends Controller
 
 	public function index(){
 
+ $cotillones= Cotillon::orderBy('id','DESC')->paginate(1);
+
+    return view('main.cotillon.index')->with('cotillones', $cotillones);    
 
 	}
 
 
 	public function create(){
     
-    return view('cotillon.create');
+    return view('main.cotillon.create');
 
 	}
 
@@ -27,9 +30,38 @@ class MainPagineController extends Controller
 		 $cotillon->business_hours= $request->business_hours;
          $cotillon->save();
 
-       return redirect()->route('home');
+       return redirect()->route('index'); 
+
+	}
+    
+    public function edit($id){
+
+    	$cotillon= Cotillon::find($id);
+
+    	return view('main.cotillon.edit')->with('cotillon',$cotillon);
+
+
+    }
+
+    public function show($id){
+
+
+    }
+
+
+    public function update(Request $request, $id){
+
+    	$cotillon=Cotillon::find($id);
+
+    	$cotillon->fill($request->all());
+
+    	$cotillon->save();
+
+        return redirect()->route('index');
+    }
 
      
 
-	}
+
+
 }

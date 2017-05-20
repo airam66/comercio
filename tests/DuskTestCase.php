@@ -5,6 +5,7 @@ namespace Tests;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Laravel\Dusk\Browser;
 
 abstract class DuskTestCase extends BaseTestCase
 {
@@ -19,7 +20,23 @@ abstract class DuskTestCase extends BaseTestCase
     public static function prepare()
     {
         static::startChromeDriver();
+
+        //hacer un macro para que se pueda ocupar la funcion anonima en los test personales
+
+        Browser::macro('assertSeeErrors',function (array $fields)
+        {
+
+        foreach ($fields as $name=>$errors){
+            foreach((array) $errors as $message){
+            $this->assertSeeIn(
+                    "#field_{$name}.has-error .help-block", $message
+                );
+        }
     }
+
+   });
+   
+} 
 
     /**
      * Create the RemoteWebDriver instance.
@@ -32,4 +49,5 @@ abstract class DuskTestCase extends BaseTestCase
             'http://localhost:9515', DesiredCapabilities::chrome()
         );
     }
+
 }
