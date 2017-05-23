@@ -70,7 +70,7 @@
                             <li><a href="{{ route('index') }}">Inicio</a></li>
                             <li><a href="{{ route('aboutUs') }}">Sobre Nosotros</a></li>
                              <li><a href="{{ route('contactUs') }}">Contacto</a></li>
-
+                            
 
                         <!-- Authentication Links -->
                       <!--  @if (Auth::guest())

@@ -158,6 +158,26 @@
                 <li class="active"><a href="{{route('categories.create')}}"><i class="fa fa-circle-o"></i> Nueva categoria</a></li>
               </ul>
             </li>
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-birthday-cake"></i>
+                 <span>Eventos</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+               <ul class="treeview-menu">
+                <li class="active"><a href="{{route('events.create')}}"><i class="fa fa-circle-o"></i> Nuevo evento</a></li>
+              
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-tags"></i>
+                 <span>Marcas</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+               <ul class="treeview-menu">
+                <li class="active"><a href="{{route('brands.create')}}"><i class="fa fa-circle-o"></i> Nueva marca</a></li>
+              
+              </ul>
+            </li>
           
             <li class="treeview">
               <a href="#">
