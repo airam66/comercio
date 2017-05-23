@@ -32,8 +32,7 @@ Route::resource('cotillon','MainPagineController');
 Route::group(['prefix'=>'admin'], function(){
 
   Route::resource('categories','CategoriesController');
-  Route::resource('events','EventController');
-  
+  Route::resource('brands','BrandController');  
   Route::resource('products','ProductsController');
 
   Route::resource('lines','LinesController');
