@@ -86,11 +86,7 @@
                       <h5>  {!! Form::label('name','Nombre (*)')!!}</h5>
                         {!! Form::text('name',null, ['class'=>'form-control','title'=>'El nombre es obligatorio','placeholder'=>'Ingrese un nombre..','required'])!!}
                   </div>
-                  <div class="form-group">
-
-                      <h5>{!! Form::label('phone','Telefono')!!}</h5>
-                      {!! Form::tel('phone',null, ['class'=>'form-control','placeholder'=>'387154987567 o 4253711'])!!}
-                  </div>
+                 
                 <div class="form-group">
 
                      <h5> {!! Form::label('email','Email (*)')!!}</h5>
