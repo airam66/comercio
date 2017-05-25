@@ -37,6 +37,15 @@ div ul li a{
     text-shadow: 4px 4px 5px rgba(131,27,180,0.7);
 }
 
+.content h2{
+    font-family: 'Kaushan Script', cursive;
+    color: #c51162;
+    font-size: 50px;
+    margin-left: 100px; text-align: left;
+    text-shadow: 4px 4px 5px rgba(131,27,180,0.7);
+    
+}
+
 .content{
     text-align: center;
 }
@@ -128,4 +137,27 @@ footer .right{
 
   background-size: cover;
 
+}
+
+
+//catalogs
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+
+div .gallery:hover {
+    border: 1px solid #777;
+}
+
+div .gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
 }
