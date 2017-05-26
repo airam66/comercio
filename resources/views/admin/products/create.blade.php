@@ -41,6 +41,22 @@
               {!! Form::select('category_id', $categories ,null, ['class'=>'form-control'])!!} 
               </div> 
 
+              <div class= "form-group">
+              {!! Form::label('event_id','Evento')!!}
+              {!! Form::select('event_id', $events ,null, ['class'=>'form-control'])!!} 
+              </div> 
+
+              <div class= "form-group">
+  
+              {!! Form::label('line_id','Linea')!!}
+              {!! Form::select('line_id', $lines ,null, ['class'=>'form-control'])!!} 
+              </div> 
+
+              <div class= "form-group">
+  
+              {!! Form::label('brand_id','Marca')!!}
+              {!! Form::select('brand_id', $brands ,null, ['class'=>'form-control'])!!} 
+              </div> 
 
               <div class="form-group">
 
