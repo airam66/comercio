@@ -161,3 +161,15 @@ div.desc {
     padding: 15px;
     text-align: center;
 }
+
+.product {
+	width: 600px;
+	max-width: 100%;
+	padding: 1em;
+	position: relative;
+
+}
+.product h1 {
+      padding-bottom: 10px;
+      border-bottom: solid 1px;
+	}

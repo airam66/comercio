@@ -51,8 +51,11 @@ Route::get('/index', 'MainController@index')->name('index');
 
 Route::get('/aboutUs', 'AboutUsController@aboutUs')->name('aboutUs');
 Route::get('/contactUs', 'ContactUsController@contactUs')->name('contactUs');
-Route::get('/catalogue', 'CatalogsController@index')->name('catalogue');;
+Route::get('/catalogue', 'CatalogsController@index')->name('catalogue');
 Route::post('/contactForm', 'ContactUsController@contact')->name('contactForm');
+//Route::get('/CatalogueShow','CatalogsController@show')->name('catalogueShow');
+Route::resource('catalogueShow', 'CatalogsController');
+
 
 	
 Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
