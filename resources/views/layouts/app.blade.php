@@ -69,8 +69,9 @@
 
                             <li><a href="{{ route('index') }}">Inicio</a></li>
                             <li><a href="{{ route('aboutUs') }}">Sobre Nosotros</a></li>
+                            <li><a href="{{ route('catalogue') }}">Catalogo</a></li>
                              <li><a href="{{ route('contactUs') }}">Contacto</a></li>
-                             <li><a href="{{ route('catalogue') }}">Catalogo</a></li>
+                             
                             
 
                         <!-- Authentication Links -->
