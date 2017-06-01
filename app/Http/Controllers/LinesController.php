@@ -25,7 +25,7 @@ class LinesController extends Controller
     	
        $line= new Line($request->all());
        $line->save();
-        flash("La linea ". $line->name . " ha sido creada con exito" , 'success')->important();
+       flash("La linea ". $line->name . " ha sido creada con exito" , 'success')->important();
      
 
        return redirect()->route('lines.create'); //cambiar cuando cree la lista

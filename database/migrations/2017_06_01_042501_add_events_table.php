@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEventTable extends Migration
+class AddEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,6 +19,17 @@ class AddEventTable extends Migration
             $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
         });
+
+    /*    Schema::create('product_events', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('event_id')->unsigned();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+
+            $table->timestamps();
+        })*/
     }
 
     /**
@@ -28,6 +39,7 @@ class AddEventTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        //Schema::dropIfExists('product_events');
+         Schema::dropIfExists('events');
     }
 }
