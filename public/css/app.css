@@ -157,6 +157,13 @@ footer .right{
       padding-bottom: 10px;
       border-bottom: solid 1px;
 	}
+div.mystyle {
+	width: 190px;
+	height: 270px;
+	margin-right:10px; 
+	margin-bottom:8px;
+	margin-left: 10px;
+}
 
 
 

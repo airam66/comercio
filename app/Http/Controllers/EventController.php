@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
-use App\Http\Requests\EventRequest;
+//use App\Http\Requests\EventRequest;
 
 class EventController extends Controller
 {
@@ -19,7 +19,7 @@ class EventController extends Controller
     }
 
   
-   public function store(EventRequest $request)
+   public function store(Request $request)
     {
        $event= new Event($request->all());
        $event->save();
