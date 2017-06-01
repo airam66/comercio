@@ -18,9 +18,11 @@
         </div>
 
         <div>
-        
+          @if(empty($products))
+          <p>No hay datos para mostrar</p>
+          @else
           @foreach($products as $product)
-          <div class="card product "style="width: 190px;height: 270px;margin-right:10px; margin-bottom:8px;margin-left: 10px;">
+          <div class="card product mystyle"style="width: 190px;height: 270px;margin-right:10px; margin-bottom:8px;margin-left: 10px;">
 	          <div>
 	           @if($product->extension!=null)
              
@@ -33,12 +35,13 @@
            <div class="text-right" >
            <!--href="{{ route('catalogueShow.show', $product->id ) }}"-->
            <a  href="{{ route('catalogueShow.show', $product->id ) }}" >
-	         <img src="images/informacion3.png " width="45" height="45"  > 
+	         <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  > 
              </a>
              </div>
           </div>
           </div>
           @endforeach
+          @endif
       
     
   </div>
@@ -52,40 +55,5 @@
 </div>
   </div>
  
- <!-- -->  
-
-<!-- Moda-
-  <div class="modal " id="myModal" role="dialog">
-    <div class="modal-dialog ">
-    
-        
-       
-
-       
-     
-          <div class="card product text-left" >
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-          
-             <h1> {{$product->name}} </h1>
-              <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <img src="{{ asset('images/products/'.$product->extension)  }}" width="300" height="300">
-                </div>
-               <div class="col-sm-6 col-xs-12 text-center">
-                 <p >
-                   <strong>Descripción</strong>
-
-                 </p>
-                 <p >
-                 {{$product->description}}
-                 </p>
-              </div>
-          </div>
-        </div>
-  
-          <!---------------
-  </div>
-  </div>
-        
- -->    
+ 
 @endsection
