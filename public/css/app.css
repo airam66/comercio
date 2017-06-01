@@ -43,6 +43,7 @@ div ul li a{
     font-size: 50px;
     margin-left: 100px; text-align: left;
     text-shadow: 4px 4px 5px rgba(131,27,180,0.7);
+
     
 }
 
@@ -117,6 +118,8 @@ footer .right{
     color:#ef6c00;
     font-size: 40px;
     text-shadow: 4px 4px 5px rgba(173,83,215,0.7);
+
+
 }
 
 .col-md-offset-6{
@@ -140,27 +143,8 @@ footer .right{
 }
 
 
-//catalogs
-div.gallery {
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 180px;
-}
 
-div .gallery:hover {
-    border: 1px solid #777;
-}
 
-div .gallery img {
-    width: 100%;
-    height: auto;
-}
-
-div.desc {
-    padding: 15px;
-    text-align: center;
-}
 
 .product {
 	width: 600px;
@@ -173,3 +157,7 @@ div.desc {
       padding-bottom: 10px;
       border-bottom: solid 1px;
 	}
+
+
+
+  
