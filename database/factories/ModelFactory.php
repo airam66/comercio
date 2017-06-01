@@ -37,3 +37,58 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
         
     ];
 });
+
+$factory->define(App\Event::class, function (Faker\Generator $faker) {
+   
+
+    return [
+        'name' => $faker ->unique()->sentence,
+        'status' => $faker->randomElement($array = array ('active','inactive')),
+        /**'user_id'=>function(){
+            return factory(\App\User::class)->create()->id;
+        }*/
+        
+    ];
+});
+
+$factory->define(App\Brand::class, function (Faker\Generator $faker) {
+   
+
+    return [
+        'name' => $faker ->unique()->sentence,
+        'status' => $faker->randomElement($array = array ('active','inactive')),
+        /**'user_id'=>function(){
+            return factory(\App\User::class)->create()->id;
+        }*/
+        
+    ];
+});
+
+$factory->define(App\Line::class, function (Faker\Generator $faker) {
+   
+
+    return [
+        'name' => $faker ->unique()->sentence,
+        'status' => $faker->randomElement($array = array ('active','inactive')),
+        /**'user_id'=>function(){
+            return factory(\App\User::class)->create()->id;
+        }*/
+        
+    ];
+});
+
+$factory->define(App\Porcentage::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+
+        'wholesale_porcentage' => 10,
+        'retail_porcentage' => 10,
+        /**'user_id'=>function(){
+            return factory(\App\User::class)->create()->id;
+        }*/
+        
+    ];
+});
+
+
