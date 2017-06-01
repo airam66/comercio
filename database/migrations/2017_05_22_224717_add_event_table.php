@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddProductTable extends Migration
+class AddEventTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,10 @@ class AddProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('code');
             $table->string('name');
-            $table->integer('category_id')->unsigned();
-            $table->string('description');
-            $table->integer('stock');
-            $table->decimal('price',9,2);
-            $table->string('extension')->nullable();
             $table->enum('status', ['active','inactive'])->default('active');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            
             $table->timestamps();
         });
     }
@@ -36,7 +28,6 @@ class AddProductTable extends Migration
      */
     public function down()
     {
-
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('events');
     }
 }

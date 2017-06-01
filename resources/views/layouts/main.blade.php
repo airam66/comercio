@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Cotillon Creatu</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -148,13 +148,45 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MENU PRINCIPAL</li>
+
             <li class="treeview">
               <a href="#">
                  <i class="fa fa-magic"></i>
                  <span>Categorias</span> <i class="fa fa-angle-left pull-right"></i>
+                 </a>
+                 <ul class="treeview-menu">
+                <li class="active"><a href="{{route('categories.create')}}"><i class="fa fa-circle-o"></i> Nueva categoria</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-birthday-cake"></i>
+                 <span>Eventos</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
                <ul class="treeview-menu">
-                <li class="active"><a href="{{route('categories.create')}}"><i class="fa fa-circle-o"></i> Nueva categoria</a></li>
+                <li class="active"><a href="{{route('events.create')}}"><i class="fa fa-circle-o"></i> Nuevo evento</a></li>
+              
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-rocket" aria-hidden="true"></i>
+                 <span>Lineas</span> <i class="fa fa-angle-left pull-right"></i>
+                 </a>
+                 <ul class="treeview-menu">
+                <li class="active"><a href="{{route('lines.create')}}"><i class="fa fa-circle-o"></i> Nueva linea</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-tags"></i>
+                 <span>Marcas</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+               <ul class="treeview-menu">
+                <li class="active"><a href="{{route('brands.create')}}"><i class="fa fa-circle-o"></i> Nueva marca</a></li>
               
               </ul>
             </li>
@@ -163,8 +195,8 @@
               <a href="#">
                  <i class="fa fa-gift"></i>
                  <span>Productos</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-               <ul class="treeview-menu">
+                  </a>
+                  <ul class="treeview-menu">
                 <li class="active"><a href="{{route('products.create')}}"><i class="fa fa-circle-o"></i> Nuevo producto</a></li>
                 <li class="active"><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> Lista de productos</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->

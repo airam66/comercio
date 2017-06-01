@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
+   
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
 
@@ -69,8 +70,10 @@
 
                             <li><a href="{{ route('index') }}">Inicio</a></li>
                             <li><a href="{{ route('aboutUs') }}">Sobre Nosotros</a></li>
+                            <li><a href="{{ route('catalogue') }}">Catalogo</a></li>
                              <li><a href="{{ route('contactUs') }}">Contacto</a></li>
-
+                             
+                            
 
                         <!-- Authentication Links -->
                       <!--  @if (Auth::guest())
@@ -128,7 +131,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
-
+      
 
     <script>
       $.material.init();   //para inicializar todas las ventajas que ofrece material desing bootstrap en la parte de javascript
