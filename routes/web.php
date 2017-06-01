@@ -55,6 +55,7 @@ Route::get('/catalogue', 'CatalogsController@index')->name('catalogue');
 Route::post('/contactForm', 'ContactUsController@contact')->name('contactForm');
 //Route::get('/CatalogueShow','CatalogsController@show')->name('catalogueShow');
 Route::resource('catalogueShow', 'CatalogsController');
+Route::get('events/{name}','CatalogsController@searchEvent')->name('searchEvent');
 
 
 	
