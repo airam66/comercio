@@ -23,10 +23,7 @@ public function show($id)
  public function SearchEvent($name){
  		$event= Event::searchEvent($name)->first();
  		$products= $event->products()->paginate(5);
- 		$products->each(function($products){
- 			$products->event;
- 			$products->extencion;
- 		});
+ 		
 
  		return view('main.pagine.Catalogue')->with('products',$products);
  		

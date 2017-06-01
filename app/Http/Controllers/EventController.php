@@ -18,7 +18,9 @@ class EventController extends Controller
         return view('admin.events.create');
     }
   
+
     public function store(Request $request)
+
     {
        $event= new Event($request->all());
        $event->save();
