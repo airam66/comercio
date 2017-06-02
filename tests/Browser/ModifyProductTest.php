@@ -13,8 +13,8 @@ use App\Brand;
 use App\Line;
 use App\Porcentage;
 use App\User;
-
-class ProductsTest extends DuskTestCase
+use App\Product;
+class ModifyProductTest extends DuskTestCase
 {
    use DatabaseMigrations;
 
@@ -29,23 +29,24 @@ class ProductsTest extends DuskTestCase
 
     public function test_modify_a_product()
     {
-        $user=factory(User::class)->create(['email'=>'free3710@gmail.com',]);
-        $category= factory(\App\Category::class)->create(['name'=>'Tarjetas',]);
-        
+        $user=factory(User::class)->create(['email'=>'gaby73@gmail.com',]);
+        $category= factory(\App\Category::class)->create(['name'=>'Tarjetas',]); 
         $brand= factory(\App\Brand::class)->create(['name'=>'Sprit',]);
         $line= factory(\App\Line::class)->create(['name'=>'Princesas',]);
         $event= factory(\App\Event::class)->create(['name'=>'Cumpleaños',]);
+        $product=factory(Product::class)->create(['name'=>'Bolsittas Frozen',]);
         $porcentage= factory(\App\Porcentage::class)->create();
 
         $this->browse(function (Browser $browser) use ($user,$category,$event,$brand,$line){
 
                      //When
-            $browser->visit('http://localhost:8080/comercio/public/admin/products/create')
+            $browser->visit('http://localhost:8080/comercio/public/admin/products')
                     ->type('email',$user->email)
                     ->type('password','secret')
                     ->press('Entrar')
-                   // ->assertPathIs('http://localhost:8080/comercio/public/admin/products/create')
-                    ->type('name',$this->name)
+                   // ->assertPathIs('http://localhost:8080/comercio/public/admin/products')
+                    ->press('Editar')
+                  //  ->assertPathIs('http://localhost:8080/comercio/public/admin/products')
                     ->select('category_id',(string)$category->id)
                     ->type('code',$this->code)
                     ->attach('image','C:\Users\Gabriel\Desktop\cotillon\001.jpeg')
@@ -53,13 +54,9 @@ class ProductsTest extends DuskTestCase
                     ->select('line_id',(string)$line->id)
                     ->select('brand_id',(string)$brand->id)
                     ->type('description',$this->description)
-                    ->type('purchase_price',$this->purchase_price)
                     ->type('stock',$this->stock)
                     ->type('wholesale_cant',$this->ws)
-                    ->select('status','active')
-                    
-
-                    ->press('Registrar')
+                    ->press('Guardar Cambios')
                     ->assertPathIs('http://localhost:8080/comercio/public/admin/products')
                     ;
            });

@@ -9,7 +9,7 @@
         <!-- Default box -->
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nuevo producto</h3>
+            <h3 class="box-title">Modificar producto</h3>
            
 
             <div class="box-tools pull-right">
@@ -21,9 +21,7 @@
           </div>
           <div class="box-body">
             
-{!! Form::open(['route'=>'products.store', 'method'=>'POST', 'files'=>true])!!}
-            
-             {!! Field::text('name')!!}
+            {!! Form::model($product,['route'=>['products.update',$product->id], 'method'=>'PATCH', 'files'=>true])!!}
 
               <div class= "form-group">
               {!! Form::label('category_id','Categoria')!!}
@@ -31,9 +29,13 @@
               </div> 
 
              {!! Field::number('code')!!}
-              
+                    
+                    <div>
+                    <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" > Imagen Actual
+                    </div>
+
              <div class="form-group">
-              {!! Form::label('image','Imagen')!!}
+              {!! Form::label('image','Nueva Imagen')!!}
               {!! Form::file('image')!!}
              </div>
               
@@ -56,21 +58,6 @@
               {!! Form::label('description','Descripcion')!!}
               {!! Form::text('description',null, ['class'=>'form-control'])!!}
               </div>
-            
-               <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <td><table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
-              {!! form::label('Precio')!!}
-              <p><input onkeyup="this.form.wholesale_price.value=parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100;this.form.retail_price.value=parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100;" name="purchase_price" type="number" whit step="any"></p>
-              </table></td>
-              <td><table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
-              {!! Form::label('Precio por Mayor')!!}
-              <p><input name="wholesale_price" type="number" with step="any"> </p>        
-              </table></td>
-              <td><table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
-              {!! Form::label('Precio por menor')!!}
-              <p><input name="retail_price" type="number" with step="any"></p>
-              </table></td>
-               </table> 
 
              {!! Field::number('stock')!!}
 
@@ -79,14 +66,8 @@
               {!! Form::number('wholesale_cant',null, ['class'=>'form-control'])!!}
               </div>
 
-               <div class= "form-group">
-  
-              {!! Form::label('status','Estado')!!}
-              {!! Form::select('status', ['active'=>'activo','inactive'=>'inactivo'],null,['class'=>'form-control'])!!} 
-              </div>
-
               <div class="form-group">
-              {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
+              {!! Form::submit('Guardar Cambios',['class'=>'btn btn-primary'])!!}
               </div>
           
  
