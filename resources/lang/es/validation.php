@@ -120,8 +120,12 @@ return [
     'name'                   =>        'nombre',
     'category_id'            =>        'categoria',
     'price'                  =>        'precio',
+    'image'                  =>        'Imagen',
     'description'            =>        'descripcion',
     'code'                   =>        'codigo',
+    'wholesale_cant'         =>        'Cantidad de venta Mayorista',
+    'wholesale_porcentage'   =>        'Para venta mayorista',
+    'retail_porcentage'      =>        'Para venta minorista',
 
     ],
 

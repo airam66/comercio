@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Product;
 use App\Brand;
 use App\Line;
 use App\Event;
-use App\ProductPrice;
+use App\Porcentage;
 
 class ProductsController extends Controller
 {
@@ -20,7 +22,7 @@ class ProductsController extends Controller
     
     public function index()
     {
-        $products= Product::orderBy('name','ASC')->paginate(5);
+        $products= Product::orderBy('name','ASC')->paginate(10);
               
 
         return view('admin.products.index')->with('products',$products);
@@ -35,27 +37,19 @@ class ProductsController extends Controller
         $lines=Line::orderBy('name','ASC')->pluck('name','id');
         $brands=Brand::orderBy('name','ASC')->pluck('name','id');
         $events=Event::orderBy('name','ASC')->pluck('name','id');
+        $porcentage=Porcentage::all()->last();
 
         return view('admin.products.create')->with('categories',$categories)
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
-                                            ->with('events',$events);
+                                            ->with('events',$events)
+                                            ->with('porcentage',$porcentage);
        
     }
 
     
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-       $this->validate($request,[
-
-          'name'=> 'max:100|required|unique:products',
-          'code'=> 'max:8|min:8|unique:products',
-          'category_id'=>'required|exists:categories,id',
-          'price'=>'required',
-          'stock'=>'required',
-
-        ]);
-
         $products= new Product($request->all());
 
          if($request->file('image')){
@@ -65,44 +59,15 @@ class ProductsController extends Controller
                  $file->move($path,$extension);
                 $products->extension=$extension;
                 }
-         
 
+        $products->code=$products->newCode($request->category_id,$request->code);
+         
         $products->status=$request->status;
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;
         $products->event_id= $request->event_id;
-
-         //$hasFile=$request->hasFile('image') && $request->image->isValid();
-         /**If($hasFile){
-            $extension=$request->image->extension();
-            $products->extension=$extension;
-         }
-
-       if($products->save()){
-
-         if ($hasFile){
-            $request->image->storeAs('images',"$products->id.$extension");
-
-         
-         return redirect()->route('products');
-         }else {
-            return view('admin.products.create',['products'=>$products]);
-
-         }
-       }**/
-
-       $products->save();
-
-        //carga de lista de precios
-    //    $products=Product::all();
-      // var_dump($products->last());
-        $productprice= new ProductPrice();
-        $productprice->products_id=$products->id;
-        $productprice->purchase_price=$request->price;
-        $productprice->wholesale_price=$request->price;//falta ajustar con el porcentaje
-        $productprice->retail_price=$request->price;//jsuatar con el procentaje
-        $productprice->save();
+        $products->save();
 
        return redirect()->route('products.index');
 
@@ -116,14 +81,66 @@ class ProductsController extends Controller
 
    
     public function edit($id)
-    {
-        //
+    {   $product= Product::find($id);
+        $product->code=$product->singleCode($product->code);
+        $categories= Category::orderBy('name','ASC')->pluck('name','id');
+        $lines=Line::orderBy('name','ASC')->pluck('name','id');
+        $brands=Brand::orderBy('name','ASC')->pluck('name','id');
+        $events=Event::orderBy('name','ASC')->pluck('name','id');
+        $porcentage=Porcentage::all()->last();
+   
+
+        return view('admin.products.edit')->with('product',$product)
+                                            ->with('categories',$categories)
+                                            ->with('lines',$lines)
+                                            ->with('brands',$brands)
+                                            ->with('events',$events)
+                                            ->with('porcentage',$porcentage);
+
     }
 
    
     public function update(Request $request, $id)
     {
-        //
+
+      $this->validate($request,[
+          'category_id'=>'required|exists:categories,id',
+          'line_id'=>'required|exists:lines,id',
+          'brand_id'=>'required|exists:brands,id',
+          'stock'=>'required',
+          'wholesale_cant'=>'required',
+        ]);
+
+        $products= Product::find($id);
+
+        if($request->code!=$products->code){
+          $this->validate($request,['code'=> 'max:20|min:3|unique:products',]);
+        }
+
+        $products->fill($request->all());
+
+
+         if($request->file('image')){
+                 $file =$request->file('image');
+                 $extension=$file->getClientOriginalName();
+                 if ($extension!=$products->extension){
+                       $path=public_path().'/images/products/';
+                       $file->move($path,$extension);
+                      $products->extension=$extension;
+                    }
+          }
+
+        $products->code=$products->newCode($request->category_id,$request->code);
+        $products->category_id= $request->category_id;
+        $products->line_id= $request->line_id;
+        $products->brand_id= $request->brand_id;
+        $products->event_id= $request->event_id;
+        $products->save();
+
+
+
+
+       return redirect()->route('products.index');
     }
 
    

@@ -19,8 +19,8 @@
                 <th>Categoria</th>
                 <th>Estado</th>
                 <th>Imagen</th>
+                <th>Acción</th>
                    
-                
             </tr>
         </thead>
  
@@ -34,24 +34,34 @@
    @foreach($products as $product) 
 
 
- <tr role="row" class="odd">
-    <td class="sorting_1">{{$product->code}}</td>
-    
-   
-    <td>{{$product->name}}</td>
-    <td>{{$product->category->name}}</td>
-    <td>{{$product->status}}</td>
+         <tr role="row" class="odd">
+            <td class="sorting_1">{{$product->code}}</td>
+            
+           
+            <td>{{$product->name}}</td>
+            <td>{{$product->category->name}}</td>
+            <td>{{$product->status}}</td>
 
-    <td> 
-    @if($product->extension!=null)
-    <div>
-    <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" >
-    </div>
-    @endif
-    </td>
-    <td></td>
-   
-</tr>
+            <td> 
+            @if($product->extension!=null)
+                    <div>
+                    <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" >
+                    </div>
+            @endif
+            </td>
+
+            <td> 
+                <a href="{{route('products.edit',$product->id)}}"  >
+                        <button type="submit" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                        </button>
+                     </a>
+            </td>
+
+            <td></td>
+           
+        </tr>
   @endforeach
 </tbody>
     </table>

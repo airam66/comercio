@@ -31,6 +31,8 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
 
+    <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -200,6 +202,7 @@
                   <ul class="treeview-menu">
                 <li class="active"><a href="{{route('products.create')}}"><i class="fa fa-circle-o"></i> Nuevo producto</a></li>
                 <li class="active"><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> Lista de productos</a></li>
+                <li class="active"><a href="{{route('porcentages.create')}}"><i class="fa fa-circle-o"></i> Porcentajes de ventas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
               </ul>
             </li>
@@ -280,5 +283,9 @@
     <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}"></script>
+
+    <script src="{{asset('plugins/chosen/chosen.jquery.js')}}">></script>
+
+    @yield('js')
   </body>
 </html>

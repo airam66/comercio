@@ -9,7 +9,7 @@
         <!-- Default box -->
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nueva Marca</h3>
+            <h3 class="box-title">Actualizar Porcentajes de Ventas</h3>
            
 
             <div class="box-tools pull-right">
@@ -21,17 +21,14 @@
           </div>
           <div class="box-body">
             
-            {!! Form::open(['route'=>'brands.store', 'method'=>'POST'])!!}
+            {!! Form::open(['route'=>'porcentages.store', 'method'=>'POST', 'files'=>true])!!}
 
-             <div class="form-group">
-              {!! Field::text('name',null, ['class'=>'form-control'])!!}
-             </div>
-
-             
               <div class= "form-group">
-  
-              {!! Form::label('status','Estado')!!}
-              {!! Form::select('status', ['active'=>'activo','inactive'=>'inactivo'],null,['class'=>'form-control'])!!} 
+              {!! Field::number('wholesale_porcentage',null, ['class'=>'form-control'])!!}
+              </div>
+
+              <div class= "form-group">
+              {!! Field::number('retail_porcentage',null, ['class'=>'form-control'])!!}
               </div>
 
               <div class="form-group">

@@ -3,35 +3,62 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\ProductRequest;
 
 class Product extends Model
 {
     protected $table="products";
 
-    protected $fillable= ['id','code','name','category_id','event_id','line_id','brand_id','description','stock','extension','status'];
+   protected $fillable= ['code','name','category_id','line_id','event_id','brand_id','wholesale_cant','description','stock','extension','status','purchase_price','wholesale_price','retail_price'];
 
     public function category(){
 
-    	return $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Category');
     }
 
     public function line(){
 
-    	return $this->belongsTo('App\Line');
+        return $this->belongsTo('App\Line');
     }
 
     public function brand(){
 
-    	return $this->belongsTo('App\Brand');
+        return $this->belongsTo('App\Brand');
+    }
+
+    public function productevent()
+    {
+        return $this->belongsTo('App\ProductEvent');
     }
 
     public function event(){
-
-    	return $this->belongsTo('App\Event');
+        return $this->belongsToMany('App\Event')->using('App\ProductEvent');
     }
 
-    public function productprice(){
+    public function newCode($category_id,$product_code){
+        //concatena id o code con id de categoria
+        //(string)$var o strval($var)
+        if ($category_id<10){
+            $category='00'.strval($category_id);
+        }elseif ($category_id<100) {
+            $category='0'.strval($category_id);
+        }else {
+            $category=strval($category_id);
+        }
 
-        return $this->hasMany('App\ProductPrice');
+        $code=strval($product_code);
+        
+
+        return $category.$code;
     }
+
+    public function singleCode($product_code){
+        // retorna el codigo del id de categoria
+        // intval($string) y substr($var,int ,[int])
+        $code=substr($product_code,3);
+        return intval($code);
+
+
+    }
+
 }

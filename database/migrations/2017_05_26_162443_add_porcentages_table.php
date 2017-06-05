@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEventTable extends Migration
+class AddPorcentagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddEventTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('porcentages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->enum('status', ['active','inactive'])->default('active');
+            $table->integer('wholesale_porcentage');
+            $table->integer('retail_porcentage');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class AddEventTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('porcentages');
     }
 }

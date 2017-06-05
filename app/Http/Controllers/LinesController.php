@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\LineRequest;
 
 use App\line;
 
@@ -20,12 +21,12 @@ class LinesController extends Controller
     }
 
   
-    public function store(Request $request)
+    public function store(LineRequest $request)
     {
     	
        $line= new Line($request->all());
        $line->save();
-        flash("La linea ". $line->name . " ha sido creada con exito" , 'success')->important();
+       flash("La linea ". $line->name . " ha sido creada con exito" , 'success')->important();
      
 
        return redirect()->route('lines.create'); //cambiar cuando cree la lista
