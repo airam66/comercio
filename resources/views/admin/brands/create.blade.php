@@ -24,11 +24,8 @@
             {!! Form::open(['route'=>'brands.store', 'method'=>'POST'])!!}
 
              <div class="form-group">
-
-              {!! Form::label('name','Nombre')!!}
-              {!! Form::text('name',null, ['class'=>'form-control'])!!}
+              {!! Field::text('name',null, ['class'=>'form-control'])!!}
              </div>
-
 
              
               <div class= "form-group">

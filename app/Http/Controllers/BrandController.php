@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\BrandRequest;
+
 use App\Brand;
 
 class BrandController extends Controller
@@ -18,7 +20,7 @@ class BrandController extends Controller
     }
 
   
-   public function store(Request $request)
+   public function store(BrandRequest $request)
     {
        $brand= new Brand($request->all());
        $brand->save();

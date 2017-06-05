@@ -32,10 +32,9 @@
 
              {!! Field::number('code')!!}
               
-             <div class="form-group">
-              {!! Form::label('image','Imagen')!!}
-              {!! Form::file('image')!!}
-             </div>
+          
+              {!! Field::file('image')!!}
+          
               
               <div class= "form-group">
               {!! Form::label('event_id','Evento')!!}
@@ -74,10 +73,8 @@
 
              {!! Field::number('stock')!!}
 
-              <div class="form-group">
-              {!! Form::label('wholesale_cant','Cantidad de venta Mayorista')!!}
-              {!! Form::number('wholesale_cant',null, ['class'=>'form-control'])!!}
-              </div>
+              {!! Field::number('wholesale_cant')!!}
+            
 
                <div class= "form-group">
   
