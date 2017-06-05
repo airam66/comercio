@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\ProductRequest;
 
 class Product extends Model
 {
@@ -32,6 +33,32 @@ class Product extends Model
 
     public function event(){
         return $this->belongsToMany('App\Event')->using('App\ProductEvent');
+    }
+
+    public function newCode($category_id,$product_code){
+        //concatena id o code con id de categoria
+        //(string)$var o strval($var)
+        if ($category_id<10){
+            $category='00'.strval($category_id);
+        }elseif ($category_id<100) {
+            $category='0'.strval($category_id);
+        }else {
+            $category=strval($category_id);
+        }
+
+        $code=strval($product_code);
+        
+
+        return $category.$code;
+    }
+
+    public function singleCode($product_code){
+        // retorna el codigo del id de categoria
+        // intval($string) y substr($var,int ,[int])
+        $code=substr($product_code,3);
+        return intval($code);
+
+
     }
 
 }

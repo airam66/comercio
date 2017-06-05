@@ -24,13 +24,11 @@
             {!! Form::open(['route'=>'porcentages.store', 'method'=>'POST', 'files'=>true])!!}
 
               <div class= "form-group">
-              {!! Form::label('wholesale_porcentage','Para venta mayorista')!!}
-              {!! Form::number('wholesale_porcentage',null, ['class'=>'form-control'])!!}
+              {!! Field::number('wholesale_porcentage',null, ['class'=>'form-control'])!!}
               </div>
 
               <div class= "form-group">
-              {!! Form::label('retail_porcentage','Para venta minorista')!!}
-              {!! Form::number('retail_porcentage',null, ['class'=>'form-control'])!!}
+              {!! Field::number('retail_porcentage',null, ['class'=>'form-control'])!!}
               </div>
 
               <div class="form-group">

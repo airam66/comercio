@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PorcentageRequest;
 use App\Porcentage;
 use App\productPrice;
 
@@ -23,7 +24,7 @@ class PorcentagesController extends Controller
     }
 
   
-   public function store(Request $request)
+   public function store(PorcentageRequest $request)
     {
        $porcentage= new Porcentage($request->all());
        $porcentage->save();

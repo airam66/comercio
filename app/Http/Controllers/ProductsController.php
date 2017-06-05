@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Product;
@@ -21,7 +22,7 @@ class ProductsController extends Controller
     
     public function index()
     {
-        $products= Product::orderBy('name','ASC')->paginate(5);
+        $products= Product::orderBy('name','ASC')->paginate(10);
               
 
         return view('admin.products.index')->with('products',$products);
@@ -47,22 +48,8 @@ class ProductsController extends Controller
     }
 
     
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-       $this->validate($request,[
-
-          'name'=> 'max:100|required|unique:products',
-          'code'=> 'max:20|min:3|unique:products',
-          'category_id'=>'required|exists:categories,id',
-          'line_id'=>'required|exists:lines,id',
-          'brand_id'=>'required|exists:brands,id',
-          'retail_price'=>'required',
-          'purchase_price'=>'required',
-          'stock'=>'required',
-          'image'=>'required',
-          'wholesale_cant'=>'required',
-        ]);
-
         $products= new Product($request->all());
 
          if($request->file('image')){
@@ -73,7 +60,7 @@ class ProductsController extends Controller
                 $products->extension=$extension;
                 }
 
-        $products->code=$request->category_id+$request->code;
+        $products->code=$products->newCode($request->category_id,$request->code);
          
         $products->status=$request->status;
         $products->category_id= $request->category_id;
@@ -95,6 +82,7 @@ class ProductsController extends Controller
    
     public function edit($id)
     {   $product= Product::find($id);
+        $product->code=$product->singleCode($product->code);
         $categories= Category::orderBy('name','ASC')->pluck('name','id');
         $lines=Line::orderBy('name','ASC')->pluck('name','id');
         $brands=Brand::orderBy('name','ASC')->pluck('name','id');
@@ -128,9 +116,6 @@ class ProductsController extends Controller
         if($request->code!=$products->code){
           $this->validate($request,['code'=> 'max:20|min:3|unique:products',]);
         }
-        
-
-
 
         $products->fill($request->all());
 
@@ -145,7 +130,7 @@ class ProductsController extends Controller
                     }
           }
 
-        $products->code=$request->category_id+$request->code;
+        $products->code=$products->newCode($request->category_id,$request->code);
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;

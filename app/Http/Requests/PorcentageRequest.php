@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EventRequest extends FormRequest
+class PorcentageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'max:120|required|unique:categories'
+            'wholesale_porcentage'=>'min:1|max:3|required',
+            'retail_porcentage'=>'min:1|max:3|required',
         ];
     }
-
 }
