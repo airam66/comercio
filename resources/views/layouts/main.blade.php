@@ -3,11 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Creatu</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="shortcut icon" type="image/x-ico" href="{{ asset('images/logoss.ico') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -29,6 +30,8 @@
     <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -148,13 +151,45 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MENU PRINCIPAL</li>
+
             <li class="treeview">
               <a href="#">
                  <i class="fa fa-magic"></i>
                  <span>Categorias</span> <i class="fa fa-angle-left pull-right"></i>
+                 </a>
+                 <ul class="treeview-menu">
+                <li class="active"><a href="{{route('categories.create')}}"><i class="fa fa-circle-o"></i> Nueva categoria</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-birthday-cake"></i>
+                 <span>Eventos</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
                <ul class="treeview-menu">
-                <li class="active"><a href="{{route('categories.create')}}"><i class="fa fa-circle-o"></i> Nueva categoria</a></li>
+                <li class="active"><a href="{{route('events.create')}}"><i class="fa fa-circle-o"></i> Nuevo evento</a></li>
+              
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-rocket" aria-hidden="true"></i>
+                 <span>Lineas</span> <i class="fa fa-angle-left pull-right"></i>
+                 </a>
+                 <ul class="treeview-menu">
+                <li class="active"><a href="{{route('lines.create')}}"><i class="fa fa-circle-o"></i> Nueva linea</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-tags"></i>
+                 <span>Marcas</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+               <ul class="treeview-menu">
+                <li class="active"><a href="{{route('brands.create')}}"><i class="fa fa-circle-o"></i> Nueva marca</a></li>
               
               </ul>
             </li>
@@ -163,10 +198,11 @@
               <a href="#">
                  <i class="fa fa-gift"></i>
                  <span>Productos</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-               <ul class="treeview-menu">
+                  </a>
+                  <ul class="treeview-menu">
                 <li class="active"><a href="{{route('products.create')}}"><i class="fa fa-circle-o"></i> Nuevo producto</a></li>
                 <li class="active"><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> Lista de productos</a></li>
+                <li class="active"><a href="{{route('porcentages.create')}}"><i class="fa fa-circle-o"></i> Porcentajes de ventas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
               </ul>
             </li>
@@ -247,5 +283,9 @@
     <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}"></script>
+
+    <script src="{{asset('plugins/chosen/chosen.jquery.js')}}">></script>
+
+    @yield('js')
   </body>
 </html>

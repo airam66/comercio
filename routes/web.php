@@ -32,8 +32,16 @@ Route::resource('cotillon','MainPagineController');
 Route::group(['prefix'=>'admin'], function(){
 
   Route::resource('categories','CategoriesController');
+    
+  Route::resource('events','EventController');
   
+  Route::resource('brands','BrandController');  
+    
   Route::resource('products','ProductsController');
+
+  Route::resource('lines','LinesController');
+
+  Route::resource('porcentages','PorcentagesController');
 });
 
 Route::get('/', function () {
@@ -47,7 +55,12 @@ Route::get('/index', 'MainController@index')->name('index');
 
 Route::get('/aboutUs', 'AboutUsController@aboutUs')->name('aboutUs');
 Route::get('/contactUs', 'ContactUsController@contactUs')->name('contactUs');
+Route::get('/catalogue', 'CatalogsController@index')->name('catalogue');
 Route::post('/contactForm', 'ContactUsController@contact')->name('contactForm');
+//Route::get('/CatalogueShow','CatalogsController@show')->name('catalogueShow');
+Route::resource('catalogueShow', 'CatalogsController');
+Route::get('events/{name}','CatalogsController@searchEvent')->name('searchEvent');
+
 
 	
 Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );

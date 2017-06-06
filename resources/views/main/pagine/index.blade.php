@@ -2,12 +2,18 @@
 
 @section('content')
 
-<div class="cover">
-        <div class="content">
+
+
+        <div class="content space">
+       
+
+            <h2 >Bienvenido<br></h2>
+            <img src="images/cotillon.png" alt="400px" width="450px" align="left">
             
-            <h1>Cotillon Crea Tu</h1>
             
         </div>
- </div>
+
+
+ 
 
 @endsection

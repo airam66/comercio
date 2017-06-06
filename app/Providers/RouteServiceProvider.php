@@ -38,11 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-
-        $this->mapAuthRoutes();
-
-        //
-    }
+     }
 
     /**
      * Define the "web" routes for the application.
@@ -73,10 +69,4 @@ class RouteServiceProvider extends ServiceProvider
              ->group(base_path('routes/api.php'));
     }
 
-    protected function mapAuthRoutes()
-    {
-        Route::middleware('web','auth')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/auth.php'));
-    }
 }
