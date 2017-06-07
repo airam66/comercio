@@ -22,6 +22,12 @@ class ProductsController extends Controller
     
     public function index()
     {
+        $porcentage=Porcentage::all()->last();
+        if (empty($porcentage->wholesale_porcentage)){
+                flash("Cargar variables de porcentaje para la venta mayor y menor" , 'success')->important();
+        }
+
+
         $products= Product::orderBy('name','ASC')->paginate(10);
               
 
@@ -32,26 +38,30 @@ class ProductsController extends Controller
 
     public function create()
     {   
-
+        $porcentage=Porcentage::all()->last();
+        
+        if (empty($porcentage->wholesale_porcentage)){
+                return redirect()->route('products.index');
+        }else{
         $categories= Category::orderBy('name','ASC')->pluck('name','id');
         $lines=Line::orderBy('name','ASC')->pluck('name','id');
         $brands=Brand::orderBy('name','ASC')->pluck('name','id');
         $events=Event::orderBy('name','ASC')->pluck('name','id');
-        $porcentage=Porcentage::all()->last();
+       
 
         return view('admin.products.create')->with('categories',$categories)
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
                                             ->with('events',$events)
-                                            ->with('porcentage',$porcentage);
+                                            ->with('porcentage',$porcentage);}
        
     }
 
     
     public function store(ProductRequest $request)
     {
-        $products= new Product($request->all());
 
+        $products= new Product($request->all());
          if($request->file('image')){
                  $file =$request->file('image');
                  $extension=$file->getClientOriginalName();
@@ -60,13 +70,19 @@ class ProductsController extends Controller
                 $products->extension=$extension;
                 }
 
-        $products->code=$products->newCode($request->category_id,$request->code);
-         
+        $request->code=$products->newCode($request->category_id,$request->code);
+
+       /* $this->validate($request,[
+             'code'=> 'unique:products',  
+        ]);*/
+
+        
+        $products->code=$request->code;
         $products->status=$request->status;
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;
-        $products->event_id= $request->event_id;
+    //    $products->event_id= $request->event_id;
         $products->save();
 
        return redirect()->route('products.index');
@@ -134,7 +150,7 @@ class ProductsController extends Controller
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;
-        $products->event_id= $request->event_id;
+     //   $products->event_id= $request->event_id;
         $products->save();
 
 
