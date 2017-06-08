@@ -24,7 +24,7 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'max:120|required|unique:categories',
+            'name'=>'max:120|required|unique:brands',
         ];
     }
 }

@@ -11,7 +11,7 @@ class Event extends Model
     
 
     public function products(){
-    	return $this->hasMany('App\Product');
+    	return $this->belongsToMany('App\Product');
     }
 
 	public function scopeSearchEvent($query,$name){
