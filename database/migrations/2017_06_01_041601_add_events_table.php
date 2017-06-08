@@ -20,7 +20,7 @@ class AddEventsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('product_events', function (Blueprint $table) {
+        Schema::create('event_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('event_id')->unsigned();
@@ -39,7 +39,7 @@ class AddEventsTable extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('product_events');
+         Schema::dropIfExists('event_product');
          Schema::dropIfExists('events');
     }
 }

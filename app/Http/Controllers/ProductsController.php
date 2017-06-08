@@ -72,18 +72,19 @@ class ProductsController extends Controller
 
         $request->code=$products->newCode($request->category_id,$request->code);
 
-       /* $this->validate($request,[
+        $this->validate($request,[
              'code'=> 'unique:products',  
-        ]);*/
-
+        ]);
+        
         
         $products->code=$request->code;
         $products->status=$request->status;
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;
-    //    $products->event_id= $request->event_id;
         $products->save();
+
+        $products->event()->sync($request->events);
 
        return redirect()->route('products.index');
 

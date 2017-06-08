@@ -37,8 +37,8 @@
           
               
               <div class= "form-group">
-              {!! Form::label('event_id','Evento')!!}
-              {!! Form::select('event_id', $events ,null, ['class'=>'form-control select-tag','multiple','placeholder'=>'Seleccione un evento'])!!}
+              {!! Form::label('events','Evento')!!}
+              {!! Form::select('events[]', $events ,null, ['class'=>'form-control select-tag','multiple','placeholder'=>'Seleccione un evento'])!!}
               </div> 
 
               <div class= "form-group">
