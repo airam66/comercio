@@ -119,13 +119,13 @@ return [
     'attributes' => [
     'name'                   =>        'nombre',
     'category_id'            =>        'categoria',
-    'price'                  =>        'precio',
+    'purchase_price'         =>        'precio',
     'image'                  =>        'Imagen',
     'description'            =>        'descripcion',
     'code'                   =>        'codigo',
     'wholesale_cant'         =>        'Cantidad de venta Mayorista',
-    'wholesale_porcentage'   =>        'Para venta mayorista',
-    'retail_porcentage'      =>        'Para venta minorista',
+    'wholesale_price'        =>        'Para venta mayorista',
+    'retail_price'           =>        'Para venta minorista',
 
     ],
 
