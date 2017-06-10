@@ -4,10 +4,34 @@
 
 <div class="box box-primary">
 
-<div class="box-header">
-                  <h3 class="box-title">Productos Encontrados</h3>
-                </div>
+<div class="box-header ">
+<h2 class="box-title col-md-5">Productos Encontrados</h2>
+    
+                   <!-- search name form -->
+     
+        <form route='admin.products.index'  method="GET" class="col-md-3 col-md-offset-1 ">
+            <div class="input-group">
+              <input type="text" name="name" class="form-control" placeholder="Nombre..."> 
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+        </form>
+          <!-- /.search form -->
+            <!-- search event form -->
+     
+        <form route='admin.products.index'  method="GET" class="col-md-3 col-md-offset-0 ">
+            <div class="input-group">
+              <input type="text" name="event" class="form-control" placeholder="Evento.."> 
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+        </form>
+          <!-- /.search form -->
 
+
+</div>
 <div class="box-body">              
 
  <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
@@ -16,9 +40,11 @@
             <tr>
              <th style="width:10px">Codigo</th>
                 <th>Nombre</th>
-                <th>Categoria</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+                <th>Línea</th>
                 <th>Estado</th>
-                <th>Imagen</th>
+                <th>Imagen</th> 
                 <th>Acción</th>
                    
             </tr>
@@ -39,7 +65,9 @@
             
            
             <td>{{$product->name}}</td>
+            <td>{{$product->stock}}</td>
             <td>{{$product->category->name}}</td>
+            <td>{{$product->line->name}}</td>
             <td>{{$product->status}}</td>
 
             <td> 
@@ -67,10 +95,10 @@
     </table>
 
 
-</div>
+
 </div>
 
-
+</div>
 
 
 @endsection

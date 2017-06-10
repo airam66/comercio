@@ -24,7 +24,7 @@ class AddProductsTable extends Migration
             $table->string('description');
             $table->integer('stock');
             $table->string('extension');
-            $table->enum('status', ['active','inactive'])->default('active');
+            $table->enum('status', ['activo','inactivo'])->default('activo');
             $table->decimal('purchase_price',9,2);
             $table->decimal('wholesale_price',9,2);
             $table->decimal('retail_price',9,2);

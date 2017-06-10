@@ -10,6 +10,7 @@ use App\Product;
 use App\Brand;
 use App\Line;
 use App\Event;
+use App\EventProduct;
 use App\Porcentage;
 
 class ProductsController extends Controller
@@ -20,19 +21,19 @@ class ProductsController extends Controller
         $this->middleware('auth');
     }
     
-    public function index()
+    public function index(Request $request)
     {
+
         $porcentage=Porcentage::all()->last();
         if (empty($porcentage->wholesale_porcentage)){
                 flash("Cargar variables de porcentaje para la venta mayor y menor" , 'success')->important();
         }
 
 
-        $products= Product::orderBy('name','ASC')->paginate(10);
-              
-
+        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);
+       
         return view('admin.products.index')->with('products',$products);
-
+    
 
     }
 
@@ -82,6 +83,7 @@ class ProductsController extends Controller
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;
+
         $products->save();
 
         $products->event()->sync($request->events);
@@ -90,7 +92,20 @@ class ProductsController extends Controller
 
     }
 
+    public function SearchEventProducts(Request $request){
+       $event= Event::searchEventP($request->Evento)->first();
+      if(($event!=null )&&($request->Evento!="")){
+       $products= $event->products()->paginate(10);
+       return view('admin.products.index')->with('products',$products);
+        }
+        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);
+       
+        return view('admin.products.index')->with('products',$products);
     
+    
+        }
+
+     
     public function show($id)
     {
         //
@@ -160,7 +175,8 @@ class ProductsController extends Controller
        return redirect()->route('products.index');
     }
 
-   
+     
+
     public function destroy($id)
     {
         //
