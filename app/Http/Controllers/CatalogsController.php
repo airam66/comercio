@@ -18,14 +18,14 @@ class CatalogsController extends Controller
 public function show($id)
     {
         $product=Product::find($id);
-         return view('main.pagine.showProduct')->with('product', $product);
+         return view('main.pagine.Catalogo.showProduct')->with('product', $product);
     }
  public function SearchEvent($name){
  		$event= Event::searchEvent($name)->first();
  		$products= $event->products()->paginate(5);
  		
 
- 		return view('main.pagine.Catalogue')->with('products',$products);
+ 		return view('main.pagine.filtroCategoriaCatalogo')->with('products',$products);
  		
 
  }

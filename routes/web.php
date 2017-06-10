@@ -38,6 +38,8 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('brands','BrandController');  
     
   Route::resource('products','ProductsController');
+   Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
+
 
   Route::resource('lines','LinesController');
 

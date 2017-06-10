@@ -16,7 +16,7 @@ class AddLinesTable extends Migration
         Schema::create('lines', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->enum('status', ['active','inactive'])->default('active');
+            $table->enum('status', ['activo','inactivo'])->default('activo');
             $table->timestamps();
         });
     }

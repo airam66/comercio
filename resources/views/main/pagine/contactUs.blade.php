@@ -56,7 +56,7 @@
                               
                 <h4><b>Mapa</b></h4>
 
-                 <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d1808.2491391175377!2d-65.58028314418695!3d-24.98317925224448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x941be3e7acffcfa7%3A0x77dee1db783bbb8!2sRoque+S%C3%A1enz+Pe%C3%B1a+14%2C+A4405ARA+Rosario+de+Lerma%2C+Salta!3m2!1d-24.983213!2d-65.5802506!5e0!3m2!1ses-419!2sar!4v1494973548168" width="520" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d1808.2491391175377!2d-65.58028314418695!3d-24.98317925224448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x941be3e7acffcfa7%3A0x77dee1db783bbb8!2sRoque+S%C3%A1enz+Pe%C3%B1a+14%2C+A4405ARA+Rosario+de+Lerma%2C+Salta!3m2!1d-24.983213!2d-65.5802506!5e0!3m2!1ses-419!2sar!4v1494973548168" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
                 </div>
             </div>
