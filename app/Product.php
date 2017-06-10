@@ -56,4 +56,10 @@ class Product extends Model
 
     }
 
+    public function scopeSearchProduct($query,$name){
+
+        return $query->where('name','LIKE',"%" . $name . "%");
+    }
+    
+
 }

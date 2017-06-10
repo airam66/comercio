@@ -57,7 +57,7 @@
               </div>
             
 
-              {!! form::label('Precio')!!}
+              {!! form::label('Precio')!!} 
               
               <input class="form-control" onkeyup="this.form.wholesale_price.value=parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100;this.form.retail_price.value=parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100;" name="purchase_price" type="number" whit step="any">
 
@@ -67,7 +67,6 @@
               {!! Field::number('retail_price','<input name="retail_price" type="number" with step="any">', ['class'=>'form-control','step'=>'any'])!!}
 
 
-
              {!! Field::number('stock')!!}
 
               {!! Field::number('wholesale_cant')!!}
@@ -75,7 +74,7 @@
 
               <div class= "form-group">
               {!! Form::label('status','Estado')!!}
-              {!! Form::select('status', ['active'=>'activo','inactive'=>'inactivo'],null,['class'=>'form-control'])!!} 
+              {!! Form::select('status', ['activo'=>'activo','inactivo'=>'inactivo'],null,['class'=>'form-control'])!!} 
               </div>
 
               <div class="form-group">

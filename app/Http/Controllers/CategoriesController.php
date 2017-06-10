@@ -25,7 +25,18 @@ class CategoriesController extends Controller
     public function store(CategoryRequest $request)
     {
        $category= new Category($request->all());
-       $category->save();
+
+
+         if($request->file('image')){
+                 $file =$request->file('image');
+                 $extension=$file->getClientOriginalName();//nombre de img
+                 $path=public_path().'/images/categories/';//donde guardamos img
+                 $file->move($path,$extension);//guardar imagen
+                $category->extension=$extension;
+                }
+                
+
+             $category->save();
         flash("La categoria ". $category->name . " ha sido creada con exito" , 'success')->important();
      
 
