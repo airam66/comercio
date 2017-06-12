@@ -124,8 +124,10 @@ return [
     'description'            =>        'descripcion',
     'code'                   =>        'codigo',
     'wholesale_cant'         =>        'Cantidad de venta Mayorista',
-    'wholesale_price'        =>        'Para venta mayorista',
-    'retail_price'           =>        'Para venta minorista',
+    'wholesale_price'        =>        'Venta mayorista',
+    'retail_price'           =>        'Venta minorista',
+    'wholesale_porcentage'   =>        'Venta mayorista',
+    'retail_porcentage'      =>        'Venta minorista',
 
     ],
 

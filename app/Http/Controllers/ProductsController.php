@@ -26,7 +26,7 @@ class ProductsController extends Controller
 
         $porcentage=Porcentage::all()->last();
         if (empty($porcentage->wholesale_porcentage)){
-                flash("Cargar variables de porcentaje para la venta mayor y menor" , 'success')->important();
+                flash("Cargar variables de porcentaje para la venta mayor y menor" , 'danger')->important();
         }
 
 
@@ -40,21 +40,20 @@ class ProductsController extends Controller
     public function create()
     {   
         $porcentage=Porcentage::all()->last();
-        
-        if (empty($porcentage->wholesale_porcentage)){
-                return redirect()->route('products.index');
-        }else{
         $categories= Category::orderBy('name','ASC')->pluck('name','id');
         $lines=Line::orderBy('name','ASC')->pluck('name','id');
         $brands=Brand::orderBy('name','ASC')->pluck('name','id');
         $events=Event::orderBy('name','ASC')->pluck('name','id');
-       
 
+        if (empty($porcentage->wholesale_porcentage)){
+                return redirect()->route('products.index');
+        }else{
         return view('admin.products.create')->with('categories',$categories)
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
                                             ->with('events',$events)
-                                            ->with('porcentage',$porcentage);}
+                                            ->with('porcentage',$porcentage)
+        ;}
        
     }
 
@@ -166,20 +165,31 @@ class ProductsController extends Controller
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;
-     //   $products->event_id= $request->event_id;
         $products->save();
-
-
-
-
        return redirect()->route('products.index');
     }
 
-     
-
-    public function destroy($id)
+    public function desable($id)
     {
-        //
+        $product= Product::find($id);
+        $product->status='inactivo';
+        $product->save();
+        return redirect()->route('products.index');
+    }
+
+    public function enable($id)
+    {
+        $product= Product::find($id);
+        $product->status='activo';
+        $product->save();
+        return redirect()->route('products.index');
+    }
+
+        public function destroy($id)
+    {
+           $product= Product::find($id);
+           $products->delete();
+        return redirect()->route('products.index');
     }
 }
 

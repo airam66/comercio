@@ -35,17 +35,21 @@ Route::group(['prefix'=>'admin'], function(){
     
   Route::resource('events','EventController');
   
-  Route::resource('brands','BrandController');   
-     
+  Route::resource('brands','BrandController');  
+
+  Route::post('/products/enable/{id}','ProductsController@enable')->name('enable');
+
+  Route::post('/products/enable/{id}','ProductsController@enable')->name('enable');
+    
   Route::resource('products','ProductsController');
-      Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
-      Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
-      Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
 
   Route::resource('lines','LinesController');
 
   Route::resource('porcentages','PorcentagesController');
+
 });
+
+
 
 Route::get('/', function () {
     return view('main.pagine.index');
