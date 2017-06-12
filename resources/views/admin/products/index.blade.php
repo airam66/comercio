@@ -30,7 +30,6 @@
         </form>
           <!-- /.search form -->
 
-
 </div>
 <div class="box-body">              
 
@@ -49,21 +48,18 @@
                    
             </tr>
         </thead>
- 
-        
+     
        
 <tbody>
-
-
-
-
    @foreach($products as $product) 
 
+          @if ($product->status!='inactivo')
+            <tr role="row" class="odd">
+          @else
+            <tr role="row" class="odd" style="background-color: rgb(255,96,96);">
+          @endif
 
-         <tr role="row" class="odd">
             <td class="sorting_1">{{$product->code}}</td>
-            
-           
             <td>{{$product->name}}</td>
             <td>{{$product->stock}}</td>
             <td>{{$product->category->name}}</td>
@@ -93,9 +89,10 @@
                         </button>
                      </a>
             @else
+
                 <a href="{{route('products.enable',$product->id)}}" onclick="return confirm('¿Seguro dar de alta el producto?')">
                         <button type="submit" class="btn btn-success">
-                            <!--span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span-->
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true" ></span>
                         </button>
                      </a>
 
@@ -107,6 +104,7 @@
   @endforeach
 </tbody>
     </table>
+
 
 
 

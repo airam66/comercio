@@ -30,7 +30,7 @@ class ProductsController extends Controller
         }
 
 
-        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);
+        $products=Product::SearchProduct($request->name)->orderBy('name','status','ASC')->paginate(10);
        
         return view('admin.products.index')->with('products',$products);
     
@@ -119,14 +119,15 @@ class ProductsController extends Controller
         $brands=Brand::orderBy('name','ASC')->pluck('name','id');
         $events=Event::orderBy('name','ASC')->pluck('name','id');
         $porcentage=Porcentage::all()->last();
-   
+        $productEvent=$product->event->pluck('id')->ToArray();   
 
         return view('admin.products.edit')->with('product',$product)
                                             ->with('categories',$categories)
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
                                             ->with('events',$events)
-                                            ->with('porcentage',$porcentage);
+                                            ->with('porcentage',$porcentage)
+                                            ->with('productEvent',$productEvent);
 
     }
 
