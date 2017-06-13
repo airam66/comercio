@@ -14,6 +14,17 @@ class BrandController extends Controller
         $this->middleware('auth');//para que este logueado
     }
 
+
+     public function index(Request $request)
+    {
+        $brands=Brand::SearchBrandName($request->name)->orderBy('name','status','ASC')->paginate(10);
+       
+        return view('admin.brands.index')->with('brands',$brands);
+    
+
+    }
+
+
      public function create()
     {
         return view('admin.brands.create');
