@@ -181,6 +181,7 @@
                  </a>
                  <ul class="treeview-menu">
                 <li class="active"><a href="{{route('lines.create')}}"><i class="fa fa-circle-o"></i> Nueva linea</a></li>
+                <li class="active"><a href="{{route('lines.index')}}"><i class="fa fa-circle-o"></i> Lista de lineas</a></li>
               </ul>
             </li>
 
