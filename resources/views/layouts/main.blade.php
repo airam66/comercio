@@ -191,6 +191,7 @@
               </a>
                <ul class="treeview-menu">
                 <li class="active"><a href="{{route('brands.create')}}"><i class="fa fa-circle-o"></i> Nueva marca</a></li>
+                <li class="active"><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i> Lista de marcas</a></li>
               
               </ul>
             </li>
