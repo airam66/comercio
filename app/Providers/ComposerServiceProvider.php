@@ -15,7 +15,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot(){
 
       View::composer(
-            ['main/pagine/Catalogue'],'App\Http\ViewComposers\AsideComposer'
+            ['main/pagine/Catalogo/Catalogue','main/pagine/Catalogo/showProduct','main/pagine/Catalogo/filtroCategoriaCatalogo'],'App\Http\ViewComposers\AsideComposer'
         );
     }
 

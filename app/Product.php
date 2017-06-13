@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -27,7 +28,7 @@ class Product extends Model
     }
 
     public function event(){
-        return $this->belongsToMany('App\Event');
+        return $this->belongsToMany('App\Event') ;
     }
 
     public function newCode($category_id,$product_code){
@@ -60,6 +61,15 @@ class Product extends Model
 
         return $query->where('name','LIKE',"%" . $name . "%");
     }
-    
 
+    public function scopeSearchProductC($query,$category){
+
+        return $query->where('category_id','=',$category);
+        ;
+    }
+
+
+    
+ 
+     
 }
