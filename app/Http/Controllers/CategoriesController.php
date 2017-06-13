@@ -51,14 +51,35 @@ class CategoriesController extends Controller
 
      
     public function edit($id)
-    {
-        //
+    {     
+        $category=Category::find($id);
+        return view('admin.categories.edit')->with('category',$category);                                
     }
 
     
     public function update(Request $request, $id)
     {
-        //
+        $category=Category::find($id);
+
+        $category->fill($request->all());
+
+
+         if($request->file('image')){
+                 $file =$request->file('image');
+                 $extension=$file->getClientOriginalName();
+                 if ($extension!=$products->extension){
+                       $path=public_path().'/images/products/';
+                       $file->move($path,$extension);
+                      $category->extension=$extension;
+                    }
+          }
+             
+
+        $category->save();
+        flash("La categoria ". $category->name . " ha sido modificada con exito" , 'success')->important();
+     
+
+       return redirect()->route('categories.create');
     }
 
     public function destroy($id)
