@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
 <div class="box-header ">
-<h2 class="box-title col-md-5">Eventos Encontrados</h2>
+<h2 class="box-title col-md-5">Categorias Encontradas</h2>
     
                    <!-- search name form -->
      

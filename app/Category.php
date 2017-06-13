@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     
-     protected $table="categories";
+    protected $table="categories";
 
     protected $fillable= ['name','description','extension','status'];
 
@@ -17,12 +17,14 @@ class Category extends Model
         return $this->hasMany('App\Product');
     }
 
-    public function scopeSearchCategory($query,$id){
+    public function scopeSearchCategory($query,$id)
+    {
 		return $query->where('id','=',$id);
-     }
-    public function scopeSearchCategoryName($query,$name){
-		
+    }
+  
+    public function scopeSearchCategoryName($query,$name)
+    {
 		return $query->where('name','LIKE',"%".$name."%");
-	}
+	  }
 
 }
