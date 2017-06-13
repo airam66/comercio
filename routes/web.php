@@ -34,11 +34,12 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('categories','CategoriesController');
     
   Route::resource('events','EventController');
-  
+      Route::get('/events/{id}/desable','EventController@desable')->name('events.desable');
+      Route::get('/events/{id}/enable','EventController@enable')->name('events.enable');
+
   Route::resource('brands','BrandController');   
      
   Route::resource('products','ProductsController');
-
       Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
       Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
       Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');

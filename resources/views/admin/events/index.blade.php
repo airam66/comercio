@@ -44,6 +44,23 @@
           @endif
             <td>{{$event->name}}</td>
             <td>{{$event->status}}</td>
+
+            <td>
+            @if ($event->status!='activo')
+                   <a href="{{route('events.enable',$event->id)}}" onclick="return confirm('¿Seguro dar de alta este evento?')">
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true" ></span>
+                        </button>
+                     </a>
+               
+            @else
+                   <a href="{{route('events.desable',$event->id)}}" onclick="return confirm('¿Seguro dara de baja este evento?')">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                        </button>
+                     </a>
+            @endif
+            </td>
            
         </tr>
   @endforeach

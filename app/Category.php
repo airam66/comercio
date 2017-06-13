@@ -19,6 +19,7 @@ class Category extends Model
 
     public function scopeSearchCategory($query,$id){
 		return $query->where('id','=',$id);
+    }
 
     public function scopeSearchCategoryName($query,$name){
 		
