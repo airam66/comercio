@@ -38,6 +38,7 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('brands','BrandController');   
      
   Route::resource('products','ProductsController');
+
       Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
       Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
       Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
@@ -61,8 +62,9 @@ Route::get('/contactUs', 'ContactUsController@contactUs')->name('contactUs');
 Route::get('/catalogue', 'CatalogsController@index')->name('catalogue');
 Route::post('/contactForm', 'ContactUsController@contact')->name('contactForm');
 //Route::get('/CatalogueShow','CatalogsController@show')->name('catalogueShow');
-Route::resource('catalogueShow', 'CatalogsController');
-Route::get('events/{name}','CatalogsController@searchEvent')->name('searchEvent');
+Route::resource('/catalogueShow', 'CatalogsController');
+Route::get('/events/{name}','CatalogsController@filtro')->name('searchEvent');
+Route::get('/category/{id}/{name}','CatalogsController@searchCategoryProduct')->name('searchEventCategory');
 
 
 	

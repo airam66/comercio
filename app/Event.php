@@ -12,7 +12,13 @@ class Event extends Model
 
     public function products(){
     	return $this->belongsToMany('App\Product')->withTimestamps();
+
     }
+
+     public function productsC($category){
+    	return $this->belongsToMany('App\Product')->where('category_id','=',$category)->withTimestamps();
+    }
+
      public function scopeSearchEvent($query,$name){
 		return $query->where('name','=',$name);
 
