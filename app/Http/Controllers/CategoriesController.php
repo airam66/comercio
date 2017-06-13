@@ -16,6 +16,15 @@ class CategoriesController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(Request $request)
+    {
+        $categories=Category::SearchCategory($request->name)->orderBy('name','status','ASC')->paginate(10);
+       
+        return view('admin.categories.index')->with('categories',$categories);
+    
+
+    }
+
      public function create()
     {
         return view('admin.categories.create');
@@ -40,7 +49,7 @@ class CategoriesController extends Controller
         flash("La categoria ". $category->name . " ha sido creada con exito" , 'success')->important();
      
 
-       return redirect()->route('categories.create');
+       return redirect()->route('categories.index');
     }
 
    
@@ -79,7 +88,7 @@ class CategoriesController extends Controller
         flash("La categoria ". $category->name . " ha sido modificada con exito" , 'success')->important();
      
 
-       return redirect()->route('categories.create');
+       return redirect()->route('categories.index');
     }
 
     public function destroy($id)

@@ -15,7 +15,7 @@ class EventController extends Controller
   public function index(Request $request)
     {
 
-      $events=Event::SearchEventP($request->name)->orderBy('name','status','ASC')->paginate(10);
+      $events=Event::SearchEventP($request->name)->orderBy('name','ASC')->paginate(10);
        
       return view('admin.events.index')->with('events',$events);
     
@@ -35,6 +35,6 @@ class EventController extends Controller
        $event->save();
        flash("El evento  ". $event->name . " ha sido creado con exito" , 'success')->important();
      
-       return redirect()->route('events.create');//redirecciona la categoria
+       return redirect()->route('events.index');//redirecciona la categoria
     }
 }
