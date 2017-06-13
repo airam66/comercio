@@ -40,10 +40,10 @@ class ProductsController extends Controller
     public function create()
     {   
         $porcentage=Porcentage::all()->last();
-        $categories= Category::orderBy('name','ASC')->pluck('name','id');
-        $lines=Line::orderBy('name','ASC')->pluck('name','id');
-        $brands=Brand::orderBy('name','ASC')->pluck('name','id');
-        $events=Event::orderBy('name','ASC')->pluck('name','id');
+        $categories=Category::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id');
+        $lines=Line::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id');
+        $brands=Brand::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id');
+        $events=Event::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id');
 
         if (empty($porcentage->wholesale_porcentage)){
                 return redirect()->route('products.index');
