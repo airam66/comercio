@@ -16,7 +16,7 @@ class AddEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->enum('status', ['active','inactive'])->default('active');
+            $table->enum('status', ['activo','inactivo'])->default('activo');
             $table->timestamps();
         });
 

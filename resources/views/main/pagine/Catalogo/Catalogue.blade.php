@@ -47,7 +47,7 @@
   </div>
        
        
-      </div> {!! $products->render() !!}
+      </div> {!$products->render()!}
       
     </div>
     

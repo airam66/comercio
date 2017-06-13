@@ -12,9 +12,11 @@ class EventController extends Controller
         $this->middleware('auth');//para que este logueado
     }
 
+    public function index(){
 
-     public function create()
-    {
+      return view('admin.events.create');
+    }
+     public function create(){
         return view('admin.events.create');
     }
   

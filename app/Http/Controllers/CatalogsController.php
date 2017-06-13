@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;	
 use App\Event;
+use App\Category;
+use Illuminate\Support\Collection as Products;
 
 class CatalogsController extends Controller
 {
    
-    public function index()
+    public function index(Request $request)
     {
-        $products= Product::orderBy('name','ASC')->paginate(5);
+        $products= Product::orderBy('name','ASC')->where('status','=','Activo')->paginate(12);
         
-        return view('main.pagine.Catalogue')->with('products',$products);
+        return view('main.pagine.Catalogo.Catalogue')->with('products',$products);
     }
 
 public function show($id)
@@ -21,16 +23,42 @@ public function show($id)
          return view('main.pagine.Catalogo.showProduct')->with('product', $product);
     }
  public function SearchEvent($name){
- 		$event= Event::searchEvent($name)->first();
- 		$products= $event->products()->paginate(5);
  		
-
- 		return view('main.pagine.filtroCategoriaCatalogo')->with('products',$products);
- 		
-
+ 		$category=Category::earchCategory($products->c->first());
+ 		return view('main.pagine.index')
+ 		->with('products',$products);
  }
+ public function filtro($name){
+    $event= Event::searchEvent($name)->first();
+    $products= $event->products()->paginate(5);
+     $i=0;
+    foreach ($products as $product) {
+      
+     $categories1[$i]=Category::SearchCategory($product->category_id)->first();
+     $i=$i+1;
+    }
+
+  $categories= array_values(array_unique($categories1));
+ 	  return view('main.pagine.Catalogo.filtroCategoriaCatalogo')
+          ->with('categories',$categories)
+ 					->with('name',$name);
+
+} 
+
+public function searchCategoryProduct($idCategory,$nameEvents){
 
 
-   
-   
+     $events=Event::SearchEvent($nameEvents)->first();
+    
+     $products=$events->productsC($idCategory)->paginate(12);
+
+  
+  
+      return view('main.pagine.Catalogo.Catalogue')->with('products',$products);
 }
+
+
+
+   
+  } 
+

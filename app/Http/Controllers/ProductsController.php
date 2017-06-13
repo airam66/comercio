@@ -30,7 +30,7 @@ class ProductsController extends Controller
         }
 
 
-        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);
+        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(15);
        
         return view('admin.products.index')->with('products',$products);
     

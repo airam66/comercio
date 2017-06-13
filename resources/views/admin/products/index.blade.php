@@ -20,11 +20,11 @@
           <!-- /.search form -->
             <!-- search event form -->
      
-        <form route='admin.products.index'  method="GET" class="col-md-3 col-md-offset-0 ">
+        <form  action="productsSearch" method="GET" class="col-md-3 col-md-offset-0 ">
             <div class="input-group">
-              <input type="text" name="event" class="form-control" placeholder="Evento.."> 
+              <input type="text" name="Evento" class="form-control" placeholder="Evento.."> 
               <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                <button  type="submit"  name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
               </span>
             </div>
         </form>
@@ -42,6 +42,7 @@
                 <th>Nombre</th>
                 <th>Stock</th>
                 <th>Categoría</th>
+                <th>Eventos</th>
                 <th>Línea</th>
                 <th>Estado</th>
                 <th>Imagen</th> 
@@ -59,14 +60,14 @@
 
    @foreach($products as $product) 
 
-
          <tr role="row" class="odd">
             <td class="sorting_1">{{$product->code}}</td>
             
            
             <td>{{$product->name}}</td>
             <td>{{$product->stock}}</td>
-            <td>{{$product->category->name}}</td>
+            <td>{{$product->category->name}}</td>     
+            <td></td>
             <td>{{$product->line->name}}</td>
             <td>{{$product->status}}</td>
 
