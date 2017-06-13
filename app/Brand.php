@@ -14,4 +14,11 @@ class Brand extends Model
     {
         return $this->hasMany('App\Product');
     }
+
+    public function scopeSearchBrandName($query,$name){
+		
+		return $query->where('name','LIKE',"%".$name."%");
+	}
+
+
 }
