@@ -12,6 +12,15 @@ class EventController extends Controller
         $this->middleware('auth');//para que este logueado
     }
 
+  public function index(Request $request)
+    {
+
+      $events=Event::SearchEventP($request->name)->orderBy('name','status','ASC')->paginate(10);
+       
+      return view('admin.events.index')->with('events',$events);
+    
+
+    }
 
      public function create()
     {

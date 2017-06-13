@@ -169,7 +169,7 @@
               </a>
                <ul class="treeview-menu">
                 <li class="active"><a href="{{route('events.create')}}"><i class="fa fa-circle-o"></i> Nuevo evento</a></li>
-              
+                <li class="active"><a href="{{route('events.index')}}"><i class="fa fa-circle-o"></i> Lista de eventos</a></li>
               </ul>
             </li>
 
