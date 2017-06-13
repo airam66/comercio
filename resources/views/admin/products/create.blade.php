@@ -38,7 +38,7 @@
               
               <div class= "form-group">
               {!! Form::label('events','Evento')!!}
-              {!! Form::select('events[]', $events ,null, ['class'=>'form-control select-tag','multiple','placeholder'=>'Seleccione un evento'])!!}
+              {!! Form::select('events[]', $events ,null, ['class'=>'form-control select-tag','multiple'])!!}
               </div> 
 
               <div class= "form-group">
@@ -53,21 +53,23 @@
 
               <div class="form-group">
               {!! Form::label('description','Descripcion')!!}
-              {!! Form::text('description',null, ['class'=>'form-control'])!!}
+              {!! Form::text('description',"", ['class'=>'form-control'])!!}
               </div>
             
-
-              {!! form::label('Precio')!!} 
+              <div class="col-md-4">
+              {!! form::label('Precio de compra')!!}
               
               <input class="form-control" onkeyup="this.form.wholesale_price.value=parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100;this.form.retail_price.value=parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100;" name="purchase_price" type="number" whit step="any">
-
-              
+              </div>
+              <div class="col-md-3 col-md-offset-1">
               {!! Field::number('wholesale_price','<input name="wholesale_price" type="number" with step="any">', ['class'=>'form-control','step'=>'any'])!!}
-
+              </div>
+              <div class="col-md-3 col-md-offset-1">
               {!! Field::number('retail_price','<input name="retail_price" type="number" with step="any">', ['class'=>'form-control','step'=>'any'])!!}
+              </div>
 
 
-             {!! Field::number('stock')!!}
+              {!! Field::number('stock')!!}
 
               {!! Field::number('wholesale_cant')!!}
             
@@ -97,8 +99,8 @@
 @section('js')
 <script>
   $('.select-tag').chosen({
+    placeholder_text_multiple: "Seleccione los eventos",
 
-    
   });
 
 </script>

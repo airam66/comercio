@@ -9,7 +9,7 @@
         <!-- Default box -->
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nueva categoria</h3>
+            <h3 class="box-title">Modificar categoria</h3>
            
 
             <div class="box-tools pull-right">
@@ -21,30 +21,29 @@
           </div>
           <div class="box-body">
             
-            {!! Form::open(['route'=>'categories.store', 'method'=>'POST','files'=>true])!!}
+            {!! Form::model($category,['route'=>['categories.update',$category->id], 'method'=>'PATCH', 'files'=>true])!!}
 
-             <div class="form-group">
-              {!! Field::text('name',null, ['class'=>'form-control'])!!}
+              <div class="form-group">
+              {!! Form::label('name','Nombre')!!}
+              {!! Form::text('name',$category->name, ['class'=>'form-control'])!!}
+              </div>
+
+              <div>
+                   {!!form::label('Imagen Actual: ')!!} <img src="{{ asset('images/categories/'.$category->extension)  }}" width="40" height="40" > 
+                </div>
+              <div class="form-group">
+              {!! Form::label('image','Nueva Imagen')!!}
+              {!! Form::file('image')!!}
              </div>
 
-
               <div class="form-group">
-
               {!! Form::label('description','Descripcion')!!}
-              {!! Form::text('description'," ", ['class'=>'form-control'])!!}
+              {!! Form::text('description',null, ['class'=>'form-control'])!!}
               </div>
               
-              {!! Field::file('image')!!}
-            
-              <div class= "form-group">
-  
-              {!! Form::label('status','Estado')!!}
-              {!! Form::select('status', ['activo'=>'activo','inactivo'=>'inactivo'],null,['class'=>'form-control'])!!} 
-              </div>
               <div class="form-group">
-              {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
+              {!! Form::submit('Guardar Cambios',['class'=>'btn btn-primary'])!!}
               </div>
-          
  
               {!! Form::close() !!}
 
@@ -56,4 +55,14 @@
       </div>
     </div>
   </div>
+@endsection
+@section('js')
+<script>
+  $('.select-tag').chosen({
+   // placeholder_text_multiple: "Seleccione los eventos",
+
+    
+  });
+
+</script>
 @endsection

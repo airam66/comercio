@@ -11,6 +11,7 @@ class Category extends Model
 
     protected $fillable= ['name','description','extension','status'];
 
+
     public function productos()
     {
         return $this->hasMany('App\Product');
@@ -19,6 +20,9 @@ class Category extends Model
     public function scopeSearchCategory($query,$id){
 		return $query->where('id','=',$id);
 
+    public function scopeSearchCategoryName($query,$name){
+		
+		return $query->where('name','LIKE',"%".$name."%");
 	}
 
 }
