@@ -91,10 +91,25 @@ class CategoriesController extends Controller
        return redirect()->route('categories.index');
     }
 
-    public function destroy($id)
+    public function desable($id)
     {
-        //
+        $category= Category::find($id);
+        $category->status='inactivo';
+        $category->save();
+        return redirect()->route('categories.index');
     }
+
+     public function enable($id)
+    {
+        $category= Category::find($id);
+        $category->status='activo';
+        $category->save();
+        return redirect()->route('categories.index');
+    }
+
+
+
+
 
    
 

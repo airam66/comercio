@@ -30,7 +30,8 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->unique()->sentence,
         'description' => $faker->sentence,
-        'status' => $faker->randomElement($array = array ('active','inactive')),
+        'extension'=>"IMG-20170521-WA0045.jpg",
+        'status' => 'activo',
         /**'user_id'=>function(){
         	return factory(\App\User::class)->create()->id;
         }*/

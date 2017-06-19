@@ -6,9 +6,9 @@
 
 <div class="box-header ">
 <h2 class="box-title col-md-5">Productos Encontrados</h2>
+  
     
                    <!-- search name form -->
-     
         <form route='admin.products.index'  method="GET" class="col-md-3 col-md-offset-1 ">
             <div class="input-group">
               <input type="text" name="name" class="form-control" placeholder="Nombre..."> 
@@ -29,7 +29,12 @@
             </div>
         </form>
           <!-- /.search form -->
-
+          
+       @if($validacion)
+          <br>
+          <br>
+            <h5 class="alert alert-success col-md-0"  role="alert">No se encontro ningun producto </h5>
+          @endif
 </div>
 <div class="box-body">              
 
@@ -41,7 +46,7 @@
                 <th>Nombre</th>
                 <th>Stock</th>
                 <th>Categoría</th>
-                <th>Eventos</th>
+               
                 <th>Línea</th>
                 <th>Estado</th>
                 <th>Imagen</th> 
@@ -62,8 +67,8 @@
             <td class="sorting_1">{{$product->code}}</td>
             <td>{{$product->name}}</td>
             <td>{{$product->stock}}</td>
-            <td>{{$product->category->name}}</td>     
-            <td></td>
+            <td>{{$product->category->name}}</td>   
+            
             <td>{{$product->line->name}}</td>
             <td>{{$product->status}}</td>
 
@@ -86,7 +91,7 @@
                      </a>
                 <a href="{{route('products.desable',$product->id)}}" onclick="return confirm('¿Seguro dara de baja el producto?')">
                         <button type="submit" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                         </button>
                      </a>
             @else
@@ -105,7 +110,6 @@
   @endforeach
 </tbody>
     </table>
-
 
 
 
