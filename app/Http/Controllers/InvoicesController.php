@@ -16,10 +16,25 @@ class InvoicesController extends Controller
 
     public function create(){
     	$date=date('d').'/'.date('m').'/'.date('Y');
-        $products=Product::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
     	return view('admin.invoices.create')->with('date',$date)
                                             ->with('products',$products);
     }
+
+   public function buscarproducto(){
+       
+        $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
+        return view('admin.invoices.buscarproducto')->with('products',$products);
+    }
+
+    public function SearchLetra($letra){
+      $validacion=false;
+
+      $products=Product::SearchProductL($letra)->get();
+     
+
+      return view('admin.invoices.buscarproducto')->with('products',$products);
+}
 
     public function store(){
     	//

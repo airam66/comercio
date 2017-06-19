@@ -8,21 +8,16 @@
       <div class="col-md-12">
 
         <!-- Default box -->
-        <div class="box box-info">
+  <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Nueva Venta</h3>
           <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
            
-          </div>
+         </div>
           <div class="box-body">
             
           {!! Form::open(['route'=>'invoices.store', 'method'=>'POST', 'files'=>true])!!}
-                
-
-                
-
-
-                  <section class="invoice">
+          <section class="invoice">
                 <!-- title row -->
                 <div class="row">
                   <div class="col-xs-12">
@@ -38,7 +33,9 @@
                   </div><!-- /.col -->
                 </div>
                 <!-- info row -->
-                <div class="row invoice-info">
+                <div class="panel panel-default">
+                 <div class="panel-body borde"><!--busqueda prorducto-->
+                <div class="row invoice-info" >
 
                 <div class="col-md-3" >
                        
@@ -48,8 +45,9 @@
 
                   <div class="col-md-1 col-md-offset-0" >
                   <br>
-                   <button class="btn btn-primary "><i class="fa fa-search"></i></button>
+                   <button  type="button"class="btn btn-primary " data-toggle="modal" data-id="" data-title="Buscar"data-target="#favoritesModal"><i class="fa fa-search"></i></button>
                   </div>
+                 
                   <div class="col-md-4 col-md-offset-2">
                   {!!Field::number('Precio',null)!!}                     </div>
 
@@ -74,13 +72,14 @@
                     </div>
 
                   <div class="col-md-4 col-md-offset-2">
-                  <img src="{{ asset('images/cotillon.png ') }}" width="150" height="80"  >
+                  <img src="{{ asset('images/images.png ') }}" width="50" height="50" class="pull-right"  >
                      
                     </div>
                   </div>
 
-
-
+</div>
+</div>
+<!--find busqueda de producto-->
                 <!-- Table row -->
                 <div class="row">
                   <div class="col-xs-12 table-responsive">
@@ -139,7 +138,9 @@
                   <div class="col-xs-6">
                   </div><!-- /.col -->
                   <div class="col-xs-6">
-                    <p class="lead">Total</p>
+                  <div class="text-center"style="background-color: gray;">
+                    <h3 style="color:white;">Total</h3>
+                    </div>
                     <div class="table-responsive">
                       <table class="table">
                         <tr>
@@ -182,7 +183,7 @@
       </div>
     </div>
   </div>
-
+@include('admin.invoices.buscarproducto')
 @endsection
 @section('js')
 <script>

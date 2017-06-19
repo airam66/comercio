@@ -43,7 +43,7 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('brands','BrandController');   
      
   Route::resource('products','ProductsController');
-  Route::get('/products/{letra}/SearchLetra','ProductsController@SearchLetra')->name('SearchLetra');
+  Route::get('/incoices/create/{letra}/SearchLetra','InvoicesController@SearchLetra')->name('SearchLetra');
       Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
       Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
 
@@ -55,11 +55,13 @@ Route::group(['prefix'=>'admin'], function(){
 
   Route::resource('invoices','InvoicesController');
   Route::get('invoices/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+  Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
   
 });
 
 Route::get('/', function () {
     return view('main.pagine.index');
+
 });
 
 Auth::routes();
