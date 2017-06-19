@@ -23,14 +23,12 @@
             
           {!! Form::open(['route'=>'products.store', 'method'=>'POST', 'files'=>true])!!}
             
-             {!! Field::text('name')!!}
+              {!! Field::text('name')!!}
 
-              <div class= "form-group">
-              {!! Form::label('category_id','Categoria')!!}
-              {!! Form::select('category_id', $categories ,null, ['class'=>'form-control', 'placeholder'=>'Seleccione una categoria'])!!} 
-              </div> 
+              {!! Field::select('category_id', $categories, ['class'=>'select-category','empty'=>'Seleccione una categoria'])!!} 
+       
 
-             {!! Field::number('code')!!}
+              {!! Field::number('code')!!}
               
           
               {!! Field::file('image')!!}
@@ -41,15 +39,10 @@
               {!! Form::select('events[]', $events ,null, ['class'=>'form-control select-tag','multiple'])!!}
               </div> 
 
-              <div class= "form-group">
-              {!! Form::label('line_id','Linea')!!}
-              {!! Form::select('line_id', $lines ,null, ['class'=>'form-control','placeholder'=>'Seleccione una linea'])!!} 
-              </div> 
+              {!! Field::select('line_id', $lines ,['class'=>'select-lines','empty'=>'Seleccione una linea'])!!} 
 
-              <div class= "form-group">
-              {!! Form::label('brand_id','Marca')!!}
-              {!! Form::select('brand_id', $brands ,null, ['class'=>'form-control','placeholder'=>'Seleccione una marca'])!!} 
-              </div> 
+              {!! Field::select('brand_id', $brands, ['class'=>'select-brands','empty'=>'Seleccione una marca'])!!} 
+          
 
               <div class="form-group">
               {!! Form::label('description','Descripcion')!!}
@@ -100,8 +93,10 @@
 <script>
   $('.select-tag').chosen({
     placeholder_text_multiple: "Seleccione los eventos",
-
   });
+  $('.select-category').chosen();
+  $('.select-brands').chosen();
+  $('.select-lines').chosen();
 
 </script>
 @endsection

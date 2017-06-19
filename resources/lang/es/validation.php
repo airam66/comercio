@@ -119,6 +119,8 @@ return [
     'attributes' => [
     'name'                   =>        'nombre',
     'category_id'            =>        'categoria',
+    'line_id'                =>        'lines',
+    'brand_id'               =>        'marca',
     'purchase_price'         =>        'precio',
     'image'                  =>        'Imagen',
     'description'            =>        'descripcion',

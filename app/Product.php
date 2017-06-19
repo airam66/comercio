@@ -68,6 +68,10 @@ class Product extends Model
         ;
     }
 
+    public function productByCode($q){
+        return $this->where('code','LIKE',"%$q%")->get();
+    }
+
 
     
  
