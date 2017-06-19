@@ -57,7 +57,7 @@
           @if ($product->status!='inactivo')
             <tr role="row" class="odd">
           @else
-            <tr role="row" class="odd" style="background-color: rgb(255,96,96);">
+            <tr role="row" class="odd" style="background-color: rgb(255,128,128);">
           @endif
             <td class="sorting_1">{{$product->code}}</td>
             <td>{{$product->name}}</td>

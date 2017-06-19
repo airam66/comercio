@@ -30,7 +30,8 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->unique()->sentence,
         'description' => $faker->sentence,
-        'status' => $faker->randomElement($array = array ('active','inactive')),
+        'status' => 'activo',
+        'extension'=>"IMG-20170521-WA0045.jpg",
         /**'user_id'=>function(){
         	return factory(\App\User::class)->create()->id;
         }*/
@@ -43,7 +44,7 @@ $factory->define(App\Event::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker ->unique()->sentence,
-        'status' => $faker->randomElement($array = array ('active','inactive')),
+        'status' => 'activo',
         /**'user_id'=>function(){
             return factory(\App\User::class)->create()->id;
         }*/
@@ -56,7 +57,7 @@ $factory->define(App\Brand::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker ->unique()->sentence,
-        'status' => $faker->randomElement($array = array ('active','inactive')),
+        'status' => 'activo',
         /**'user_id'=>function(){
             return factory(\App\User::class)->create()->id;
         }*/
@@ -69,7 +70,7 @@ $factory->define(App\Line::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker ->unique()->sentence,
-        'status' => $faker->randomElement($array = array ('active','inactive')),
+        'status' => 'activo',
         /**'user_id'=>function(){
             return factory(\App\User::class)->create()->id;
         }*/
@@ -83,7 +84,7 @@ $factory->define(App\Porcentage::class, function (Faker\Generator $faker) {
     return [ 
 
         'wholesale_porcentage' => 10,
-        'retail_porcentage' => 10,
+        'retail_porcentage' => 30,
         /**'user_id'=>function(){
             return factory(\App\User::class)->create()->id;
         }*/
@@ -96,20 +97,20 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
 
     return [ 
 
-        'code' => 00000001,
-        'name' => $faker ->unique()->sentence,
+        'code' => $faker->unique()->sentence,
+        'name' => $faker->unique()->sentence,
         'category_id'=>1,
         'line_id'=>1,
-        'event_id'=>1,
+        
         'brand_id'=>1,
         'wholesale_cant'=>20,
         'description'=>"descri´pcion bolsitas",
         'stock'=>0,
         'purchase_price'=>20,
-        'status' => $faker->randomElement($array = array ('active','inactive')),
-        'wholesale_price'=>56,
-        'retail_price'=>58,
-        'extension'=>"IMG-20170521-WA0045.jpg"
+        'status' => 'activo',
+        'wholesale_price'=>40,
+        'retail_price'=>50,
+        'extension'=>"IMG-20170521-WA0045.jpg",
         /**'user_id'=>function(){
             return factory(\App\User::class)->create()->id;
         }*/

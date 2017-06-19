@@ -31,8 +31,9 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
 
-    <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
+    <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.min.css')}}">
 
+    <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -287,8 +288,16 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}"></script>
 
-    <script src="{{asset('plugins/chosen/chosen.jquery.js')}}">></script>
+    <script src="{{asset('bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.min.js')}}"></script>
+
+    <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
 
     @yield('js')
+
+    <script>
+      function baseUrl(url){
+        return "{{url('')}}/"+url;
+      }
+    </script>>
   </body>
 </html>
