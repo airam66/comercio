@@ -8,7 +8,7 @@ use App\Event;
 */
 class AsideComposer{
 	public function compose(View $view ){
-		$events=Event::all();
+		$events=Event::all()->where('status','=','activo');
 		$view->with('events',$events);
 
 	}

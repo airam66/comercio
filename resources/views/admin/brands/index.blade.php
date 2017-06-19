@@ -46,6 +46,8 @@
             <td>{{$brand->name}}</td>
             <td>{{$brand->status}}</td>
 
+            
+
                        
         </tr>
   @endforeach
