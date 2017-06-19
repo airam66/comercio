@@ -65,7 +65,21 @@
                             
                         </button>
                      </a>
+
+                     <a href="{{route('categories.desable',$category->id)}}" onclick="return confirm('¿Seguro dara de baja esta categoria?')">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                        </button>
+                     </a>
+            @else
+                      <a href="{{route('categories.enable',$category->id)}}" onclick="return confirm('¿Seguro desea dar de alta esta categoría?')">
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true" ></span>
+                        </button>
+                     </a>
             @endif
+
+
            
         </tr>
   @endforeach

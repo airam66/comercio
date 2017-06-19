@@ -22,16 +22,27 @@ class ProductsController extends Controller
     
     public function index(Request $request)
     {
-
+       
         $porcentage=Porcentage::all()->last();
         if (empty($porcentage->wholesale_porcentage)){
                 flash("Cargar variables de porcentaje para la venta mayor y menor" , 'danger')->important();
         }
+        
 
+        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->get();
+      
+        $validacion=false;
 
-        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(15);
-       
-        return view('admin.products.index')->with('products',$products);
+       if(count($products)==0){
+
+        $validacion=true;
+        $products=Product::all();
+       }
+      
+        return view('admin.products.index')->with('products',$products)
+                                           ->with('validacion',$validacion);
+
+                                          
     
 
     }
@@ -51,12 +62,11 @@ class ProductsController extends Controller
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
                                             ->with('events',$events)
-                                            ->with('porcentage',$porcentage)
-        ;}
-       
+                                            ->with('porcentage',$porcentage);
+
     }
 
-    
+    }
     public function store(ProductRequest $request)
     {
 
@@ -92,13 +102,20 @@ class ProductsController extends Controller
 
     public function SearchEventProducts(Request $request){
        $event= Event::searchEventP($request->Evento)->first();
+        $validacion=false;
       if(($event!=null )&&($request->Evento!="")){
-       $products= $event->products()->paginate(10);
-       return view('admin.products.index')->with('products',$products);
+         
+          $products= $event->products();
+          return view('admin.products.index')->with('products',$products)
+                                            ->with('validacion',$validacion);
         }
-        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);
+      $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->get();  
+      if ($event==null) {
+            $validacion=true;
+            }                                          
        
-        return view('admin.products.index')->with('products',$products);
+        return view('admin.products.index')->with('products',$products)
+                                           ->with('validacion',$validacion);
     
     
         }
@@ -191,5 +208,7 @@ class ProductsController extends Controller
            $products->delete();
         return redirect()->route('products.index');
     }
+
+   
 }
 
