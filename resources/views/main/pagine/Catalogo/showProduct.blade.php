@@ -17,7 +17,9 @@
 			<h1> {{$product->name}} </h1>
 			<div class="row">
 				<div class="col-sm-6 col-xs-12">
+
 					<img src="{{ asset('images/products/'.$product->extension)  }}" width="100%" height="300">
+
 				</div>
 				<div class="col-sm-6 col-xs-12 text-center">
 				<p >

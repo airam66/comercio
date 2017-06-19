@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
-use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Product;
 use App\Brand;
@@ -51,10 +50,10 @@ class ProductsController extends Controller
     public function create()
     {   
         $porcentage=Porcentage::all()->last();
-        $categories= Category::orderBy('name','ASC')->pluck('name','id');
-        $lines=Line::orderBy('name','ASC')->pluck('name','id');
-        $brands=Brand::orderBy('name','ASC')->pluck('name','id');
-        $events=Event::orderBy('name','ASC')->pluck('name','id');
+        $categories=Category::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $lines=Line::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $brands=Brand::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $events=Event::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
 
         if (empty($porcentage->wholesale_porcentage)){
                 return redirect()->route('products.index');

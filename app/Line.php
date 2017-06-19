@@ -14,4 +14,10 @@ class Line extends Model
     {
         return $this->hasMany('App\Product');
     }
+
+    public function scopeSearchLine($query,$name){
+		
+		return $query->where('name','LIKE',"%".$name."%");
+
+	}
 }

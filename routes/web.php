@@ -52,6 +52,10 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('lines','LinesController');
 
   Route::resource('porcentages','PorcentagesController');
+
+  Route::resource('invoices','InvoicesController');
+  Route::get('invoices/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+  
 });
 
 Route::get('/', function () {
