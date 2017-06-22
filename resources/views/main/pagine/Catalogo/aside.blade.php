@@ -10,9 +10,10 @@
                      
           <li class="list-group-item"  > 
           <a href="{{route('searchEvent',$event->name)}}">
-             <div style="color: black;">{{$event->name}}</div>  
+             <div style="color: gray;">{{$event->name}}</div>
           </a>
           </li>
+          <hr />
           @endforeach
          </ul> 
             

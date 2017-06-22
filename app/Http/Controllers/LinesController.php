@@ -14,6 +14,14 @@ class LinesController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(Request $request)
+    {
+
+      $lines=Line::SearchLine($request->name)->orderBy('name','ASC')->paginate(10);
+       
+      return view('admin.lines.index')->with('lines',$lines);
+    }
+
 
      public function create()
     {
@@ -29,7 +37,7 @@ class LinesController extends Controller
        flash("La linea ". $line->name . " ha sido creada con exito" , 'success')->important();
      
 
-       return redirect()->route('lines.create'); //cambiar cuando cree la lista
+       return redirect()->route('lines.index'); //cambiar cuando cree la lista
     }
 
    

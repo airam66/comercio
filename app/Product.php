@@ -4,12 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
     protected $table="products";
 
-   protected $fillable= ['code','name','category_id','line_id','event_id','brand_id','wholesale_cant','description','stock','extension','status','purchase_price','wholesale_price','retail_price'];
+   protected $fillable= ['code','name','category_id','line_id','brand_id','wholesale_cant','description','stock','extension','status','purchase_price','wholesale_price','retail_price'];
 
     public function category(){
 
@@ -26,13 +27,8 @@ class Product extends Model
         return $this->belongsTo('App\Brand');
     }
 
-    public function productevent()
-    {
-        return $this->belongsTo('App\ProductEvent');
-    }
-
     public function event(){
-        return $this->belongsToMany('App\Event')->using('App\ProductEvent');
+        return $this->belongsToMany('App\Event') ;
     }
 
     public function newCode($category_id,$product_code){
@@ -61,4 +57,28 @@ class Product extends Model
 
     }
 
+    public function scopeSearchProduct($query,$name){
+
+        return $query->where('name','LIKE',"%" . $name . "%");
+    }
+
+    public function scopeSearchProductL($query,$letra){
+
+        return $query->where('name','LIKE', $letra . "%");
+    }
+
+    public function scopeSearchProductC($query,$category){
+
+        return $query->where('category_id','=',$category);
+        ;
+    }
+
+    public function productByCode($q){
+        return $this->where('code','LIKE',"%$q%")->get();
+    }
+
+
+    
+ 
+     
 }

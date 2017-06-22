@@ -30,9 +30,11 @@
     <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+   
+    <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.min.css')}}">
+    
 
     <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -159,6 +161,7 @@
                  </a>
                  <ul class="treeview-menu">
                 <li class="active"><a href="{{route('categories.create')}}"><i class="fa fa-circle-o"></i> Nueva categoria</a></li>
+                <li class="active"><a href="{{route('categories.index')}}"><i class="fa fa-circle-o"></i> Lista de categorias</a></li>
               </ul>
             </li>
 
@@ -169,7 +172,7 @@
               </a>
                <ul class="treeview-menu">
                 <li class="active"><a href="{{route('events.create')}}"><i class="fa fa-circle-o"></i> Nuevo evento</a></li>
-              
+                <li class="active"><a href="{{route('events.index')}}"><i class="fa fa-circle-o"></i> Lista de eventos</a></li>
               </ul>
             </li>
 
@@ -180,6 +183,7 @@
                  </a>
                  <ul class="treeview-menu">
                 <li class="active"><a href="{{route('lines.create')}}"><i class="fa fa-circle-o"></i> Nueva linea</a></li>
+                <li class="active"><a href="{{route('lines.index')}}"><i class="fa fa-circle-o"></i> Lista de lineas</a></li>
               </ul>
             </li>
 
@@ -190,6 +194,7 @@
               </a>
                <ul class="treeview-menu">
                 <li class="active"><a href="{{route('brands.create')}}"><i class="fa fa-circle-o"></i> Nueva marca</a></li>
+                <li class="active"><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i> Lista de marcas</a></li>
               
               </ul>
             </li>
@@ -283,9 +288,17 @@
     <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}"></script>
+  
+    <script src="{{asset('bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.min.js')}}"></script>
 
-    <script src="{{asset('plugins/chosen/chosen.jquery.js')}}">></script>
+    <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
 
     @yield('js')
+
+    <script>
+      function baseUrl(url){
+        return "{{url('')}}/"+url;
+      }
+    </script>>
   </body>
 </html>

@@ -1,19 +1,32 @@
-@extends('layouts.app')
+@extends('layouts.my_template')
 
 @section('content')
 
+ <section class="home" id="home">
+      <div class="content-wrap centering">
+            <div class="mi_letter text-center">
+              <h1>Bienvenido</h1>
+              <img src="{{ asset('images/line.png')}}" alt=""> 
+            </div> 
+            <div>
+              <img src="{{asset('images/regalos.jpg')}}">
+              
+              <div class="content-wrap">
+                <div class="heading text-center">
+                   <h1>Vení y lleva lo que más te guste.</h1>
+                      <h3>Tenemos diversos productos personalizados.<br> 
+                     Hace de tu fiesta un recuerdo inolvidable.</h3>
 
-
-        <div class="content space">
-       
-
-            <h2 >Bienvenido<br></h2>
-            <img src="images/cotillon.png" alt="400px" width="450px" align="left">
-            
-            
-        </div>
-
-
- 
+            </div>
+            </div>
+             <div class="text-center">
+               <img src="{{ asset('images/line.png')}}" alt=""> 
+             </div>
+        
+      </div>
+    </section>
 
 @endsection
+
+
+
