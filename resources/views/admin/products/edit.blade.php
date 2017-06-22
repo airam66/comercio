@@ -23,16 +23,24 @@
             
             {!! Form::model($product,['route'=>['products.update',$product->id], 'method'=>'PATCH', 'files'=>true])!!}
 
-              <div class= "form-group">
-              {!! Form::label('category_id','Categoria')!!}
-              {!! Form::select('category_id', $categories ,null, ['class'=>'form-control'])!!} 
-              </div> 
+              <div class= "col-md-4">
+              {!!form::label('Producto: ')!!}
+              {{($product->name)}}
+              </div>
 
-             {!! Field::number('code')!!}
-                    
-                    <div>
-                    <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" > Imagen Actual
-                    </div>
+              <div class= "col-md-4">
+              {!!form::label('Codigo: ')!!}
+              {{ $product->code}}
+              </div>
+
+              <div class= "col-md-4">
+              {!!form::label('Categoria: ')!!}
+              {{$product->category->name}}
+              </div>
+
+              <div>
+                   {!!form::label('Imagen Actual: ')!!} <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" > 
+              </div>
 
              <div class="form-group">
               {!! Form::label('image','Nueva Imagen')!!}
@@ -40,23 +48,23 @@
              </div>
               
               <div class= "form-group">
-              {!! Form::label('event_id','Evento')!!}
-              {!! Form::select('event_id', $events ,null, ['class'=>'form-control'])!!}
+              {!! Form::label('events','Evento')!!}
+              {!! Form::select('events[]', $events ,$productEvent, ['class'=>'form-control select-tag','multiple'])!!}
               </div> 
 
               <div class= "form-group">
               {!! Form::label('line_id','Linea')!!}
-              {!! Form::select('line_id', $lines ,null, ['class'=>'form-control'])!!} 
+              {!! Form::select('line_id', $lines ,$product->line->id, ['class'=>'form-control'])!!} 
               </div> 
 
               <div class= "form-group">
               {!! Form::label('brand_id','Marca')!!}
-              {!! Form::select('brand_id', $brands ,null, ['class'=>'form-control'])!!} 
+              {!! Form::select('brand_id', $brands ,$product->brand->id, ['class'=>'form-control'])!!} 
               </div> 
 
               <div class="form-group">
               {!! Form::label('description','Descripcion')!!}
-              {!! Form::text('description',null, ['class'=>'form-control'])!!}
+              {!! Form::text('description',$product->description, ['class'=>'form-control'])!!}
               </div>
 
              {!! Field::number('stock')!!}
@@ -81,4 +89,14 @@
       </div>
     </div>
   </div>
+@endsection
+@section('js')
+<script>
+  $('.select-tag').chosen({
+   // placeholder_text_multiple: "Seleccione los eventos",
+
+    
+  });
+
+</script>
 @endsection

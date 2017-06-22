@@ -119,13 +119,17 @@ return [
     'attributes' => [
     'name'                   =>        'nombre',
     'category_id'            =>        'categoria',
-    'price'                  =>        'precio',
+    'line_id'                =>        'lines',
+    'brand_id'               =>        'marca',
+    'purchase_price'         =>        'precio',
     'image'                  =>        'Imagen',
     'description'            =>        'descripcion',
     'code'                   =>        'codigo',
     'wholesale_cant'         =>        'Cantidad de venta Mayorista',
-    'wholesale_porcentage'   =>        'Para venta mayorista',
-    'retail_porcentage'      =>        'Para venta minorista',
+    'wholesale_price'        =>        'Venta mayorista',
+    'retail_price'           =>        'Venta minorista',
+    'wholesale_porcentage'   =>        'Venta mayorista',
+    'retail_porcentage'      =>        'Venta minorista',
 
     ],
 

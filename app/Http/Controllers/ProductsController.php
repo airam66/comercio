@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
-use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Product;
 use App\Brand;
 use App\Line;
 use App\Event;
+use App\EventProduct;
 use App\Porcentage;
 
 class ProductsController extends Controller
@@ -20,38 +20,57 @@ class ProductsController extends Controller
         $this->middleware('auth');
     }
     
-    public function index()
+    public function index(Request $request)
     {
-        $products= Product::orderBy('name','ASC')->paginate(10);
-              
+       
+        $porcentage=Porcentage::all()->last();
+        if (empty($porcentage->wholesale_porcentage)){
+                flash("Cargar variables de porcentaje para la venta mayor y menor" , 'danger')->important();
+        }
+        
 
-        return view('admin.products.index')->with('products',$products);
+        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->get();
+      
+        $validacion=false;
 
+       if(count($products)==0){
+
+        $validacion=true;
+        $products=Product::all();
+       }
+      
+        return view('admin.products.index')->with('products',$products)
+                                           ->with('validacion',$validacion);
+
+                                          
+    
 
     }
 
     public function create()
     {   
-
-        $categories= Category::orderBy('name','ASC')->pluck('name','id');
-        $lines=Line::orderBy('name','ASC')->pluck('name','id');
-        $brands=Brand::orderBy('name','ASC')->pluck('name','id');
-        $events=Event::orderBy('name','ASC')->pluck('name','id');
         $porcentage=Porcentage::all()->last();
+        $categories=Category::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $lines=Line::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $brands=Brand::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $events=Event::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
 
+        if (empty($porcentage->wholesale_porcentage)){
+                return redirect()->route('products.index');
+        }else{
         return view('admin.products.create')->with('categories',$categories)
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
                                             ->with('events',$events)
                                             ->with('porcentage',$porcentage);
-       
+
     }
 
-    
+    }
     public function store(ProductRequest $request)
     {
-        $products= new Product($request->all());
 
+        $products= new Product($request->all());
          if($request->file('image')){
                  $file =$request->file('image');
                  $extension=$file->getClientOriginalName();
@@ -60,20 +79,48 @@ class ProductsController extends Controller
                 $products->extension=$extension;
                 }
 
-        $products->code=$products->newCode($request->category_id,$request->code);
-         
+        $request->code=$products->newCode($request->category_id,$request->code);
+
+        $this->validate($request,[
+             'code'=> 'unique:products',  
+        ]);
+        
+        
+        $products->code=$request->code;
         $products->status=$request->status;
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;
-        $products->event_id= $request->event_id;
+
         $products->save();
+
+        $products->event()->sync($request->events);
 
        return redirect()->route('products.index');
 
     }
 
+    public function SearchEventProducts(Request $request){
+       $event= Event::searchEventP($request->Evento)->first();
+        $validacion=false;
+      if(($event!=null )&&($request->Evento!="")){
+         
+          $products= $event->products()->get();
+          return view('admin.products.index')->with('products',$products)
+                                            ->with('validacion',$validacion);
+        }
+      $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->get();  
+      if ($event==null) {
+            $validacion=true;
+            }                                          
+       
+        return view('admin.products.index')->with('products',$products)
+                                           ->with('validacion',$validacion);
     
+    
+        }
+
+     
     public function show($id)
     {
         //
@@ -88,14 +135,15 @@ class ProductsController extends Controller
         $brands=Brand::orderBy('name','ASC')->pluck('name','id');
         $events=Event::orderBy('name','ASC')->pluck('name','id');
         $porcentage=Porcentage::all()->last();
-   
+        $productEvent=$product->event->pluck('id')->ToArray();   
 
         return view('admin.products.edit')->with('product',$product)
                                             ->with('categories',$categories)
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
                                             ->with('events',$events)
-                                            ->with('porcentage',$porcentage);
+                                            ->with('porcentage',$porcentage)
+                                            ->with('productEvent',$productEvent);
 
     }
 
@@ -134,19 +182,33 @@ class ProductsController extends Controller
         $products->category_id= $request->category_id;
         $products->line_id= $request->line_id;
         $products->brand_id= $request->brand_id;
-        $products->event_id= $request->event_id;
         $products->save();
-
-
-
-
        return redirect()->route('products.index');
     }
 
-   
-    public function destroy($id)
+    public function desable($id)
     {
-        //
+        $product= Product::find($id);
+        $product->status='inactivo';
+        $product->save();
+        return redirect()->route('products.index');
     }
+
+    public function enable($id)
+    {
+        $product= Product::find($id);
+        $product->status='activo';
+        $product->save();
+        return redirect()->route('products.index');
+    }
+
+        public function destroy($id)
+    {
+           $product= Product::find($id);
+           $products->delete();
+        return redirect()->route('products.index');
+    }
+
+   
 }
 

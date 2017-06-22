@@ -32,20 +32,36 @@ Route::resource('cotillon','MainPagineController');
 Route::group(['prefix'=>'admin'], function(){
 
   Route::resource('categories','CategoriesController');
+    Route::get('/category/{id}/desable','CategoriesController@desable')->name('categories.desable');
+    Route::get('/category/{id}/enable','CategoriesController@enable')->name('categories.enable');
+
     
   Route::resource('events','EventController');
-  
-  Route::resource('brands','BrandController');  
-    
+      Route::get('/events/{id}/desable','EventController@desable')->name('events.desable');
+      Route::get('/events/{id}/enable','EventController@enable')->name('events.enable');
+
+  Route::resource('brands','BrandController');   
+     
   Route::resource('products','ProductsController');
+  Route::get('/invoices/create/{letra}/SearchLetra','InvoicesController@SearchLetra')->name('SearchLetra');
+      Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
+      Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
+
+      Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
 
   Route::resource('lines','LinesController');
 
   Route::resource('porcentages','PorcentagesController');
+
+  Route::resource('invoices','InvoicesController');
+  Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+  Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
+  
 });
 
 Route::get('/', function () {
     return view('main.pagine.index');
+
 });
 
 Auth::routes();
@@ -58,8 +74,9 @@ Route::get('/contactUs', 'ContactUsController@contactUs')->name('contactUs');
 Route::get('/catalogue', 'CatalogsController@index')->name('catalogue');
 Route::post('/contactForm', 'ContactUsController@contact')->name('contactForm');
 //Route::get('/CatalogueShow','CatalogsController@show')->name('catalogueShow');
-Route::resource('catalogueShow', 'CatalogsController');
-Route::get('events/{name}','CatalogsController@searchEvent')->name('searchEvent');
+Route::resource('/catalogueShow', 'CatalogsController');
+Route::get('/events/{name}','CatalogsController@filtro')->name('searchEvent');
+Route::get('/category/{id}/{name}','CatalogsController@searchCategoryProduct')->name('searchEventCategory');
 
 
 	
