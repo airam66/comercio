@@ -105,7 +105,7 @@ class ProductsController extends Controller
         $validacion=false;
       if(($event!=null )&&($request->Evento!="")){
          
-          $products= $event->products();
+          $products= $event->products()->get();
           return view('admin.products.index')->with('products',$products)
                                             ->with('validacion',$validacion);
         }
