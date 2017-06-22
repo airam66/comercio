@@ -8,10 +8,11 @@ use App\Product;
 class InvoicesController extends Controller
 {   
     private $products=null;
+
 	public function __construct()
     {
         $this->middleware('auth');
-        $this->products=new Product();
+        $this->products= new Product();
     }
 
     public function create(){
@@ -41,6 +42,7 @@ class InvoicesController extends Controller
     }
 
     public function autocomplete(Request $request){
+         
             return $this->products->productByCode($request->input('q'));
     }
 }

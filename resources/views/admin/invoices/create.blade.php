@@ -40,7 +40,9 @@
                 <div class="col-md-3" >
                        
                          {!! form::label('Codigo')!!}
-                  <input id="code" class="form-control " name="code" type="text" >
+                     <input id="code" class="form-control " name="code" type="text" >
+
+                     <input id="product_id" class="form-control " name="product_id" type="hidden" >
                   </div> 
 
                   <div class="col-md-1 col-md-offset-0" >
@@ -49,16 +51,19 @@
                   </div>
                  
                   <div class="col-md-4 col-md-offset-2">
-                  {!!Field::number('Precio',null)!!}                     </div>
+                  {!!Field::number('price',null, ['disabled'])!!} 
+                   {!!Field::hidden('priceW',null)!!} 
+
+                  </div>
 
                  </div>
 
                 <div class="row invoice-info">
                     <div class="col-md-6">
-                    {!!Field::text('name',null)!!}
+                    {!!Field::text('name',null,['disabled'])!!}
                     </div>
                     <div class="col-md-4">
-                    {!! Field::number('stock')!!}
+                    {!! Field::number('stock' , ['disabled'])!!}
                     </div>
 
 
@@ -68,7 +73,7 @@
 
                   <div class="col-md-4">
                     {!! form::label('Cantidad')!!}
-                    <input class="form-control" onkeyup="  " name="code" type="text">
+                    <input class="form-control" onkeyup="  " name="code" type="number">
                     </div>
 
                   <div class="col-md-4 col-md-offset-2">
@@ -185,29 +190,36 @@
   </div>
 @include('admin.invoices.buscarproducto')
 @endsection
+
 @section('js')
 <script>
-  $('.select-lines').chosen();
-  var self = this;
+ 
+ 
+  var options={
+    url: function(q){
+      return baseUrl('admin/autocomplete?q='+q);
+         }, getValue:"code",
+            list: {
+                    match: {
+                        enabled: true
+                    },
+                    onClickEvent: function () { 
+                        var product = $("#code").getSelectedItemData();
+                        $('#product_id').val(product.id);
+                         $('#name').val(product.name);
+                        $('#price').val(product.retail_price);
+                        $('#priceW').val(product.wholesale_price);
+                        $('#stock').val(product.stock);
 
-self.on('mount',function(){
-    __codeAutocomplete();
-})
 
-function __codeAutocomplete(){
-  var product =$("#product");
-  var opcions={
-    url: function(q){ 
-      return baseUrl('invoices/autocomplete?q='+q);
-    },
-    getValue: 'code',
+                    }
+                }
+
+   };
     
-    };
-    
-  $("#product").easyAutocomplete(options);
-};
+  $("#code").easyAutocomplete(options);
 
 </script>
 @endsection
-
+ 
 
