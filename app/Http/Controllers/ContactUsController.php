@@ -27,8 +27,8 @@ class ContactUsController extends Controller
    
         		);
 
-        	$fromEmail='gym.adsi@gmail.com';
-        	$fromName='Administrador';
+        	$fromEmail='creatucotillon@gmail.com';
+        	$fromName='CREATU';
 
         	Mail:send('email.contact',$data,function($msg) use ($fromEmail,$fromName){
 
