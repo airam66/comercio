@@ -53,17 +53,18 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('porcentages','PorcentagesController');
 
   Route::resource('invoices','InvoicesController');
-  Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+    Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
   Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
 
+
   route::resource('clients','ClientsController');
+
+  Route::resource('carrusel','CarruselController');
+
   
 });
 
-Route::get('/', function () {
-    return view('main.pagine.index');
-
-});
+Route::get('/', 'MainController@index');
 
 Auth::routes();
 
