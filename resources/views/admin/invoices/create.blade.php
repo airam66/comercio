@@ -77,8 +77,9 @@
                     </div>
 
                   <div class="col-md-4 col-md-offset-2">
-                  <img src="{{ asset('images/images.png ') }}" width="50" height="50" class="pull-right"  >
-                     
+                  <a onclick={__add_productToDetail}>
+                  <img src="{{ asset('images/images.jpeg') }}" width="50" height="50" class="pull-right"  >
+                   </a>  
                     </div>
                   </div>
 
@@ -193,8 +194,8 @@
 
 @section('js')
 <script>
- 
- 
+
+  
   var options={
     url: function(q){
       return baseUrl('admin/autocomplete?q='+q);
@@ -215,9 +216,12 @@
                     }
                 }
 
+
    };
-    
+  
   $("#code").easyAutocomplete(options);
+  
+ 
 
 </script>
 @endsection

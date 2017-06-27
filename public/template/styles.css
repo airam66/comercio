@@ -14,7 +14,7 @@ overflow-x: hidden;
   -o-background-size: cover;
 
   background-size: cover;*/
-  background: url('../images/fondo3.jpg') repeat;
+  background: url('../images/fondo5.jpg') repeat;
 }
 
 h4{
@@ -26,7 +26,7 @@ p{
 
 
 .navbar-inverse {
-    background-color: rgb(190, 21, 108) !important;
+    background-color: rgb(21, 215,0) !important;
     border-color:rgb(190, 21, 108) !important;
 }
 
@@ -63,14 +63,14 @@ font-family:'Playball',cursive;
 	font-size:60px;
 	line-height:1.0;
 	font-weight: 900;
-	color: pink; 
+	color: rgb(0,170,170); 
     text-shadow: 4px 4px 5px rgba(131,27,180,0.7);
 }
 
 @media screen and (max-width: 400px) {
 
 	.intro {font-size: 18px ;line-height: 28px;}
-    body{background: url('../images/1.jpg') no-repeat center center fixed;
+    body{background: url('../images/fondo5.jpg') no-repeat center center fixed;
     font-size:13px;}
     .image img{
     	width:165px;
@@ -200,7 +200,8 @@ margin-bottom: 10px;}
 /* ==========================================================================
     Footer styles starts here
    ========================================================================== */
-    .copy-rights{padding: 40px 0; overflow: hidden; text-align: center; color: black; font-size: 16px; line-height: 26px;font-family: 'source_sans_proregular';}
+    .copy-rights{padding: 40px 0; overflow: hidden; text-align: center; color:black
+      ; font-size: 20px; line-height: 26px;font-family: 'source_sans_proregular';}
     .copy-rights a{font-size: 16px;font-family: 'source_sans_proregular'; color: black;}
     .copy-rights a:hover{color: #ed3237; text-decoration:none;}
 
@@ -223,7 +224,7 @@ margin-bottom: 10px;}
 
 .mi_letter h1{
 	font-family: 'Kaushan Script', cursive;
-color: #c51162;
+color: #f9820e;
 text-shadow: 4px 4px 5px rgba(131,27,180,0.7);
 font-size: 60px;
 
@@ -232,7 +233,7 @@ font-size: 60px;
 .mi_letter h3{
     font-family: 'Kaushan Script', cursive;
     color: #be39c6;
-text-shadow: 4px 4px 5px rgba(196, 64, 234, 0.7);
+text-shadow: 4px 4px 5px rgba(0, 170, 170, 0.7);
     font-size: 35px;
 
 }
@@ -468,20 +469,28 @@ box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 17px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20p
 box-sizing: border-box;
 color: rgba(0, 0, 0, 0.84);
 display:inline-block;
+border-color: green;
 }
 
 .panel-success{
-  background: pink;
+  background-image:url('../images/f6.jpg');
+
+
 }
 
 .panel-success > .panel-heading {
-    color: #151517;
-    background-color: #d0a9e1;
-    border-color: #ba84ec;
+    color: orange;
+
+    font-size: 25px;
+    border-width:  5px;
+    background-color: yellow;
+    border-color: orange;
+
+
 }
 
 .list-group-item {
-    border: 1px solid #b763e3;
+    border: 3px solid orange;
 }
 
 .list-group-item {
