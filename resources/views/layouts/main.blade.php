@@ -230,10 +230,10 @@
         <!-- Main content -->
         <section class="content">
 
-         @include('flash::message')  
+        @include('flash::message')  
          <!--@include('partials.errors')-->
              
-            @yield('content')
+        @yield('content')
 
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
