@@ -1,7 +1,9 @@
 
 <div class="panel panel-success">
-   <div class="panel-heading" >
-             Eventos
+   <div class="panel-heading text-center"  >
+         <b>
+           EVENTOS
+         </b>    
    </div>
    <div class="panel-body">
 

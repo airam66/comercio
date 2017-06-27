@@ -10,7 +10,11 @@
         <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Modificar producto</h3>
+
+           </div>
+
           
+
           </div>
           <div class="box-body">
             

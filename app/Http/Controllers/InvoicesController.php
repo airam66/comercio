@@ -23,7 +23,7 @@ class InvoicesController extends Controller
     }
 
     public function SearchLetra($letra){
-      $validacion=false;
+     
 
       $products=Product::SearchProductL($letra)->get();
      

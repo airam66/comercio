@@ -73,9 +73,11 @@
                         onkeyup="price_select(this.value,this.form.wholesale_cant.value)">
                         </div>
 
+                  
+
                     <div class="col-md-4 col-md-offset-2">
                       <img src="{{ asset('images/images.png ') }}" width="50" height="50" class="pull-right"  >
-                         
+
                     </div>
                 </div>
       </div>
@@ -190,7 +192,12 @@
 @endsection
 
 @section('js')
+
+
+  
+
 <script type="text/javascript">
+
 
   var options={
     url: function(q){
@@ -223,9 +230,11 @@
 
 
                 }
+
    };
-    
+  
   $("#code").easyAutocomplete(options);
+
 </script>
 <script type="text/javascript">
   function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
@@ -240,6 +249,7 @@
 
     $('#favoritesModal').modal('hide');
   };
+
 
 </script>
 <script type="text/javascript">
