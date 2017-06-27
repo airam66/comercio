@@ -22,20 +22,13 @@ class InvoicesController extends Controller
                                             ->with('products',$products);
     }
 
-   public function buscarproducto(){
-       
-        $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
-        return view('admin.invoices.buscarproducto')->with('products',$products);
-    }
-
     public function SearchLetra($letra){
      
 
       $products=Product::SearchProductL($letra)->get();
      
-
-      return view('admin.invoices.buscarproducto')->with('products',$products);
-}
+      return view('admin.invoices.create')->with('products',$products);
+    }
 
     public function store(){
     	//

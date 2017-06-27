@@ -1,7 +1,7 @@
 <!--POPUP-->
 
  <div class="modal fade" id="favoritesModal" tabindex="-1" 
-      role="dialog"aria-labelledby="favoritesModalLabel">
+      role="dialog" aria-labelledby="favoritesModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color:lightgray">
@@ -12,8 +12,9 @@
       </div>
       <div class="modal-body">
 <div>
+<button  type="button" class="btn btn-primary" data-toggle="modal" data-id="A" data-title="Buscar" data-target="#favoritesModal"></button>
 
-  <a href="{{route('SearchLetra',$letra='A')}}" >A</a>|
+  <a >A</a>|
   <a href="{{route('SearchLetra',$letra='B')}}">B</a>|
   <a href="{{route('SearchLetra',$letra='C')}}">C</a>|
   <a href="{{route('SearchLetra',$letra='D')}}">D</a>|
@@ -41,16 +42,16 @@
   <a href="{{route('SearchLetra',$letra='Z')}}">Z</a>|
   <a href="{{route('buscarproducto')}}">TODOS</a>
 
-        <!-- search name form
+        
         <form route='admin.invoices.buscarproducto'  method="GET" class="col-md-3 col-md-offset-1 ">
             <div class="input-group">
               <input type="text" name="name" class="form-control" placeholder="Nombre..."> 
               <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                <button type="submit" name="search" id="search-btn"  data-target="#favoritesModal"class="btn btn-flat"><i class="fa fa-search"></i></button>
               </span>
             </div>
         </form>
-         /.search form -->
+        
         <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
         <thead>
@@ -70,7 +71,7 @@
        
 <tbody>
    @foreach($products as $product) 
-
+        <tr>
             <td class="sorting_1">{{$product->code}}</td>
             <td>{{$product->name}}</td>
             <td>{{$product->stock}}</td>
@@ -83,10 +84,8 @@
                     <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" >
                     </div>
             @endif
-            </td>
-
-                      
-            <td></td>
+            </td>        
+            <td><a onclick="complete({{$product->id}},'{{$product->code}}','{{$product->name}}',{{$product->wholesale_price}},{{$product->retail_price}},{{$product->stock}},{{$product->wholesale_cant}})" type="button" class="btn btn-primary"> Agregar </a></td>
            
         </tr>
   @endforeach
