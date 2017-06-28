@@ -43,7 +43,9 @@
 
                     <div class="col-md-1 col-md-offset-0" >
                       <br>
-                       <button type="button" class="btn btn-primary" data-toggle="modal" data-id="" data-title="Buscar" data-target="#favoritesModal">
+
+                       <button type="button" class="btn btn-primary" data-toggle="modal" data-id="" data-title="Buscar" data-target="#favoritesModalProduct">
+
                           <i class="fa fa-search"></i>
                        </button>
                     </div>
@@ -226,6 +228,7 @@
                         $('#priceW').val(product.wholesale_price);
                         $('#stock').val(product.stock);
                         $('#wholesale_cant').val(product.wholesale_cant);
+
                     }
 
 
@@ -235,19 +238,21 @@
   
   $("#code").easyAutocomplete(options);
 
+
 </script>
 <script type="text/javascript">
   function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
+    $('#stock').val($stock);
     $('#code').val($code);
     $('#product_id').val($id);
     $('#name').val($name);
     $('#price').val($retail);//por defecto
     $('#priceR').val($retail);
     $('#priceW').val($wholesale);
-    $('#stock').val($stock);
+    
     $('#wholesale_cant').val($amount);
 
-    $('#favoritesModal').modal('hide');
+    $('#favoritesModalProduct').modal('hide');
   };
 
 
@@ -262,6 +267,23 @@ function price_select($amount,$wholesale_cant){
   }
 }
 </script>
+
+<script type="text/javascript">
+$('#search').on('keyup', function(){
+  $value=$(this).val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/search')}}",
+    data:{'search':$value},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+})
+</script>
+ 
+
 
 @endsection
  

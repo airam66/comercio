@@ -10,8 +10,9 @@ use App\Carrusel;
 
 class MainController extends Controller{
  
-   public function index(){
+ public function index(){
    	 $imagenes=Carrusel::all();
+   	
   return view('main.pagine.index')->with('imagenes',$imagenes);   //crear una vista dentro de la carpeta main q se llame home.
 
 }

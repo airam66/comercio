@@ -43,7 +43,8 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('brands','BrandController');   
      
   Route::resource('products','ProductsController');
-      Route::get('/invoices/create/{letra}/SearchLetra','InvoicesController@SearchLetra')->name('SearchLetra');
+      Route::get('/search','InvoicesController@search');
+      
       Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
       Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
       Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
