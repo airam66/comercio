@@ -34,55 +34,64 @@
                 <!-- info row -->
       <div class="panel panel-default">
           <div class="panel-body borde"><!--busqueda prorducto-->
-                <div class="row invoice-info" >
-                    <div class="col-md-3" >
+                  <h3>Productos</h3>
+                <div class="row " >
+                    <div class="col-md-3 pull-left" >
                          {!! form::label('Codigo')!!}
                          <input id="code" class="form-control" name="code" type="text" >
                          <input id="product_id" class="form-control " name="product_id" type="hidden" >
                     </div> 
 
-                    <div class="col-md-1 col-md-offset-0" >
-                      <br>
-
-                       <button type="button" class="btn btn-primary" data-toggle="modal" data-id="" data-title="Buscar" data-target="#favoritesModalProduct">
+                   
+                    <div class="pull-left">
+                    <br>
+                       <button type="button" class="btn btn-primary pull-left" data-toggle="modal" id="first" data-title="Buscar" data-target="#favoritesModalProduct">
 
                           <i class="fa fa-search"></i>
                        </button>
-                    </div>
-                   
-                    <div class="col-md-4 col-md-offset-2">
+                   </div>
+                   <div class="col-md-2 pull-right ">
                        {!!Field::number('price',null, ['disabled','step'=>'any'])!!} 
                        {!!Field::hidden('priceW',null,['step'=>'any'])!!} 
                        {!!Field::hidden('priceR',null,['step'=>'any'])!!} 
                     </div>
-                 </div>
-
-                <div class="row invoice-info">
-                    <div class="col-md-6">
-                         {!!Field::text('name',null,['disabled'])!!}
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 pull-right ">
                           {!! Field::number('stock' , ['disabled'])!!}
                     </div>
-                </div>
-
-                <div class="row invoice-info">
-
-                    <div class="col-md-4">
+                     <div class="col-md-2 pull-right">
                         {!!Field::hidden('wholesale_cant',null)!!}
                         {!! form::label('Cantidad')!!}
                         <input class="form-control" id="amount" name="amount" type="number" 
                         onkeyup="price_select(this.value,this.form.wholesale_cant.value)">
                         </div>
+                    
+                 </div>
 
-                  
-
-                    <div class="col-md-4 col-md-offset-2">
-                      <img src="{{ asset('images/images.png ') }}" width="50" height="50" class="pull-right"  >
-
+                <div class="row ">
+                    <div class="col-md-6 pull-left ">
+                         {!!Field::text('name',null,['disabled'])!!}
                     </div>
+
                 </div>
+      <div class="border">
+      <h3>Cliente</h3>
+      <div class="row ">
+             
+           <div class="col-md-3 pull-left" >
+                         {!! form::label('CUIL/CUIT')!!}
+                         <input id="cuil" class="form-control" name="cuil" type="text" >
+             </div>
+             <div class="pull-left">
+             <br>
+            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient">
+                          <i class="fa fa-search"></i>
+                       </button>
+                      @include('admin.invoices.buscarcliente')
+            </div>
+      <div class="col-md-6  pull-right">
+                  {!!Field::text('nombre',null,['disabled'])!!}
       </div>
+    </div>
 </div>
 <!--find busqueda de producto-->
                 <!-- Table row -->
@@ -191,6 +200,7 @@
 
 @include('admin.invoices.buscarproducto')
 
+
 @endsection
 
 @section('js')
@@ -199,9 +209,7 @@
   
 
 <script type="text/javascript">
-
-
-  var options={
+ var options={
     url: function(q){
       return baseUrl('admin/autocomplete?q='+q);
          }, getValue:"code",
@@ -211,22 +219,24 @@
                     },
                     onClickEvent: function () { 
                         var product = $("#code").getSelectedItemData();
-                        $('#product_id').val(product.id);
+                         $('#stock').val(product.stock);
+                         $('#product_id').val(product.id);
                         $('#name').val(product.name);
                         $('#price').val(product.retail_price);//por defecto
                         $('#priceR').val(product.retail_price);
                         $('#priceW').val(product.wholesale_price);
-                        $('#stock').val(product.stock);
+                       
                         $('#wholesale_cant').val(product.wholesale_cant);
                     },
                     onKeyEnterEvent: function () { 
                         var product = $("#code").getSelectedItemData();
-                        $('#product_id').val(product.id);
+                         $('#stock').val(product.stock);
+                         $('#product_id').val(product.id);
                         $('#name').val(product.name);
                         $('#price').val(product.retail_price);//por defecto
                         $('#priceR').val(product.retail_price);
                         $('#priceW').val(product.wholesale_price);
-                        $('#stock').val(product.stock);
+                       
                         $('#wholesale_cant').val(product.wholesale_cant);
 
                     }
@@ -240,10 +250,40 @@
 
 
 </script>
+
+<script type="text/javascript">
+
+
+  var options={
+    url: function(p){
+      return baseUrl('admin/autocompleteClient?p='+p);
+         }, getValue:'cuil',
+            list: {
+                    match: {
+                        enabled: true
+                    },
+                    onClickEvent: function () { 
+                        var client = $('#cuil').getSelectedItemData();
+                        $('#nombre').val(client.name);
+                    },
+                    onKeyEnterEvent: function () { 
+                        var client = $('#cuil').getSelectedItemData();
+                        $('#nombre').val(client.name);
+                    }
+
+
+                }
+
+   };
+  
+  $("#cuit").easyAutocomplete(options);
+
+
+</script>
 <script type="text/javascript">
   function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
     $('#stock').val($stock);
-    $('#code').val($code);
+     $('#code').val($code);
     $('#product_id').val($id);
     $('#name').val($name);
     $('#price').val($retail);//por defecto
@@ -253,6 +293,16 @@
     $('#wholesale_cant').val($amount);
 
     $('#favoritesModalProduct').modal('hide');
+  };
+
+
+</script>
+<script type="text/javascript">
+  function completeC($cuil,$name){
+    $('#cuil').val($cuil);
+    $('#nombre').val($name);
+
+    $('#favoritesModalClient').modal('hide');
   };
 
 
@@ -269,6 +319,7 @@ function price_select($amount,$wholesale_cant){
 </script>
 
 <script type="text/javascript">
+
 $('#search').on('keyup', function(){
   $value=$(this).val();
   $.ajax({
@@ -281,8 +332,105 @@ $('#search').on('keyup', function(){
     
   })
 })
+
+</script>
+
+<script type="text/javascript">
+
+$('#searchC').on('keyup', function(){
+  $value=$(this).val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchClient')}}",
+    data:{'searchClient':$value},
+    success: function(data){
+      $('#mostrarC').html(data);
+    }
+    
+  })
+})
+
 </script>
  
+ <script type="text/javascript">
+
+  $('#searchB').on('click', function(){
+  $value=$(this).val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchL')}}",
+    data:{'searchL':$value},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+})
+  $('#searchC').on('click', function(){
+  $value=$(this).val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchL')}}",
+    data:{'searchL':$value},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+})
+  $('#searchD').on('click', function(){
+  $value=$(this).val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchL')}}",
+    data:{'searchL':$value},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+})
+  $('#searchF').on('click', function(){
+  $value=$(this).val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchL')}}",
+    data:{'searchL':$value},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+})
+
+  $('#searchT').on('click', function(){
+  $value=$(this).val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchL')}}",
+    data:{'searchL':$value},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+})
+$('#searchTD').on('click', function(){
+  $value=$(this).val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchL')}}",
+    data:{'searchL':$value},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+})
+
+
+</script>
+
 
 
 @endsection

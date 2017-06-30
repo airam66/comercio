@@ -185,6 +185,7 @@ return [
        
        Laracasts\Flash\FlashServiceProvider::class,
        Styde\Html\HtmlServiceProvider::class,
+       Barryvdh\DomPDF\ServiceProvider::class,
 
        // ...
         
@@ -245,6 +246,7 @@ return [
         'Field' => Styde\Html\Facades\Field::class,
         'Menu' => Styde\Html\Facades\Menu::class,
         'Access' => Styde\Html\Facades\Access::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         
 
     ],
