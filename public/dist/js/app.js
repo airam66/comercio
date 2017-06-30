@@ -744,3 +744,41 @@ function _init() {
     });
   };
 }(jQuery));
+
+//my javascrits
+ var options={
+    url: function(q){
+      return baseUrl('admin/autocomplete?q='+q);
+         }, getValue:"code",
+            list: {
+                    match: {
+                        enabled: true
+                    },
+                    onClickEvent: function () { 
+                        var product = $("#code").getSelectedItemData();
+                        $('#product_id').val(product.id);
+                        $('#name').val(product.name);
+                        $('#price').val(product.retail_price);//por defecto
+                        $('#priceR').val(product.retail_price);
+                        $('#priceW').val(product.wholesale_price);
+                        $('#stock').val(product.stock);
+                        $('#wholesale_cant').val(product.wholesale_cant);
+                    },
+                    onKeyEnterEvent: function () { 
+                        var product = $("#code").getSelectedItemData();
+                        $('#product_id').val(product.id);
+                        $('#name').val(product.name);
+                        $('#price').val(product.retail_price);//por defecto
+                        $('#priceR').val(product.retail_price);
+                        $('#priceW').val(product.wholesale_price);
+                        $('#stock').val(product.stock);
+                        $('#wholesale_cant').val(product.wholesale_cant);
+
+                    }
+
+
+                }
+
+   };
+  
+  $("#code").easyAutocomplete(options);

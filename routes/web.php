@@ -44,6 +44,8 @@ Route::group(['prefix'=>'admin'], function(){
      
   Route::resource('products','ProductsController');
       Route::get('/search','InvoicesController@search');
+      Route::get('/searchClient','InvoicesController@searchClient');
+      Route::get('/searchL','InvoicesController@searchL');
       
       Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
       Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
@@ -55,6 +57,7 @@ Route::group(['prefix'=>'admin'], function(){
 
   Route::resource('invoices','InvoicesController');
     Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+    Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
   Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
 
 
