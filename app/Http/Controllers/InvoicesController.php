@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Client;
+use App\Invoice;
+use App\InvoiceProduct;
 class InvoicesController extends Controller
 {   
     private $products=null;
@@ -14,6 +16,9 @@ class InvoicesController extends Controller
         $this->middleware('auth');
         $this->products= new Product();
         $this->clients=new Client();
+    }
+    public function index(Request $request){
+      return view('admin.invoices.index');
     }
 
     public function create(){
@@ -109,6 +114,45 @@ class InvoicesController extends Controller
     }
 
 
+public function searchDate(Request $request){
+   
+      if($request->ajax()){
+        $output="";
+        $comilla="'";
+      $invoices=Invoice::SearchInvoice($request->fecha1,$request->fecha2)->get();
+       if ($invoices) {
+        foreach ($invoices as $key => $invoice) {
+                  $output.='<tr>'.
+                        '<td>'.$invoice->id.'</td>'.
+                        '<td>'.$invoice->created_at.'</td>'.
+                        '<td>'.$invoice->client->name.'</td>'.
+                        '<td>'.$invoice->total.'</td>'.
+
+                        '<td><button type="button" class="btn btn-primary " data-toggle="modal" id="Detail" data-title="Detail" data-target="#favoritesModalDetail">
+                         <i class="fa fa-list" aria-hidden="true"></i>
+                          </button>
+
+                          <a href="" onclick="return confirm('.$comilla.'¿Seguro dara de baja el producto?'.$comilla.')">
+                        <button type="submit" class="btn btn-danger">
+                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                        </button>
+                     </a>
+                     <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+                    </td>'
+
+
+                    .'</tr>';
+        }
+
+   
+        return Response($output);
+          
+       }        
+   
+    }
+    }
+
+
     public function store(){
     	//
     }
@@ -123,5 +167,10 @@ class InvoicesController extends Controller
      public function autocompleteClient(Request $request){
            
             return $this->clients->clientByCuit($request->input('p'));
+    }
+
+
+    public function show(){
+      return view ('admin.invoices.show');
     }
 }

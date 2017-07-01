@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">
+
+
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
    
@@ -281,6 +283,8 @@
     </script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+   
+
     <!-- Morris.js charts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="{{asset('plugins/morris/morris.min.js')}}"></script>
@@ -294,6 +298,17 @@
     <!-- daterangepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!--mydateranguepincker-->
+
+          <!-- Include Required Prerequisites -->
+      
+      <script type="text/javascript" src="{{asset('plugins/daterangepicker/moment.min.js')}}"></script>
+      
+ 
+      <!-- Include Date Range Picker -->
+     
+      <link rel="stylesheet" type="text/css" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}" />
+
     <!-- datepicker -->
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
     <!-- Bootstrap WYSIHTML5 -->
@@ -308,6 +323,10 @@
     <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}"></script>
+    <!--fechas-->
+  
+
+    <!--fin fechas-->
   
     <script src="{{asset('bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.min.js')}}"></script>
 
