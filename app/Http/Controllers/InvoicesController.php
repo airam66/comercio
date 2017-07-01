@@ -28,6 +28,39 @@ class InvoicesController extends Controller
                                             ->with('products',$products);
     }
 
+    public function store(Request $request){
+            //dd($request);
+  
+            $venta = new Invoice;
+            $venta->client_id=$request->get('client_id');
+            $venta->discount=$request->get('discount');
+            $venta->total=$request->get('Totalventa');
+            $venta->status=$request->get('status');
+            $venta->save();
+            //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE VENTA//++++++++++++++++++
+            $idarticulo = $request->get('dproduct_id');
+            $amount = $request->get('damount');
+            $price = $request->get('dprice');
+
+            $cont = 0;
+
+            while ( $cont < count($idarticulo) ) {
+                $detalle = new InvoiceProduct();
+                $detalle->invoice_id=$venta->id; //le asignamos el id de la venta a la que pertenece el detalle
+                $detalle->product_id=$idarticulo[$cont];
+                $detalle->amount=$amount[$cont];
+                $detalle->price=$price[$cont];
+                $detalle->subTotal=$amount[$cont]*$price[$cont];
+                $detalle->save();
+                $cont = $cont+1;
+
+            }
+
+            return redirect()->route('invoices.index');
+
+    }
+
+
     public function search(Request $request){
    
       if($request->ajax()){
@@ -150,11 +183,6 @@ public function searchDate(Request $request){
        }        
    
     }
-    }
-
-
-    public function store(){
-    	//
     }
 
     public function autocomplete(Request $request){

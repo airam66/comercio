@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     protected $table="invoices";
-    protected $fillable= ['discount','total'];
+    protected $fillable= ['discount','total','client_id','status'];
 
     public function scopeSearchInvoice($query,$fecha1,$fecha2){
 

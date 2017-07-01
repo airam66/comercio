@@ -7,8 +7,9 @@
 <div class="box-header ">
 <h2 class="box-title col-md-5">Categorias Encontradas</h2>
     
-                   <!-- search name form -->
-     
+                   
+        
+        <!-- search name form -->
         <form route='admin.categories.index'  method="GET" class="col-md-3 col-md-offset-4 ">
             <div class="input-group">
               <input type="text" name="name" class="form-control" placeholder="Nombre..."> 
@@ -18,6 +19,7 @@
             </div>
         </form>
           <!-- /.search form -->
+        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('categories.create') }}'"/> 
 
 </div>
 <div class="box-body">              

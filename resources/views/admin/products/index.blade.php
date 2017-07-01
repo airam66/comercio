@@ -7,7 +7,6 @@
 <div class="box-header ">
 <h2 class="box-title col-md-5">Productos Encontrados</h2>
   
-    
                    <!-- search name form -->
         <form route='admin.products.index'  method="GET" class="col-md-3 col-md-offset-1 ">
             <div class="input-group">
@@ -29,6 +28,7 @@
             </div>
         </form>
           <!-- /.search form -->
+        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('products.create') }}'"/> 
           
        @if($validacion)
           <br>

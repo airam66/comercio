@@ -158,56 +158,14 @@
 
             <li class="treeview">
               <a href="#">
-                 <i class="fa fa-magic"></i>
-                 <span>Categorias</span> <i class="fa fa-angle-left pull-right"></i>
-                 </a>
-                 <ul class="treeview-menu">
-                <li class="active"><a href="{{route('categories.create')}}"><i class="fa fa-circle-o"></i> Nueva categoria</a></li>
-                <li class="active"><a href="{{route('categories.index')}}"><i class="fa fa-circle-o"></i> Lista de categorias</a></li>
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="#">
-                 <i class="fa fa-birthday-cake"></i>
-                 <span>Eventos</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-               <ul class="treeview-menu">
-                <li class="active"><a href="{{route('events.create')}}"><i class="fa fa-circle-o"></i> Nuevo evento</a></li>
-                <li class="active"><a href="{{route('events.index')}}"><i class="fa fa-circle-o"></i> Lista de eventos</a></li>
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="#">
-                 <i class="fa fa-rocket" aria-hidden="true"></i>
-                 <span>Lineas</span> <i class="fa fa-angle-left pull-right"></i>
-                 </a>
-                 <ul class="treeview-menu">
-                <li class="active"><a href="{{route('lines.create')}}"><i class="fa fa-circle-o"></i> Nueva linea</a></li>
-                <li class="active"><a href="{{route('lines.index')}}"><i class="fa fa-circle-o"></i> Lista de lineas</a></li>
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="#">
-                 <i class="fa fa-tags"></i>
-                 <span>Marcas</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-               <ul class="treeview-menu">
-                <li class="active"><a href="{{route('brands.create')}}"><i class="fa fa-circle-o"></i> Nueva marca</a></li>
-                <li class="active"><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i> Lista de marcas</a></li>
-              
-              </ul>
-            </li>
-          
-            <li class="treeview">
-              <a href="#">
                  <i class="fa fa-gift"></i>
                  <span>Productos</span> <i class="fa fa-angle-left pull-right"></i>
-                  </a>
-                  <ul class="treeview-menu">
-                <li class="active"><a href="{{route('products.create')}}"><i class="fa fa-circle-o"></i> Nuevo producto</a></li>
+                 </a>
+                 <ul class="treeview-menu">
+                <li class="active"><a href="{{route('categories.index')}}"><i class="fa fa-circle-o"></i> Lista de categorias</a></li>
+                <li class="active"><a href="{{route('events.index')}}"><i class="fa fa-circle-o"></i> Lista de eventos</a></li>
+                <li class="active"><a href="{{route('lines.index')}}"><i class="fa fa-circle-o"></i> Lista de lineas</a></li>
+                <li class="active"><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i> Lista de marcas</a></li>
                 <li class="active"><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> Lista de productos</a></li>
                 <li class="active"><a href="{{route('porcentages.create')}}"><i class="fa fa-circle-o"></i> Porcentajes de ventas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
@@ -216,14 +174,16 @@
 
             <li class="treeview">
               <a href="#">
-
-                 <i class="fa fa-gift"></i>
+                 <i class="fa fa-money"></i>
                  <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
                 <li class="active"><a href="{{route('invoices.create')}}"><i class="fa fa-circle-o"></i> Nuevo factura</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
-
+            </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
                  <i class="fa fa-tags"></i>
                  <span>Pagina Web</span> <i class="fa fa-angle-left pull-right"></i>
               </a>

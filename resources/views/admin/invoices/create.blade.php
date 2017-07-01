@@ -11,10 +11,8 @@
       <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Nueva Venta</h3>
-          <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
-           
          </div>
-          <div class="box-body">
+      <div class="box-body">
           {!! Form::open(['route'=>'invoices.store', 'method'=>'POST', 'files'=>true])!!}
           <section class="invoice">
                 <!-- title row -->
@@ -72,6 +70,12 @@
                          {!!Field::text('name',null,['disabled'])!!}
                     </div>
 
+                    <div class="col-md-4 col-md-offset-2">
+                      <button type="button" id="btn_add" class="btn pull-right">
+                      <img src="{{ asset('images/images.png ') }}" width="50" height="50">
+                      </button>
+                    </div>
+
                 </div>
       <div class="border">
       <h3>Cliente</h3>
@@ -89,17 +93,18 @@
                       @include('admin.invoices.buscarcliente')
             </div>
       <div class="col-md-6  pull-right">
+                  <input id="client_id" name="client_id" class="form-control" type="hidden" >
                   {!!Field::text('nombre',null,['disabled'])!!}
       </div>
     </div>
 </div>
 <!--find busqueda de producto-->
                 <!-- Table row -->
-                <div class="row">
                   <div class="col-xs-12 table-responsive">
-                    <table class="table table-striped">
+                    <table id="details" class="table table-striped table-bordered table-condensed table-hover">
                       <thead>
                         <tr>
+                          <th>Eliminar</th>
                           <th>Codigo</th>
                           <th>Producto</th>
                           <th>Precio</th>
@@ -107,45 +112,14 @@
                           <th>Subtotal</th>
                         </tr>
                       </thead>
+
                       <tbody>
-                        <tr>
-                          <td>000111</td>
-                          <td>centro de mesa</td>
-                          <td>10</td>
-                          <td>5</td>
-                          <td>50</td>
-                        </tr>
-                        <tr>
-                          <td>000111</td>
-                          <td>centro de mesa</td>
-                          <td>10</td>
-                          <td>5</td>
-                          <td>50</td>
-                        </tr>
-                        <tr>
-                          <td>000111</td>
-                          <td>centro de mesa</td>
-                          <td>10</td>
-                          <td>5</td>
-                          <td>50</td>
-                        </tr>
-                          <tr>
-                          <td>000111</td>
-                          <td>centro de mesa</td>
-                          <td>10</td>
-                          <td>5</td>
-                          <td>50</td>
-                        </tr>
-                        <tr>
-                          <td>000111</td>
-                          <td>centro de mesa</td>
-                          <td>10</td>
-                          <td>5</td>
-                          <td>50</td>
-                        </tr>
+                         
+                      </tbody>
+
                     </table>
                   </div><!-- /.col -->
-                </div><!-- /.row -->
+               
 
                 <div class="row">
                   <!-- accepted payments column -->
@@ -159,24 +133,26 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>$250</td>
+                          <td>$<input type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
                         </tr>
                         <tr>
                           <th>Descuento</th>
-                          <td>%10</td>
+                          <td><input type="number" id="discount" name="discount">%</td>
                         </tr>
                         <tr>
                           <th>Total:</th>
-                          <td>$225.00</td>
+                          <td>$<input type="number" id="Totalventa" name="Totalventa" step="any"></td>
                         </tr>
                       </table>
                     </div>
                   </div><!-- /.col -->
-                </div><!-- /.row -->
 
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
                   <div class="col-xs-12">
+                      <div class= "form-group">
+                      {!! Form::hidden('status','activo',['class'=>'form-control'])!!} 
+                      </div>
 
                       <div class="form-group">
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
@@ -204,10 +180,6 @@
 @endsection
 
 @section('js')
-
-
-  
-
 <script type="text/javascript">
  var options={
     url: function(q){
@@ -251,7 +223,7 @@
 
 </script>
 
-<script type="text/javascript">
+<script>
 
 
   var options={
@@ -265,10 +237,12 @@
                     onClickEvent: function () { 
                         var client = $('#cuil').getSelectedItemData();
                         $('#nombre').val(client.name);
+                        $('#client_id').val(cleint.id);
                     },
                     onKeyEnterEvent: function () { 
                         var client = $('#cuil').getSelectedItemData();
                         $('#nombre').val(client.name);
+                        $('#client_id').val(client.id);
                     }
 
 
@@ -298,28 +272,27 @@
 
 </script>
 <script type="text/javascript">
-  function completeC($cuil,$name){
+  function completeC($id,$cuil,$name){
     $('#cuil').val($cuil);
     $('#nombre').val($name);
-
+    $('#client_id').val($id);
     $('#favoritesModalClient').modal('hide');
   };
 
 
 </script>
-<script type="text/javascript">
-function price_select($amount,$wholesale_cant){
-  if ($amount>=$wholesale_cant){
-        $('#price').val(this.form.wholesale_price.value);
+<script>
+function price_select(){
+  if (this.value>=$('#wholesale_cant').val()){
+        $('#price').val($('#priceW').val());
   }
-  if ($amount>=$wholesale_cant){
-        $('#price').val(this.form.retail_price.value);
+  if (this.value<$('#wholesale_cant').val()){
+        $('#price').val($('#priceR').val());
   }
 }
 </script>
 
-<script type="text/javascript">
-
+<script>
 $('#search').on('keyup', function(){
   $value=$(this).val();
   $.ajax({
@@ -332,11 +305,9 @@ $('#search').on('keyup', function(){
     
   })
 })
-
 </script>
 
 <script type="text/javascript">
-
 $('#searchC').on('keyup', function(){
   $value=$(this).val();
   $.ajax({
@@ -349,10 +320,66 @@ $('#searchC').on('keyup', function(){
     
   })
 })
+</script>
 
+<script>
+    $('#btn_add').on('click',function(){
+        invoice_detail();
+    });
+
+  var cont=0;
+  var Totalventa=0;
+  var Subtotal=[];
+
+  function invoice_detail(){
+    stock=$('#stock').val();
+    code=$('#code').val();
+    product_id=$('#product_id').val();
+    name=$('#name').val();
+    price=$('#price').val();
+    amount=$('#amount').val();
+  if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
+
+      if (stock >= amount){
+
+         Subtotal[cont]=parseFloat(amount)*parseFloat(price);
+         Totalventa=Totalventa+Subtotal[cont];
+
+              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+          cont++;
+          clear();
+        $('#Subtotalventa').val(Totalventa);
+        $('#details').append(fila);
+
+      }else{
+          alert ('La cantidad a vender supera el stock');
+      }
+
+  }else{
+        alert("Error al ingresar detalle de la cotización, revise la cantidad del producto a vender");
+  }
+}
+
+function deletefila(index){
+  Totalventa=Totalventa-Subtotalventa[index];
+  $('#Subtotalventa').val(Totalventa);
+  $('#fila'+index).remove();
+ }
+
+ function clear(){
+    $('#stock').val('');
+    $('#code').val('');
+    $('#product_id').val('');
+    $('#name').val('');
+    $('#price').val('');
+    $('#priceR').val('');
+    $('#priceW').val('');
+    $('#wholesale_cant').val('');
+    $('#amount').val('');
+ }
 </script>
  
- <script type="text/javascript">
+ <script>
 
   $('#searchB').on('click', function(){
   $value=$(this).val();
