@@ -33,7 +33,7 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
    
-    <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.css')}}">
     
 
     <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
@@ -288,7 +288,7 @@
 
     <!--fin fechas-->
   
-    <script src="{{asset('bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.min.js')}}"></script>
+    <script src="{{asset('bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.js')}}"></script>
 
     <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
 
