@@ -6,9 +6,9 @@
 
 <div class="box-header ">
 <h2 class="box-title col-md-5">Lineas Encontrados</h2>
-    
+        
+ 
                    <!-- search name form -->
-     
         <form route='admin.lines.index'  method="GET" class="col-md-3 col-md-offset-4 ">
             <div class="input-group">
               <input type="text" name="name" class="form-control" placeholder="Nombre..."> 
@@ -18,6 +18,7 @@
             </div>
         </form>
           <!-- /.search form -->
+        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('lines.create') }}'"/>
 
 </div>
 <div class="box-body">              
