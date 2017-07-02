@@ -65,6 +65,8 @@ Route::group(['prefix'=>'admin'], function(){
 
   route::resource('clients','ClientsController');
 
+  route::resource('providers','ProvidersController');
+
   Route::resource('carrusel','CarruselController');
 
   

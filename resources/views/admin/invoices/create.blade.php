@@ -22,7 +22,7 @@
                         <img src="{{ asset('images/cotillon.png ') }}" width="150" height="80"  >
                      
                       <div class="pull-right">
-                         <b>Venta N°: #########</b><br><br>
+                         <b>Venta N°:{{$numberinvoice}}</b><br><br>
                          <b>Fecha: {{$date}}</b>
                       </div>
                       
@@ -39,12 +39,9 @@
                          <input id="code" class="form-control" name="code" type="text" >
                          <input id="product_id" class="form-control " name="product_id" type="hidden" >
                     </div> 
-
-                   
                     <div class="pull-left">
                     <br>
                        <button type="button" class="btn btn-primary pull-left" data-toggle="modal" id="first" data-title="Buscar" data-target="#favoritesModalProduct">
-
                           <i class="fa fa-search"></i>
                        </button>
                    </div>
@@ -77,28 +74,27 @@
                     </div>
 
                 </div>
-      <div class="border">
-      <h3>Cliente</h3>
-      <div class="row ">
-             
-           <div class="col-md-3 pull-left" >
-                         {!! form::label('CUIL/CUIT')!!}
-                         <input id="cuil" class="form-control" name="cuil" type="text" >
-             </div>
-             <div class="pull-left">
-             <br>
-            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient">
-                          <i class="fa fa-search"></i>
-                       </button>
-                      @include('admin.invoices.buscarcliente')
-            </div>
-      <div class="col-md-6  pull-right">
-                  <input id="client_id" name="client_id" class="form-control" type="hidden" >
-                  {!!Field::text('nombre',null,['disabled'])!!}
-      </div>
-    </div>
-</div>
+                <div class="border">
+                <h3>Cliente</h3>
+                <div class="row ">
+                       
+                      <div class="col-md-3 pull-left" >
+                           {!! form::label('CUIL/CUIT')!!}
+                           <input id="cuil" class="form-control" name="cuil" type="text" >
+                       </div>
+                       <div class="pull-left">
+                       <br>
+                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
+                            @include('admin.invoices.buscarcliente')
+                      </div>
+                      <div class="col-md-6  pull-right">
+                            <input id="client_id" name="client_id" class="form-control" type="hidden" >
+                            {!!Field::text('nombre',null,['disabled'])!!}
+                      </div>
+                </div>
+                </div>
 <!--find busqueda de producto-->
+        <div>
                 <!-- Table row -->
                   <div class="col-xs-12 table-responsive">
                     <table id="details" class="table table-striped table-bordered table-condensed table-hover">
@@ -124,11 +120,11 @@
                 <div class="row">
                   <!-- accepted payments column -->
                   <div class="col-xs-6">
-                  </div><!-- /.col -->
+                  </div>
                   <div class="col-xs-6">
-                  <div class="text-center" style="background-color: gray;">
-                    <h3 style="color:white;">Total</h3>
-                    </div>
+                      <div class="text-center" style="background-color: gray;">
+                        <h3 style="color:white;">Total</h3>
+                      </div>
                     <div class="table-responsive">
                       <table class="table">
                         <tr>
@@ -137,7 +133,12 @@
                         </tr>
                         <tr>
                           <th>Descuento</th>
-                          <td><input type="number" id="discount" name="discount">%</td>
+                          <td><div class="checkbox">
+                                  <label>
+                                      <input id="discount" name="discount" type="checkbox" value="10">
+                                      10%
+                                  </label>
+                              </div></td>
                         </tr>
                         <tr>
                           <th>Total:</th>
@@ -146,6 +147,7 @@
                       </table>
                     </div>
                   </div><!-- /.col -->
+              </div>
 
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
@@ -161,7 +163,7 @@
                 </div>
               </section><!-- /.content -->
 
-             
+             </div>
  
               {!! Form::close() !!}
 
@@ -191,40 +193,31 @@
                     },
                     onClickEvent: function () { 
                         var product = $("#code").getSelectedItemData();
-                         $('#stock').val(product.stock);
-                         $('#product_id').val(product.id);
-                        $('#name').val(product.name);
-                        $('#price').val(product.retail_price);//por defecto
-                        $('#priceR').val(product.retail_price);
-                        $('#priceW').val(product.wholesale_price);
-                       
-                        $('#wholesale_cant').val(product.wholesale_cant);
+                          $('#stock').val(product.stock);
+                          $('#product_id').val(product.id);
+                          $('#name').val(product.name);
+                          $('#price').val(product.retail_price);//por defecto
+                          $('#priceR').val(product.retail_price);
+                          $('#priceW').val(product.wholesale_price);
+                          $('#wholesale_cant').val(product.wholesale_cant);
                     },
                     onKeyEnterEvent: function () { 
                         var product = $("#code").getSelectedItemData();
-                         $('#stock').val(product.stock);
-                         $('#product_id').val(product.id);
-                        $('#name').val(product.name);
-                        $('#price').val(product.retail_price);//por defecto
-                        $('#priceR').val(product.retail_price);
-                        $('#priceW').val(product.wholesale_price);
-                       
-                        $('#wholesale_cant').val(product.wholesale_cant);
-
+                          $('#stock').val(product.stock);
+                          $('#product_id').val(product.id);
+                          $('#name').val(product.name);
+                          $('#price').val(product.retail_price);//por defecto
+                          $('#priceR').val(product.retail_price);
+                          $('#priceW').val(product.wholesale_price);
+                          $('#wholesale_cant').val(product.wholesale_cant);
                     }
-
-
                 }
-
    };
   
   $("#code").easyAutocomplete(options);
-
-
 </script>
 
 <script>
-
 
   var options={
     url: function(p){
@@ -244,13 +237,10 @@
                         $('#nombre').val(client.name);
                         $('#client_id').val(client.id);
                     }
-
-
                 }
-
    };
   
-  $("#cuit").easyAutocomplete(options);
+  $("#cuil").easyAutocomplete(options);
 
 
 </script>
@@ -263,7 +253,6 @@
     $('#price').val($retail);//por defecto
     $('#priceR').val($retail);
     $('#priceW').val($wholesale);
-    
     $('#wholesale_cant').val($amount);
 
     $('#favoritesModalProduct').modal('hide');
@@ -290,6 +279,19 @@ function price_select(){
         $('#price').val($('#priceR').val());
   }
 }
+</script>
+
+<script>
+$('#discount').on('click', function(){
+  St=$('#Subtotalventa').val();
+  Tvo=$('#Totalventa').val();
+    if(St==Tvo){
+      Tvn=parseFloat(St*0.1)+parseFloat(St);
+        $('#Totalventa').val(Tvn); 
+     }else{
+        $('#Totalventa').val(St);
+     }
+})
 </script>
 
 <script>
@@ -340,7 +342,7 @@ $('#searchC').on('keyup', function(){
     amount=$('#amount').val();
   if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
 
-      if (stock >= amount){
+      if (stock < amount){
 
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          Totalventa=Totalventa+Subtotal[cont];
@@ -349,6 +351,7 @@ $('#searchC').on('keyup', function(){
           cont++;
           clear();
         $('#Subtotalventa').val(Totalventa);
+        $('#Totalventa').val(Totalventa); 
         $('#details').append(fila);
 
       }else{
