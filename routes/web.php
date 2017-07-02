@@ -44,7 +44,7 @@ Route::group(['prefix'=>'admin'], function(){
      
   Route::resource('products','ProductsController');
       Route::get('/search','InvoicesController@search');
-      Route::get('/searchClient','InvoicesController@searchClient');
+      
       Route::get('/searchL','InvoicesController@searchL');
        Route::get('/searchData','InvoicesController@searchDate');
       
@@ -61,12 +61,12 @@ Route::group(['prefix'=>'admin'], function(){
     Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
   Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
   
-
+Route::resource('purchases','PurchasesController');
 
   route::resource('clients','ClientsController');
-
+      Route::get('/searchClient','InvoicesController@searchClient');
   route::resource('providers','ProvidersController');
-
+      Route::get('/searchProvider','PurchasesController@searchProvider');
   Route::resource('carrusel','CarruselController');
 
   
