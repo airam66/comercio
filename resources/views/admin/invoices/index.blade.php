@@ -143,14 +143,22 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 <script type="text/javascript">
 function myDetail(id){
 dir=baseUrl('admin/invoices/'+id);
-
 window.location.replace(dir); 
-         
-
-
-    
+             
 } 
 
+
+</script>
+<script type="text/javascript">
+function myDelete(id){
+  $.ajax({
+
+type: "POST",
+url: "{{ URL::to('admin/invoices/desable')}}",
+data: { id: id }
+});
+
+}
 </script>
 
 @endsection

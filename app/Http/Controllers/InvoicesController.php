@@ -164,29 +164,36 @@ public function searchDate(Request $request){
       $invoices=Invoice::SearchInvoice($request->fecha1,$request->fecha2)->get();
        if ($invoices) {
         foreach ($invoices as $key => $invoice) {
-                  $output.='<tr>'.
+          $dir="{{route('invoice.desable',".$invoice->id.")}}";
+                if ($invoice->status!='inactivo'){
+                  $output .='<tr role="row" class="odd">';
+                }
+                else{
+                  $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
+                };
+                  $output=$output.
                         '<td>'.$invoice->id.'</td>'.
                         '<td>'.$invoice->created_at.'</td>'.
                         '<td>'.$invoice->client->name.'</td>'.
                         '<td>'.$invoice->total.'</td>'.
-
                         '<td>
                          
                         <button type="button" class="btn btn-primary "  data-title="Detail" onclick="myDetail('.$invoice->id.')">
                          <i class="fa fa-list" aria-hidden="true"></i>
-                          </button>
-                         
+                          </button>';
 
-                          <a href="" onclick="return confirm('.$comilla.'¿Seguro dara de baja el producto?'.$comilla.')">
+                          if ($invoice->status!='inactivo'){
+                            $output .= '<a  onclick="return confirm('.$comilla.'¿Seguro dara de baja el producto?'.$comilla.'),myDelete('.$invoice->id.')">
                         <button type="submit" class="btn btn-danger">
                           <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
-                        </button>
-                     </a>
-                     <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
-                    </td>'
+                        </button>';
+                            }
+                
 
+                          
+                     
 
-                    .'</tr>';
+                  $output .= '</tr>';
         }
           
    
@@ -197,11 +204,12 @@ public function searchDate(Request $request){
     }
     }
 
-       public function desable($id)
+       public function desable(Request $request)
     {
-        $invoice= Invoice::find($id);
+        $invoice= Invoice::find($request->id);
         $invoice->status='inactivo';
         $invoice->save();
+        ajax();
         return redirect()->route('admin.invoices.index');
     }
 
