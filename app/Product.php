@@ -76,7 +76,7 @@ class Product extends Model
     }
 
     public static function productByCode($term){
-        return static::select('id', 'name','code','stock','purchase_price')
+        return static::select('id', 'name','code','stock','wholesale_price','retail_price','wholesale_cant')
             ->where('code','LIKE',"%$term%")
             ->get();
 

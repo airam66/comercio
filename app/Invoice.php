@@ -15,6 +15,7 @@ class Invoice extends Model
     public function scopeSearchInvoice($query,$fecha1,$fecha2){
 
         return $query->whereBetween('created_at', [$fecha1,$fecha2 ]);
+
     }
 
     public function client(){
@@ -25,4 +26,5 @@ class Invoice extends Model
 
 
 }
+	
 

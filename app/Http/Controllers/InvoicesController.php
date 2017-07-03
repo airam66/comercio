@@ -24,13 +24,20 @@ class InvoicesController extends Controller
     public function create(){
     	$date=date('d').'/'.date('m').'/'.date('Y');
         $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
+        $clients=Client::where('status','=','activo')->orderBy('name','ASC')->get();
+        $numberinvoice=Invoice::all()->pluck('id');
+        if (count($numberinvoice)!=0){
+          $numberinvoice=($numberinvoice->last()+1);
+        }else{
+          $numberinvoice=1;
+        }
     	return view('admin.invoices.create')->with('date',$date)
-                                            ->with('products',$products);
+                                          ->with('products',$products)
+                                          ->with('clients',$clients)
+                                          ->with('numberinvoice',$numberinvoice);
     }
 
     public function store(Request $request){
-            //dd($request);
-  
             $venta = new Invoice;
             $venta->client_id=$request->get('client_id');
             $venta->discount=$request->get('discount');
@@ -104,9 +111,9 @@ class InvoicesController extends Controller
                         '<td>'.$client->phone.'</td>'.
                         '<td>'.$client->email.'</td>'.
 
-                        '<td><a onclick="completeC('.$client->id.','.
 
-                         $client->cuil.','.$comilla.$client->name.$comilla.')" type="button" class="btn btn-primary"> Agregar </a></td>'
+                       
+                       '<td><a onclick="completeC('.$comilla.$client->id.$comilla.','.$client->cuil.','.$comilla.$client->name.$comilla.')" type="button" class="btn btn-primary"> Agregar </a></td>'
 
 
                     .'</tr>';

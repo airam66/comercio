@@ -15,8 +15,8 @@ class Client extends Model
         return $this->hasMany('App\Invoice');
     }
     public static function clientByCuit($term){
-        return static::select('id', 'name','cuit','address' ,'phone','email')
-            ->where('cuit','LIKE',"%$term%")
+        return static::select('id', 'name','cuil','address' ,'phone','email')
+            ->where('cuil','LIKE',"%$term%")
             ->get();
 
     }   
