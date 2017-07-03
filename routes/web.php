@@ -43,15 +43,16 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('brands','BrandController');   
      
   Route::resource('products','ProductsController');
-      Route::get('/search','InvoicesController@search');
+  Route::get('/search','InvoicesController@search');
       
-      Route::get('/searchL','InvoicesController@searchL');
-       Route::get('/searchData','InvoicesController@searchDate');
-       Route::get('/invoices/print','InvoicesController@print')->name('print');
-       Route::get('show2','InvoicesController@show2');
-      Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
-      Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
-      Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
+  Route::get('/searchL','InvoicesController@searchL');
+  Route::get('/searchData','InvoicesController@searchDate');
+  Route::post('invoices/desable','InvoicesController@desable')->name('invoices.desable');
+  Route::get('/invoices/print','InvoicesController@print')->name('print');
+  Route::get('show2','InvoicesController@show2');
+  Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
+  Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
+  Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
 
   Route::resource('lines','LinesController');
 
