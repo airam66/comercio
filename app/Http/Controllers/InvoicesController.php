@@ -41,6 +41,9 @@ class InvoicesController extends Controller
             $venta = new Invoice;
             $venta->client_id=$request->get('client_id');
             $venta->discount=$request->get('discount');
+            if (empty($venta->discount)){
+              $venta->discount=0;
+            }
             $venta->total=$request->get('Totalventa');
             $venta->status=$request->get('status');
             $venta->save();
@@ -110,10 +113,8 @@ class InvoicesController extends Controller
                         '<td>'.$client->address.'</td>'.
                         '<td>'.$client->phone.'</td>'.
                         '<td>'.$client->email.'</td>'.
-
-
                        
-                       '<td><a onclick="completeC('.$comilla.$client->id.$comilla.','.$client->cuil.','.$comilla.$client->name.$comilla.')" type="button" class="btn btn-primary"> Agregar </a></td>'
+                        '<td><a onclick="completeC('.$comilla.$client->id.$comilla.','.$client->cuil.','.$comilla.$client->name.$comilla.')" type="button" class="btn btn-primary"> Agregar </a></td>'
 
 
                     .'</tr>';

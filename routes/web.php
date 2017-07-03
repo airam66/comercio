@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes
 
-Route::resource('cotillon','MainPagineController');
+Route::resource('cotillon','MainPagineController'); 
 
 
 // rutas para la pagina de administracion del sistema
@@ -58,16 +58,18 @@ Route::group(['prefix'=>'admin'], function(){
   Route::resource('porcentages','PorcentagesController');
 
   Route::resource('invoices','InvoicesController');
-    Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
-    Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
-  Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
+      Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+      Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
+      Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
   
-Route::resource('purchases','PurchasesController');
-
+  Route::resource('purchases','PurchasesController');
+      Route::get('/searchProvider','PurchasesController@searchProvider');
   route::resource('clients','ClientsController');
       Route::get('/searchClient','InvoicesController@searchClient');
   route::resource('providers','ProvidersController');
       Route::get('/searchProvider','PurchasesController@searchProvider');
+  route::resource('providersproducts','ProvidersProductsController');
+  
   Route::resource('carrusel','CarruselController');
 
   

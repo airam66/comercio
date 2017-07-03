@@ -94,7 +94,7 @@
                 </div>
                 </div>
 <!--find busqueda de producto-->
-        <div>
+        </div>
                 <!-- Table row -->
                   <div class="col-xs-12 table-responsive">
                     <table id="details" class="table table-striped table-bordered table-condensed table-hover">
@@ -158,7 +158,6 @@
 
                       <div class="form-group">
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
-                        
                        </div>
                   </div>
                 </div>
@@ -245,7 +244,7 @@
 
 
 </script>
-<script type="text/javascript">
+<script >
   function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
     $('#stock').val($stock);
      $('#code').val($code);
@@ -341,10 +340,10 @@ $('#searchC').on('keyup', function(){
     name=$('#name').val();
     price=$('#price').val();
     amount=$('#amount').val();
+    
   if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
 
-      if (stock < amount){
-
+      if (parseInt(amount)<parseInt(stock)){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          Totalventa=Totalventa+Subtotal[cont];
 
