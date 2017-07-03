@@ -29,6 +29,9 @@ class Product extends Model
     public function event(){
         return $this->belongsToMany('App\Event') ;
     }
+    public function invoice(){
+        return $this->belongsToMany('App\Invoice') ;
+    }
 
     public function newCode($category_id,$product_code){
         //concatena id o code con id de categoria

@@ -158,6 +158,7 @@
 
                       <div class="form-group">
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
+                        
                        </div>
                   </div>
                 </div>
