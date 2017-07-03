@@ -13,10 +13,10 @@
         <div class='col-sm-6'>
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker2'>
-                     <input type="text" id="daterange" name="daterange" class="form-control">
-                      <span class="input-group-addon">
-                         <span class="glyphicon glyphicon-calendar"></span>
-                       </span>
+                     
+                     <input type="text" id="daterange"  name="daterange" class="form-control"  >                      <span class="input-group-addon">
+                        <a href="{{route('invoices.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
+                       </span></a>
                 </div>
             </div>
         </div>
@@ -111,22 +111,46 @@ $('input[name="daterange"]').daterangepicker(
             "firstDay": 1
        
     },
-    startDate: '30-06-2017',
-    endDate: '31-07-2017'
-}, 
-function(start, end, label) {
-   $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchDate')}}",
-    data:{'fecha1':start,'fecha2':start,},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
+    startDate: '30-06-2015',
+    endDate: '31-07-2015'
 
-    alert("Un nuevo rango de fechas se ha elegido: " + start.format('DD-MM-YYYY') + ' a ' + end.format('DD-MM-YYYY'));
 });
 </script>
 
+<script type="text/javascript">
 
+  $('#daterange').on('change',function(){
+
+var f1=$('#daterange') .data('daterangepicker').startDate.format('YYYY-MM-DD');
+var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchData')}}",
+    data:{'fecha1':f1,
+          'fecha2':f2},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+
+
+
+    
+});
+</script>
+<script type="text/javascript">
+function myDetail(id){
+dir=baseUrl('admin/invoices/'+id);
+
+window.location.replace(dir); 
+         
+
+
+    
+} 
+
+</script>
 
 @endsection
