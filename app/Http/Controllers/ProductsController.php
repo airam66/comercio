@@ -54,6 +54,8 @@ class ProductsController extends Controller
         $lines=Line::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
         $brands=Brand::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
         $events=Event::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $route=redirect()->back()->getTargetUrl();
+        
 
         if (empty($porcentage->wholesale_porcentage)){
                 return redirect()->route('products.index');
@@ -62,14 +64,14 @@ class ProductsController extends Controller
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
                                             ->with('events',$events)
-                                            ->with('porcentage',$porcentage);
+                                            ->with('porcentage',$porcentage)
+                                            ->with('route',$route);
 
     }
 
     }
     public function store(ProductRequest $request)
     {
-
         $products= new Product($request->all());
          if($request->file('image')){
                  $file =$request->file('image');
@@ -91,7 +93,7 @@ class ProductsController extends Controller
 
         $products->event()->sync($request->events);
 
-       return redirect()->route('products.index');
+        return redirect()->to($request->route);
 
     }
 

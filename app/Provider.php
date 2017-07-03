@@ -10,10 +10,10 @@ class Provider extends Model
 
     protected $fillable= ['name','cuit','address','location','province','phone','email','bill','status'];
 
-   /* public function productos()
-    {
-        return $this->hasMany('App\Invoice');
-    }*/
+    public function products(){
+        return $this->belongsToMany('App\Product');
+
+    }
 
     public static function providerByCuit($term){
         return static::select('id', 'name','cuit','address' ,'phone','email','province')

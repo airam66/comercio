@@ -33,6 +33,10 @@ class Product extends Model
         return $this->belongsToMany('App\Invoice') ;
     }
 
+    public function provider(){
+        return $this->belongsToMany('App\Provider') ;
+    }
+
     public function newCode($category_id,$product_code){
         //concatena id o code con id de categoria
         //(string)$var o strval($var)
