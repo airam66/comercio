@@ -79,6 +79,11 @@ class Product extends Model
         ;
     }
 
+    public function scopeSearchProductP($query,$name,$provider){
+
+        return $query->where('name','LIKE', $name . "%");
+    }
+
     public static function productByCode($term){
         return static::select('id', 'name','code','stock','wholesale_price','retail_price','wholesale_cant')
             ->where('code','LIKE',"%$term%")
