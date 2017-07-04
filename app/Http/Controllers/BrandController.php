@@ -38,6 +38,6 @@ class BrandController extends Controller
        flash("La marca  ". $brand->name . " ha sido creada con exito" , 'success')->important();
      
 
-       return redirect()->route('brands.create');//redirecciona la categoria
+       return redirect()->route('brands.index');//redirecciona la categoria
     }
 }

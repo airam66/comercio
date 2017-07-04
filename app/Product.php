@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Product extends Model
 {
     protected $table="products";
-
-   protected $fillable= ['code','name','category_id','line_id','brand_id','wholesale_cant','description','stock','extension','status','purchase_price','wholesale_price','retail_price'];
+    protected $fillable= ['code','name','category_id','line_id','brand_id','wholesale_cant','description','stock','extension','status','purchase_price','wholesale_price','retail_price'];
 
     public function category(){
 
@@ -29,6 +28,13 @@ class Product extends Model
 
     public function event(){
         return $this->belongsToMany('App\Event') ;
+    }
+    public function invoice(){
+        return $this->belongsToMany('App\Invoice') ;
+    }
+
+    public function provider(){
+        return $this->belongsToMany('App\Provider') ;
     }
 
     public function newCode($category_id,$product_code){
@@ -73,12 +79,12 @@ class Product extends Model
         ;
     }
 
-    public function productByCode($q){
-        return $this->where('code','LIKE',"%$q%")->get();
-    }
+    public static function productByCode($term){
+        return static::select('id', 'name','code','stock','wholesale_price','retail_price','wholesale_cant')
+            ->where('code','LIKE',"%$term%")
+            ->get();
 
-
-    
+    }    
  
      
 }

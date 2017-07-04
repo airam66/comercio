@@ -119,6 +119,12 @@ return [
     'attributes' => [
     'name'                   =>        'nombre',
     'category_id'            =>        'categoria',
+    'cuil'                   =>        'CUIL/CUIT',
+    'cuit'                   =>        'CUIT',
+    'address'                =>        'direccion',
+    'location'               =>        'localidad',
+    'province'               =>        'provincia',
+    'phone'                  =>        'telefono',
     'line_id'                =>        'lines',
     'brand_id'               =>        'marca',
     'purchase_price'         =>        'precio',

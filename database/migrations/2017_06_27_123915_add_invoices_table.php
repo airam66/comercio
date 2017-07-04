@@ -17,6 +17,9 @@ class AddInvoicesTable extends Migration
             $table->increments('id');
             $table->integer('discount');
             $table->decimal('total',9,2);
+            $table->enum('status', ['activo','inactivo'])->default('activo');
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->timestamps();
         });
     

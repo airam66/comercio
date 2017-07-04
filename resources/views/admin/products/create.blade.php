@@ -48,12 +48,12 @@
               {!! Form::label('description','Descripcion')!!}
               {!! Form::text('description',"", ['class'=>'form-control'])!!}
               </div>
-            
-              <div class="col-md-4">
-              {!! form::label('Precio de compra')!!}
               
-              <input class="form-control" onkeyup="this.form.wholesale_price.value=parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100;this.form.retail_price.value=parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100;" name="purchase_price" type="number" whit step="any">
-              </div>
+              <div class="controls col-md-4">
+              {!! form::label('Precio de compra')!!}
+             <input step="any" class="form-control" id="purchase_price" name="purchase_price" type="number" onkeyup="this.form.wholesale_price.value=parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100;this.form.retail_price.value=parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100;"><!--p class="help-block">El campo Precio de compra es obligatorio</p-->
+             </div>
+
               <div class="col-md-3 col-md-offset-1">
               {!! Field::number('wholesale_price','<input name="wholesale_price" type="number" with step="any">', ['class'=>'form-control','step'=>'any'])!!}
               </div>
@@ -71,11 +71,11 @@
               {!! Form::label('status','Estado')!!}
               {!! Form::select('status', ['activo'=>'activo','inactivo'=>'inactivo'],null,['class'=>'form-control'])!!} 
               </div>
-
+              {!! Form::hidden('route',$route)!!}
               <div class="form-group">
               {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
               </div>
-          
+              
  
               {!! Form::close() !!}
 

@@ -10,14 +10,11 @@
         <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Modificar producto</h3>
-           
 
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Minimizar">
-                <i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Cerrar">
-                <i class="fa fa-times"></i></button>
-            </div>
+           </div>
+
+          
+
           </div>
           <div class="box-body">
             
@@ -25,7 +22,7 @@
 
               <div class= "col-md-4">
               {!!form::label('Producto: ')!!}
-              {{($product->name)}}
+              {{ $product->name }}
               </div>
 
               <div class= "col-md-4">
@@ -71,7 +68,7 @@
 
               <div class="form-group">
               {!! Form::label('wholesale_cant','Cantidad de venta Mayorista')!!}
-              {!! Form::number('wholesale_cant',null, ['class'=>'form-control'])!!}
+              {!! Form::number('wholesale_cant',$product->wholesale_cant, ['class'=>'form-control'])!!}
               </div>
 
               <div class="form-group">
@@ -93,7 +90,7 @@
 @section('js')
 <script>
   $('.select-tag').chosen({
-   // placeholder_text_multiple: "Seleccione los eventos",
+    placeholder_text_multiple: "Seleccione los eventos",
 
     
   });

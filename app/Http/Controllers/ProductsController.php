@@ -54,6 +54,8 @@ class ProductsController extends Controller
         $lines=Line::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
         $brands=Brand::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
         $events=Event::where('status','=','activo')->orderBy('name','ASC')->pluck('name','id')->ToArray();
+        $route=redirect()->back()->getTargetUrl();
+        
 
         if (empty($porcentage->wholesale_porcentage)){
                 return redirect()->route('products.index');
@@ -62,14 +64,14 @@ class ProductsController extends Controller
                                             ->with('lines',$lines)
                                             ->with('brands',$brands)
                                             ->with('events',$events)
-                                            ->with('porcentage',$porcentage);
+                                            ->with('porcentage',$porcentage)
+                                            ->with('route',$route);
 
     }
 
     }
     public function store(ProductRequest $request)
     {
-
         $products= new Product($request->all());
          if($request->file('image')){
                  $file =$request->file('image');
@@ -81,11 +83,6 @@ class ProductsController extends Controller
 
         $request->code=$products->newCode($request->category_id,$request->code);
 
-        $this->validate($request,[
-             'code'=> 'unique:products',  
-        ]);
-        
-        
         $products->code=$request->code;
         $products->status=$request->status;
         $products->category_id= $request->category_id;
@@ -96,7 +93,7 @@ class ProductsController extends Controller
 
         $products->event()->sync($request->events);
 
-       return redirect()->route('products.index');
+        return redirect()->to($request->route);
 
     }
 
@@ -150,9 +147,7 @@ class ProductsController extends Controller
    
     public function update(Request $request, $id)
     {
-
       $this->validate($request,[
-          'category_id'=>'required|exists:categories,id',
           'line_id'=>'required|exists:lines,id',
           'brand_id'=>'required|exists:brands,id',
           'stock'=>'required',
@@ -161,12 +156,7 @@ class ProductsController extends Controller
 
         $products= Product::find($id);
 
-        if($request->code!=$products->code){
-          $this->validate($request,['code'=> 'max:20|min:3|unique:products',]);
-        }
-
         $products->fill($request->all());
-
 
          if($request->file('image')){
                  $file =$request->file('image');
@@ -178,10 +168,6 @@ class ProductsController extends Controller
                     }
           }
 
-        $products->code=$products->newCode($request->category_id,$request->code);
-        $products->category_id= $request->category_id;
-        $products->line_id= $request->line_id;
-        $products->brand_id= $request->brand_id;
         $products->save();
        return redirect()->route('products.index');
     }

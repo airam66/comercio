@@ -1,7 +1,9 @@
 <!--POPUP-->
 
- <div class="modal fade" id="favoritesModal" tabindex="-1" 
-      role="dialog"aria-labelledby="favoritesModalLabel">
+
+ <div class="modal fade" id="favoritesModalProduct" tabindex="-1" 
+
+      role="dialog" aria-labelledby="favoritesModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color:lightgray">
@@ -12,84 +14,56 @@
       </div>
       <div class="modal-body">
 <div>
+   <a class="btn"  id ="searchL" onclick="$('#searchA').val('A')">A</a> |
+  <a class="btn" id ="searchB"  onclick="$('#searchB').val('B')">B</a>|
+  <a class="btn" id ="searchC"  onclick="$('#searchC').val('C')">C</a>|
+  <a class="btn" id ="searchD"  onclick="$('#searchD').val('D')">D</a>|
+  <a class="btn" id ="searchE"  onclick="$('#searchE').val('E')">E</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">F</a>|
+  <a class="btn" id ="searchG"  onclick="$('#searchG').val('G')">G</a>|
+  <a class="btn" id ="searchH"  onclick="$('#searchH').val('H')">H</a>|
+  <a class="btn" id ="searchI"  onclick="$('#searchI').val('I')">I</a>|
+  <a class="btn" id ="searchJ"  onclick="$('#searchJ').val('J')">J</a>|
+  <a class="btn" id ="searchK"  onclick="$('#searchK').val('K')">K</a>|
+  <a class="btn" id ="searchL"  onclick="$('#searchL').val('L')">L</a>|
+  <a class="btn" id ="searchM"  onclick="$('#searchM').val('M')">M</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">N</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">O</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">P</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">Q</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">R</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">S</a>|
+  <a class="btn" id ="searchT"  onclick="$('#searchT').val('T')">T</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">U</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">V</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">W</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">X</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">Y</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F')">Z</a>|
+  <a class="btn" id ="searchTD"  onclick="$('#searchTD').val('')">TODOS</a>
 
-  <a href="{{route('SearchLetra',$letra='A')}}" >A</a>|
-  <a href="{{route('SearchLetra',$letra='B')}}">B</a>|
-  <a href="{{route('SearchLetra',$letra='C')}}">C</a>|
-  <a href="{{route('SearchLetra',$letra='D')}}">D</a>|
-  <a href="{{route('SearchLetra',$letra='E')}}">E</a>|
-  <a href="{{route('SearchLetra',$letra='F')}}">F</a>|
-  <a href="{{route('SearchLetra',$letra='G')}}">G</a>|
-  <a href="{{route('SearchLetra',$letra='H')}}">H</a>|
-  <a href="{{route('SearchLetra',$letra='I')}}">I</a>|
-  <a href="{{route('SearchLetra',$letra='J')}}">J</a>|
-  <a href="{{route('SearchLetra',$letra='K')}}">K</a>|
-  <a href="{{route('SearchLetra',$letra='L')}}">L</a>|
-  <a href="{{route('SearchLetra',$letra='M')}}">M</a>|
-  <a href="{{route('SearchLetra',$letra='N')}}">N</a>|
-  <a href="{{route('SearchLetra',$letra='O')}}">O</a>|
-  <a href="{{route('SearchLetra',$letra='P')}}">P</a>|
-  <a href="{{route('SearchLetra',$letra='Q')}}">Q</a>|
-  <a href="{{route('SearchLetra',$letra='R')}}">R</a>|
-  <a href="{{route('SearchLetra',$letra='S')}}">S</a>|
-  <a href="{{route('SearchLetra',$letra='T')}}">T</a>|
-  <a href="{{route('SearchLetra',$letra='U')}}">U</a>|
-  <a href="{{route('SearchLetra',$letra='V')}}">V</a>|
-  <a href="{{route('SearchLetra',$letra='W')}}">W</a>|
-  <a href="{{route('SearchLetra',$letra='X')}}">X</a>|
-  <a href="{{route('SearchLetra',$letra='Y')}}">Y</a>|
-  <a href="{{route('SearchLetra',$letra='Z')}}">Z</a>|
-  <a href="{{route('buscarproducto')}}">TODOS</a>
 
-        <!-- search name form
-        <form route='admin.invoices.buscarproducto'  method="GET" class="col-md-3 col-md-offset-1 ">
-            <div class="input-group">
-              <input type="text" name="name" class="form-control" placeholder="Nombre..."> 
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-        </form>
-         /.search form -->
-        <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
+  <div class="input-group pull-right" >
+  <input type="text" name="search" id="search" class="form-control"   placeholder="Nombre..."> 
+  </div>
+      
+        
+  <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
-        <thead>
+    <thead>
             <tr>
              <th style="width:10px">Codigo</th>
                 <th>Nombre</th>
                 <th>Stock</th>
-                <th>Categoría</th>
-                <th>Línea</th>
-                <th>Imagen</th> 
                 <th>Acción</th>
                    
             </tr>
-        </thead>
+    </thead>
      
        
        
-<tbody>
-   @foreach($products as $product) 
-
-            <td class="sorting_1">{{$product->code}}</td>
-            <td>{{$product->name}}</td>
-            <td>{{$product->stock}}</td>
-            <td>{{$product->category->name}}</td>   
-            
-            <td>{{$product->line->name}}</td>
-                        <td> 
-            @if($product->extension!=null)
-                    <div>
-                    <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" >
-                    </div>
-            @endif
-            </td>
-
-                      
-            <td></td>
-           
-        </tr>
-  @endforeach
+<tbody id="mostrar">
+   
 </tbody>
    
     </table>
@@ -99,11 +73,6 @@
         <button type="button" 
            class="btn btn-default" 
            data-dismiss="modal">SALIR</button>
-        <span class="pull-right">
-          <button type="button" class="btn btn-primary">
-            AGREGAR
-          </button>
-        </span>
       </div>
     </div>
   </div>
