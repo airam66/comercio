@@ -39,13 +39,16 @@ class InvoicesController extends Controller
 
     public function store(Request $request){
             $venta = new Invoice;
+            $venta->total=$request->get('Totalventa');
+            $venta->status=$request->get('status');
             $venta->client_id=$request->get('client_id');
+            if (empty($venta->client_id)){
+              $venta->client_id=1;
+            }
             $venta->discount=$request->get('discount');
             if (empty($venta->discount)){
               $venta->discount=0;
             }
-            $venta->total=$request->get('Totalventa');
-            $venta->status=$request->get('status');
             $venta->save();
             //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE VENTA//++++++++++++++++++
             $idarticulo = $request->get('dproduct_id');
@@ -215,7 +218,7 @@ public function searchDate(Request $request){
 
      public function autocompleteClient(Request $request){
            
-            return $this->clients->clientByCuit($request->input('p'));
+            return $this->clients->clientByCuil($request->input('p'));
     }
 
 

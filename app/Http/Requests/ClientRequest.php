@@ -30,7 +30,7 @@ class ClientRequest extends FormRequest
             'location'=>'required',
             'address'=>'required',
             'email'=>'unique:clients',
-            'phone'=>'max:15|min:10|required',
+            'phone'=>'max:15|min:7|required',
         ];
     }
 }
