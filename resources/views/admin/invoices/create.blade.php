@@ -128,7 +128,7 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>$<input type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
+                          <td>$<input disabled type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
                         </tr>
                         <tr>
                           <th>Descuento</th>
