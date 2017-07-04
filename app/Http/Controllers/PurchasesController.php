@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Provider;
@@ -32,12 +32,16 @@ class PurchasesController extends Controller
     }
 
 
-    public function search(Request $request){
-   
+    public function searchProducts(Request $request){
       if($request->ajax()){
         $output="";
         $comilla="'";
-      $products=Product::SearchProduct($request->search)->get();
+      $products= DB::table('providers_products as pp')
+              ->join('products as p','pp.product_id','=','p.id')
+              ->select('*')
+              ->where('name','LIKE', $request->searchProducts."%")
+              ->where('pp.provider_id','=',$request->provider_id)->get();
+
        if ($products) {
         foreach ($products as $key => $product) {
                   $output.='<tr>'.
@@ -50,8 +54,6 @@ class PurchasesController extends Controller
 
                     .'</tr>';
         }
-
-   
         return Response($output);
           
        }        

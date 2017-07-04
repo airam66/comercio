@@ -33,6 +33,10 @@ class Product extends Model
         return $this->belongsToMany('App\Invoice') ;
     }
 
+    public function provider(){
+        return $this->belongsToMany('App\Provider') ;
+    }
+
     public function newCode($category_id,$product_code){
         //concatena id o code con id de categoria
         //(string)$var o strval($var)
@@ -73,6 +77,11 @@ class Product extends Model
 
         return $query->where('category_id','=',$category);
         ;
+    }
+
+    public function scopeSearchProductP($query,$name,$provider){
+
+        return $query->where('name','LIKE', $name . "%");
     }
 
     public static function productByCode($term){

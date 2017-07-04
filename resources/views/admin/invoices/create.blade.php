@@ -56,8 +56,7 @@
                      <div class="col-md-2 pull-right">
                         {!!Field::hidden('wholesale_cant',null)!!}
                         {!! form::label('Cantidad')!!}
-                        <input class="form-control" id="amount" name="amount" type="number" 
-                        onkeyup="price_select(this.value,this.form.wholesale_cant.value)">
+                        <input class="form-control" id="amount" name="amount" type="number" >
                         </div>
                     
                  </div>
@@ -94,7 +93,7 @@
                 </div>
                 </div>
 <!--find busqueda de producto-->
-        <div>
+        </div>
                 <!-- Table row -->
                   <div class="col-xs-12 table-responsive">
                     <table id="details" class="table table-striped table-bordered table-condensed table-hover">
@@ -129,7 +128,7 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>$<input type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
+                          <td>$<input disabled type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
                         </tr>
                         <tr>
                           <th>Descuento</th>
@@ -158,7 +157,6 @@
 
                       <div class="form-group">
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
-                        
                        </div>
                   </div>
                 </div>
@@ -245,7 +243,7 @@
 
 
 </script>
-<script type="text/javascript">
+<script >
   function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
     $('#stock').val($stock);
      $('#code').val($code);
@@ -272,14 +270,15 @@
 
 </script>
 <script>
-function price_select(){
-  if (this.value>=$('#wholesale_cant').val()){
-        $('#price').val($('#priceW').val());
+$('#amount').on('keyup', function(){
+  maxW=$('#wholesale_cant').val();
+  if (this.value>=maxW){
+        $('#price').val($('#wholesale_price').val());
   }
-  if (this.value<$('#wholesale_cant').val()){
-        $('#price').val($('#priceR').val());
+  if (this.value<maxW){
+        $('#price').val($('#retail_price').val());
   }
-}
+});
 </script>
 
 <script>
@@ -341,10 +340,10 @@ $('#searchC').on('keyup', function(){
     name=$('#name').val();
     price=$('#price').val();
     amount=$('#amount').val();
+    
   if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
 
-      if (stock < amount){
-
+      if (parseInt(amount)<parseInt(stock)){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          Totalventa=Totalventa+Subtotal[cont];
 
@@ -365,8 +364,9 @@ $('#searchC').on('keyup', function(){
 }
 
 function deletefila(index){
-  Totalventa=Totalventa-Subtotalventa[index];
+  Totalventa=Totalventa-Subtotal[index];
   $('#Subtotalventa').val(Totalventa);
+  $('#Totalventa').val(Totalventa);
   $('#fila'+index).remove();
  }
 

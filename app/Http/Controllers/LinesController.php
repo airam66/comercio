@@ -24,7 +24,7 @@ class LinesController extends Controller
 
 
      public function create()
-    {
+    {   
         return view('admin.lines.create');
     }
 
@@ -35,7 +35,7 @@ class LinesController extends Controller
        $line= new Line($request->all());
        $line->save();
        flash("La linea ". $line->name . " ha sido creada con exito" , 'success')->important();
-     
+       
 
        return redirect()->route('lines.index'); //cambiar cuando cree la lista
     }

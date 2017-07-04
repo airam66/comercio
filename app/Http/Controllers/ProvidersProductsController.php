@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\ProviderProduct;
 use App\Provider;
+use App\Product;
 use App\Http\Requests\ProviderRequest;
 
-class ProvidersController extends Controller
+class ProvidersProductsController extends Controller
 {
     public function __construct()
     {
@@ -21,17 +23,30 @@ class ProvidersController extends Controller
     }
 
     public function create()
-    {   
-        $route=redirect()->back()->getTargetUrl();
-        return view('admin.providers.create')->with('route',$route);
+    {
+        $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
+        $providers=Provider::where('status','=','activo')->orderBy('name','ASC')->get();
+        return view('admin.providersproducts.create')->with('products',$products)
+                                                     ->with('providers',$providers);
     }
 
     
-    public function store(ProviderRequest $request)
+    public function store(Request $request)
     {
-        $providers= new Provider($request->all());
-        $providers->save();
-        return redirect()->to($request->route);
+    	
+            $idarticulo = $request->get('dproduct_id');
+
+            $cont = 0;
+
+            while ( $cont < count($idarticulo) ) {
+                $detalle = new ProviderProduct();
+                $detalle->provider_id=$request->provider_id; 
+                $detalle->product_id=$idarticulo[$cont];
+                $detalle->save();
+                $cont = $cont+1;
+            }
+       
+        return redirect()->route('providersproducts.create');
 
     }
 
