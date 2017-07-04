@@ -19,7 +19,7 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <h3 class="page-header" style="color:gray;">
-                        <img src="{{ asset('images/cotillon.png ') }}" width="150" height="80"  >
+                        <img src="{{ asset('images/cotillon.png ') }}" width="230" height="80"  >
                      
                       <div class="pull-right">
                          <b>Venta N°:{{$numberinvoice}}</b><br><br>

@@ -9,7 +9,7 @@
         <!-- Default box -->
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Modificar Imagen $imagen->id</h3>
+            <h3 class="box-title">Modificar Imagen N°{{$imagen->id}} </h3>
            
 
             <div class="box-tools pull-right">

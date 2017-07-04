@@ -178,7 +178,7 @@
                  <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('invoices.create')}}"><i class="fa fa-circle-o"></i> Nuevo factura</a></li>
+                <li class="active"><a href="{{route('invoices.index')}}"><i class="fa fa-circle-o"></i> Lista de Facturas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
             </li>
@@ -219,7 +219,7 @@
 
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-      <footer class="main-footer">
+      <footer class="main-footer no-print">
         <div class="pull-right hidden-xs">
           <b>Desarrollado por GYMSoftware</b> 
         </div>
