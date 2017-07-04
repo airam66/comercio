@@ -56,8 +56,7 @@
                      <div class="col-md-2 pull-right">
                         {!!Field::hidden('wholesale_cant',null)!!}
                         {!! form::label('Cantidad')!!}
-                        <input class="form-control" id="amount" name="amount" type="number" 
-                        onkeyup="price_select(this.value,this.form.wholesale_cant.value)">
+                        <input class="form-control" id="amount" name="amount" type="number" >
                         </div>
                     
                  </div>
@@ -271,14 +270,15 @@
 
 </script>
 <script>
-function price_select(){
-  if (this.value>=$('#wholesale_cant').val()){
-        $('#price').val($('#priceW').val());
+$('#amount').on('keyup', function(){
+  maxW=$('#wholesale_cant').val();
+  if (this.value>=maxW){
+        $('#price').val($('#wholesale_price').val());
   }
-  if (this.value<$('#wholesale_cant').val()){
-        $('#price').val($('#priceR').val());
+  if (this.value<maxW){
+        $('#price').val($('#retail_price').val());
   }
-}
+});
 </script>
 
 <script>
@@ -364,8 +364,9 @@ $('#searchC').on('keyup', function(){
 }
 
 function deletefila(index){
-  Totalventa=Totalventa-Subtotalventa[index];
+  Totalventa=Totalventa-Subtotal[index];
   $('#Subtotalventa').val(Totalventa);
+  $('#Totalventa').val(Totalventa);
   $('#fila'+index).remove();
  }
 

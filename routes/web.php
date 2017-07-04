@@ -68,6 +68,7 @@ Route::group(['prefix'=>'admin'], function(){
       Route::get('/searchClient','InvoicesController@searchClient');
   route::resource('providers','ProvidersController');
       Route::get('/searchProvider','PurchasesController@searchProvider');
+      Route::get('/searchProducts','PurchasesController@searchProducts');
   route::resource('providersproducts','ProvidersProductsController');
   
   Route::resource('carrusel','CarruselController');
