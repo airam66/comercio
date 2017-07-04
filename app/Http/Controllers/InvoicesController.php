@@ -212,6 +212,7 @@ public function searchDate(Request $request){
         $invoice= Invoice::find($request->id);
         $invoice->status='inactivo';
         $invoice->save();
+
         return redirect()->route('admin.invoices.index');
     }
 
@@ -241,6 +242,7 @@ public function searchDate(Request $request){
     }
 
 
+
     
     function print($id){
       
@@ -252,5 +254,6 @@ public function searchDate(Request $request){
     
       return  view ('admin.invoices.invoice-print')->with('invoice',$invoice)
                                           ->with('detalles',$detalles);
+
     }
 }
