@@ -14,6 +14,17 @@ class BrandController extends Controller
         $this->middleware('auth');//para que este logueado
     }
 
+
+     public function index(Request $request)
+    {
+        $brands=Brand::SearchBrandName($request->name)->orderBy('name','status','ASC')->paginate(10);
+       
+        return view('admin.brands.index')->with('brands',$brands);
+    
+
+    }
+
+
      public function create()
     {
         return view('admin.brands.create');
@@ -27,6 +38,6 @@ class BrandController extends Controller
        flash("La marca  ". $brand->name . " ha sido creada con exito" , 'success')->important();
      
 
-       return redirect()->route('brands.create');//redirecciona la categoria
+       return redirect()->route('brands.index');//redirecciona la categoria
     }
 }

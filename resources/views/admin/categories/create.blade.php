@@ -21,7 +21,7 @@
           </div>
           <div class="box-body">
             
-            {!! Form::open(['route'=>'categories.store', 'method'=>'POST'])!!}
+            {!! Form::open(['route'=>'categories.store', 'method'=>'POST','files'=>true])!!}
 
              <div class="form-group">
               {!! Field::text('name',null, ['class'=>'form-control'])!!}
@@ -31,15 +31,16 @@
               <div class="form-group">
 
               {!! Form::label('description','Descripcion')!!}
-              {!! Form::text('description',null, ['class'=>'form-control'])!!}
+              {!! Form::text('description'," ", ['class'=>'form-control'])!!}
               </div>
+              
+              {!! Field::file('image')!!}
             
               <div class= "form-group">
   
               {!! Form::label('status','Estado')!!}
-              {!! Form::select('status', ['active'=>'activo','inactive'=>'inactivo'],null,['class'=>'form-control'])!!} 
+              {!! Form::select('status', ['activo'=>'activo','inactivo'=>'inactivo'],null,['class'=>'form-control'])!!} 
               </div>
-
               <div class="form-group">
               {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
               </div>

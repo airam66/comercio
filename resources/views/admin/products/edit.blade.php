@@ -10,29 +10,29 @@
         <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Modificar producto</h3>
-           
-
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Minimizar">
-                <i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Cerrar">
-                <i class="fa fa-times"></i></button>
-            </div>
-          </div>
+           </div>
           <div class="box-body">
             
             {!! Form::model($product,['route'=>['products.update',$product->id], 'method'=>'PATCH', 'files'=>true])!!}
 
-              <div class= "form-group">
-              {!! Form::label('category_id','Categoria')!!}
-              {!! Form::select('category_id', $categories ,null, ['class'=>'form-control'])!!} 
-              </div> 
+              <div class= "col-md-4">
+              {!!form::label('Producto: ')!!}
+              {{ $product->name }}
+              </div>
 
-             {!! Field::number('code')!!}
-                    
-                    <div>
-                    <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" > Imagen Actual
-                    </div>
+              <div class= "col-md-4">
+              {!!form::label('Codigo: ')!!}
+              {{ $product->code}}
+              </div>
+
+              <div class= "col-md-4">
+              {!!form::label('Categoria: ')!!}
+              {{$product->category->name}}
+              </div>
+
+              <div>
+                   {!!form::label('Imagen Actual: ')!!} <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" > 
+              </div>
 
              <div class="form-group">
               {!! Form::label('image','Nueva Imagen')!!}
@@ -40,30 +40,41 @@
              </div>
               
               <div class= "form-group">
-              {!! Form::label('event_id','Evento')!!}
-              {!! Form::select('event_id', $events ,null, ['class'=>'form-control'])!!}
+              {!! Form::label('events','Evento')!!}
+              {!! Form::select('events[]', $events ,$productEvent, ['class'=>'form-control select-tag','multiple'])!!}
               </div> 
 
               <div class= "form-group">
               {!! Form::label('line_id','Linea')!!}
-              {!! Form::select('line_id', $lines ,null, ['class'=>'form-control'])!!} 
+              {!! Form::select('line_id', $lines ,$product->line->id, ['class'=>'form-control'])!!} 
               </div> 
 
               <div class= "form-group">
               {!! Form::label('brand_id','Marca')!!}
-              {!! Form::select('brand_id', $brands ,null, ['class'=>'form-control'])!!} 
+              {!! Form::select('brand_id', $brands ,$product->brand->id, ['class'=>'form-control'])!!} 
               </div> 
 
               <div class="form-group">
               {!! Form::label('description','Descripcion')!!}
-              {!! Form::text('description',null, ['class'=>'form-control'])!!}
+              {!! Form::text('description',$product->description, ['class'=>'form-control'])!!}
+              </div>
+
+              <div class="controls col-md-4">
+             {!! Field::number('purchase_price',$product->purchase_price, ['class'=>'form-control','step'=>'any'])!!}
+             </div>
+
+              <div class="col-md-3 col-md-offset-1">
+              {!! Field::number('wholesale_price',$product->wholesale_price, ['class'=>'form-control','step'=>'any'])!!}
+              </div>
+              <div class="col-md-3 col-md-offset-1">
+              {!! Field::number('retail_price',$product->retail_price, ['class'=>'form-control','step'=>'any'])!!}
               </div>
 
              {!! Field::number('stock')!!}
 
               <div class="form-group">
               {!! Form::label('wholesale_cant','Cantidad de venta Mayorista')!!}
-              {!! Form::number('wholesale_cant',null, ['class'=>'form-control'])!!}
+              {!! Form::number('wholesale_cant',$product->wholesale_cant, ['class'=>'form-control'])!!}
               </div>
 
               <div class="form-group">
@@ -81,4 +92,18 @@
       </div>
     </div>
   </div>
+@endsection
+@section('js')
+<script>
+  $('.select-tag').chosen({
+    placeholder_text_multiple: "Seleccione los eventos",
+  });
+
+</script>
+<script >
+  $('#purchase_price').on('keyup', function(){
+    $('#wholesale_price').val(parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100);
+    $('#retail_price').val(parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100);
+  });
+</script>
 @endsection

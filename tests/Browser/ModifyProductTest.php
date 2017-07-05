@@ -34,7 +34,7 @@ class ModifyProductTest extends DuskTestCase
         $brand= factory(\App\Brand::class)->create(['name'=>'Sprit',]);
         $line= factory(\App\Line::class)->create(['name'=>'Princesas',]);
         $event= factory(\App\Event::class)->create(['name'=>'Cumpleaños',]);
-        $product=factory(Product::class)->create(['name'=>'Bolsittas Frozen',]);
+        $product=factory(Product::class)->create(['name'=>'Bolsittas Frozen','code'=>'001001',]);
         $porcentage= factory(\App\Porcentage::class)->create();
 
         $this->browse(function (Browser $browser) use ($user,$category,$event,$brand,$line){

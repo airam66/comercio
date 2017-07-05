@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Product;
 
 class ProductRequest extends FormRequest
 {
@@ -29,6 +30,7 @@ class ProductRequest extends FormRequest
           'category_id'=>'required|exists:categories,id',
           'line_id'=>'required|exists:lines,id',
           'brand_id'=>'required|exists:brands,id',
+          'description'=>'required',
           'stock'=>'required',
           'retail_price'=>'required',
           'purchase_price'=>'required',        

@@ -54,7 +54,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ route('index') }}">
-                        Cotillon Crea Tu
+                        Cotillon Creatú
                     </a>
                 </div>
 

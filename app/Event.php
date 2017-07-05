@@ -11,12 +11,25 @@ class Event extends Model
     
 
     public function products(){
-    	return $this->hasMany('App\Product');
+    	return $this->belongsToMany('App\Product')->withTimestamps();
+
     }
 
-	public function scopeSearchEvent($query,$name){
+     public function productsC($category){
+    	return $this->belongsToMany('App\Product')->where('category_id','=',$category)->withTimestamps();
+    }
+
+     public function scopeSearchEvent($query,$name){
 		return $query->where('name','=',$name);
+
 	}
+
+	public function scopeSearchEventP($query,$name){
+		
+		return $query->where('name','LIKE',"%".$name."%");
+
+	}
+			
 }
 
 

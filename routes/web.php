@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes
 
-Route::resource('cotillon','MainPagineController');
+Route::resource('cotillon','MainPagineController'); 
 
 
 // rutas para la pagina de administracion del sistema
@@ -32,21 +32,52 @@ Route::resource('cotillon','MainPagineController');
 Route::group(['prefix'=>'admin'], function(){
 
   Route::resource('categories','CategoriesController');
+      Route::get('/category/{id}/desable','CategoriesController@desable')->name('categories.desable');
+      Route::get('/category/{id}/enable','CategoriesController@enable')->name('categories.enable');
+
     
   Route::resource('events','EventController');
-  
-  Route::resource('brands','BrandController');  
-    
+      Route::get('/events/{id}/desable','EventController@desable')->name('events.desable');
+      Route::get('/events/{id}/enable','EventController@enable')->name('events.enable');
+
+  Route::resource('brands','BrandController');   
+     
   Route::resource('products','ProductsController');
+  Route::get('/search','InvoicesController@search');
+      
+  Route::get('/searchL','InvoicesController@searchL');
+  Route::get('/searchData','InvoicesController@searchDate');
+  Route::post('invoices/desable','InvoicesController@desable')->name('invoices.desable');
+  Route::get('/invoices/{id}/print','InvoicesController@print')->name('print');
+  
+  Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
+  Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
+  Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
 
   Route::resource('lines','LinesController');
 
   Route::resource('porcentages','PorcentagesController');
+
+  Route::resource('invoices','InvoicesController');
+      Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+      Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
+      Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
+  
+  Route::resource('purchases','PurchasesController');
+      Route::get('/searchProvider','PurchasesController@searchProvider');
+  route::resource('clients','ClientsController');
+      Route::get('/searchClient','InvoicesController@searchClient');
+  route::resource('providers','ProvidersController');
+      Route::get('/searchProvider','PurchasesController@searchProvider');
+      Route::get('/searchProducts','PurchasesController@searchProducts');
+  route::resource('providersproducts','ProvidersProductsController');
+  
+  Route::resource('carrusel','CarruselController');
+
+  
 });
 
-Route::get('/', function () {
-    return view('main.pagine.index');
-});
+Route::get('/', 'MainController@index');
 
 Auth::routes();
 
@@ -58,8 +89,9 @@ Route::get('/contactUs', 'ContactUsController@contactUs')->name('contactUs');
 Route::get('/catalogue', 'CatalogsController@index')->name('catalogue');
 Route::post('/contactForm', 'ContactUsController@contact')->name('contactForm');
 //Route::get('/CatalogueShow','CatalogsController@show')->name('catalogueShow');
-Route::resource('catalogueShow', 'CatalogsController');
-Route::get('events/{name}','CatalogsController@searchEvent')->name('searchEvent');
+Route::resource('/catalogueShow', 'CatalogsController');
+Route::get('/events/{name}','CatalogsController@filtro')->name('searchEvent');
+Route::get('/category/{id}/{name}','CatalogsController@searchCategoryProduct')->name('searchEventCategory');
 
 
 	

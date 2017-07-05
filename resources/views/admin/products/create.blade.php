@@ -21,71 +21,59 @@
           </div>
           <div class="box-body">
             
-{!! Form::open(['route'=>'products.store', 'method'=>'POST', 'files'=>true])!!}
+          {!! Form::open(['route'=>'products.store', 'method'=>'POST', 'files'=>true])!!}
             
-             {!! Field::text('name')!!}
+              {!! Field::text('name')!!}
 
-              <div class= "form-group">
-              {!! Form::label('category_id','Categoria')!!}
-              {!! Form::select('category_id', $categories ,null, ['class'=>'form-control'])!!} 
-              </div> 
+              {!! Field::select('category_id', $categories, ['class'=>'select-category','empty'=>'Seleccione una categoria'])!!} 
+       
 
-             {!! Field::number('code')!!}
+              {!! Field::number('code')!!}
               
           
               {!! Field::file('image')!!}
           
               
               <div class= "form-group">
-              {!! Form::label('event_id','Evento')!!}
-              {!! Form::select('event_id', $events ,null, ['class'=>'form-control'])!!}
+              {!! Form::label('events','Evento')!!}
+              {!! Form::select('events[]', $events ,null, ['class'=>'form-control select-tag','multiple'])!!}
               </div> 
 
-              <div class= "form-group">
-              {!! Form::label('line_id','Linea')!!}
-              {!! Form::select('line_id', $lines ,null, ['class'=>'form-control'])!!} 
-              </div> 
+              {!! Field::select('line_id', $lines ,['class'=>'select-lines','empty'=>'Seleccione una linea'])!!} 
 
-              <div class= "form-group">
-              {!! Form::label('brand_id','Marca')!!}
-              {!! Form::select('brand_id', $brands ,null, ['class'=>'form-control'])!!} 
-              </div> 
+              {!! Field::select('brand_id', $brands, ['class'=>'select-brands','empty'=>'Seleccione una marca'])!!} 
+          
 
               <div class="form-group">
-              {!! Form::label('description','Descripcion')!!}
-              {!! Form::text('description',null, ['class'=>'form-control'])!!}
+              {!! Field::text('description',null, ['class'=>'form-control'])!!}
               </div>
-            
-               <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <td><table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
-              {!! form::label('Precio')!!}
-              <p><input onkeyup="this.form.wholesale_price.value=parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100;this.form.retail_price.value=parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100;" name="purchase_price" type="number" whit step="any"></p>
-              </table></td>
-              <td><table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
-              {!! Form::label('Precio por Mayor')!!}
-              <p><input name="wholesale_price" type="number" with step="any"> </p>        
-              </table></td>
-              <td><table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
-              {!! Form::label('Precio por menor')!!}
-              <p><input name="retail_price" type="number" with step="any"></p>
-              </table></td>
-               </table> 
+              
+              <div class="controls col-md-4">
+             {!! Field::number('purchase_price',null, ['class'=>'form-control','step'=>'any'])!!}
+             </div>
 
-             {!! Field::number('stock')!!}
+              <div class="col-md-3 col-md-offset-1">
+              {!! Field::number('wholesale_price',null, ['class'=>'form-control','step'=>'any'])!!}
+              </div>
+              <div class="col-md-3 col-md-offset-1">
+              {!! Field::number('retail_price',null, ['class'=>'form-control','step'=>'any'])!!}
+              </div>
+
+
+              {!! Field::number('stock')!!}
 
               {!! Field::number('wholesale_cant')!!}
             
 
-               <div class= "form-group">
-  
+              <div class= "form-group">
               {!! Form::label('status','Estado')!!}
-              {!! Form::select('status', ['active'=>'activo','inactive'=>'inactivo'],null,['class'=>'form-control'])!!} 
+              {!! Form::select('status', ['activo'=>'activo','inactivo'=>'inactivo'],null,['class'=>'form-control'])!!} 
               </div>
-
+              {!! Form::hidden('route',$route)!!}
               <div class="form-group">
               {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
               </div>
-          
+              
  
               {!! Form::close() !!}
 
@@ -97,4 +85,22 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('js')
+<script>
+  $('.select-tag').chosen({
+    placeholder_text_multiple: "Seleccione los eventos",
+  });
+  $('.select-category').chosen();
+  $('.select-brands').chosen();
+  $('.select-lines').chosen();
+
+</script>
+<script >
+  $('#purchase_price').on('keyup', function(){
+    $('#wholesale_price').val(parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100);
+    $('#retail_price').val(parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100);
+  });
+</script>
 @endsection

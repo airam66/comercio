@@ -1,0 +1,10 @@
+trigger tabla products
+
+DELIMITER //
+CREATE TRIGGER tr_updStockInvoice AFTER INSERT ON invoices_products
+FOR EACH ROW BEGIN
+	UPDATE products SET stock = stock - NEW.amount
+	WHERE products.id=NEW.product_id;
+END
+//
+DELIMITER;
