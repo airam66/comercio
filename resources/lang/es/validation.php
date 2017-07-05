@@ -128,6 +128,7 @@ return [
     'line_id'                =>        'lines',
     'brand_id'               =>        'marca',
     'purchase_price'         =>        'precio',
+    'description'            =>        'descripción',
     'image'                  =>        'Imagen',
     'description'            =>        'descripcion',
     'code'                   =>        'codigo',

@@ -185,6 +185,16 @@
             <li class="treeview">
               <a href="#">
                  <i class="fa fa-money"></i>
+                 <span>Compras</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                <li class="active"><a href="{{route('purchases.create')}}"><i class="fa fa-circle-o"></i> Listado compras</a></li>
+               <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
+            </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-user"></i>
                  <span>Personas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
@@ -231,7 +241,7 @@
 
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-      <footer class="main-footer">
+      <footer class="main-footer no-print">
         <div class="pull-right hidden-xs">
           <b>Desarrollado por GYMSoftware</b> 
         </div>

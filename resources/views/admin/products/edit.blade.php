@@ -10,12 +10,7 @@
         <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Modificar producto</h3>
-
            </div>
-
-          
-
-          </div>
           <div class="box-body">
             
             {!! Form::model($product,['route'=>['products.update',$product->id], 'method'=>'PATCH', 'files'=>true])!!}
@@ -64,6 +59,17 @@
               {!! Form::text('description',$product->description, ['class'=>'form-control'])!!}
               </div>
 
+              <div class="controls col-md-4">
+             {!! Field::number('purchase_price',$product->purchase_price, ['class'=>'form-control','step'=>'any'])!!}
+             </div>
+
+              <div class="col-md-3 col-md-offset-1">
+              {!! Field::number('wholesale_price',$product->wholesale_price, ['class'=>'form-control','step'=>'any'])!!}
+              </div>
+              <div class="col-md-3 col-md-offset-1">
+              {!! Field::number('retail_price',$product->retail_price, ['class'=>'form-control','step'=>'any'])!!}
+              </div>
+
              {!! Field::number('stock')!!}
 
               <div class="form-group">
@@ -91,9 +97,13 @@
 <script>
   $('.select-tag').chosen({
     placeholder_text_multiple: "Seleccione los eventos",
-
-    
   });
 
+</script>
+<script >
+  $('#purchase_price').on('keyup', function(){
+    $('#wholesale_price').val(parseFloat(this.value)+this.value*{{$porcentage->wholesale_porcentage}}/100);
+    $('#retail_price').val(parseFloat(this.value)+this.value*{{$porcentage->retail_porcentage}}/100);
+  });
 </script>
 @endsection

@@ -9,16 +9,22 @@
     <h2 class="box-title col-md-5">Listado de Ventas</h2>
 </div>
       <div class="row">
-
-        <div class='col-sm-6'>
+      <div class='col-sm-2 pull-right'>
+        <input type ='button' class="btn btn-warning "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
+        </div>
+        <div class='col-sm-6 pull-left'>
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker2'>
                      
-                     <input type="text" id="daterange"  name="daterange" class="form-control"  >                      <span class="input-group-addon">
+                     <input type="text" id="daterange"  name="daterange" class="form-control" value="12/06/2017 - 16/07/2017" >          
+                     <span class="input-group-addon">
                         <a href="{{route('invoices.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
                        </span></a>
+
+
                 </div>
             </div>
+
         </div>
       </div>
 
@@ -41,27 +47,34 @@
      
        
 <tbody id="mostrar">
-  
-
+   @foreach ($invoices as $key => $invoice) 
          
-       <tr role="row" class="odd">
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td>  
-                  <button type="button" class="btn btn-primary " data-toggle="modal" id="Detail" data-title="Detail" data-target="#favoritesModalDetail">
+                @if ($invoice->status!='inactivo')
+                   <tr role="row" class="odd">
+                
+                @else
+                  <tr role="row" class="odd" style="background-color: rgb(255,96,96)">
+                
+                @endif
+                 
+                        <td>{{$invoice->id}}</td>
+                        <td>{{$invoice->created_at}}</td>
+                        <td>{{$invoice->client->name}}</td>
+                        <td>{{$invoice->total}}</td>
+                        <td>
+                         
+                        <button type="button" class="btn btn-primary "  data-title="Detail" onclick="myDetail({{$invoice->id}})">
                          <i class="fa fa-list" aria-hidden="true"></i>
-                       </button>
+                          </button>
 
-                  <a href="" onclick="return confirm('¿Seguro dara de baja el producto?')">
+                          @if ($invoice->status!='inactivo')
+                             <a  onclick="return confirm('¿Seguro dara de baja esta factura?'),myDelete({{$invoice->id}})">
                         <button type="submit" class="btn btn-danger">
                           <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                         </button>
-                     </a>
-                     <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
-            </td>
-           
+                       @endif     
         </tr>
+        @endforeach
 
 </tbody>
     </table>
@@ -139,6 +152,8 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
     
 });
+
+
 </script>
 <script type="text/javascript">
 function myDetail(id){

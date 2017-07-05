@@ -10,7 +10,7 @@
         <!-- Default box -->
       <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Cargar producntos de  un proveedor</h3>
+            <h3 class="box-title">Cargar productos de un proveedor</h3>
          </div>
           {!! Form::open(['route'=>'providersproducts.store', 'method'=>'POST', 'files'=>true])!!}
           <div class="box-body">

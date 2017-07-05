@@ -16,7 +16,7 @@
           {!! Form::open(['route'=>'purchases.store', 'method'=>'POST', 'files'=>true])!!}
           <section>
       
-                <div class="border">
+              <div class="border">
                 <h3>Proveedor</h3>
                 <div class="row ">
                        
@@ -29,14 +29,46 @@
                             <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalProvider"><i class="fa fa-search"></i></button>
                             @include('admin.purchases.buscarProvider')
                       </div>
-                      <div class="col-md-6  pull-right">
+                      <div class="col-md-6  col-md-offset-2">
                             <input id="provider_id" name="provider_id" class="form-control" type="hidden" >
                             {!!Field::text('nombre',null,['disabled'])!!}
                       </div>
                 </div>
-                </div>
+              </div>
+
+              <div class="panel-body borde"><!--busqueda prorducto-->
+                  <h3>Productos</h3>
+                <div class="row " >
+                    <div class="col-md-3 pull-left" >
+                         {!! form::label('Codigo')!!}
+                         <input id="code" class="form-control" name="code" type="text" >
+                         <input id="product_id" class="form-control " name="product_id" type="hidden" >
+                    </div> 
+                    <div class="pull-left">
+                    <br>
+                       <button type="button" class="btn btn-primary pull-left" data-toggle="modal" id="first" data-title="Buscar" data-target="#favoritesModalProduct">
+                          <i class="fa fa-search"></i>
+                       </button>
+                   </div>
+                   
+                   <div class="col-md-2 col-md-offset-2">
+                       {!!Field::number('price',null, ['step'=>'any'])!!} 
+ 
+                    </div>
+                     <div class="col-md-2">
+                        {!! form::label('Cantidad')!!}
+                        <input class="form-control" id="amount" name="amount" type="number" 
+                        onkeyup="">
+                      </div>                    
+                 </div>
+                 <div class="row " >
+                    <div class="col-md-4 ">
+                         {!!Field::text('name',null,['disabled'])!!}
+                    </div>
+                 </div>
+              </div>
         
-                <div class="row no-print">
+              <div class="row no-print">
                   <div class="col-xs-12">
                       <div class= "form-group">
                       {!! Form::hidden('status','activo',['class'=>'form-control'])!!} 
@@ -48,19 +80,18 @@
                   </div>
                 </div>
               </section><!-- /.content -->
-
+              {!! Form::close() !!}
              </div>
  
-              {!! Form::close() !!}
-
           </div>
           <!-- /.box-body -->
         </div>
         <!-- /.box -->
-
       </div>
     </div>
   </div>
+
+ @include('admin.purchases.buscarProducto')
 
 @endsection
 
@@ -69,26 +100,26 @@
 
   var options={
     url: function(p){
-      return baseUrl('admin/autocompleteClient?p='+p);
-         }, getValue:'cuil',
+      return baseUrl('admin/autocompleteProvide?p='+p);
+         }, getValue:'cuit',
             list: {
                     match: {
                         enabled: true
                     },
                     onClickEvent: function () { 
-                        var client = $('#cuil').getSelectedItemData();
+                        var client = $('#cuit').getSelectedItemData();
                         $('#nombre').val(client.name);
-                        $('#client_id').val(cleint.id);
+                        $('#provide_id').val(cleint.id);
                     },
                     onKeyEnterEvent: function () { 
-                        var client = $('#cuil').getSelectedItemData();
+                        var client = $('#cuit').getSelectedItemData();
                         $('#nombre').val(client.name);
-                        $('#client_id').val(client.id);
+                        $('#provide_id').val(client.id);
                     }
                 }
    };
   
-  $("#cuil").easyAutocomplete(options);
+  $("#cuit").easyAutocomplete(options);
 
 
 </script>
@@ -99,11 +130,17 @@
     $('#provider_id').val($id);
     $('#favoritesModalProvider').modal('hide');
   };
-
-
 </script>
-
-<script type="text/javascript">
+<script >
+  function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
+    $('#code').val($code);
+    $('#product_id').val($id);
+    $('#name').val($name);
+    $('#price').val($retail);//por defecto
+    $('#favoritesModalProduct').modal('hide');
+  };
+</script>
+<script >
 $('#searchP').on('keyup', function(){
   $value=$(this).val();
   $.ajax({
@@ -112,6 +149,21 @@ $('#searchP').on('keyup', function(){
     data:{'searchProvider':$value},
     success: function(data){
       $('#mostrarP').html(data);
+    }
+    
+  })
+})
+</script>
+<script>
+$('#searchProducts').on('keyup', function(){
+  $value=$(this).val();
+  $providerid=$('#provider_id').val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchProducts')}}",
+    data:{'searchProducts':$value,'provider_id':$providerid},
+    success: function(data){
+      $('#mostrar').html(data);
     }
     
   })

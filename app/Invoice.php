@@ -12,9 +12,16 @@ class Invoice extends Model
     	return $this->belongsToMany('App\Product')->withTimestamps();
 
     }
+     public function clients(){
+
+        return $this->belongsTo('App\Client');
+    }
+
+    
     public function scopeSearchInvoice($query,$fecha1,$fecha2){
 
-        return $query->whereBetween('created_at', [$fecha1,$fecha2 ]);
+        return $query->where( [['created_at','>=',$fecha1],
+                ['created_at','<=',$fecha2],]);
 
     }
 

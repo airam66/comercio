@@ -19,7 +19,7 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <h3 class="page-header" style="color:gray;">
-                        <img src="{{ asset('images/cotillon.png ') }}" width="150" height="80"  >
+                        <img src="{{ asset('images/cotillon.png ') }}" width="230" height="80"  >
                      
                       <div class="pull-right">
                          <b>Venta N°:{{$numberinvoice}}</b><br><br>
@@ -56,8 +56,7 @@
                      <div class="col-md-2 pull-right">
                         {!!Field::hidden('wholesale_cant',null)!!}
                         {!! form::label('Cantidad')!!}
-                        <input class="form-control" id="amount" name="amount" type="number" 
-                        onkeyup="price_select(this.value,this.form.wholesale_cant.value)">
+                        <input class="form-control" id="amount" name="amount" type="number" >
                         </div>
                     
                  </div>
@@ -129,7 +128,7 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>$<input type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
+                          <td>$<input disabled type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
                         </tr>
                         <tr>
                           <th>Descuento</th>
@@ -271,14 +270,15 @@
 
 </script>
 <script>
-function price_select(){
-  if (this.value>=$('#wholesale_cant').val()){
-        $('#price').val($('#priceW').val());
+$('#amount').on('keyup', function(){
+  maxW=$('#wholesale_cant').val();
+  if (this.value>=maxW){
+        $('#price').val($('#wholesale_price').val());
   }
-  if (this.value<$('#wholesale_cant').val()){
-        $('#price').val($('#priceR').val());
+  if (this.value<maxW){
+        $('#price').val($('#retail_price').val());
   }
-}
+});
 </script>
 
 <script>
@@ -286,7 +286,7 @@ $('#discount').on('click', function(){
   St=$('#Subtotalventa').val();
   Tvo=$('#Totalventa').val();
     if(St==Tvo){
-      Tvn=parseFloat(St*0.1)+parseFloat(St);
+      Tvn=parseFloat(St*0.1)-parseFloat(St);
         $('#Totalventa').val(Tvn); 
      }else{
         $('#Totalventa').val(St);
@@ -364,8 +364,9 @@ $('#searchC').on('keyup', function(){
 }
 
 function deletefila(index){
-  Totalventa=Totalventa-Subtotalventa[index];
+  Totalventa=Totalventa-Subtotal[index];
   $('#Subtotalventa').val(Totalventa);
+  $('#Totalventa').val(Totalventa);
   $('#fila'+index).remove();
  }
 
