@@ -14,14 +14,19 @@ class Client extends Model
     {
         return $this->hasMany('App\Invoice');
     }
+
      public function invoices()
     {
         return $this->hasMany('App\Invoice');
     }
 
-    public static function clientByCuit($term){
+   
+
+
+    public static function clientByCuil($term){
+
         return static::select('id', 'name','cuil','address' ,'phone','email')
-            ->where('cuil','LIKE',"%$term%")
+            ->where(strval('cuil'),'LIKE',"%$term%")
             ->get();
 
     }   

@@ -5,7 +5,7 @@ line-height: 1.7;
 color: #110f0f;
 font-weight: 400;
 overflow-x: hidden;
-background: url('../images/fondo12.jpg') repeat;
+background: url('../images/fondo16.jpg') repeat;
 }
 
 h4{
@@ -17,7 +17,7 @@ p{
 
 
 .navbar-inverse {
-    background-color: rgb(183,216,51) !important;
+    background-color: rgb(203, 38, 19) !important;
     border-color:rgb(190, 21, 108) !important;
 }
 

@@ -178,7 +178,30 @@
                  <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('invoices.index')}}"><i class="fa fa-circle-o"></i> Lista de Facturas</a></li>
+
+                <li class="active"><a href="{{route('invoices.index')}}"><i class="fa fa-circle-o"></i> Listado factura</a></li>
+               <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
+            </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-money"></i>
+                 <span>Compras</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                <li class="active"><a href="{{route('purchases.create')}}"><i class="fa fa-circle-o"></i> Listado compras</a></li>
+               <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
+            </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-user"></i>
+                 <span>Personas</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                <li class="active"><a href="{{route('clients.create')}}"><i class="fa fa-circle-o"></i>Listado clientes</a></li>
+                <li class="active"><a href="{{route('providers.create')}}"><i class="fa fa-circle-o"></i> Listado Proveedores</a></li>
+                <li class="active"><a href="{{route('providersproducts.create')}}"><i class="fa fa-circle-o"></i> Proveedores por productos</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
             </li>

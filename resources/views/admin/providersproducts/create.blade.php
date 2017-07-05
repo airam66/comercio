@@ -3,20 +3,20 @@
  
 @section('content')
    
-  <div class="container-fluid spark-screen">
-    <div class="row">
-      <div class="col-md-12">
+<div class="container-fluid spark-screen">
+  <div class="row">
+    <div class="col-md-12">
 
         <!-- Default box -->
       <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nueva Compra</h3>
+            <h3 class="box-title">Cargar productos de un proveedor</h3>
          </div>
-      <div class="box-body">
-          {!! Form::open(['route'=>'purchases.store', 'method'=>'POST', 'files'=>true])!!}
+          {!! Form::open(['route'=>'providersproducts.store', 'method'=>'POST', 'files'=>true])!!}
+          <div class="box-body">
           <section>
       
-              <div class="border">
+                <div class="border">
                 <h3>Proveedor</h3>
                 <div class="row ">
                        
@@ -27,18 +27,17 @@
                        <div class="pull-left">
                        <br>
                             <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalProvider"><i class="fa fa-search"></i></button>
-                            @include('admin.purchases.buscarProvider')
+                            @include('admin.providersproducts.buscarProvider')
                       </div>
-                      <div class="col-md-6  col-md-offset-2">
+                      <div class="col-md-6  col-md-offset-1">
                             <input id="provider_id" name="provider_id" class="form-control" type="hidden" >
                             {!!Field::text('nombre',null,['disabled'])!!}
                       </div>
                 </div>
-              </div>
-
-              <div class="panel-body borde"><!--busqueda prorducto-->
-                  <h3>Productos</h3>
+                </div>
+<!-- busqueda de productos-->
                 <div class="row " >
+                <h3>Productos</h3>
                     <div class="col-md-3 pull-left" >
                          {!! form::label('Codigo')!!}
                          <input id="code" class="form-control" name="code" type="text" >
@@ -50,48 +49,55 @@
                           <i class="fa fa-search"></i>
                        </button>
                    </div>
-                   
-                   <div class="col-md-2 col-md-offset-2">
-                       {!!Field::number('price',null, ['step'=>'any'])!!} 
- 
-                    </div>
-                     <div class="col-md-2">
-                        {!! form::label('Cantidad')!!}
-                        <input class="form-control" id="amount" name="amount" type="number" 
-                        onkeyup="">
-                      </div>                    
-                 </div>
-                 <div class="row " >
-                    <div class="col-md-4 ">
+                   <div class="col-md-6 col-md-offset-1">
                          {!!Field::text('name',null,['disabled'])!!}
+                   </div>
+                   <div class="col-md-1">
+                      <button type="button" id="btn_add" class="btn btn-primary pull-right" onclick="add_product()">Agregar
+                      </button>
                     </div>
+                    
                  </div>
-              </div>
         
+                 <div class="col-xs-12 table-responsive">
+                    <table id="details" class="table table-striped table-bordered table-condensed table-hover">
+                      <thead>
+                        <tr>
+                          <th>Eliminar</th>
+                          <th>Codigo</th>
+                          <th>Nombre</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                         
+                      </tbody>
+
+                    </table>
+                  </div>
               <div class="row no-print">
                   <div class="col-xs-12">
-                      <div class= "form-group">
-                      {!! Form::hidden('status','activo',['class'=>'form-control'])!!} 
-                      </div>
+
 
                       <div class="form-group">
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
-                       </div>
+                      </div>
                   </div>
                 </div>
-              </section><!-- /.content -->
-              {!! Form::close() !!}
+
+
+              </section>
+
              </div>
  
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-      </div>
-    </div>
-  </div>
+              {!! Form::close() !!}
 
- @include('admin.purchases.buscarProducto')
+          </div>
+   
+        </div>
+    </div>
+</div>
+@include('admin.providersproducts.buscarProducto')
 
 @endsection
 
@@ -100,26 +106,26 @@
 
   var options={
     url: function(p){
-      return baseUrl('admin/autocompleteProvide?p='+p);
-         }, getValue:'cuit',
+      return baseUrl('admin/autocompleteClient?p='+p);
+         }, getValue:'cuil',
             list: {
                     match: {
                         enabled: true
                     },
                     onClickEvent: function () { 
-                        var client = $('#cuit').getSelectedItemData();
+                        var client = $('#cuil').getSelectedItemData();
                         $('#nombre').val(client.name);
-                        $('#provide_id').val(cleint.id);
+                        $('#client_id').val(cleint.id);
                     },
                     onKeyEnterEvent: function () { 
-                        var client = $('#cuit').getSelectedItemData();
+                        var client = $('#cuil').getSelectedItemData();
                         $('#nombre').val(client.name);
-                        $('#provide_id').val(client.id);
+                        $('#client_id').val(client.id);
                     }
                 }
    };
   
-  $("#cuit").easyAutocomplete(options);
+  $("#cuil").easyAutocomplete(options);
 
 
 </script>
@@ -130,17 +136,11 @@
     $('#provider_id').val($id);
     $('#favoritesModalProvider').modal('hide');
   };
+
+
 </script>
-<script >
-  function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
-    $('#code').val($code);
-    $('#product_id').val($id);
-    $('#name').val($name);
-    $('#price').val($retail);//por defecto
-    $('#favoritesModalProduct').modal('hide');
-  };
-</script>
-<script >
+
+<script type="text/javascript">
 $('#searchP').on('keyup', function(){
   $value=$(this).val();
   $.ajax({
@@ -155,19 +155,55 @@ $('#searchP').on('keyup', function(){
 })
 </script>
 <script>
-$('#searchProducts').on('keyup', function(){
+$('#search').on('keyup', function(){
   $value=$(this).val();
-  $providerid=$('#provider_id').val();
   $.ajax({
     type: 'get',
-    url:  "{{ URL::to('admin/searchProducts')}}",
-    data:{'searchProducts':$value,'provider_id':$providerid},
+    url:  "{{ URL::to('admin/search')}}",
+    data:{'search':$value},
     success: function(data){
       $('#mostrar').html(data);
     }
     
   })
 })
+</script>
+<script >
+  function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
+    $('#code').val($code);
+    $('#product_id').val($id);
+    $('#name').val($name);
+    $('#favoritesModalProduct').modal('hide');
+  };
+</script>
+<script>
+  var cont=0;
+  function add_product(){
+    code=$('#code').val();
+    product_id=$('#product_id').val();
+    name=$('#name').val();
+    
+  if (product_id!="" && code!="" && name!=""){
+
+          var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> > </tr>';
+          cont++;
+          clear();
+        $('#details').append(fila);
+
+  }else{
+        alert("Error al algregar producto, revise que posea datos");
+  }
+}
+
+function deletefila(index){
+  $('#fila'+index).remove();
+ }
+
+ function clear(){
+    $('#code').val('');
+    $('#product_id').val('');
+    $('#name').val('');
+ }
 </script>
 @endsection
  
