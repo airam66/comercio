@@ -178,7 +178,6 @@
                  <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-
                 <li class="active"><a href="{{route('invoices.index')}}"><i class="fa fa-circle-o"></i> Listado factura</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>

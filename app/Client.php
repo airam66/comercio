@@ -20,9 +20,6 @@ class Client extends Model
         return $this->hasMany('App\Invoice');
     }
 
-   
-
-
     public static function clientByCuil($term){
 
         return static::select('id', 'name','cuil','address' ,'phone','email')
