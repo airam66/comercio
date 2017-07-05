@@ -20,11 +20,11 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <h3 class="page-header" style="color:gray;">
-                        <img src="{{ asset('images/cotillon.png ') }}" width="150" height="80"  >
+                        <img src="{{ asset('images/cotillon.png ') }}" width="230" height="80"  >
                      
                       <div class="pull-right">
                          <b id="id">Venta N°: {{$invoice->id}}</b><br><br>
-                         <b>Fecha:{{$invoice->created_at}}</b>
+                         <b>Fecha: {{$invoice->created_at->format('d-m-Y')}}</b>
                       </div>
                       
                     </h3>
@@ -46,11 +46,7 @@
           <div class="col-sm-6 invoice-col">
             A
             <address>
-              <strong>John Doe</strong><br>
-              795 Folsom Ave, Suite 600<br>
-              San Francisco, CA 94107<br>
-              Phone: (555) 539-1037<br>
-              Email: john.doe@example.com
+              <strong>SR/A :  {{$invoice->client->name}}</strong>
             </address>
           </div><!-- /.col -->
           
@@ -120,7 +116,7 @@
 
                       <div class="form-group">
                        
-                        <a onclick="window.print()" id="print" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                        <a onclick="location.href='{{route('print',$invoice->id)}}' "id="print" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Generar Comprobante</a>
                        </div>
                   </div>
                 </div>

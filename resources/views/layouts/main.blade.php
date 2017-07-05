@@ -241,7 +241,7 @@
 
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-      <footer class="main-footer">
+      <footer class="main-footer no-print">
         <div class="pull-right hidden-xs">
           <b>Desarrollado por GYMSoftware</b> 
         </div>

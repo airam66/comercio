@@ -75,7 +75,7 @@
             <td> 
             @if($product->extension!=null)
                     <div>
-                    <img src="{{ asset('images/products/'.$product->extension)  }}" width="40" height="40" >
+                    <img src="{{ asset('images/products/$product->extension')  }}" width="40" height="40" >
                     </div>
             @endif
             </td>
