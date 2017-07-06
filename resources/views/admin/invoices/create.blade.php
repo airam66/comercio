@@ -46,15 +46,16 @@
                        </button>
                    </div>
                    <div class="col-md-2 pull-right ">
-                       {!!Field::number('price',null, ['disabled','step'=>'any'])!!} 
-                       {!!Field::hidden('priceW',null,['step'=>'any'])!!} 
-                       {!!Field::hidden('priceR',null,['step'=>'any'])!!} 
+                       {!!Field::number('price',null, ['disabled'])!!} 
+                       <input type="number" id="priceW" name="priceW" style="display:none"> 
+                       <input type="number" id="priceR" name="priceR" style="display:none"> 
                     </div>
                     <div class="col-md-2 pull-right ">
                           {!! Field::number('stock' , ['disabled'])!!}
                     </div>
                      <div class="col-md-2 pull-right">
-                        {!!Field::hidden('wholesale_cant',null)!!}
+                        <input type="number"  id="wholesale_cant" name="wholesale_cant" style="display:none"> 
+
                         {!! form::label('Cantidad')!!}
                         <input class="form-control" id="amount" name="amount" type="number" >
                         </div>
@@ -198,6 +199,7 @@
                           $('#price').val(product.retail_price);//por defecto
                           $('#priceR').val(product.retail_price);
                           $('#priceW').val(product.wholesale_price);
+                          $('#amount').val(0);
                           $('#wholesale_cant').val(product.wholesale_cant);
                     },
                     onKeyEnterEvent: function () { 
@@ -208,6 +210,7 @@
                           $('#price').val(product.retail_price);//por defecto
                           $('#priceR').val(product.retail_price);
                           $('#priceW').val(product.wholesale_price);
+                          $('#amount').val(0);
                           $('#wholesale_cant').val(product.wholesale_cant);
                     }
                 }
@@ -245,6 +248,7 @@
 </script>
 <script >
   function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
+    var am=0;
     $('#stock').val($stock);
      $('#code').val($code);
     $('#product_id').val($id);
@@ -253,7 +257,7 @@
     $('#priceR').val($retail);
     $('#priceW').val($wholesale);
     $('#wholesale_cant').val($amount);
-
+    $('#amount').val(am);
     $('#favoritesModalProduct').modal('hide');
   };
 
@@ -270,13 +274,19 @@
 
 </script>
 <script>
+
 $('#amount').on('keyup', function(){
-  maxW=$('#wholesale_cant').val();
-  if (this.value>=maxW){
-        $('#price').val($('#wholesale_price').val());
+  var am=parseInt($('#amount').val());
+  var maxW=parseInt($('#wholesale_cant').val());
+  var pW=$('#priceW').val();
+  var pR=$('#priceR').val();
+   if (am >= maxW){
+    console.log('mayor a la cantidad');
+        $('#price').val(pW);
   }
-  if (this.value<maxW){
-        $('#price').val($('#retail_price').val());
+  else{
+    console.log('menor a la cantidad');
+        $('#price').val(pR);
   }
 });
 </script>
