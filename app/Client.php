@@ -23,7 +23,8 @@ class Client extends Model
     public static function clientByCuil($term){
 
         return static::select('id', 'name','cuil','address' ,'phone','email')
-            ->where(strval('cuil'),'LIKE',"%$term%")
+            ->where('cuil','LIKE',"%$term%")
+            ->where('status','=','activo')
             ->get();
 
     }   
@@ -32,6 +33,7 @@ class Client extends Model
 
     public function scopeSearchClient($query,$name){
 
-        return $query->where('name','LIKE',"%" . $name . "%");
+        return $query->where('name','LIKE',"%" . $name . "%")
+                     ->where('status','=','activo');
     }
 }
