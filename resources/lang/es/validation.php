@@ -137,6 +137,7 @@ return [
     'retail_price'           =>        'Venta minorista',
     'wholesale_porcentage'   =>        'Venta mayorista',
     'retail_porcentage'      =>        'Venta minorista',
+    'price'                  =>        'precio',
 
     ],
 

@@ -32,7 +32,27 @@
                 <!-- info row -->
       <div class="panel panel-default">
           <div class="panel-body borde"><!--busqueda prorducto-->
-                  <h3>Productos</h3>
+             <div class="border">
+                <h3>Cliente</h3>
+                <div class="row ">
+                       
+                      <div class="col-md-3 pull-left" >
+                           {!! form::label('CUIL/CUIT')!!}
+                           <input id="cuil" class="form-control" name="cuil" type="text" >
+                       </div>
+                       <div class="pull-left">
+                       <br>
+                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
+                            @include('admin.invoices.buscarcliente')
+                      </div>
+                      <div class="col-md-6  pull-right">
+                            <input id="client_id" name="client_id" class="form-control" type="hidden" >
+                            {!!Field::text('nombre',null,['disabled'])!!}
+                      </div>
+                </div>
+                </div>
+                
+                  <h3>Producto</h3>
                 <div class="row " >
                     <div class="col-md-3 pull-left" >
                          {!! form::label('Codigo')!!}
@@ -74,25 +94,7 @@
                     </div>
 
                 </div>
-                <div class="border">
-                <h3>Cliente</h3>
-                <div class="row ">
-                       
-                      <div class="col-md-3 pull-left" >
-                           {!! form::label('CUIL/CUIT')!!}
-                           <input id="cuil" class="form-control" name="cuil" type="text" >
-                       </div>
-                       <div class="pull-left">
-                       <br>
-                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
-                            @include('admin.invoices.buscarcliente')
-                      </div>
-                      <div class="col-md-6  pull-right">
-                            <input id="client_id" name="client_id" class="form-control" type="hidden" >
-                            {!!Field::text('nombre',null,['disabled'])!!}
-                      </div>
-                </div>
-                </div>
+                
 <!--find busqueda de producto-->
         </div>
                 <!-- Table row -->
@@ -129,7 +131,7 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>$<input disabled type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
+                          <td>$<input disabled type="number" id="Subtotalventa" name="Subtotalventa" step="any" class="mi_factura"></td>
                         </tr>
                         <tr>
                           <th>Descuento</th>
@@ -142,7 +144,7 @@
                         </tr>
                         <tr>
                           <th>Total:</th>
-                          <td>$<input type="number" id="Totalventa" name="Totalventa" step="any"></td>
+                          <td>$<input type="number" id="Totalventa" name="Totalventa" step="any" class="mi_factura"></td>
                         </tr>
                       </table>
                     </div>
@@ -296,7 +298,7 @@ $('#discount').on('click', function(){
   St=$('#Subtotalventa').val();
   Tvo=$('#Totalventa').val();
     if(St==Tvo){
-      Tvn=parseFloat(St*0.1)-parseFloat(St);
+      Tvn=parseFloat(St)-parseFloat(St*0.1);
         $('#Totalventa').val(Tvn); 
      }else{
         $('#Totalventa').val(St);
@@ -357,7 +359,7 @@ $('#searchC').on('keyup', function(){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          Totalventa=Totalventa+Subtotal[cont];
 
-              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#Subtotalventa').val(Totalventa);

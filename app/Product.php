@@ -65,28 +65,35 @@ class Product extends Model
 
     public function scopeSearchProduct($query,$name){
 
-        return $query->where('name','LIKE',"%" . $name . "%");
+        return $query->where('name','LIKE',"%" . $name . "%")
+                     ->where('status','=','activo');
     }
 
     public function scopeSearchProductL($query,$letra){
 
-        return $query->where('name','LIKE', $letra . "%");
+        return $query->where('name','LIKE', $letra . "%")
+                     ->where('status','=','activo');
+                    
     }
 
     public function scopeSearchProductC($query,$category){
 
-        return $query->where('category_id','=',$category);
-        ;
+        return $query->where('category_id','=',$category)
+                     ->where('status','=','activo');
+                             
     }
 
     public function scopeSearchProductP($query,$name,$provider){
 
-        return $query->where('name','LIKE', $name . "%");
+        return $query->where('name','LIKE', $name . "%")
+                     ->where('status','=','activo');
+                   
     }
 
     public static function productByCode($term){
         return static::select('id', 'name','code','stock','wholesale_price','retail_price','wholesale_cant')
             ->where('code','LIKE',"%$term%")
+            ->where('status','=','activo')
             ->get();
 
     }    
