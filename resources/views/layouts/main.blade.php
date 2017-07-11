@@ -209,6 +209,15 @@
             </li>
             <li class="treeview">
               <a href="#">
+                 <i class="fa fa-fw fa-database"></i>
+                 <span>Reportes</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
                  <i class="fa fa-tags"></i>
                  <span>Pagina Web</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
