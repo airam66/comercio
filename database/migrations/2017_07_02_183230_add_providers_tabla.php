@@ -16,7 +16,7 @@ class AddProvidersTabla extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->double('cuit');
+            $table->string('cuit');
             $table->string('address');
             $table->string('province');
             $table->string('location');

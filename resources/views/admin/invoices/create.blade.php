@@ -396,9 +396,8 @@ function deletefila(index){
 </script>
  
  <script>
-
-  $('#searchB').on('click', function(){
-  $value=$(this).val();
+  function SearchLetter($letter){
+  $value=$letter;
   $.ajax({
     type: 'get',
     url:  "{{ URL::to('admin/searchL')}}",
@@ -407,73 +406,10 @@ function deletefila(index){
       $('#mostrar').html(data);
     }
     
-  })
-})
-  $('#searchC').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-  $('#searchD').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-  $('#searchF').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-
-  $('#searchT').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-$('#searchTD').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-
-
+  });
+  }
 </script>
-
+ 
 
 
 @endsection

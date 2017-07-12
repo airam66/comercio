@@ -70,7 +70,7 @@ class InvoicesController extends Controller
 
             }
 
-            return redirect()->route('invoices.show',$venta->id);
+            return redirect()->route('invoices.index',$venta->id);
 
     }
 
@@ -84,9 +84,13 @@ class InvoicesController extends Controller
 
        if ($products) {
         foreach ($products as $key => $product) {
+
                   $output.='<tr>'.
-                        '<td>'.$product->code.'</td>'.
+                        
                         '<td>'.$product->name.'</td>'.
+                        '<td> $ '.$product->retail_price.'</td>'.
+                        '<td>'.$product->wholesale_cant.'</td>'.
+                        '<td> $ '.$product->wholesale_price.'</td>'.
                         '<td>'.$product->stock.'</td>'.
 
                         '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.','.$product->wholesale_cant.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
@@ -143,10 +147,12 @@ class InvoicesController extends Controller
        if ($products) {
         foreach ($products as $key => $product) {
                   $output.='<tr>'.
-                        '<td>'.$product->code.'</td>'.
-                        '<td>'.$product->name.'</td>'.
+                         '<td>'.$product->name.'</td>'.
+                        '<td>$ '.$product->retail_price.'</td>'.
+                        '<td>'.$product->wholesale_cant.'</td>'.
+                        '<td>$ '.$product->wholesale_price.'</td>'.
                         '<td>'.$product->stock.'</td>'.
-
+                        
                         '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.','.$product->wholesale_cant.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
 
 
