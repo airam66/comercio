@@ -107,7 +107,7 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
         'brand_id'=>1,
         'wholesale_cant'=>20,
         'description'=>"descri´pcion bolsitas",
-        'stock'=>0,
+        'stock'=>6,
         'purchase_price'=>20,
         'status' => 'activo',
         'wholesale_price'=>40,
@@ -121,4 +121,49 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Provider::class, function (Faker\Generator $faker) {
+   
 
+    return [ 
+
+        'cuit' => $faker->unique(),
+        'name' => $faker->unique()->sentence,
+        'address'=>$faker->sentence,
+        'phone'=>"387154789124",
+        'location'=>'salta',
+        'provincia'=>'salta',   
+        
+    ];
+});
+
+
+$factory->define(App\Purchase::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+
+        'total' => 120,
+        'status'=>'pendiente'
+       'provider_id'=>function(){
+            return factory(\App\Provider::class)->create()->id;
+        } 
+        
+    ];
+});
+
+$factory->define(App\PurchaseProduct::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+
+        'price' => 12,
+        'amount'=>1
+        'subTotal'=>12
+       'purchase_id'=>function(){
+            return factory(\App\Purchase::class)->create()->id;
+        } 
+       'product_id'=>function(){
+            return factory(\App\Product::class)->create()->id;
+        } 
+    ];
+});

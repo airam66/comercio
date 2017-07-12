@@ -79,10 +79,9 @@ Route::group(['prefix'=>'admin'], function(){
   
   Route::resource('carrusel','CarruselController');
 
-
+//*************************************Rutas para pdf*****************************************************
   Route::get('pdfReport','PdfController@index')->name('pdfReport');
   Route::get('reportStock', 'PdfController@createReportStock')->name('reportStock');
-
 
   
 });

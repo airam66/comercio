@@ -2,6 +2,7 @@
   content: "";
   display: table;
   clear: both;
+  margin-bottom: 0;
 }
 
 a {
@@ -22,13 +23,13 @@ body {
 }
 
 header {
-  padding: 10px 0;
-  margin-bottom: 30px;
+  padding: 5px 0;
+  margin-bottom: 20px;
 }
 
 #logo {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
 }
 
 #logo img {
@@ -74,7 +75,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 table tr:nth-child(2n-1) td {
@@ -100,7 +101,7 @@ table .desc {
 }
 
 table td {
-  padding: 20px;
+  padding: 10px;
   text-align: right;
 }
 
