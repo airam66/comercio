@@ -65,28 +65,28 @@ class Product extends Model
 
     public function scopeSearchProduct($query,$name){
 
-        return $query->where('name','LIKE',"%" . $name . "%")
-                     ->where('status','=','activo');
+        return $query->where('name','LIKE',"%" . $name . "%");
+                     
     }
 
     public function scopeSearchProductL($query,$letra){
 
         return $query->where('name','LIKE', $letra . "%")
-                     ->where('status','=','activo');
+                    ->where('status','=','activo');
                     
     }
 
     public function scopeSearchProductC($query,$category){
 
-        return $query->where('category_id','=',$category)
-                     ->where('status','=','activo');
+        return $query->where('category_id','=',$category);
+                     
                              
     }
 
     public function scopeSearchProductP($query,$name,$provider){
 
-        return $query->where('name','LIKE', $name . "%")
-                     ->where('status','=','activo');
+        return $query->where('name','LIKE', $name . "%");
+                    
                    
     }
 
@@ -97,6 +97,16 @@ class Product extends Model
             ->get();
 
     }    
+
+   /* public static function productByCodeProvider($term,$provider_id){
+        return $products= DB::table('providers_products as pp')
+              ->join('products as p','pp.product_id','=','p.id')
+              ->select('*')
+              ->where('code','LIKE',"%$term%")
+              ->where('status','=','activo')
+              ->where('pp.provider_id','=',$provider_id)->get();
+    }  */  
+
  
      
 }

@@ -65,14 +65,21 @@ Route::group(['prefix'=>'admin'], function(){
   
   Route::resource('purchases','PurchasesController');
       Route::get('/searchProvider','PurchasesController@searchProvider');
+      Route::get('/autocompleteProvider', 'PurchasesController@autocompleteProvider')->name('autocompleteProvider');
+ 
   route::resource('clients','ClientsController');
       Route::get('/searchClient','InvoicesController@searchClient');
+  
   route::resource('providers','ProvidersController');
       Route::get('/searchProvider','PurchasesController@searchProvider');
       Route::get('/searchProducts','PurchasesController@searchProducts');
-  route::resource('providersproducts','ProvidersProductsController');
+      route::resource('providersproducts','ProvidersProductsController');
+
+   Route::get('/detailPurchase','PurchasesController@detailPurchase');
   
   Route::resource('carrusel','CarruselController');
+
+  Route::get('/reportStock','PdfController@createReportStock')->name('reportStock');
 
   
 });
@@ -98,7 +105,10 @@ Route::get('/category/{id}/{name}','CatalogsController@searchCategoryProduct')->
 Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
 Route::get('contact', ['as' => 'contact', 'uses' => 'MailController@index'] );
 
-
+Route::get('/pdf', function(){
+    $pdf = PDF::loadView('admin.hola');
+    return $pdf->stream();
+});
 
 
 

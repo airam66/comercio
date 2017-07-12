@@ -231,7 +231,7 @@
                     onClickEvent: function () { 
                         var client = $('#cuil').getSelectedItemData();
                         $('#nombre').val(client.name);
-                        $('#client_id').val(cleint.id);
+                        $('#client_id').val(client.id);
                     },
                     onKeyEnterEvent: function () { 
                         var client = $('#cuil').getSelectedItemData();

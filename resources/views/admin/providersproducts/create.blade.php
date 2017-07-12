@@ -106,26 +106,26 @@
 
   var options={
     url: function(p){
-      return baseUrl('admin/autocompleteClient?p='+p);
-         }, getValue:'cuil',
+      return baseUrl('admin/autocompleteProvider?p='+p);
+         }, getValue:'cuit',
             list: {
                     match: {
                         enabled: true
                     },
                     onClickEvent: function () { 
-                        var client = $('#cuil').getSelectedItemData();
-                        $('#nombre').val(client.name);
-                        $('#client_id').val(cleint.id);
+                        var provider = $('#cuit').getSelectedItemData();
+                        $('#nombre').val(provider.name);
+                        $('#provider_id').val(provider.id);
                     },
                     onKeyEnterEvent: function () { 
-                        var client = $('#cuil').getSelectedItemData();
-                        $('#nombre').val(client.name);
-                        $('#client_id').val(client.id);
+                        var provider = $('#cuit').getSelectedItemData();
+                        $('#nombre').val(provider.name);
+                        $('#provider_id').val(provider.id);
                     }
                 }
    };
   
-  $("#cuil").easyAutocomplete(options);
+  $("#cuit").easyAutocomplete(options);
 
 
 </script>

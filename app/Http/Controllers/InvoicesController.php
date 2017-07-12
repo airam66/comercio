@@ -80,7 +80,7 @@ class InvoicesController extends Controller
       if($request->ajax()){
         $output="";
         $comilla="'";
-      $products=Product::SearchProduct($request->search)->get();
+      $products=Product::SearchProduct($request->search)->where('status','=','activo')->get();
 
        if ($products) {
         foreach ($products as $key => $product) {
@@ -109,7 +109,7 @@ class InvoicesController extends Controller
       if($request->ajax()){
         $output="";
         $comilla="'";
-      $clients=Client::searchClient($request->searchClient)->get();
+      $clients=Client::searchClient($request->searchClient)->where('status','=','activo')->get();
        if ($clients) {
         foreach ($clients as $key => $client) {
                   $output.='<tr>'.
