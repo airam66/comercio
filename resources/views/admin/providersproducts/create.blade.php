@@ -113,12 +113,16 @@
                         enabled: true
                     },
                     onClickEvent: function () { 
+
                         var provider = $('#cuit').getSelectedItemData();
+
                         $('#nombre').val(provider.name);
                         $('#provider_id').val(provider.id);
                     },
                     onKeyEnterEvent: function () { 
+
                         var provider = $('#cuit').getSelectedItemData();
+
                         $('#nombre').val(provider.name);
                         $('#provider_id').val(provider.id);
                     }
