@@ -63,9 +63,15 @@ Route::group(['prefix'=>'admin'], function(){
       Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
       Route::get('invoices/create/buscarproducto', 'InvoicesController@buscarproducto')->name('buscarproducto');
   
-  Route::resource('purchases','PurchasesController');
+  //########################### Rutas para Purchases###################
+      Route::resource('purchases','PurchasesController');
+      Route::get('/detailPurchase','PurchasesController@detailPurchase');
       Route::get('/searchProvider','PurchasesController@searchProvider');
       Route::get('/autocompleteProvider', 'PurchasesController@autocompleteProvider')->name('autocompleteProvider');
+      Route::get('/searchData','PurchasesController@searchDate');
+
+      
+      
  
   route::resource('clients','ClientsController');
       Route::get('/searchClient','InvoicesController@searchClient');
@@ -75,7 +81,6 @@ Route::group(['prefix'=>'admin'], function(){
       Route::get('/searchProducts','PurchasesController@searchProducts');
       route::resource('providersproducts','ProvidersProductsController');
 
-   Route::get('/detailPurchase','PurchasesController@detailPurchase');
   
   Route::resource('carrusel','CarruselController');
 

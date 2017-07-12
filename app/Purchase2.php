@@ -17,8 +17,7 @@ class Purchase extends Model
 
         return $this->belongsTo('App\Provider');
     }
-
-    
+   
     public function scopeSearchPurchase($query,$fecha1,$fecha2){
 
         return $query->where( [['created_at','>=',$fecha1],

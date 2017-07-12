@@ -16,7 +16,8 @@ class PurchasesController extends Controller
         $this->provider=new Provider();
     }
     public function index(Request $request){
-     // return view('admin.invoices.index');
+        $purchases=Purchase::all();
+      return view('admin.purchases.index')->with('purchases',$purchases);
     }
 
     public function create(){
@@ -83,7 +84,7 @@ class PurchasesController extends Controller
 
 
 
-            return redirect()->route('purchases.create');
+            return redirect()->route('purchases.index');
     }
 
 
@@ -228,6 +229,59 @@ class PurchasesController extends Controller
    
     }
     }
+
+
+
+
+    public function searchDate(Request $request){
+   
+      if($request->ajax()){
+        $output="";
+        $comilla="'";
+      $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)->get();
+       if ($purchases) {
+        foreach ($purchases as $key => $purchase) {
+         
+                if ($purchase>status!='rechazada'){
+                  $output .='<tr role="row" class="odd">';
+                }
+                else{
+                  $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
+                };
+                  $output=$output.
+                        '<td>'.$purchase->id.'</td>'.
+                        '<td>'.$purchase->created_at.'</td>'.
+                        '<td>'.$purchase->provider->name.'</td>'.
+                        '<td>'.$purchase->status.'</td>'.
+                        '<td>
+                         
+                        <button type="button" class="btn btn-primary "  data-title="Detail"">
+                         <i class="fa fa-list" aria-hidden="true"></i>
+                          </button>';
+
+                          if ($purchase->status!='rechazada'){
+                            $output .= '<a  onclick="return confirm('.$comilla.'¿Seguro dara de baja esta factura?'.$comilla.')">
+                        <button type="submit" class="btn btn-danger">
+                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                        </button>';
+                            }
+                
+
+                          
+                     
+
+                  $output .= '</tr>';
+          }
+        } 
+   
+        return Response($output);
+          
+               
+   
+    
+    }
+  }
+
 
 
 }
