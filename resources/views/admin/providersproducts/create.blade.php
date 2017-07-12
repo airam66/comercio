@@ -113,19 +113,23 @@
                         enabled: true
                     },
                     onClickEvent: function () { 
-                        var provader = $('#cuit').getSelectedItemData();
+
+                        var provider = $('#cuit').getSelectedItemData();
+
                         $('#nombre').val(provider.name);
                         $('#provider_id').val(provider.id);
                     },
                     onKeyEnterEvent: function () { 
-                        var client = $('#cuit').getSelectedItemData();
+
+                        var provider = $('#cuit').getSelectedItemData();
+
                         $('#nombre').val(provider.name);
                         $('#provider_id').val(provider.id);
                     }
                 }
    };
   
-  $("#cuil").easyAutocomplete(options);
+  $("#cuit").easyAutocomplete(options);
 
 
 </script>

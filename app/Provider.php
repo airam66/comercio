@@ -18,6 +18,7 @@ class Provider extends Model
     public static function providerByCuit($term){
         return static::select('id', 'name','cuit','address' ,'phone','email','province')
             ->where('cuit','LIKE',"%$term%")
+            ->where('status','=','activo')
             ->get();
 
     }   

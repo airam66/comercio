@@ -7,7 +7,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color:lightgray">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick=" $('#mostrar').html('');" >
              <span aria-hidden="true">&times;</span>
              </button>
              <h4 class="modal-title" id="favoritesModalLabel">BUSCAR PRODUCTOS</h4>
@@ -45,7 +45,7 @@
       <div class="modal-footer">
         <button type="button" 
            class="btn btn-default" 
-           data-dismiss="modal">SALIR</button>
+           data-dismiss="modal" onClick=" $('#mostrar').html('');">SALIR</button>
       </div>
     </div>
   </div>

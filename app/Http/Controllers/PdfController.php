@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class PdfController extends Controller
 {
+
     public function index(){
         return view('admin.pdf.reports');
     }
+
 
     public function createPDF($datos,$datos2,$vistaurl){
 

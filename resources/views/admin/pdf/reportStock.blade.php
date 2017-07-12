@@ -14,6 +14,7 @@
       
     </header>
       
+
       @foreach($data2 as $provider)
 
          <h2>Proveedor: {{$provider->name}}</h2>
@@ -30,27 +31,29 @@
                 </thead> 
                  <tbody>
                  
-              @foreach($data as $product)
+                    @foreach($data as $product)
 
-                @if($provider->id == $product->provider_id)
+                        @if($provider->id == $product->provider_id)
                   
-                    <tr>
-                    <td class="text-center">{{$product->product_name}}</td>
-                    <td class="text-center">{{$product->brand_name}}</td>
-                    <td class="text-center">{{$product->stock}}</td>
-                      </tr>
-                    @endif
+                            <tr>
+                            <td class="text-center">{{$product->product_name}}</td>
+                            <td class="text-center">{{$product->brand_name}}</td>
+                            <td class="text-center">{{$product->stock}}</td>
+                            </tr>
+                        @endif
 
-            @endforeach 
+                     @endforeach 
          
-                    </tbody>
+                </tbody>
 
-                  </table> 
-                  </main>
-                 @endforeach
+             </table> 
+            </main>
+      @endforeach
             
+
     <footer>
       Creado por COTYGYM
     </footer>
+    
   </body>
 </html>
