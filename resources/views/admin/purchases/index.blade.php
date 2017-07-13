@@ -10,7 +10,7 @@
 </div>
       <div class="row">
       <div class='col-sm-2 pull-right'>
-        <input type ='button' class="btn btn-warning "  value = 'Agregar' onclick="location.href = '{{ route('purchases.create') }}'"/> 
+        <input type ='button' class="btn btn-success"   value = 'Agregar' onclick="location.href = '{{ route('purchases.create') }}'"/> 
         </div>
         <div class='col-sm-6 pull-left'>
             <div class="form-group">
@@ -63,6 +63,13 @@
                         <td>{{$purchase->status}}</td>
                         <td>
                          
+                        <a href="{{route('purchases.edit',$purchase->id)}}"  >
+                                <button type="submit" class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                                </button>
+                        </a>
+
                         <button type="button" class="btn btn-primary "  >
                          Generar PDF</button>
                          

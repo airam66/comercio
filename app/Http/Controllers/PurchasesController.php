@@ -57,7 +57,7 @@ class PurchasesController extends Controller
                   flash("Debe ingresar al menos un producto" , 'success')->important();
             }
 
-            //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE VENTA//++++++++++++++++++
+            //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE ordencompra//++++++++++++++++++
             $idarticulo = $request->get('dproduct_id');
             $amount = $request->get('damount');
             $price = $request->get('dprice');
@@ -87,6 +87,67 @@ class PurchasesController extends Controller
             return redirect()->route('purchases.index');
     }
 
+//###################Edit Purchase########################
+    public function edit($id)
+    {     
+        $purchase=Purchase::find($id);
+        $details= DB::table('purchases_products as pp')
+              ->join('products as p','pp.product_id','=','p.id')
+              ->join('brands as b','p.brand_id','=','b.id')
+              ->select('p.id as product_id','p.name as product_name','pp.price','b.name as brand_name','pp.amount','pp.subTotal')
+              ->where('pp.purchase_id','=',$id)->get();
+
+        return view('admin.purchases.edit')->with('purchase',$purchase)
+                                            ->with('details',$details);                                
+    }
+
+    public function update(Request $request, $id){
+     
+      $purchase=Purchase::find($id);
+      $purchase->total=$request->get('TotalCompra'); 
+
+      if ($purchase->total>0){
+                 $purchase->save();
+            }
+            else{
+                  flash("Debe ingresar al menos un producto" , 'success')->important();
+            }
+      DB::table('purchases_products')->where('purchase_id','=',$id)->delete();
+      $idarticulo = $request->get('dproduct_id');
+            $amount = $request->get('damount');
+            $price = $request->get('dprice');
+
+             $cont =0;
+
+            while ( $cont <  count($idarticulo) ) {
+                //dd($cont);
+                $detalle = new PurchaseProduct();
+                $detalle->purchase_id=$purchase->id; //le asignamos el id de la venta a la que pertenece el detalle
+                $detalle->product_id=$idarticulo[$cont];
+                $detalle->amount=$amount[$cont];
+                $detalle->price=$price[$cont];
+                $detalle->subTotal=$amount[$cont]*$price[$cont];
+
+                if ($purchase->total>0){
+                   $detalle->save(); 
+                }
+                               
+                $cont = $cont+1;
+
+            }
+
+    
+        flash("La factura N° ". $purchase->id . " ha sido modificada con exito" , 'success')->important();
+     
+
+       return redirect()->route('purchases.index');
+
+
+    }
+
+
+
+//################### Search ################################
 
     public function searchProducts(Request $request){
       if($request->ajax()){
@@ -100,7 +161,7 @@ class PurchasesController extends Controller
               ->where('p.stock','>=',10)
               ->where('p.status','=','activo')
               ->where('pp.provider_id','=',$request->provider_id)->get();
-  
+     
 
        if ($products) {
         foreach ($products as $key => $product) {
