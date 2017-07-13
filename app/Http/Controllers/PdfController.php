@@ -51,4 +51,5 @@ class PdfController extends Controller
     	return $this->createPDF($products,$provider,$vistaurl);
     }
 
+    
 }

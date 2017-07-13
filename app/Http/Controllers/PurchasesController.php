@@ -57,7 +57,9 @@ class PurchasesController extends Controller
                   flash("Debe ingresar al menos un producto" , 'success')->important();
             }
 
+
             //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE ordencompra//++++++++++++++++++
+
             $idarticulo = $request->get('dproduct_id');
             $amount = $request->get('damount');
             $price = $request->get('dprice');
@@ -156,10 +158,11 @@ class PurchasesController extends Controller
       $products= DB::table('providers_products as pp')
               ->join('products as p','pp.product_id','=','p.id')
               ->join('brands as b','p.brand_id','=','b.id')
-              ->select('code','p.id as product_id','p.name as product_name','purchase_price','b.name as brand_name','stock','p.status')
-              ->where('p.name','LIKE', $request->searchProducts."%")
-              ->where('p.stock','>=',10)
+              ->select('code','p.id as product_id','p.name as product_name','purchase_price','b.name as brand_name','stock','p.status','b.name')
+              ->where('p.name','LIKE', "%".$request->searchProducts."%")
+              ->where('p.stock','<',10)
               ->where('p.status','=','activo')
+              ->where('b.name',"<>","CreaTu")
               ->where('pp.provider_id','=',$request->provider_id)->get();
      
 
@@ -212,6 +215,27 @@ class PurchasesController extends Controller
    
     }
     }
+
+    public function show($id){
+      
+      $purchase= Purchase::find($id);
+      $details= DB::table('purchases_products as dp')
+      ->join('products as p','dp.product_id','=','p.id')
+      ->join('brands as b','b.id','=','p.brand_id')
+      ->select('p.id','p.name as product_name','b.name as brand_name','dp.price','dp.amount','dp.subTotal')
+      ->where('dp.purchase_id','=',$id)->get();
+   
+
+      $date = date('Y-m-d');
+      $vistaurl="admin.purchases.purchaseOrder";
+      $view= \View::make($vistaurl,compact('purchase','details','date'))->render();
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+
+      return $pdf->stream();
+    }
+
+
      public function autocompleteProvider(Request $request){
            
             return $this->provider->providerByCuit($request->input('p'));
@@ -236,6 +260,7 @@ class PurchasesController extends Controller
               ->join('brands as b','p.brand_id','=','b.id')
               ->select('code','p.id as product_id','p.name as product_name','purchase_price','b.name as brand_name','stock')
               ->where('p.stock','<',10)
+              ->where('b.name',"<>","CreaTu")
               ->where('pp.provider_id','=',$request->provider_id)->get();
 
      

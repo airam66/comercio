@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     protected $table="purchases";
-    protected $fillable= ['provider_id','total','status'];
+    protected $fillable= ['id','provider_id','total','status','created_at'];
 
     public function products(){
     	return $this->belongsToMany('App\Product')->withTimestamps();

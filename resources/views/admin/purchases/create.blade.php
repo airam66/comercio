@@ -66,7 +66,7 @@
                    </div>
                    
                    <div class="col-md-2 col-md-offset-2">
-                       {!!Field::number('purchase_price',null, ['step'=>'any','disabled'])!!} 
+                       {!!Field::number('purchase_price',null,['disabled'])!!} 
  
                     </div>
                      <div class="col-md-2">
@@ -105,7 +105,7 @@
                           <th>Marca</th>
                           <th>Precio Compra</th>
                           <th>Cantidad</th>
-                          <th>Subtotal</th>
+                          <th>Subtotal Estimado</th>
                         </tr>
                       </thead>
 
@@ -121,12 +121,12 @@
                  
                   <div class="col-xs-6 pull-right">
                       <div class="text-center" style="background-color: gray;">
-                        <h3 style="color:white;">Total</h3>
+                        <h3 style="color:white;">Total Estimado</h3>
                       </div>
                     <div class="table-responsive">
                       <table class="table">
                         <tr>
-                          <th class="text-center">Total:</th>
+                          <th class="text-center">Total Estimado:</th>
                           <td class="text-center">$<input type="number" id="TotalCompra" name="TotalCompra" value=0 step="any" class="mi_factura"></td>
                         </tr>
                       </table>
@@ -224,7 +224,7 @@
 
 
 <script >
-  function complete($id,$code,$brand,$name,$wholesale,$purchase,$stock,$amount){
+  function complete($id,$code,$brand,$name,$purchase,$stock){
     $('#code').val($code);
     $('#brand').val($brand);
     $('#product_id').val($id);
@@ -315,10 +315,8 @@ function deletefila(index,subTotal){
     $('#code').val('');
     $('#product_id').val('');
     $('#name').val('');
-    $('#price').val('');
-    $('#priceR').val('');
-    $('#priceW').val('');
-    $('#wholesale_cant').val('');
+    $('#purchase_price').val('');
+    $('#brand').val('');
     $('#amount').val('');
  }
 </script>
