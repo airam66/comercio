@@ -187,7 +187,7 @@
             </li>
             <li class="treeview">
               <a href="#">
-                 <i class="fa fa-money"></i>
+                 <i class="glyphicon glyphicon-shopping-cart"></i>
                  <span>Compras</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
@@ -218,7 +218,7 @@
             </li>
             <li class="treeview">
               <a href="#">
-                 <i class="fa fa-tags"></i>
+                 <i class="fa fa-laptop"></i>
                  <span>Pagina Web</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
                <ul class="treeview-menu">
