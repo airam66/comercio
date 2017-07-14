@@ -86,7 +86,7 @@ class ProductsTest extends DuskTestCase
                     ->press('Registrar')
                     ->assertSeeErrors([
                       'name'=>'El campo nombre es obligatorio',
-                      'code'=>'El campo codigo debe contener al menos 8 caracteres',
+                      'code'=>'El campo codigo debe contener al menos 3 caracteres',
                       //'price'=> 'El campo precio es obligatorio',
                       'stock'=>'El campo stock es obligatorio'
                         
@@ -97,26 +97,56 @@ class ProductsTest extends DuskTestCase
    public function test_update_stock_craft_products(){
     $user=User::find(1);
 
-    $products=Product::all()->where('brand_id','=',2);
-    $productsToSearch=Product::find(6);
-    $this->browse(function (Browser $browser) use ($user,$products,$productsToSearch){
+    $products=Product::where('brand_id','=',2);
+    $productsToSearch=Product::find(2);
+    $this->browse(function (Browser $browser) use ($user,$products){
             
             $browser->visit('comercio/public/admin/craftProducts')
                     ->type('email',$user->email)
                     ->type('password','secret')
                     ->press('Entrar')
                     ->assertPathIs('/comercio/public/admin/craftProducts')
-                    ->press('Buscar')
-                    ->pause(1000)
+                    ->press('#iconSearch')
+                    ->whenAvailable('.modal',function($modal){
+                           $modal->pause(1000)
+                                ->assertSee('BUSCAR PRODUCTOS');
+                                
+                                /*->with('#tabla',function($table){
+                                       $table->assertSee('Hola');
+                                });*/
+                                                                
+                                 
+                    })
                     ->clickLink('TODOS')
-                    ->pause(3000)
-                    ->waitFor('.button')
-                    ->with('.table', function ($table) use ($productsToSearch)
-      {
-                       $table->press('Agregar');
-      });
+                    ->pause(80000)
+                    ->with('.table',function($tbody){
+                      $tbody->assertSee('Silicona');
+                    });
+                                       
+                    
+     
                     
     });
+
+   }
+
+   public function test_update_stock_craft_products_validate(){
+     $user=User::find(1);
+    
+     $this->browse(function (Browser $browser) use ($user){
+            $browser->visit('comercio/public/admin/craftProducts')
+                    ->type('email',$user->email)
+                    ->type('password','secret')
+                    ->press('Entrar')
+                    ->assertPathIs('/comercio/public/admin/craftProducts')
+                    ->press('Confirmar')
+                    ->assertSeeErrors([
+                      'code'=>'El campo codigo es obligatorio',
+                      'amount'=>'El campo Cantidad es obligatorio'
+                                              
+                      ]);
+
+   });
 
    }
 

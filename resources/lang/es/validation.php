@@ -125,7 +125,7 @@ return [
     'location'               =>        'localidad',
     'province'               =>        'provincia',
     'phone'                  =>        'telefono',
-    'line_id'                =>        'lines',
+    'line_id'                =>        'línea',
     'brand_id'               =>        'marca',
     'purchase_price'         =>        'precio',
     'description'            =>        'descripción',
@@ -137,8 +137,9 @@ return [
     'retail_price'           =>        'Venta minorista',
     'wholesale_porcentage'   =>        'Venta mayorista',
     'retail_porcentage'      =>        'Venta minorista',
-    'price'                  =>        'precio',
+    'price'                  =>        'Precio',
     'brand'                  =>        'Marca',
+    'amount'                 =>        'Cantidad'
 
     ],
 

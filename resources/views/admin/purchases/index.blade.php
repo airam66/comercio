@@ -50,13 +50,9 @@
    @foreach ($purchases as $key => $purchase) 
          
                 @if ($purchase->status!='rechazada')
-                   <tr role="row" class="odd">
-                
-                @else
-                  <tr role="row" class="odd" style="background-color: rgb(255,96,96)">
-                
-                @endif
-                 
+                  
+                <tr>
+                              
                         <td>{{$purchase->id}}</td>
                         <td>{{$purchase->created_at->format('d/m/Y')}}</td>
                         <td>{{$purchase->provider->name}}</td>
@@ -80,8 +76,10 @@
                             
                                 </button>
                         </a>
+                  </td>
+                  </tr>
 
-
+                    @endif
                          
         @endforeach
 

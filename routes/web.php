@@ -49,7 +49,7 @@ Route::group(['prefix'=>'admin'], function(){
   Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
   Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
   //***** ver porq nos se puede poner products/antes
-  Route::get('craftProducts','ProductsController@craftProducts');
+  Route::get('craftProducts','ProductsController@craftProducts')->name('craftProducts');
   Route::post('products/updateStock','ProductsController@updateStock')->name('products.updateStock');
   Route::get('/searchCraftProducts', 'ProductsController@searchCraftProducts');  
   Route::get('/searchCraft', 'ProductsController@searchCraft'); 

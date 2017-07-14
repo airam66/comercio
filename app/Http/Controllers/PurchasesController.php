@@ -42,6 +42,7 @@ class PurchasesController extends Controller
 
       $this->validate($request,[
           'cuit'=>'required|exists:providers,cuit',
+        
 
         ]);
         
@@ -54,7 +55,7 @@ class PurchasesController extends Controller
                  $purchase->save();
             }
             else{
-                  flash("Debe ingresar al menos un producto" , 'success')->important();
+                  flash("Debe ingresar al menos un producto" , 'danger')->important();
             }
 
 

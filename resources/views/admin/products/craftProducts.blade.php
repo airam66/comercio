@@ -18,19 +18,18 @@
                 <h3>Producto</h3>
                 <div class="row " >
                     <div class="col-md-3 pull-left" >
-                         {!! form::label('Codigo')!!}
-                         <input id="code" class="form-control" name="code" type="text" >
-                         <input id="product_id" class="form-control " name="product_id" type="hidden" >
+                         {!!Field::text('code')!!}
+                                                  
                     </div> 
                     <div class="pull-left">
                     <br>
-                       <button type="button" class="btn btn-primary pull-left" data-toggle="modal" id="first" data-title="Buscar" data-target="#favoritesModalProduct">
-                          <i class="fa fa-search"></i>Buscar
+                       <button id="iconSearch" type="button" class="btn btn-primary pull-left" data-toggle="modal" id="first" data-title="Buscar" data-target="#favoritesModalProduct">
+                          <i class="fa fa-search"></i>
                        </button>
                    </div>
               
                    <div class="col-md-2 col-md-offset-2">
-                        {!! Field::number('Cantidad')!!}
+                        {!! Field::number('amount')!!}
                         
                     </div>                    
                 </div>
@@ -46,8 +45,12 @@
 
                  </div>
 
+                  <div class="form-group">
+                   <input type="hidden" name="id" id="id">
+                 </div>
+
                  <div class="form-group">
-                   {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
+                   {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
                  </div>
              </div>
               
@@ -93,6 +96,20 @@ $('#search').on('keyup', function(){
     
   });
   }
+</script>
+
+<script >
+  function complete($id,$code,$name,$wholesale,$retail,$stock){
+    var am=0;
+
+    $('#stock').val($stock);
+     $('#code').val($code);
+    $('#id').val($id);
+    $('#name').val($name);
+    $('#favoritesModalProduct').modal('hide');
+  };
+
+
 </script>
 
 @endsection

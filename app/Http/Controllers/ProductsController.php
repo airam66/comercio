@@ -215,11 +215,10 @@ class ProductsController extends Controller
                         
                         '<td>'.$product->name.'</td>'.
                         '<td> $ '.$product->retail_price.'</td>'.
-                        '<td>'.$product->wholesale_cant.'</td>'.
                         '<td> $ '.$product->wholesale_price.'</td>'.
                         '<td>'.$product->stock.'</td>'.
 
-                        '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.','.$product->wholesale_cant.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
+                        '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
 
 
                     .'</tr>';
@@ -250,11 +249,10 @@ class ProductsController extends Controller
                           $output.='<tr>'.
                                  '<td>'.$product->name.'</td>'.
                                 '<td>$ '.$product->retail_price.'</td>'.
-                                '<td>'.$product->wholesale_cant.'</td>'.
                                 '<td>$ '.$product->wholesale_price.'</td>'.
                                 '<td>'.$product->stock.'</td>'.
                                 
-                                '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.','.$product->wholesale_cant.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
+                                '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
 
 
                             .'</tr>';
@@ -269,11 +267,28 @@ class ProductsController extends Controller
     }
 
     public function craftProducts(){
+       $brand=Brand::where('name','=','CreaTu')->pluck('id');
+      $products=Product::where('brand_id','=',$brand)
+                      ->where('status','=','activo')->get();
 
-      return view('admin.products.craftProducts');
+      return view('admin.products.craftProducts')->with('products',$products);
     }
     
-    public function updateStock(){
+    public function updateStock(Request $request){
+
+      $this->validate($request,[
+          'code'=>'required|exists:products,code',
+          'amount'=>'required',
+          
+          
+        ]);
+        $product= Product::find($request->id);
+        //dd($request);
+        $product->stock=$request->amount + $product->stock;
+        $product->save();
+        flash("El stock del producto ". $product->name . " ha sido actualizado con éxito" , 'success')->important();
+        return redirect()->route('craftProducts');
+
 
       
     }
