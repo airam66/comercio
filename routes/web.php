@@ -40,9 +40,20 @@ Route::group(['prefix'=>'admin'], function(){
       Route::get('/events/{id}/desable','EventController@desable')->name('events.desable');
       Route::get('/events/{id}/enable','EventController@enable')->name('events.enable');
 
-  Route::resource('brands','BrandController');   
+  Route::resource('brands','BrandController');  
+
+  //******************************Rutas para products**************************************** 
      
   Route::resource('products','ProductsController');
+  Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
+  Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
+  Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
+  //***** ver porq nos se puede poner products/antes
+  Route::get('craftProducts','ProductsController@craftProducts')->name('craftProducts');
+  Route::post('products/updateStock','ProductsController@updateStock')->name('products.updateStock');
+  Route::get('/searchCraftProducts', 'ProductsController@searchCraftProducts');  
+  Route::get('/searchCraft', 'ProductsController@searchCraft'); 
+//********************************************************************************************
   Route::get('/search','InvoicesController@search');
       
   Route::get('/searchL','InvoicesController@searchL');
@@ -50,9 +61,7 @@ Route::group(['prefix'=>'admin'], function(){
   Route::post('invoices/desable','InvoicesController@desable')->name('invoices.desable');
   Route::get('/invoices/{id}/print','InvoicesController@print')->name('print');
   
-  Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
-  Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
-  Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
+
 
   Route::resource('lines','LinesController');
 
@@ -70,7 +79,7 @@ Route::group(['prefix'=>'admin'], function(){
       Route::get('/autocompleteProvider', 'PurchasesController@autocompleteProvider')->name('autocompleteProvider');
       Route::get('/searchData','PurchasesController@searchDate');
 
-      
+       Route::get('/purchases/{id}/desable','PurchasesController@desable')->name('purchases.desable');
       
  
   route::resource('clients','ClientsController');

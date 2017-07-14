@@ -16,7 +16,7 @@ class PurchasesController extends Controller
         $this->provider=new Provider();
     }
     public function index(Request $request){
-        $purchases=Purchase::all();
+        $purchases=Purchase::all()->where('status','<>','rechazadasazaa');
       return view('admin.purchases.index')->with('purchases',$purchases);
     }
 
@@ -42,6 +42,7 @@ class PurchasesController extends Controller
 
       $this->validate($request,[
           'cuit'=>'required|exists:providers,cuit',
+        
 
         ]);
         
@@ -54,7 +55,7 @@ class PurchasesController extends Controller
                  $purchase->save();
             }
             else{
-                  flash("Debe ingresar al menos un producto" , 'success')->important();
+                  flash("Debe ingresar al menos un producto" , 'danger')->important();
             }
 
 
@@ -88,6 +89,16 @@ class PurchasesController extends Controller
 
             return redirect()->route('purchases.index');
     }
+
+
+     public function desable(Request $request){
+        $purchase= Purchase::find($request->id);
+        $purchase->status='rechazada';
+        $purchase->save();
+
+        return redirect()->route('purchases.index');
+    }
+
 
 //###################Edit Purchase########################
     public function edit($id)
@@ -150,6 +161,7 @@ class PurchasesController extends Controller
 
 
 //################### Search ################################
+
 
     public function searchProducts(Request $request){
       if($request->ajax()){

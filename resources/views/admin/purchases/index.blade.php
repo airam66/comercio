@@ -41,7 +41,7 @@
                 <th>Proveedor</th>
                 <th>Estado</th>
                 <th></th>
-                   
+                 
             </tr>
         </thead>
      
@@ -50,28 +50,36 @@
    @foreach ($purchases as $key => $purchase) 
          
                 @if ($purchase->status!='rechazada')
-                   <tr role="row" class="odd">
-                
-                @else
-                  <tr role="row" class="odd" style="background-color: rgb(255,96,96)">
-                
-                @endif
-                 
+                  
+                <tr>
+                              
                         <td>{{$purchase->id}}</td>
                         <td>{{$purchase->created_at->format('d/m/Y')}}</td>
                         <td>{{$purchase->provider->name}}</td>
                         <td>{{$purchase->status}}</td>
                         <td>
-                         
+
+                       <a href="{{route('purchases.show',$purchase->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
+                         Generar PDF</button></a>
+                        @if ($purchase->status!='rechazada')
+                             <a href="{{route('purchases.desable',$purchase->id)}}" onclick="return confirm('¿Seguro dara de baja el producto?')">
+                        <button type="submit" class="btn btn-danger">
+                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                        </button>
+                     </a>
+                       @endif    
+  
+
                         <a href="{{route('purchases.edit',$purchase->id)}}"  >
                                 <button type="submit" class="btn btn-warning">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
                             
                                 </button>
                         </a>
+                  </td>
+                  </tr>
 
-                        <button type="button" class="btn btn-primary "  >
-                         Generar PDF</button>
+                    @endif
                          
         @endforeach
 
@@ -154,6 +162,18 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 });
 
 
+</script>
+
+<script type="text/javascript">
+function myDelete(id){
+  $.ajax({
+
+type: "POST",
+url: "{{ URL::to('admin/purchases/desable')}}",
+data: { id: id }
+});
+
+}
 </script>
 
 
