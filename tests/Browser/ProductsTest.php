@@ -9,10 +9,11 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Category;
 use App\User;
+use App\Product;
 
 class ProductsTest extends DuskTestCase
 {
-   use DatabaseMigrations;
+   //use DatabaseMigrations;
 
    protected $code= 12345;
    protected $name='oso';
@@ -91,6 +92,33 @@ class ProductsTest extends DuskTestCase
                         
                       ]);
     });
-}
+   }
+
+   public function test_update_stock_craft_products(){
+    $user=User::find(1);
+
+    $products=Product::all()->where('brand_id','=',2);
+    $productsToSearch=Product::find(6);
+    $this->browse(function (Browser $browser) use ($user,$products,$productsToSearch){
+            
+            $browser->visit('comercio/public/admin/craftProducts')
+                    ->type('email',$user->email)
+                    ->type('password','secret')
+                    ->press('Entrar')
+                    ->assertPathIs('/comercio/public/admin/craftProducts')
+                    ->press('Buscar')
+                    ->pause(1000)
+                    ->clickLink('TODOS')
+                    ->pause(3000)
+                    ->waitFor('.button')
+                    ->with('.table', function ($table) use ($productsToSearch)
+      {
+                       $table->press('Agregar');
+      });
+                    
+    });
+
+   }
+
 }
 

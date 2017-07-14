@@ -194,7 +194,91 @@ class ProductsController extends Controller
            $products->delete();
         return redirect()->route('products.index');
     }
+      
+      //*****************PARA ACTUALIZAR STOCK DE PRODUCTOS PERSONALIZADOS*************
 
+      
+      public function searchCraft(Request $request){
+      // BUSCADOR DE PRODUCTOS MARCA CREATU POR NOMBRE DEL PRODUCTO
+   
+      if($request->ajax()){
+        $output="";
+        $comilla="'";
+      $brand=Brand::where('name','=','CreaTu')->pluck('id');
+      $products=Product::where('brand_id','=',$brand)
+                      ->where('name','LIKE',"%" . $request->search . "%")
+                      ->where('status','=','activo')->get();
+       if ($products) {
+        foreach ($products as $key => $product) {
+
+                  $output.='<tr>'.
+                        
+                        '<td>'.$product->name.'</td>'.
+                        '<td> $ '.$product->retail_price.'</td>'.
+                        '<td>'.$product->wholesale_cant.'</td>'.
+                        '<td> $ '.$product->wholesale_price.'</td>'.
+                        '<td>'.$product->stock.'</td>'.
+
+                        '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.','.$product->wholesale_cant.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
+
+
+                    .'</tr>';
+        }
+
+   
+        return Response($output);
+          
+       }        
+   
+    }
+    }
+    
+       public function searchCraftProducts(Request $request){
+        //BUSCADOR DE PRODUCTOS MARCA CREATU POR LETRAS
+      
+            if($request->ajax()){
+              $output="";
+              $comilla="'";
+              $brand=Brand::where('name','=','CreaTu')->pluck('id');
+              $products=Product::where('brand_id','=',$brand)
+                                ->where('name','LIKE', $request->searchL . "%")
+                                ->where('status','=','activo')->get();
+        
+          
+               if ($products) {
+                foreach ($products as $key => $product) {
+                          $output.='<tr>'.
+                                 '<td>'.$product->name.'</td>'.
+                                '<td>$ '.$product->retail_price.'</td>'.
+                                '<td>'.$product->wholesale_cant.'</td>'.
+                                '<td>$ '.$product->wholesale_price.'</td>'.
+                                '<td>'.$product->stock.'</td>'.
+                                
+                                '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.','.$product->wholesale_cant.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
+
+
+                            .'</tr>';
+                }
+
+   
+        return Response($output);
+          
+          }        
+   
+       }
+    }
+
+    public function craftProducts(){
+
+      return view('admin.products.craftProducts');
+    }
+    
+    public function updateStock(){
+
+      
+    }
+
+    //*********************************************************************************************
    
 }
 

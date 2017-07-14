@@ -14,41 +14,36 @@ use App\Porcentage;
 use App\User;
 use App\Product;
 use App\Provider;
-
+use App\Purchase;
+use App\PurchaseProduct;
 class PurchaseTest extends DuskTestCase
 {
-   protected $cuit= 12345678901;
-   protected $name='Frutillita';
- 
+   
     public function test_delete_purchaseOrder()
     {
-
-     $user=factory(User::class)->create(['email'=>'gaby333@gmail.com',]);
-        $category= factory(\App\Category::class)->create(['name'=>'Tarjetas',]); 
-        $brand= factory(\App\Brand::class)->create(['name'=>'Sprit',]);
-        $line= factory(\App\Line::class)->create(['name'=>'Princesas',]);
-        $event= factory(\App\Event::class)->create(['name'=>'Cumpleaños',]);
-        $porcentage= factory(\App\Porcentage::class)->create();
-        $product=factory(Product::class)->create(['name'=>'Bolsittas Frozen',]);
-      
-        $provider=factory(Provider::class)->create('cuit'=>12341234567,]);
-        $purchase=factory(Purchase::class)->create('provider_id'=>1);
+        $user=factory(User::class)->create(['email'=>'fairam66@gmail.com',]);
+       
         $purchaseDetail=factory(PurchaseProduct::class)->create();
+        $purchaseRemove=Purchase::find(1);
 
 
-
-        $this->browse(function (Browser $browser) use ($user){
-            $browser->visit('http://localhost:8080/comercio/public/admin/products')
+        $this->browse(function (Browser $browser) use ($user,$purchaseRemove){
+            $browser->visit('comercio/public/admin/purchases')
                     ->type('email',$user->email)
                     ->type('password','secret')
                     ->press('Entrar')
                     ->assertPathIs('/comercio/public/admin/purchases')
-                    ->press('Eliminar')
-                 //   ->assertSee('¿Seguro dara de baja el producto?')
-                    ->acceptDialog()
-                   // ->assertSee('active')
-                    ->assertPathIs('/comercio/public/admin/products')
-                    ;
-        });
-    }
+                    ->with('.table', function ($table) use($purchaseRemove)
+                    {
+                      $table->press('Eliminar')
+                            ->acceptDialog()
+                            ->assertDontSee($purchaseRemove->id);                       
+                    });
+                                            
+         $this->assertDatabaseHas('purchases',[
+                   'status'=>'rechazada',                    
+                ]);
+    });
+}
+
 }

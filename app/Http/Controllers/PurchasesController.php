@@ -16,7 +16,7 @@ class PurchasesController extends Controller
         $this->provider=new Provider();
     }
     public function index(Request $request){
-        $purchases=Purchase::all();
+        $purchases=Purchase::all()->where('status','<>','rechazadasazaa');
       return view('admin.purchases.index')->with('purchases',$purchases);
     }
 
@@ -85,6 +85,14 @@ class PurchasesController extends Controller
 
 
             return redirect()->route('purchases.index');
+    }
+
+     public function desable(Request $request){
+        $purchase= Purchase::find($request->id);
+        $purchase->status='rechazada';
+        $purchase->save();
+
+        return redirect()->route('purchases.index');
     }
 
 

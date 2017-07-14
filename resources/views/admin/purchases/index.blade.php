@@ -41,7 +41,7 @@
                 <th>Proveedor</th>
                 <th>Estado</th>
                 <th></th>
-                   
+                 
             </tr>
         </thead>
      
@@ -63,8 +63,16 @@
                         <td>{{$purchase->status}}</td>
                         <td>
                          
-                        <button type="button" class="btn btn-primary "  >
-                         Generar PDF</button>
+                       <a href="{{route('purchases.show',$purchase->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
+                         Generar PDF</button></a>
+                        @if ($purchase->status!='rechazada')
+                             <a href="{{route('purchases.desable',$purchase->id)}}" onclick="return confirm('¿Seguro dara de baja el producto?')">
+                        <button type="submit" class="btn btn-danger">
+                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                        </button>
+                     </a>
+                       @endif    
+  
                          
         @endforeach
 
@@ -147,6 +155,18 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 });
 
 
+</script>
+
+<script type="text/javascript">
+function myDelete(id){
+  $.ajax({
+
+type: "POST",
+url: "{{ URL::to('admin/purchases/desable')}}",
+data: { id: id }
+});
+
+}
 </script>
 
 
