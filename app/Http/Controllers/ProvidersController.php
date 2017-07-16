@@ -15,8 +15,9 @@ class ProvidersController extends Controller
     
     public function index(Request $request)
     {
+       $providers=Provider::SearchProvider($request->name)->orderBy('name','status','ASC')->paginate(10);
       
-       /* return view('admin.products.index')->with('products',$products)*/
+       return view('admin.providers.index')->with('providers',$providers);
 
     }
 

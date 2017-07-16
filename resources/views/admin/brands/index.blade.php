@@ -28,7 +28,7 @@
        
         <thead>
             <tr>
-                <th style="width:10px">Codigo</th>
+              
                 <th>Nombre</th>
                <th>Estado</th>
                
@@ -44,7 +44,7 @@
           @else
             <tr role="row" class="odd" style="background-color: rgb(255,96,96);">
           @endif
-            <td>{{$brand->id}}</td>
+           
             <td>{{$brand->name}}</td>
             <td>{{$brand->status}}</td>
 
