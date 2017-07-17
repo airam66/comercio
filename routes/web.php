@@ -53,6 +53,12 @@ Route::group(['prefix'=>'admin'], function(){
   Route::post('products/updateStock','ProductsController@updateStock')->name('products.updateStock');
   Route::get('/searchCraftProducts', 'ProductsController@searchCraftProducts');  
   Route::get('/searchCraft', 'ProductsController@searchCraft'); 
+
+  Route::post('products/updateStockCreateProduct', 'ProductsController@updateStockCreateProduct')->name('products.updateStockCreateProduct'); 
+  Route::get('updateStockCreate',function(){
+        return view('admin.products.updateStockCreate');
+        });
+   Route::get('/searchUpdateStockCreate', 'ProductsController@searchUpdateStockCreate');
 //********************************************************************************************
   Route::get('/search','InvoicesController@search');
       
@@ -60,7 +66,11 @@ Route::group(['prefix'=>'admin'], function(){
   Route::get('/searchData','InvoicesController@searchDate');
   Route::post('invoices/desable','InvoicesController@desable')->name('invoices.desable');
   Route::get('/invoices/{id}/print','InvoicesController@print')->name('print');
+
+  Route::get('productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
   
+  Route::get('/products/{id}/desable','ProductsController@desable')->name('products.desable');
+  Route::get('/products/{id}/enable','ProductsController@enable')->name('products.enable');
 
 
   Route::resource('lines','LinesController');

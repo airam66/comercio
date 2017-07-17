@@ -41,7 +41,7 @@
                       <div class="col-md-6  col-md-offset-2">
                             
                             <h4><strong>Nombre: </strong> {{$purchase->provider->name}}</h4>
-                            <input id="provider_id" name="provider_id" class="form-control" value=" {{$purchase->provider->id}}" type="hidden" >
+                            <input id="provider_id" name="provider_id" class="form-control myfactura" value=" {{$purchase->provider->id}}" type="hidden" >
                             
                       </div>
                 </div>
@@ -243,29 +243,18 @@
    $('#mostrar').html('');
   };
 </script>
-<script >
-$('#searchP').on('keyup', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchProvider')}}",
-    data:{'searchProvider':$value},
-    success: function(data){
-      $('#mostrarP').html(data);
-    }
-    
-  })
-})
-</script>
+
 <script>
 $('#searchProducts').on('keyup', function(){
   $value=$(this).val();
+
   $providerid=$('#provider_id').val();
   $.ajax({
     type: 'get',
     url:  "{{ URL::to('admin/searchProducts')}}",
     data:{'searchProducts':$value,'provider_id':$providerid},
     success: function(data){
+     
       $('#mostrar').html(data);
     }
     

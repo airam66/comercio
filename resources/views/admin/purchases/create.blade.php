@@ -136,9 +136,7 @@
         
               <div class="row no-print">
                   <div class="col-xs-12">
-                      <div class= "form-group">
-                      {!! Form::hidden('status','activo',['class'=>'form-control'])!!} 
-                      </div>
+                      
 
                       <div class="form-group">
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
