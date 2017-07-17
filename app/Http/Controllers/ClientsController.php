@@ -16,8 +16,8 @@ class ClientsController extends Controller
     
     public function index(Request $request)
     {
-      
-       /* return view('admin.products.index')->with('products',$products)*/
+      $clients=Client::SearchClient($request->name)->orderBy('name','status','ASC')->paginate(10);
+       return view('admin.clients.index')->with('clients',$clients);
 
     }
 

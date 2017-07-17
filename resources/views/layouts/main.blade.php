@@ -170,6 +170,7 @@
                 <li class="active"><a href="{{route('lines.index')}}"><i class="fa fa-circle-o"></i> Lista de lineas</a></li>
                 <li class="active"><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i> Lista de marcas</a></li>
                 <li class="active"><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> Lista de productos</a></li>
+                 <li class="active"><a href="{{route('craftProducts')}}"><i class="fa fa-circle-o"></i> Stock Productos Personalizados</a></li>
                 <li class="active"><a href="{{route('porcentages.create')}}"><i class="fa fa-circle-o"></i> Porcentajes de ventas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
               </ul>
@@ -201,8 +202,8 @@
                  <span>Personas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('clients.create')}}"><i class="fa fa-circle-o"></i>Listado clientes</a></li>
-                <li class="active"><a href="{{route('providers.index')}}"><i class="fa fa-circle-o"></i> Listado Proveedores</a></li>
+                <li class="active"><a href="{{route('clients.index')}}"><i class="fa fa-circle-o"></i>Lista de clientes</a></li>
+                <li class="active"><a href="{{route('providers.index')}}"><i class="fa fa-circle-o"></i> Lista de proveedores</a></li>
                 <li class="active"><a href="{{route('providersproducts.create')}}"><i class="fa fa-circle-o"></i> Proveedores por productos</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
@@ -325,6 +326,7 @@
     <script src="{{asset('bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.js')}}"></script>
 
     <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
+    <script src="{{asset('js/sistemalaravel.js')}}"></script>
 
     @yield('js')
 

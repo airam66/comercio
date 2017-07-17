@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
      <div class="box-header ">
-        <h2 class="box-title col-md-5">Proveedores Encontrados</h2>    
+        <h2 class="box-title col-md-5">Clientes Encontrados</h2>    
         
         <!-- campo de busqueda-->
         <form route='admin.providers.index'  method="GET" class="col-md-3 col-md-offset-4 ">
@@ -18,7 +18,7 @@
         </form>
           <!-- fin campo de busqueda -->
         
-        <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('providers.create') }}'"/> 
+        <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('clients.create') }}'"/> 
 
       </div>
      
@@ -32,29 +32,27 @@
                 <th>Nombre</th>
                 <th>Direccion</th>
                 <th>Teléfono</th>
-                <th>Provincia</th> 
+                
                 <th></th>
             </tr>
           </thead>
      
        
           <tbody>
-             @foreach($providers as $provider) 
+             @foreach($clients as $client) 
 
-		          @if ($provider->status!='inactivo')
+		          @if ($client->status!='inactivo')
 		            <tr role="row" class="odd">
 		          @else
 		            <tr role="row" class="odd" style="background-color: rgb(255,96,96);">
 		          @endif
 		            
-		            <td>{{$provider->name}}</td>
-		            <td>{{$provider->address}}</td>
-		            <td>{{$provider->phone}}</td>
-		            <td>{{$provider->province}}</td>
+		            <td>{{$client->name}}</td>
+		            <td>{{$client->address}}</td>
+		            <td>{{$client->phone}}</td>
+		           
                     <td>
-                      <button type="button" class="btn btn-primary "  data-title="Detail">
-                         <i class="fa fa-list" aria-hidden="true"></i>
-                      </button>
+                      
 
                     </td>
 		           
@@ -66,6 +64,5 @@
     </div>
 
 </div>
-
 
 @endsection
