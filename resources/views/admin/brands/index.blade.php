@@ -31,6 +31,7 @@
               
                 <th>Nombre</th>
                <th>Estado</th>
+               <th></th>
                
             </tr>
         </thead>
@@ -39,14 +40,18 @@
 <tbody>
    @foreach($brands as $brand) 
 
-          @if ($brand->status!='inactivo')
+          
             <tr role="row" class="odd">
-          @else
-            <tr role="row" class="odd" style="background-color: rgb(255,96,96);">
-          @endif
-           
+
+            <td>{{$brand->id}}</td>
+
             <td>{{$brand->name}}</td>
             <td>{{$brand->status}}</td>
+            <td> <a href="{{route('brands.desable',$brand->id)}}" onclick="return confirm('¿Seguro dara de baja esta categoria?')">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                        </button>
+                     </a></td>
 
             
 
