@@ -191,6 +191,7 @@ class PurchasesController extends Controller
 
                     .'</tr>';
         }
+      
         return Response($output);
           
        }        

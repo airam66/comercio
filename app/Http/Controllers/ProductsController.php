@@ -294,6 +294,63 @@ class ProductsController extends Controller
     }
 
     //*********************************************************************************************
+
+    public function searchUpdateStockCreate(Request $request){
+      // BUSCADOR DE PRODUCTOS MARCA CREATU POR NOMBRE DEL PRODUCTO
+    
+      if($request->ajax()){
+        $output="";
+        $comilla="'";
+      $brands=Brand::where('name','<>','CreaTu')->pluck('id');
+      foreach ($brands as $key => $brand) {
+      $products=Product::where('brand_id','=',$brand)
+                      ->where('name','LIKE',"%" . $request->search . "%")
+                      ->where('status','=','activo')->get();
+       }
+
+       if ($products) {
+        foreach ($products as $key => $product) {
+              
+                  $output.='<tr>'.
+                        
+                        '<td>'.$product->code.'</td>'.
+                        '<td> '.$product->name.'</td>'.
+                         '<td>'.$product->stock.'</td>'.
+
+                        '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->stock.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
+
+
+                    .'</tr>';
+        }
+
+   
+        return Response($output);
+          
+       }        
+   
+    }
+    }
+
+    public function updateStockCreateProduct(Request $request){
+
+      $this->validate($request,[
+          'code'=>'required|exists:products,code',
+          'amount'=>'required',
+          
+          
+        ]);
+     
+        $product= Product::find($request->product_id);
+        //dd($request);
+        $product->stock=$product->stock - $request->amount ;
+        $product->save();
+        flash("El stock del producto ". $product->name . " ha sido actualizado con éxito" , 'success')->important();
+        return view('admin.products.updateStockCreate');
+
+
+      
+    }
+    
    
 }
 
