@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Provider;
@@ -34,6 +35,40 @@ class ProvidersController extends Controller
         $providers->save();
         return redirect()->to($request->route);
 
+    }
+
+     public function listProducts(Request $request){
+
+      if($request->ajax()){
+      
+         $output="";
+         $comilla="'";
+         $products= DB::table('providers_products as pp')
+              ->join('products as p','pp.product_id','=','p.id')
+              ->join('brands as b','p.brand_id','=','b.id')
+              ->select('p.name as product_name','b.name as brand_name','p.stock','p.status','pp.provider_id')
+              ->where('p.status','=','activo')
+              ->where('pp.provider_id','=',$request->provider_id)->get();
+         
+
+         if ($products) {
+           foreach ($products as $key => $product) {
+           //dd($products);
+                  $output.='<tr>'.
+                       
+                        '<td>'.$product->product_name.'</td>'.
+                        '<td>'.$product->brand_name.'</td>'.
+                        '<td>'.$product->stock.'</td>'.
+
+
+                    '</tr>';
+        }
+      
+        return Response($output);
+          
+       }        
+   
+    }
     }
 
      

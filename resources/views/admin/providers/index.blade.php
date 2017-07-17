@@ -52,9 +52,11 @@
 		            <td>{{$provider->location}}</td>
 		            <td>{{$provider->province}}</td>
                     <td>
-                      <button type="button" class="btn btn-primary "  data-title="Detail">
-                         <i class="fa fa-list" aria-hidden="true"></i>
-                      </button>
+                      <button type="button" class="btn btn-primary " data-toggle="modal" id="first" data-title="Detail" data-target="#favoritesModalProduct" onclick="list({{$provider->id}})">
+                          <i class="fa fa-list"></i>
+                     </button>
+                     @include('admin.providers.providerProduct')
+                      
 
                     </td>
 		           
@@ -68,4 +70,23 @@
 </div>
 
 
+@endsection
+
+
+@section('js')
+
+<script>
+function list($id){
+ 
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/listProducts')}}",
+    data:{'provider_id':$id},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+}
+</script>
 @endsection
