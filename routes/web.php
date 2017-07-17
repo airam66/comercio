@@ -74,6 +74,7 @@ Route::group(['prefix'=>'admin'], function(){
 
 
   Route::resource('lines','LinesController');
+  Route::get('/lines/{id}/desable','LinesController@desable')->name('lines.desable');
 
   Route::resource('porcentages','PorcentagesController');
 
@@ -99,7 +100,7 @@ Route::group(['prefix'=>'admin'], function(){
       Route::get('/searchProvider','PurchasesController@searchProvider');
       Route::get('/searchProducts','PurchasesController@searchProducts');
       route::resource('providersproducts','ProvidersProductsController');
-
+      
   
   Route::resource('carrusel','CarruselController');
 

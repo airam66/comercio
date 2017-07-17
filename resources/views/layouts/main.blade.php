@@ -202,7 +202,7 @@
                   </a>
                   <ul class="treeview-menu">
                 <li class="active"><a href="{{route('clients.create')}}"><i class="fa fa-circle-o"></i>Listado clientes</a></li>
-                <li class="active"><a href="{{route('providers.create')}}"><i class="fa fa-circle-o"></i> Listado Proveedores</a></li>
+                <li class="active"><a href="{{route('providers.index')}}"><i class="fa fa-circle-o"></i> Listado Proveedores</a></li>
                 <li class="active"><a href="{{route('providersproducts.create')}}"><i class="fa fa-circle-o"></i> Proveedores por productos</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>

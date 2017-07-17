@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
 <div class="box-header ">
-<h2 class="box-title col-md-5">Lineas Encontrados</h2>
+<h2 class="box-title col-md-5">Lineas Encontradas</h2>
         
  
                    <!-- search name form -->
@@ -18,7 +18,7 @@
             </div>
         </form>
           <!-- /.search form -->
-        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('lines.create') }}'"/>
+        <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('lines.create') }}'"/>
 
 </div>
 <div class="box-body">              
@@ -29,7 +29,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Estado</th>
-                <th>Acción</th>
+                <th></th>
                    
             </tr>
         </thead>
@@ -40,14 +40,20 @@
 
           @if ($line->status!='inactivo')
             <tr role="row" class="odd">
-          @else
-            <tr role="row" class="odd" style="background-color: rgb(255,96,96);">
+                <td>{{$line->name}}</td>
+                <td>{{$line->status}}</td>
+                <td>
+                <a href="{{route('lines.desable',$line->id)}}" onclick="return confirm('¿Seguro dará de baja esta línea?')">
+                <button type="submit" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                </button>
+                </a></td>
+              </tr>
           @endif
-            <td>{{$line->name}}</td>
-            <td>{{$line->status}}</td>
+          
            
-        </tr>
-  @endforeach
+      
+    @endforeach
 </tbody>
     </table>
 

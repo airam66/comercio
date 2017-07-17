@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\LineRequest;
 
-use App\line;
+use App\Line;
 
 class LinesController extends Controller
 {
@@ -60,6 +60,17 @@ class LinesController extends Controller
 
     public function destroy($id)
     {
-        //
+        $line=Line::find($id);
+        $line->status='inactivo';
+        $line->save();
+        return redirect()->route('lines.index');
+    }
+
+      public function desable($id)
+    {
+        $line=Line::find($id);
+        $line->status='inactivo';
+        $line->save();
+        return redirect()->route('lines.index');
     }
 }
