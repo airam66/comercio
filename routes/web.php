@@ -40,7 +40,8 @@ Route::group(['prefix'=>'admin'], function(){
       Route::get('/events/{id}/desable','EventController@desable')->name('events.desable');
       Route::get('/events/{id}/enable','EventController@enable')->name('events.enable');
 
-  Route::resource('brands','BrandController');  
+  Route::resource('brands','BrandController'); 
+  Route::get('/brands/{id}/desable','BrandController@desable')->name('brands.desable'); 
 
   //******************************Rutas para products**************************************** 
      
