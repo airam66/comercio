@@ -178,7 +178,7 @@ margin-bottom: 10px;}
     Sidebar styles starts here
    ========================================================================== */
 
-.page-styling{background: #fff;padding: 0 30px;margin-top: 120px;border-radius: 45px; padding-bottom: 50px; box-shadow: 5px 5px 30px 10px #301b1f;}
+.page-styling{background: #fff;padding: 0 10px;margin-top: 120px;border-radius: 45px; padding-bottom: 50px; box-shadow: 5px 5px 30px 10px #301b1f;}
  .ruler{border-bottom: 3px solid #af0579;}
 .more-btn{padding: 0 15px; background: #ebebeb; display: inline-block; margin: 0 auto;}
 .more-btn .btn{color: #ebebeb; font-size: 16px; background: #ed3237;font-family: 'source_sans_probold';

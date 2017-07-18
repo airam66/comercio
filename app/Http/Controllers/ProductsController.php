@@ -269,7 +269,7 @@ class ProductsController extends Controller
     public function craftProducts(){
        $brand=Brand::where('name','=','CreaTu')->pluck('id');
       $products=Product::where('brand_id','=',$brand)
-                      ->where('status','=','activo')->get();
+                      ->where('status','=','activo')->orderBy('name','ASC')->get();
 
       return view('admin.products.craftProducts')->with('products',$products);
     }
