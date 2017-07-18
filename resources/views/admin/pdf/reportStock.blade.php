@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Example 1</title>
+    <title>Reporte de stock</title>
     <link rel="stylesheet" href="{{'css/pdf.css'}}" media="all" />
   </head>
   <body >
@@ -52,7 +52,7 @@
             
 
     <footer>
-      Creado por COTYGYM
+     
     </footer>
     
   </body>

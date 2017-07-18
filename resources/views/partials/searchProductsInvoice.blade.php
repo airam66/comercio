@@ -6,29 +6,35 @@
       role="dialog" aria-labelledby="favoritesModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background-color:lightgray">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick=" $('#mostrar').html('');" >
+      <div class="modal-header" style="background-color:lightblue">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
              </button>
-             <h4 class="modal-title" id="favoritesModalLabel">BUSCAR PRODUCTOS</h4>
+             <h4 class="modal-title" id="favoritesModalLabel"><b>BUSCAR PRODUCTOS</b></h4>
       </div>
       <div class="modal-body">
 <div>
-   
+  @include('partials.letter')
+
+
   <div class="input-group pull-right" >
- 
-  <input type="text" name="searchProducts" id="searchProducts" class="form-control"   placeholder="Nombre..."> 
+  <input type="text" name="search" id="search" class="form-control"   placeholder="Nombre..."> 
   </div>
-      
+    <br>
+    <br>
+    <br>  
         
   <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
     <thead>
-            <tr>
-             <th style="width:10px">Codigo</th>
+            <tr style="background-color:lightgray">
+                
                 <th>Nombre</th>
+                <th>Precio Minorista</th>
+                <th>Cantidad Mayorista</th>
+                <th>Precio Mayorista</th>
                 <th>Stock</th>
-                <th>Acción</th>
+                <th></th>
                    
             </tr>
     </thead>
@@ -45,7 +51,7 @@
       <div class="modal-footer">
         <button type="button" 
            class="btn btn-default" 
-           data-dismiss="modal" onClick=" $('#mostrar').html('');">SALIR</button>
+           data-dismiss="modal">SALIR</button>
       </div>
     </div>
   </div>

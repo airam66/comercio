@@ -39,8 +39,8 @@
                        </div>
                        <div class="pull-left">
                        <br>
-                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalProvider"><i class="fa fa-search"></i></button>
-                            @include('admin.purchases.buscarProvider')
+                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
+                            @include('partials.searchPeople')
                       </div>
                       <div class="col-md-6  col-md-offset-2">
                             <input id="provider_id" name="provider_id" class="form-control" type="hidden" >
@@ -155,7 +155,7 @@
     </div>
   </div>
 
- @include('admin.purchases.buscarProducto')
+ @include('partials.searchProductsPurchase')
 
 @endsection
 
@@ -212,11 +212,11 @@
 
 </script>
 <script type="text/javascript">
-  function completeC($id,$cuit,$name){
-    $('#cuit').val($cuit);
+  function completeC($id,$number,$name){
+    $('#cuit').val($number);
     $('#nombre').val($name);
     $('#provider_id').val($id);
-    $('#favoritesModalProvider').modal('hide');
+    $('#favoritesModalClient').modal('hide');
   };
 </script>
 
@@ -233,14 +233,14 @@
   };
 </script>
 <script >
-$('#searchP').on('keyup', function(){
+$('#searchC').on('keyup', function(){
   $value=$(this).val();
   $.ajax({
     type: 'get',
     url:  "{{ URL::to('admin/searchProvider')}}",
     data:{'searchProvider':$value},
     success: function(data){
-      $('#mostrarP').html(data);
+      $('#mostrarC').html(data);
     }
     
   })

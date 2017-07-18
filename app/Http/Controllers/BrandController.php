@@ -9,13 +9,7 @@ use App\Brand;
 
 class BrandController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');//para que este logueado
-    }
-
-
-     public function index(Request $request)
+    public function index(Request $request)
     {
         $brands=Brand::SearchBrandName($request->name)->orderBy('name','status','ASC')->where('status','=','activo')->paginate(10);
        
@@ -43,7 +37,9 @@ class BrandController extends Controller
 
     public function desable($id)
     {
-        $brand= Brand::find($id)->delete();
+        $brand= Brand::find($id);
+        $brand->status='inactivo';
+        $brand->save();
         
         return redirect()->route('brands.index');
     }

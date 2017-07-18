@@ -28,7 +28,7 @@
             </div>
         </form>
           <!-- /.search form -->
-        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('products.create') }}'"/> 
+        <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('products.create') }}'"/> 
           
        @if($validacion)
           <br>
@@ -50,7 +50,7 @@
                 <th>Línea</th>
                 <th>Estado</th>
                 <th>Imagen</th> 
-                <th>Acción</th>
+                <th></th>
                    
             </tr>
         </thead>
@@ -110,7 +110,9 @@
   @endforeach
 </tbody>
     </table>
-
+<div class="text-center">
+  {!!$products->render()!!}
+</div>
 
 
 </div>

@@ -11,10 +11,6 @@ use App\Http\Requests\CategoryRequest;
 class CategoriesController extends Controller
 {
 
-	public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index(Request $request)
     {

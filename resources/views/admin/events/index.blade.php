@@ -7,8 +7,6 @@
 <div class="box-header ">
 <h2 class="box-title col-md-5">Eventos Encontrados</h2>
     
-
-         
                    <!-- search name form -->
      
         <form route='admin.events.index'  method="GET" class="col-md-3 col-md-offset-4 ">
@@ -20,7 +18,7 @@
             </div>
         </form>
           <!-- /.search form -->
-        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('events.create') }}'"/>
+        <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('events.create') }}'"/>
 
 </div>
 <div class="box-body">              
@@ -31,7 +29,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Estado</th>
-                <th>Acción</th>
+                <th></th>
                    
             </tr>
         </thead>
@@ -67,9 +65,11 @@
            
         </tr>
   @endforeach
-</tbody>
-    </table>
-
+   </tbody>
+ </table>
+<div class="text-center">
+  {!!$events->render()!!}
+</div>
 
 
 

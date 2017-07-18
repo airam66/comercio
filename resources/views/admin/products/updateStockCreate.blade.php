@@ -59,7 +59,7 @@
     </div>
   
 
- @include('admin.purchases.buscarProducto')
+@include('admin.products.searchCraftProducts')
 
 @endsection
 

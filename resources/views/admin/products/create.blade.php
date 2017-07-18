@@ -10,14 +10,7 @@
         <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Nuevo producto</h3>
-           
-
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Minimizar">
-                <i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Cerrar">
-                <i class="fa fa-times"></i></button>
-            </div>
+          
           </div>
           <div class="box-body">
             
@@ -53,10 +46,10 @@
              </div>
 
               <div class="col-md-3 col-md-offset-1">
-              {!! Field::number('wholesale_price',null, ['class'=>'form-control','step'=>'any'])!!}
+              {!! Field::number('retail_price',null, ['class'=>'form-control','step'=>'any'])!!}
               </div>
               <div class="col-md-3 col-md-offset-1">
-              {!! Field::number('retail_price',null, ['class'=>'form-control','step'=>'any'])!!}
+              {!! Field::number('wholesale_price',null, ['class'=>'form-control','step'=>'any'])!!}
               </div>
 
 

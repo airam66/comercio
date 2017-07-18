@@ -43,7 +43,7 @@
                        <div class="pull-left">
                        <br>
                             <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
-                            @include('admin.invoices.buscarcliente')
+                           @include('partials.searchPeople')
                       </div>
                       <div class="col-md-6  pull-right">
                             <input id="client_id" name="client_id" class="form-control" type="hidden" >
@@ -178,7 +178,7 @@
     </div>
   </div>
 
-@include('admin.invoices.buscarproducto')
+@include('partials.searchProductsInvoice')
 
 
 @endsection
@@ -266,8 +266,8 @@
 
 </script>
 <script type="text/javascript">
-  function completeC($id,$cuil,$name){
-    $('#cuil').val($cuil);
+  function completeC($id,$number,$name){
+    $('#cuil').val($number);
     $('#nombre').val($name);
     $('#client_id').val($id);
     $('#favoritesModalClient').modal('hide');
@@ -359,7 +359,7 @@ $('#searchC').on('keyup', function(){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          Totalventa=Totalventa+Subtotal[cont];
 
-              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#Subtotalventa').val(Totalventa);
