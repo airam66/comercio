@@ -206,7 +206,7 @@ class PurchasesController extends Controller
    
       if($request->ajax()){
   
-      $providers=Provider::searchProvider($request->searchProvider)->where('status','=','activo')->get();
+      $providers=Provider::searchProvider($request->searchP)->where('status','=','activo')->get();
       $type="Provider";
       $result=popUpPeople($providers,$type);
       return Response($result);    
@@ -258,7 +258,7 @@ class PurchasesController extends Controller
               ->join('brands as b','p.brand_id','=','b.id')
               ->select('code','p.id as product_id','p.name as product_name','purchase_price','b.name as brand_name','stock')
               ->where('p.stock','<',10)
-              ->where('b.name',"<>","CREATÚ")
+              ->where('b.name',"<>","CREATU")
               ->where('pp.provider_id','=',$request->provider_id)->get();
 
      

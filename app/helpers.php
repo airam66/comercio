@@ -72,11 +72,9 @@ function popUpPeople($people,$type){
                         '<td>'.$person->name.'</td>'.
                         '<td>'.$person->address.'</td>'.
                         '<td>'.$person->phone.'</td>'.
-                       
-                       
-                        '<td><a onclick="completeC('.$comilla.$person->id.$comilla.','.$numberPerson.','.$comilla.$person->name.$comilla.')" type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
+                     
+                         '<td><a onclick="completeC('.$comilla.$person->id.$comilla.','.$numberPerson.','.$comilla.$person->name.$comilla.'); productStockProvider() " type="button" class="btn btn-primary"> Agregar </a></td>'
+                      
                     .'</tr>';
         }
 

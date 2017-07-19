@@ -1,4 +1,6 @@
-<div class="modal fade" id="favoritesModalClient" tabindex="-1" role="dialog" aria-labelledby="favoritesModalClientLabel">
+<!--Inicio POPUP-->
+
+<div class="modal fade" id="favoritesModalClient" tabindex="-1" role="dialog" aria-labelledby="favoritesModalLabel">
 
   <div  class="modal-dialog" role="document">
     <div class="modal-content">
@@ -6,7 +8,7 @@
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
              </button>
-             <h4 class="modal-title" id="myfavoritesModalClientLabel">{{$title}}</h4>
+             <h4 class="modal-title" id="myfavoritesModalLabel">{{$title}}</h4>
       </div>
       <div class="modal-body">
           <div>
@@ -19,7 +21,7 @@
                      
                   <thead>
                           <tr>
-                           <th style="width:10px">Cuit</th>
+                           <th style="width:10px">Cuit/Cuil</th>
                               <th>Nombre</th>
                               <th>Dirección</th>
                               <th>Telefono</th>
@@ -27,20 +29,19 @@
                           </tr>
                   </thead>
                                         
-              <tbody id="mostrarC">
+                  <tbody id="mostrarC">
                  
-              </tbody>
+                  </tbody>
                  
-                  </table>
+                </table>
 
-      </div><!--FIN DEL BODY-->
-      <div class="modal-footer">
-        <button type="button" 
-           class="btn btn-defaultp" 
-           data-dismiss="modal">SALIR</button>
-      </div>
+         </div><!--FIN DEL BODY-->
+         <div class="modal-footer">
+            <button type="button" 
+              class="btn btn-defaultp" data-dismiss="modal">SALIR</button>
+         </div>
+     </div>
     </div>
-  </div>
-</div>
+ </div>
 </div>
 <!--FIN POPUP-->
