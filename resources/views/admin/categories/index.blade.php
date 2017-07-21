@@ -19,7 +19,7 @@
             </div>
         </form>
           <!-- /.search form -->
-        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('categories.create') }}'"/> 
+        <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('categories.create') }}'"/> 
 
 </div>
 <div class="box-body">              
@@ -33,7 +33,7 @@
                 <th>Descripcion</th>
                 <th>Estado</th>
                 <th>Imagen</th> 
-                <th>Acción</th>
+                <th></th>
             </tr>
         </thead>
      
@@ -85,9 +85,11 @@
            
         </tr>
   @endforeach
-</tbody>
-    </table>
-
+   </tbody>
+ </table>
+ <div class="text-center">
+   {!!$categories->render()!!}
+ </div>
 
 
 

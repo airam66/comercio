@@ -4,12 +4,10 @@
 
 <div class="box box-primary">
 
-<div class="box-header ">
-<h2 class="box-title col-md-5">Marcas encontradas</h2>
+  <div class="box-header ">
+    <h2 class="box-title col-md-5">Marcas encontradas</h2>
       
-
-        
-                   <!-- search name form -->
+      <!-- form busqueda -->
         <form route='admin.brands.index'  method="GET" class="col-md-3 col-md-offset-4 ">
             <div class="input-group">
               <input type="text" name="name" class="form-control" placeholder="Nombre..."> 
@@ -18,13 +16,15 @@
               </span>
             </div>
         </form>
-          <!-- /.search form -->
-        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('brands.create') }}'"/> 
+          <!-- /form  busqueda-->
+        
+        <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('brands.create') }}'"/> 
 
-</div>
-<div class="box-body">              
+  </div>
+  <!--Inicio body-->
+  <div class="box-body">              
 
- <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
+    <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
         <thead>
             <tr>
@@ -37,34 +37,29 @@
         </thead>
      
        
-<tbody>
-   @foreach($brands as $brand) 
+        <tbody>
+           @foreach($brands as $brand) 
 
-          
-            <tr role="row" class="odd">
+                  
+                    <tr role="row" class="odd">
 
-            <td>{{$brand->id}}</td>
+                      <td>{{$brand->id}}</td>
 
-            <td>{{$brand->name}}</td>
-            <td>{{$brand->status}}</td>
-            <td> <a href="{{route('brands.desable',$brand->id)}}" onclick="return confirm('¿Seguro dara de baja esta categoria?')">
-                        <button type="submit" class="btn btn-danger">
+                      <td>{{$brand->name}}</td>
+                      <td>{{$brand->status}}</td>
+                      <td> <a href="{{route('brands.desable',$brand->id)}}" onclick="return confirm('¿Seguro dara de baja esta categoria?')">
+                          <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
-                        </button>
-                     </a></td>
-
-            
-
-                       
-        </tr>
-  @endforeach
-</tbody>
+                          </button>
+                           </a></td>
+                    </tr>
+          @endforeach
+        </tbody>
     </table>
-
-
-
-
+    <div class="text-center">
+      {!!$brands->render()!!}
+    </div>
+  </div><!--Fin body-->
 </div>
 
-</div>
 @endsection

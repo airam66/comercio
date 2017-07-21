@@ -14,11 +14,6 @@ use App\Porcentage;
 
 class ProductsController extends Controller
 {
-
-   public function __construct()
-    {
-        $this->middleware('auth');
-    }
     
     public function index(Request $request)
     {
@@ -29,7 +24,7 @@ class ProductsController extends Controller
         }
         
 
-        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->get();
+        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);
       
         $validacion=false;
 
@@ -90,10 +85,11 @@ class ProductsController extends Controller
         $products->brand_id= $request->brand_id;
 
         $products->save();
+        if(!empty($request->events)){
 
-        $products->event()->sync($request->events);
+        $products->event()->sync($request->events);}
 
-        return redirect()->to($request->route);
+        return redirect()->route('products.index');
 
     }
 
@@ -102,11 +98,11 @@ class ProductsController extends Controller
         $validacion=false;
       if(($event!=null )&&($request->Evento!="")){
          
-          $products= $event->products()->get();
+          $products= $event->products()->paginate(10);
           return view('admin.products.index')->with('products',$products)
                                             ->with('validacion',$validacion);
         }
-      $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->get();  
+      $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);  
       if ($event==null) {
             $validacion=true;
             }                                          
@@ -172,12 +168,14 @@ class ProductsController extends Controller
        return redirect()->route('products.index');
     }
 
+    //*********************PARA DAR DE ALTA O BAJA UN PRODUCTO************************
+
     public function desable($id)
     {
         $product= Product::find($id);
         $product->status='inactivo';
         $product->save();
-        return redirect()->route('products.index');
+        return redirect()->back();
     }
 
     public function enable($id)
@@ -185,89 +183,48 @@ class ProductsController extends Controller
         $product= Product::find($id);
         $product->status='activo';
         $product->save();
-        return redirect()->route('products.index');
-    }
-
-        public function destroy($id)
-    {
-           $product= Product::find($id);
-           $products->delete();
-        return redirect()->route('products.index');
+        return redirect()->back();
     }
       
       //*****************PARA ACTUALIZAR STOCK DE PRODUCTOS PERSONALIZADOS*************
+      
 
       
       public function searchCraft(Request $request){
       // BUSCADOR DE PRODUCTOS MARCA CREATU POR NOMBRE DEL PRODUCTO
    
       if($request->ajax()){
-        $output="";
-        $comilla="'";
-      $brand=Brand::where('name','=','CreaTu')->pluck('id');
-      $products=Product::where('brand_id','=',$brand)
-                      ->where('name','LIKE',"%" . $request->search . "%")
-                      ->where('status','=','activo')->get();
-       if ($products) {
-        foreach ($products as $key => $product) {
-
-                  $output.='<tr>'.
-                        
-                        '<td>'.$product->name.'</td>'.
-                        '<td> $ '.$product->retail_price.'</td>'.
-                        '<td> $ '.$product->wholesale_price.'</td>'.
-                        '<td>'.$product->stock.'</td>'.
-
-                        '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
-                    .'</tr>';
-        }
-
+       
+      $brand=Brand::where('name','=','CREATÚ')->pluck('id');
+      $products=Product::SearchProduct($request->search )
+                          ->where('brand_id','=',$brand)
+                          ->where('status','=','activo')->get();
+       
+        $result=listPopup($products);
+       return Response($result);
+         
+       }
    
-        return Response($output);
-          
-       }        
-   
-    }
+    
     }
     
        public function searchCraftProducts(Request $request){
         //BUSCADOR DE PRODUCTOS MARCA CREATU POR LETRAS
       
             if($request->ajax()){
-              $output="";
-              $comilla="'";
-              $brand=Brand::where('name','=','CreaTu')->pluck('id');
-              $products=Product::where('brand_id','=',$brand)
-                                ->where('name','LIKE', $request->searchL . "%")
-                                ->where('status','=','activo')->get();
-        
-          
-               if ($products) {
-                foreach ($products as $key => $product) {
-                          $output.='<tr>'.
-                                 '<td>'.$product->name.'</td>'.
-                                '<td>$ '.$product->retail_price.'</td>'.
-                                '<td>$ '.$product->wholesale_price.'</td>'.
-                                '<td>'.$product->stock.'</td>'.
-                                
-                                '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
-                            .'</tr>';
-                }
-
-   
-        return Response($output);
-          
-          }        
+              
+              $brand=Brand::where('name','=','CREATÚ')->pluck('id');
+              $products=Product::SearchProductL($request->searchL)
+                                -> where('brand_id','=',$brand)
+                                ->get();
+         $result=listPopup($products);
+         return Response($result);
    
        }
     }
 
     public function craftProducts(){
-       $brand=Brand::where('name','=','CreaTu')->pluck('id');
+       $brand=Brand::where('name','=','CREATÚ')->pluck('id');
       $products=Product::where('brand_id','=',$brand)
                       ->where('status','=','activo')->orderBy('name','ASC')->get();
 
@@ -283,7 +240,6 @@ class ProductsController extends Controller
           
         ]);
         $product= Product::find($request->id);
-        //dd($request);
         $product->stock=$request->amount + $product->stock;
         $product->save();
         flash("El stock del producto ". $product->name . " ha sido actualizado con éxito" , 'success')->important();
@@ -301,33 +257,15 @@ class ProductsController extends Controller
       if($request->ajax()){
         $output="";
         $comilla="'";
-      $brands=Brand::where('name','<>','CreaTu')->pluck('id');
+      $brands=Brand::where('name','<>','CREATÚ')->pluck('id');
       foreach ($brands as $key => $brand) {
       $products=Product::where('brand_id','=',$brand)
                       ->where('name','LIKE',"%" . $request->search . "%")
                       ->where('status','=','activo')->get();
        }
-
-       if ($products) {
-        foreach ($products as $key => $product) {
-              
-                  $output.='<tr>'.
-                        
-                        '<td>'.$product->code.'</td>'.
-                        '<td> '.$product->name.'</td>'.
-                         '<td>'.$product->stock.'</td>'.
-
-                        '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->stock.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
-                    .'</tr>';
-        }
-
-   
-        return Response($output);
-          
-       }        
-   
+       
+        $result=listPopup($products);
+        return Response($result);
     }
     }
 
@@ -341,7 +279,6 @@ class ProductsController extends Controller
         ]);
      
         $product= Product::find($request->product_id);
-        //dd($request);
         $product->stock=$product->stock - $request->amount ;
         $product->save();
         flash("El stock del producto ". $product->name . " ha sido actualizado con éxito" , 'success')->important();

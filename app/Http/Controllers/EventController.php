@@ -7,12 +7,7 @@ use App\Http\Requests\EventRequest;
 class EventController extends Controller
 {
 
-   public function __construct()
-    {
-        $this->middleware('auth');//para que este logueado
-    }
-
-  public function index(Request $request)
+    public function index(Request $request)
     {
 
       $events=Event::SearchEventP($request->name)->orderBy('name','ASC')->paginate(10);
@@ -32,7 +27,7 @@ class EventController extends Controller
        $event->save();
        flash("El evento  ". $event->name . " ha sido creado con exito" , 'success')->important();
      
-       return redirect()->route('events.index');//redirecciona la categoria
+       return redirect()->route('events.index');
     }
 
 

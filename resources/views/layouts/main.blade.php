@@ -7,10 +7,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-
-     <link rel="stylesheet" href="{{asset('css/my_style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/my_style.css')}}">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
     <link rel="shortcut icon" type="image/x-ico" href="{{ asset('images/logoss.ico') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -276,8 +275,9 @@
     <script>
       $.widget.bridge('uibutton', $.ui.button);
     </script>
+
     <!-- Bootstrap 3.3.5 -->
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
    
 
     <!-- Morris.js charts -->
@@ -293,7 +293,7 @@
     <!-- daterangepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
-<!--mydateranguepincker-->
+   <!--mydateranguepincker-->
 
           <!-- Include Required Prerequisites -->
       
@@ -326,10 +326,11 @@
     <script src="{{asset('bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.js')}}"></script>
 
     <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
-    <script src="{{asset('js/sistemalaravel.js')}}"></script>
-
+   
+    
     @yield('js')
-
+    @stack('scripts')
+    
     <script>
       function baseUrl(url){
         return "{{url('')}}/"+url;

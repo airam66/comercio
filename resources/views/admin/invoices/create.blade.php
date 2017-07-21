@@ -31,11 +31,11 @@
                 </div>
                 <!-- info row -->
       <div class="panel panel-default">
-          <div class="panel-body borde"><!--busqueda prorducto-->
+          <div class="panel-body borde"><!--busqueda producto-->
              <div class="border">
                 <h3>Cliente</h3>
                 <div class="row ">
-                       
+                       @include('partials.searchPeople')
                       <div class="col-md-3 pull-left" >
                            {!! form::label('CUIL/CUIT')!!}
                            <input id="cuil" class="form-control" name="cuil" type="text" >
@@ -43,14 +43,14 @@
                        <div class="pull-left">
                        <br>
                             <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
-                            @include('admin.invoices.buscarcliente')
+                           @include('partials.searchPeople')
                       </div>
                       <div class="col-md-6  pull-right">
                             <input id="client_id" name="client_id" class="form-control" type="hidden" >
                             {!!Field::text('nombre',null,['disabled'])!!}
                       </div>
-                </div>
-                </div>
+               </div>
+            </div>
                 
                   <h3>Producto</h3>
                 <div class="row " >
@@ -178,12 +178,13 @@
     </div>
   </div>
 
-@include('admin.invoices.buscarproducto')
+@include('partials.searchProductsInvoice')
 
 
 @endsection
 
 @section('js')
+
 <script type="text/javascript">
  var options={
     url: function(q){
@@ -221,34 +222,7 @@
   $("#code").easyAutocomplete(options);
 </script>
 
-<script>
-
-  var options={
-    url: function(p){
-      return baseUrl('admin/autocompleteClient?p='+p);
-         }, getValue:'cuil',
-            list: {
-                    match: {
-                        enabled: true
-                    },
-                    onClickEvent: function () { 
-                        var client = $('#cuil').getSelectedItemData();
-                        $('#nombre').val(client.name);
-                        $('#client_id').val(client.id);
-                    },
-                    onKeyEnterEvent: function () { 
-                        var client = $('#cuil').getSelectedItemData();
-                        $('#nombre').val(client.name);
-                        $('#client_id').val(client.id);
-                    }
-                }
-   };
-  
-  $("#cuil").easyAutocomplete(options);
-
-
-</script>
-<script >
+<script type="text/javascript">
   function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
     var am=0;
     $('#stock').val($stock);
@@ -262,20 +236,23 @@
     $('#amount').val(am);
     $('#favoritesModalProduct').modal('hide');
   };
-
-
 </script>
+
+
 <script type="text/javascript">
-  function completeC($id,$cuil,$name){
-    $('#cuil').val($cuil);
-    $('#nombre').val($name);
-    $('#client_id').val($id);
-    $('#favoritesModalClient').modal('hide');
-  };
+
+$('#favoritesModalClient').on('shown.bs.modal', function () {
+  $('#searchC').focus()
+})
+
+function productStockProvider(){
+}
 
 
 </script>
 <script>
+
+
 
 $('#amount').on('keyup', function(){
   var am=parseInt($('#amount').val());
@@ -334,6 +311,7 @@ $('#searchC').on('keyup', function(){
     
   })
 })
+
 </script>
 
 <script>
@@ -359,7 +337,7 @@ $('#searchC').on('keyup', function(){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          Totalventa=Totalventa+Subtotal[cont];
 
-              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#Subtotalventa').val(Totalventa);
@@ -415,3 +393,7 @@ function deletefila(index){
 @endsection
  
 
+@push('scripts')
+
+<script src="{{asset('dist/js/completePerson.js')}}"></script>
+@endpush

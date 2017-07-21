@@ -8,13 +8,13 @@
     <div class="modal-content">
       <div class="modal-header" style="background-color:lightblue">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             X
+             <span aria-hidden="true">&times;</span>
              </button>
              <h4 class="modal-title" id="favoritesModalLabel"><b>BUSCAR PRODUCTOS</b></h4>
       </div>
       <div class="modal-body">
 <div>
- @include('partials.letter')
+  @include('partials.letter')
 
 
   <div class="input-group pull-right" >
@@ -24,14 +24,15 @@
     <br>
     <br>  
         
-  <table id="tabla" class="display table table-hover" cellspacing="0" width="100%">
+  <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
     <thead>
             <tr style="background-color:lightgray">
                 
                 <th>Nombre</th>
-                <th>Precio Mayorista</th>
                 <th>Precio Minorista</th>
+                <th>Cantidad Mayorista</th>
+                <th>Precio Mayorista</th>
                 <th>Stock</th>
                 <th></th>
                    
@@ -41,21 +42,6 @@
        
        
 <tbody id="mostrar">
-
-@foreach($products as $product)
- <tr>
-         
-            <td>{{$product->name}}</td>
-            <td>${{$product->retail_price}}</td>
-            <td>${{$product->wholesale_price}}</td>   
-            <td>{{$product->stock}}</td>
-            <td><a onclick="complete({{$product->id}},'{{$product->code}}','{{$product->name}}',{{$product->wholesale_price}},{{$product->retail_price}},{{$product->stock}})" type="button" class="btn btn-primary"> Agregar </a></td>
-
-            
-
-            </tr>
-@endforeach
-
    
 </tbody>
    
@@ -71,3 +57,5 @@
   </div>
 </div>
 <!--FIN POPUP-->
+
+

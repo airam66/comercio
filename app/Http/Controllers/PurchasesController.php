@@ -16,7 +16,7 @@ class PurchasesController extends Controller
         $this->provider=new Provider();
     }
     public function index(Request $request){
-        $purchases=Purchase::all()->where('status','<>','rechazadasazaa');
+        $purchases=Purchase::all()->where('status','<>','rechazada');
       return view('admin.purchases.index')->with('purchases',$purchases);
     }
 
@@ -25,6 +25,7 @@ class PurchasesController extends Controller
         $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
         $providers=Provider::where('status','=','activo')->orderBy('name','ASC')->get();
         $numberPurchase=Purchase::all()->pluck('id');
+        $title="BUSCAR PROVEEDOR";
         if (count($numberPurchase)!=0){
           $numberPurchase=($numberPurchase->last()+1);
         }else{
@@ -34,7 +35,8 @@ class PurchasesController extends Controller
     	return view('admin.purchases.create')->with('date',$date)
                                           ->with('products',$products)
                                           ->with('providers',$providers)
-                                          ->with('numberPurchase',$numberPurchase);
+                                          ->with('numberPurchase',$numberPurchase)
+                                          ->with('title',$title);
                                           
     }
 
@@ -174,13 +176,13 @@ class PurchasesController extends Controller
               ->where('p.name','LIKE', "%".$request->searchProducts."%")
               ->where('p.stock','<',10)
               ->where('p.status','=','activo')
-              ->where('b.name',"<>","CreaTu")
+              ->where('b.name',"<>","CREATÚ")
               ->where('pp.provider_id','=',$request->provider_id)->get();
      
 
        if ($products) {
         foreach ($products as $key => $product) {
-           //dd($products);
+          
                   $output.='<tr>'.
                         '<td>'.$product->code.'</td>'.
                         '<td>'.$product->product_name.'</td>'.
@@ -203,28 +205,11 @@ class PurchasesController extends Controller
      public function searchProvider(Request $request){
    
       if($request->ajax()){
-        $output="";
-        $comilla="'";
-      $providers=Provider::searchProvider($request->searchProvider)->where('status','=','activo')->get();
-       if ($providers) {
-        foreach ($providers as $key => $provider) {
-                  $output.='<tr>'.
-                        '<td>'.$provider->cuit.'</td>'.
-                        '<td>'.$provider->name.'</td>'.
-                        '<td>'.$provider->address.'</td>'.
-                        '<td>'.$provider->phone.'</td>'.
-                        '<td>'.$provider->email.'</td>'.
-
-                        '<td><a onclick="completeC('.$comilla.$provider->id.$comilla.','.$provider->cuit.','.$comilla.$provider->name.$comilla.'); productStockProvider()" type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
-                    .'</tr>';
-        }
-
-   
-        return Response($output);
-          
-       }        
+  
+      $providers=Provider::searchProvider($request->searchP)->where('status','=','activo')->get();
+      $type="Provider";
+      $result=popUpPeople($providers,$type);
+      return Response($result);    
    
     }
     }
@@ -273,13 +258,13 @@ class PurchasesController extends Controller
               ->join('brands as b','p.brand_id','=','b.id')
               ->select('code','p.id as product_id','p.name as product_name','purchase_price','b.name as brand_name','stock')
               ->where('p.stock','<',10)
-              ->where('b.name',"<>","CreaTu")
+              ->where('b.name',"<>","CREATU")
               ->where('pp.provider_id','=',$request->provider_id)->get();
 
      
        if ($products) {
         foreach ($products as $key => $product) {
-          //dd($products);
+       
                  $Subtotal[$cont]=0;
                   $output.='
                        <tr class="selected" id="'.$cont.'">
@@ -293,7 +278,7 @@ class PurchasesController extends Controller
 
                     .'</tr>';
                     $cont++;
-                    //dd($output);
+                    
         }
 
 

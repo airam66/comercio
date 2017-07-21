@@ -10,7 +10,7 @@
 </div>
       <div class="row">
       <div class='col-sm-2 pull-right'>
-        <input type ='button' class="btn btn-warning "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
+        <input type ='button' class="btn btn-success "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
         </div>
         <div class='col-sm-6 pull-left'>
             <div class="form-group">
