@@ -1,8 +1,6 @@
 @extends('layouts.main')
- 
- 
+
 @section('content')
-   
   <div class="container-fluid spark-screen">
     <div class="row">
       <div class="col-md-12">
@@ -10,10 +8,10 @@
         <!-- Default box -->
       <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nueva Orden de Compra</h3>
+            <h3 class="box-title">Registrar Factura de Compra</h3>
          </div>
       <div class="box-body">
-          {!! Form::open(['route'=>'purchases.store', 'method'=>'POST', 'files'=>true])!!}
+          {!! Form::model($purchase,['route'=>['purchases.update',$purchase->id], 'method'=>'PATCH', 'files'=>true])!!}
           <section>
               <div class="row">
                   <div class="col-xs-12">
@@ -21,8 +19,8 @@
                         <img src="{{ asset('images/cotillon.png ') }}" width="230" height="80"  >
                      
                       <div class="pull-right">
-                         <b>Orden de Compra N°:{{$numberPurchase}}</b><br><br>
-                         <b>Fecha: {{$date}}</b>
+                         <b>Orden de Compra N°:{{$purchase->id}}</b><br><br>
+                         <b>Fecha: {{$purchase->created_at->format('d-m-Y')}}</b>
                       </div>
                       
                     </h3>
@@ -32,19 +30,17 @@
               <div class="border">
                 <h3>Proveedor</h3>
                 <div class="row ">
-                       
-                      <div class="col-md-3 pull-left" >
+                         <div class="col-md-3 pull-left" >
                            
-                           {!!Field::text('cuit',null)!!}
+                           <h4><strong>Cuit: </strong> {{$purchase->provider->cuit}} </h4>
+                           <input id="cuit"  class="form-control myfactura" value="{{$purchase->provider->cuit}}" type="hidden" >
                        </div>
-                       <div class="pull-left">
-                       <br>
-                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
-                            @include('partials.searchPeople')
-                      </div>
+                       
                       <div class="col-md-6  col-md-offset-2">
-                            <input id="provider_id" name="provider_id" class="form-control" type="hidden" >
-                            {!!Field::text('nombre',null,['disabled'])!!}
+                            
+                            <h4><strong>Nombre: </strong> {{$purchase->provider->name}}</h4>
+                            <input id="provider_id" name="provider_id" class="form-control myfactura" value=" {{$purchase->provider->id}}" type="hidden" >
+                            
                       </div>
                 </div>
               </div>
@@ -66,7 +62,7 @@
                    </div>
                    
                    <div class="col-md-2 col-md-offset-2">
-                       {!!Field::number('purchase_price',null,['disabled'])!!} 
+                       {!!Field::number('purchase_price',null, ['step'=>'any','disabled'])!!} 
  
                     </div>
                      <div class="col-md-2">
@@ -105,12 +101,28 @@
                           <th>Marca</th>
                           <th>Precio Compra</th>
                           <th>Cantidad</th>
-                          <th>Subtotal Estimado</th>
+                          <th>Subtotal</th>
                         </tr>
                       </thead>
 
                       <tbody id="detail">
+                      @php ($a = 0)
+                      @php ($subTotal[$a]=0)
+                      @foreach($details as $detail)
+                      <tr class="selected" id={{$a}}>
+                          <td><button type="button" class="btn btn-danger" onclick="deletefila({{$a}},{{$detail->subTotal}});">X</button></td>
+                          <td> <input readonly type="hidden" name="dproduct_id[]" value="{{$detail->product_id}}">{{$detail->product_name}}</td> 
+
+                          <td>{{$detail->brand_name}}</td> 
+
+                          <td><input  type="number" name="dprice[]" id="dprice{{$a}}" value="{{$detail->price}} " onkeyup="calculateSubtotal({{$a}});"></td> 
+                         <td><input  type="number" name="damount[]" id="damount{{$a}}" value="{{$detail->amount}}"onkeyup="calculateSubtotal({{$a}});"></td> 
+                         <td><input id="dsubTotal{{$a}}" name="dsubtTotal" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
+                       </tr>
+                          
                          
+                        @php ($a++) 
+                       @endforeach  
                       </tbody>
 
                     </table>
@@ -121,13 +133,13 @@
                  
                   <div class="col-xs-6 pull-right">
                       <div class="text-center" style="background-color: gray;">
-                        <h3 style="color:white;">Total Estimado</h3>
+                        <h3 style="color:white;">Total</h3>
                       </div>
                     <div class="table-responsive">
                       <table class="table">
                         <tr>
-                          <th class="text-center">Total Estimado:</th>
-                          <td class="text-center">$<input type="number" id="TotalCompra" name="TotalCompra" value=0 step="any" class="mi_factura"></td>
+                          <th class="text-center">Total:</th>
+                          <td class="text-center">$<input type="number" id="TotalCompra" name="TotalCompra" value="{{$purchase->total}}" step="any" class="mi_factura"></td>
                         </tr>
                       </table>
                     </div>
@@ -136,9 +148,7 @@
         
               <div class="row no-print">
                   <div class="col-xs-12">
-                      
-
-                      <div class="form-group">
+                        <div class="form-group">
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
                        </div>
                   </div>
@@ -161,65 +171,44 @@
 
 @section('js')
 
-
 <script>
 
-  var options={
-    url: function(p){
-      return baseUrl('admin/autocompleteProvider?p='+p);
-         }, getValue:'cuit',
-            list: {
-                    match: {
-                        enabled: true
-                    },
-                    onClickEvent: function () { 
-                        var provider = $('#cuit').getSelectedItemData();
-                        $('#nombre').val(provider.name);
-                        $('#provider_id').val(provider.id);
-                      
-                       $providerid=$('#provider_id').val();
-                       $.ajax({
-                        type: 'get',
-                        url:  "{{ URL::to('admin/detailPurchase')}}",
-                        data:{'provider_id':$providerid},
-                        success: function(data){
-                            $('#detail').html(data);
-    
-                        }
-                       })
-
-                    },
-                    onKeyEnterEvent: function () { 
-                        var provider = $('#cuit').getSelectedItemData();
-                        $('#nombre').val(provider.name);
-                        $('#provider_id').val(provider.id);
-
-                        $providerid=$('#provider_id').val();
-                       $.ajax({
-                        type: 'get',
-                        url:  "{{ URL::to('admin/detailPurchase')}}",
-                        data:{'provider_id':$providerid},
-                        success: function(data){
-                          $('#detail').html(data);
-                         }
-                       })
-                    }
-                }
-   };
+$('#searchP').on('click', function(){
+  $value=$('#numberPurchase').val();  
   
-  $("#cuit").easyAutocomplete(options);
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/completeOrder')}}",
+    data:{'searchP':$value},
+    success: function(data){
+       
+        $('#mostrar').html(data); 
+        detailPurchase($value);
+
+            
+      }  
+  })
+
+})
 
 
+function detailPurchase(value){
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/detailOrder')}}",
+    data:{'searchP':value},
+    success: function(data){
+       
+        $('#detail').html(data); 
+        
+
+            
+      }  
+  })
+
+
+}
 </script>
-<script type="text/javascript">
-  function completeC($id,$number,$name){
-    $('#cuit').val($number);
-    $('#nombre').val($name);
-    $('#provider_id').val($id);
-    $('#favoritesModalClient').modal('hide');
-  };
-</script>
-
 
 <script >
   function complete($id,$code,$brand,$name,$purchase,$stock){
@@ -232,30 +221,18 @@
    $('#mostrar').html('');
   };
 </script>
-<script >
-$('#searchC').on('keyup', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchProvider')}}",
-    data:{'searchProvider':$value},
-    success: function(data){
-      $('#mostrarC').html(data);
-    }
-    
-  })
-})
 
-</script>
 <script>
 $('#searchProducts').on('keyup', function(){
   $value=$(this).val();
+
   $providerid=$('#provider_id').val();
   $.ajax({
     type: 'get',
     url:  "{{ URL::to('admin/searchProducts')}}",
     data:{'searchProducts':$value,'provider_id':$providerid},
     success: function(data){
+     
       $('#mostrar').html(data);
     }
     
@@ -314,8 +291,10 @@ function deletefila(index,subTotal){
     $('#code').val('');
     $('#product_id').val('');
     $('#name').val('');
-    $('#purchase_price').val('');
-    $('#brand').val('');
+    $('#price').val('');
+    $('#priceR').val('');
+    $('#priceW').val('');
+    $('#wholesale_cant').val('');
     $('#amount').val('');
  }
 </script>
@@ -337,6 +316,91 @@ function deletefila(index,subTotal){
 
 </script>
 
-@endsection
- 
+<script >
+  function complete($id,$code,$brand,$name,$purchase,$stock){
+    $('#code').val($code);
+    $('#brand').val($brand);
+    $('#product_id').val($id);
+    $('#name').val($name);
+    $('#purchase_price').val($purchase);
+    $('#favoritesModalProduct').modal('hide');
+   $('#mostrar').html('');
+  };
+</script>
 
+
+
+
+<script>
+    $('#btn_add').on('click',function(){
+        invoice_detail();
+    });
+
+  var cont=2000;
+  var TotalCompra=0;
+  var Subtotal=[];
+
+  function invoice_detail(){
+    stock=$('#stock').val();
+     brand=$('#brand').val();
+     code=$('#code').val();
+    product_id=$('#product_id').val();
+    name=$('#name').val();
+    price=$('#purchase_price').val();
+    amount=$('#amount').val();
+    
+  if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
+
+      
+         Subtotal[cont]=parseFloat(amount)*parseFloat(price);
+         TotalCompra= parseFloat($('#TotalCompra').val())+Subtotal[cont];
+         console.log(TotalCompra);
+
+              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+          cont++;
+          clear();
+        $('#TotalCompra').val(TotalCompra);
+        $('#details').append(fila);
+
+     
+  }else{
+        alert("Error al ingresar detalle de la cotización, revise la cantidad del producto a vender");
+  }
+}
+
+function deletefila(index,subTotal){
+  console.log(index);
+  TotalCompra= parseFloat($('#TotalCompra').val())-subTotal;
+  console.log(subTotal);
+  $('#TotalCompra').val(TotalCompra);
+  $('#'+index).remove();
+ }
+
+ function clear(){
+    $('#stock').val('');
+    $('#code').val('');
+    $('#product_id').val('');
+    $('#name').val('');
+    $('#price').val('');
+    $('#priceR').val('');
+    $('#priceW').val('');
+    $('#wholesale_cant').val('');
+    $('#amount').val('');
+ }
+</script>
+
+<script>
+  function calculateSubtotal(number){
+
+     console.log(number);
+    price= $('#dprice'+number).val();
+    amount=$('#damount'+number).val();
+    console.log(price);
+    console.log(amount);
+    $('#dsubTotal'+number).val(parseFloat(amount)*parseFloat(price));
+
+  }
+
+</script>
+
+@endsection

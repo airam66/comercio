@@ -165,7 +165,7 @@
     </div>
   </div>
 
- @include('admin.purchases.buscarProducto')
+ @include('partials.searchProductsPurchase')
 
 
 @endsection

@@ -95,8 +95,8 @@ class PurchasesController extends Controller
 
      public function desable(Request $request){
         $purchase= Purchase::find($request->id);
-        $purchase->status='rechazada';
-        $purchase->save();
+        $purchase->delete();
+       
 
         return redirect()->route('purchases.index');
     }
@@ -174,7 +174,6 @@ class PurchasesController extends Controller
               ->join('brands as b','p.brand_id','=','b.id')
               ->select('code','p.id as product_id','p.name as product_name','purchase_price','b.name as brand_name','stock','p.status','b.name')
               ->where('p.name','LIKE', "%".$request->searchProducts."%")
-              ->where('p.stock','<',10)
               ->where('p.status','=','activo')
               ->where('b.name',"<>","CREATÚ")
               ->where('pp.provider_id','=',$request->provider_id)->get();
@@ -274,7 +273,7 @@ class PurchasesController extends Controller
                         '<td>'.$product->brand_name.'</td>'.
                         '<td><input readonly type="number" name="dprice[]" value="'.$product->purchase_price.'" class="mi_factura"</td>
                         <td><input id="damount" name="damount[]" type="number" onkeyup="$('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val(this.value*'.$product->purchase_price.')" onchange="$('.$comilla.'#TotalCompra'.$comilla.').val(parseFloat($('.$comilla.'#TotalCompra'.$comilla.').val())+ parseFloat($('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val()))"></td>'.
-                        '<td><input id="dsubTotal'.$cont.'" name="dsubtTotal" class="mi_factura" type="number" value='.$Subtotal[$cont].'></td>'
+                        '<td><input readonly id="dsubTotal'.$cont.'" name="dsubtTotal" class="mi_factura" type="number" value='.$Subtotal[$cont].'></td>'
 
                     .'</tr>';
                     $cont++;

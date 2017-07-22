@@ -40,7 +40,7 @@
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Total</th>
-                <th>Acción</th>
+                <th></th>
                    
             </tr>
         </thead>
@@ -60,7 +60,7 @@
                         <td>{{$invoice->id}}</td>
                         <td>{{$invoice->created_at}}</td>
                         <td>{{$invoice->client->name}}</td>
-                        <td>{{$invoice->total}}</td>
+                        <td>${{$invoice->total}}</td>
                         <td>
                          
                         <button type="button" class="btn btn-primary "  data-title="Detail" onclick="myDetail({{$invoice->id}})">

@@ -41,6 +41,7 @@
                 <th>Proveedor</th>
                 <th>Estado</th>
                 <th></th>
+
                  
             </tr>
         </thead>
@@ -73,6 +74,13 @@
                         <a href="{{route('purchases.edit',$purchase->id)}}"  >
                                 <button type="submit" class="btn btn-warning">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                                </button>
+                        </a>
+
+                         <a href="{{route('purchasesInvoice.loadOrder',$purchase->id)}}"  >
+                                <button type="submit" class="btn btn-primary">
+                                    Registrar Compra
                             
                                 </button>
                         </a>
