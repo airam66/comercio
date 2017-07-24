@@ -295,21 +295,23 @@ class PurchasesController extends Controller
 
 
     public function searchDate(Request $request){
-   
+     
       if($request->ajax()){
         $output="";
         $comilla="'";
+
       $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)->get();
+     
        if ($purchases) {
         foreach ($purchases as $key => $purchase) {
          
-                if ($purchase>status!='rechazada'){
+                if ($purchase->status!='rechazada'){
                   $output .='<tr role="row" class="odd">';
                 }
                 else{
                   $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
-                };
-                  $output=$output.
+                }
+                  $output .=
                         '<td>'.$purchase->id.'</td>'.
                         '<td>'.$purchase->created_at.'</td>'.
                         '<td>'.$purchase->provider->name.'</td>'.
@@ -334,7 +336,7 @@ class PurchasesController extends Controller
                   $output .= '</tr>';
           }
         } 
-   
+         
         return Response($output);
           
                

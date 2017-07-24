@@ -37,16 +37,17 @@ class PdfController extends Controller
              ->join('products as p','pp.product_id','=','p.id')
              ->join('providers as pr','pp.provider_id','=','pr.id')
              ->join('brands as b','p.brand_id','=','b.id')
-              ->select('pr.id as provider_id','p.id as product_id','p.name as product_name','b.name as brand_name','pr.name as provider_name','p.stock')
+              ->select('provider_id','p.id as product_id','p.name as product_name','b.name as brand_name','pr.name as provider_name','p.stock')
               ->where('stock','<',100)->orderBy('pr.name','ASC')->get();
 
          
                 
-    $provider=DB::table('providers as pr')
-                 ->select('id','name')
-                 ->where('status','=','activo')
-                 ->distinct()->get();
-    	
+    $provider=DB::table('providers_products as pp')
+             ->join('products as p','pp.product_id','=','p.id')
+             ->join('providers as pr','pp.provider_id','=','pr.id')
+             ->select('provider_id','pr.name as provider_name')
+               ->groupBy('provider_id','provider_name')->where('p.stock', '<', 100)->get();
+               
             
     	return $this->createPDF($products,$provider,$vistaurl);
     }

@@ -17,7 +17,7 @@
 
       @foreach($data2 as $provider)
 
-         <h2>Proveedor: {{$provider->name}}</h2>
+         <h2>Proveedor: {{$provider->provider_name}}</h2>
         
          
             <main>
@@ -33,7 +33,7 @@
                  
                     @foreach($data as $product)
 
-                        @if($provider->id == $product->provider_id)
+                        @if($provider->provider_id == $product->provider_id)
                   
                             <tr>
                             <td class="text-center">{{$product->product_name}}</td>

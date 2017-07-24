@@ -16,7 +16,7 @@
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker2'>
                      
-                     <input type="text" id="daterange"  name="daterange" class="form-control" value="<?php echo Date('d/m/Y')?>" >          
+                     <input type="text" id="daterange"  name="daterange" class="form-control" value="seleccione una fecha"  >          
                      <span class="input-group-addon">
                         <a href="{{route('purchases.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
                        </span></a>
