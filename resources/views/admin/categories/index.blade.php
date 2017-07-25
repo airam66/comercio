@@ -49,12 +49,17 @@
             <td>{{$category->id}}</td>
             <td>{{$category->name}}</td>
             <td>{{$category->description}}</td>
+
             <td>{{$category->status}}</td>
 
             <td> 
             @if($category->extension!=null)
                    <div>
+                  
+                  <a data-toggle="modal" data-target="#favoritesModalCategoryImage{{$category->id}}" onclick="cargarImage({{$category->id}})">
                    <img src="{{ asset('images/categories/'.$category->extension)  }}" width="40" height="40"> 
+                   </a>
+                   @include('admin.categories.imagePopUp')
                    </div>
             @endif
             </td>
@@ -96,6 +101,11 @@
 </div>
 
 </div>
+
+
+@endsection
+
+@section('js')
 
 
 @endsection

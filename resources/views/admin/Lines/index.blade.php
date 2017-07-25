@@ -47,7 +47,15 @@
                 <button type="submit" class="btn btn-danger">
                   <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                 </button>
-                </a></td>
+                </a>
+
+                  <a href="{{route('lines.edit',$line->id)}}"  >
+                        <button type="submit" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                        </button>
+                     </a>
+                </td>
               </tr>
           @endif
           

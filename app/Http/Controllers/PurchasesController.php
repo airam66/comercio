@@ -232,6 +232,20 @@ class PurchasesController extends Controller
       return $pdf->stream();
     }
 
+public function detailPurchaseOrder($id){
+      
+      $purchase= Purchase::find($id);
+      $details= DB::table('purchases_products as dp')
+      ->join('products as p','dp.product_id','=','p.id')
+      ->join('brands as b','b.id','=','p.brand_id')
+      ->select('p.id','p.name as product_name','b.name as brand_name','dp.price','dp.amount','dp.subTotal')
+      ->where('dp.purchase_id','=',$id)->get();
+
+      return view('admin.purchases.detailPurchase')->with('purchase',$purchase)
+                                                   ->with('details',$details); 
+   
+
+    }
 
      public function autocompleteProvider(Request $request){
            

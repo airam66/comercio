@@ -88,6 +88,7 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::get('/searchData','PurchasesController@searchDate');
   Route::get('/purchases/{id}/desable','PurchasesController@desable')->name('purchases.desable');
       
+  Route::get('/purchases/{id}/detailPurchaseOrder','PurchasesController@detailPurchaseOrder')->name('purchases.detailPurchaseOrder');
  //*************************Rutas para clientes******************************************************
   Route::resource('clients','ClientsController');
   Route::get('/searchClient','InvoicesController@searchClient');

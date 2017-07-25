@@ -60,6 +60,7 @@
                         <td>{{$purchase->status}}</td>
                         <td>
 
+                       <a href="{{route('purchases.detailPurchaseOrder',$purchase->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><span class="fa fa-list" aria-hidden="true" ></span></button></a>
                        <a href="{{route('purchases.show',$purchase->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
                          Generar PDF</button></a>
                         @if ($purchase->status!='rechazada')
