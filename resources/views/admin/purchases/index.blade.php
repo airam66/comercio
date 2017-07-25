@@ -76,6 +76,8 @@
                             
                                 </button>
                         </a>
+                        <a href="#" target="_blank" > <button  type="button" class="btn btn-primary "  >
+                        Ver detalle</button></a>
                   </td>
                   </tr>
 
