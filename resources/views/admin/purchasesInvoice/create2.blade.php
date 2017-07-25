@@ -3,17 +3,18 @@
  
 @section('content')
    
-  <div class="container-fluid spark-screen">
+ 
+<div class="container-fluid spark-screen">
     <div class="row">
       <div class="col-md-12">
 
         <!-- Default box -->
       <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nueva Orden de Compra</h3>
+            <h3 class="box-title">Nueva Factura de Compra</h3>
          </div>
       <div class="box-body">
-          {!! Form::open(['route'=>'purchases.store', 'method'=>'POST', 'files'=>true])!!}
+          {!! Form::open(['route'=>'purchasesInvoice.store', 'method'=>'POST', 'files'=>true])!!}
           <section>
               <div class="row">
                   <div class="col-xs-12">
@@ -21,12 +22,23 @@
                         <img src="{{ asset('images/cotillon.png ') }}" width="230" height="80"  >
                      
                       <div class="pull-right">
-                         <b>Orden de Compra N°:{{$numberPurchase}}</b><br><br>
-                         <b>Fecha: {{$date}}</b>
+                         <b>Fecha:{{$date}} </b>
                       </div>
                       
                     </h3>
                   </div><!-- /.col -->
+              </div>
+
+
+              <div class="border">
+                <div class="row ">
+                       
+                      <div class="col-md-3 pull-left" >
+                           
+                           {!!Field::number('numberInvoice',null)!!}
+                       </div>
+                       
+                </div>
               </div>
       
               <div class="border">
@@ -66,7 +78,7 @@
                    </div>
                    
                    <div class="col-md-2 col-md-offset-2">
-                       {!!Field::number('purchase_price',null,['disabled'])!!} 
+                       {!!Field::number('purchase_price',null)!!} 
  
                     </div>
                      <div class="col-md-2">
@@ -105,7 +117,7 @@
                           <th>Marca</th>
                           <th>Precio Compra</th>
                           <th>Cantidad</th>
-                          <th>Subtotal Estimado</th>
+                          <th>Subtotal</th>
                         </tr>
                       </thead>
 
@@ -121,12 +133,12 @@
                  
                   <div class="col-xs-6 pull-right">
                       <div class="text-center" style="background-color: gray;">
-                        <h3 style="color:white;">Total Estimado</h3>
+                        <h3 style="color:white;">Total</h3>
                       </div>
                     <div class="table-responsive">
                       <table class="table">
                         <tr>
-                          <th class="text-center">Total Estimado:</th>
+                          <th class="text-center">Total:</th>
                           <td class="text-center">$<input type="number" id="TotalCompra" name="TotalCompra" value=0 step="any" class="mi_factura"></td>
                         </tr>
                       </table>
@@ -176,33 +188,13 @@
                         var provider = $('#cuit').getSelectedItemData();
                         $('#nombre').val(provider.name);
                         $('#provider_id').val(provider.id);
-                      
-                       $providerid=$('#provider_id').val();
-                       $.ajax({
-                        type: 'get',
-                        url:  "{{ URL::to('admin/detailPurchase')}}",
-                        data:{'provider_id':$providerid},
-                        success: function(data){
-                            $('#detail').html(data);
-    
-                        }
-                       })
-
+            
                     },
                     onKeyEnterEvent: function () { 
                         var provider = $('#cuit').getSelectedItemData();
                         $('#nombre').val(provider.name);
                         $('#provider_id').val(provider.id);
 
-                        $providerid=$('#provider_id').val();
-                       $.ajax({
-                        type: 'get',
-                        url:  "{{ URL::to('admin/detailPurchase')}}",
-                        data:{'provider_id':$providerid},
-                        success: function(data){
-                          $('#detail').html(data);
-                         }
-                       })
                     }
                 }
    };
@@ -323,20 +315,15 @@ function deletefila(index,subTotal){
 
 <script>
   function productStockProvider(){
-     $providerid=$('#provider_id').val();
-                       $.ajax({
-                        type: 'get',
-                        url:  "{{ URL::to('admin/detailPurchase')}}",
-                        data:{'provider_id':$providerid},
-                        success: function(data){
-                            $('#detail').html(data);
-    
-                        }
-                       });
+     
   }
 
 </script>
 
 @endsection
  
+
+
+
+
 

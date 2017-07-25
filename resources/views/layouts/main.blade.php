@@ -169,8 +169,11 @@
                 <li class="active"><a href="{{route('lines.index')}}"><i class="fa fa-circle-o"></i> Lista de lineas</a></li>
                 <li class="active"><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i> Lista de marcas</a></li>
                 <li class="active"><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> Lista de productos</a></li>
+
                  <li class="active"><a href="{{route('craftProducts')}}"><i class="fa fa-circle-o"></i> Stock Productos Personalizados</a></li>
                  <li class="active"><a href="{{route('updateStockCreate')}}"><i class="fa fa-circle-o"></i> Stock materiales</a></li>
+
+
                 <li class="active"><a href="{{route('porcentages.create')}}"><i class="fa fa-circle-o"></i> Porcentajes de ventas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
               </ul>
@@ -192,7 +195,8 @@
                  <span>Compras</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('purchases.index')}}"><i class="fa fa-circle-o"></i> Listado de Ordenes de Compras</a></li>
+                <li class="active"><a href="{{route('purchases.index')}}"><i class="fa fa-circle-o"></i> Lista de Ordenes de Compras</a></li>
+                <li class="active"><a href="{{route('purchasesInvoice.index')}}"><i class="fa fa-circle-o"></i> Lista de Facturas de Compras</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
             </li>

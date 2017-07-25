@@ -6,19 +6,19 @@
 
 <div class="box-header ">
 <div class="row">
-    <h2 class="box-title col-md-5">Listado de Ventas</h2>
+    <h2 class="box-title col-md-5">Listado de Facturas de Compras</h2>
 </div>
       <div class="row">
       <div class='col-sm-2 pull-right'>
-        <input type ='button' class="btn btn-success "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
+        <input type ='button' class="btn btn-success"   value = 'Agregar' onclick="location.href = '{{ route('purchasesInvoice.create') }}'"/> 
         </div>
         <div class='col-sm-6 pull-left'>
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker2'>
                      
-                     <input type="text" id="daterange"  name="daterange" class="form-control" value="12/06/2017 - 16/07/2017" >          
+                     <input type="text" id="daterange"  name="daterange" class="form-control" value="<?php echo Date('d/m/Y')?>" >          
                      <span class="input-group-addon">
-                        <a href="{{route('invoices.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
+                        <a href="{{route('purchases.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
                        </span></a>
 
 
@@ -36,44 +36,36 @@
        
         <thead>
             <tr>
-                <th>N° Venta</th>
+                <th width="15%" class="text-center">N° Factura Compra</th>
+                <th width="15%" class="text-center">N° Order Compra</th>
                 <th>Fecha</th>
-                <th>Cliente</th>
+                <th>Proveedor</th>
                 <th>Total</th>
                 <th></th>
-                   
+
+                 
             </tr>
         </thead>
      
        
 <tbody id="mostrar">
-   @foreach ($invoices as $key => $invoice) 
+   @foreach ($purchases as $key => $purchase) 
          
-                @if ($invoice->status!='inactivo')
-                   <tr role="row" class="odd">
-                
-                @else
-                  <tr role="row" class="odd" style="background-color: rgb(255,96,96)">
-                
-                @endif
-                 
-                        <td>{{$invoice->id}}</td>
-                        <td>{{$invoice->created_at}}</td>
-                        <td>{{$invoice->client->name}}</td>
-                        <td>${{$invoice->total}}</td>
-                        <td>
-                         
-                        <button type="button" class="btn btn-primary "  data-title="Detail" onclick="myDetail({{$invoice->id}})">
-                         <i class="fa fa-list" aria-hidden="true"></i>
-                          </button>
+                @if ($purchase->status!='rechazada' )
+                  
+                <tr>
+                              
+                        <td class="text-center">{{$purchase->pi_id}}</td>
+                        <td class="text-center">{{$purchase->id}}</td>
+                        <td>{{$purchase->created_at->format('d/m/Y')}}</td>
+                        <td>{{$purchase->provider->name}}</td>
+                        <td>{{$purchase->total}}</td>
+                       
+                        <td></td>
+                  </tr>
 
-                          @if ($invoice->status!='inactivo')
-                             <a  onclick="return confirm('¿Seguro dara de baja esta factura?'),myDelete({{$invoice->id}})">
-                        <button type="submit" class="btn btn-danger">
-                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
-                        </button>
-                       @endif     
-        </tr>
+                    @endif
+                         
         @endforeach
 
 </tbody>
@@ -88,6 +80,7 @@
 @endsection
 @section('js')
  <script type="text/javascript">
+ var hoy= new Date();
 $('input[name="daterange"]').daterangepicker(
 {
     locale: {
@@ -124,8 +117,8 @@ $('input[name="daterange"]').daterangepicker(
             "firstDay": 1
        
     },
-    startDate: '30-06-2015',
-    endDate: '31-07-2015'
+    startDate: hoy.getMonth()+"/"+hoy.getDate()+"/"+hoy.getFullYear(),
+    endDate: hoy
 
 });
 </script>
@@ -155,25 +148,18 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
 
 </script>
-<script type="text/javascript">
-function myDetail(id){
-dir=baseUrl('admin/invoices/'+id);
-window.location.replace(dir); 
-             
-} 
 
-
-</script>
 <script type="text/javascript">
 function myDelete(id){
   $.ajax({
 
 type: "POST",
-url: "{{ URL::to('admin/invoices/desable')}}",
+url: "{{ URL::to('admin/purchases/desable')}}",
 data: { id: id }
 });
 
 }
 </script>
+
 
 @endsection

@@ -139,8 +139,8 @@ return [
     'retail_porcentage'      =>        'Venta minorista',
     'price'                  =>        'Precio',
     'brand'                  =>        'Marca',
-    'amount'                 =>        'Cantidad'
-
+    'amount'                 =>        'Cantidad',
+    'numberInvoice'          =>        'N° Factura de Compra',
     ],
 
 ];

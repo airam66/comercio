@@ -41,6 +41,7 @@
                 <th>Proveedor</th>
                 <th>Estado</th>
                 <th></th>
+
                  
             </tr>
         </thead>
@@ -49,7 +50,7 @@
 <tbody id="mostrar">
    @foreach ($purchases as $key => $purchase) 
          
-                @if ($purchase->status!='rechazada')
+                @if ($purchase->status!='rechazada' )
                   
                 <tr>
                               
@@ -76,8 +77,15 @@
                             
                                 </button>
                         </a>
-                        <a href="#" target="_blank" > <button  type="button" class="btn btn-primary "  >
-                        Ver detalle</button></a>
+
+
+                         <a href="{{route('purchasesInvoice.loadOrder',$purchase->id)}}"  >
+                                <button type="submit" class="btn btn-primary">
+                                    Registrar Compra
+                            
+                                </button>
+                        </a>
+
                   </td>
                   </tr>
 

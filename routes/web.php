@@ -109,10 +109,20 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::get('pdfReport','PdfController@index')->name('pdfReport');
   Route::get('reportStock', 'PdfController@createReportStock')->name('reportStock');
 
+
   Route::resource('purchasesInvoice','PurchasesInvoiceController');
 Route::get('completeOrder','PurchasesInvoiceController@completeOrder');
 
   
+
+//************************************Rutas para facturas de compras***********************************
+Route::resource('purchasesInvoice','PurchasesInvoiceController'); 
+Route::get('/completeOrder','PurchasesInvoiceController@completeOrder');
+Route::get('/detailOrder','PurchasesInvoiceController@detailPurchase');
+Route::get('purchasesInvoice/{id}/loadOrder','PurchasesInvoiceController@loadOrder')->name('purchasesInvoice.loadOrder');
+Route::post('purchasesInvoice/{id}/storePI','PurchasesInvoiceController@storePI')->name('purchasesInvoice.storePI');
+
+
 });
 
 
