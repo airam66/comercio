@@ -16,7 +16,7 @@ class PurchasesController extends Controller
         $this->provider=new Provider();
     }
     public function index(Request $request){
-        $purchases=Purchase::all()->where('status','<>','rechazada');
+        $purchases=Purchase::all()->where('status','<>','realizada');
       return view('admin.purchases.index')->with('purchases',$purchases);
     }
 

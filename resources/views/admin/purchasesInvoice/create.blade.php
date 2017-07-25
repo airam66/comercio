@@ -11,7 +11,7 @@
             <h3 class="box-title">Registrar Factura de Compra</h3>
          </div>
       <div class="box-body">
-          {!! Form::model($purchase,['route'=>['purchases.update',$purchase->id], 'method'=>'PATCH', 'files'=>true])!!}
+          {!! Form::model($purchase,['route'=>['purchasesInvoice.storePI',$purchase->id], 'method'=>'POST', 'files'=>true])!!}
           <section>
               <div class="row">
                   <div class="col-xs-12">
@@ -62,7 +62,7 @@
                    </div>
                    
                    <div class="col-md-2 col-md-offset-2">
-                       {!!Field::number('purchase_price',null, ['step'=>'any','disabled'])!!} 
+                       {!!Field::number('purchase_price',null, ['step'=>'any'])!!} 
  
                     </div>
                      <div class="col-md-2">
@@ -110,14 +110,16 @@
                       @php ($subTotal[$a]=0)
                       @foreach($details as $detail)
                       <tr class="selected" id={{$a}}>
-                          <td><button type="button" class="btn btn-danger" onclick="deletefila({{$a}},{{$detail->subTotal}});">X</button></td>
+                          <td><button type="button" class="btn btn-danger" onclick="deletefila({{$a}},$('#dsubTotal{{$a}}').val());">X</button></td>
                           <td> <input readonly type="hidden" name="dproduct_id[]" value="{{$detail->product_id}}">{{$detail->product_name}}</td> 
 
                           <td>{{$detail->brand_name}}</td> 
 
-                          <td><input  type="number" name="dprice[]" id="dprice{{$a}}" value="{{$detail->price}} " onkeyup="calculateSubtotal({{$a}});"></td> 
+                          <td><input  type="number" name="dprice[]" id="dprice{{$a}}" value="{{$detail->price}}" step="any" onkeyup="calculateSubtotal({{$a}});"></td> 
+
                          <td><input  type="number" name="damount[]" id="damount{{$a}}" value="{{$detail->amount}}"onkeyup="calculateSubtotal({{$a}});"></td> 
-                         <td><input id="dsubTotal{{$a}}" name="dsubtTotal" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
+
+                         <td><input id="dsubTotal{{$a}}" name="dsubtTotal" step="any" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
                        </tr>
                           
                          
@@ -139,7 +141,7 @@
                       <table class="table">
                         <tr>
                           <th class="text-center">Total:</th>
-                          <td class="text-center">$<input type="number" id="TotalCompra" name="TotalCompra" value="{{$purchase->total}}" step="any" class="mi_factura"></td>
+                          <td class="text-center">$<input type="number" id="totalCompra" name="totalCompra" value="{{$purchase->total}}" step="any" class="mi_factura"></td>
                         </tr>
                       </table>
                     </div>
@@ -199,14 +201,9 @@ function detailPurchase(value){
     data:{'searchP':value},
     success: function(data){
        
-        $('#detail').html(data); 
-        
-
-            
+        $('#detail').html(data);             
       }  
   })
-
-
 }
 </script>
 
@@ -263,13 +260,13 @@ $('#searchProducts').on('keyup', function(){
 
       
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
-         TotalCompra= parseFloat($('#TotalCompra').val())+Subtotal[cont];
+         TotalCompra= parseFloat($('#totalCompra').val())+Subtotal[cont];
          console.log(TotalCompra);
 
               var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
-        $('#TotalCompra').val(TotalCompra);
+        $('#totalCompra').val(TotalCompra);
         $('#details').append(fila);
 
      
@@ -280,9 +277,9 @@ $('#searchProducts').on('keyup', function(){
 
 function deletefila(index,subTotal){
   console.log(index);
-  TotalCompra= parseFloat($('#TotalCompra').val())-subTotal;
+  TotalCompra= parseFloat($('#totalCompra').val())-subTotal;
   console.log(subTotal);
-  $('#TotalCompra').val(TotalCompra);
+  $('#totalCompra').val(TotalCompra);
   $('#'+index).remove();
  }
 
@@ -292,10 +289,9 @@ function deletefila(index,subTotal){
     $('#product_id').val('');
     $('#name').val('');
     $('#price').val('');
-    $('#priceR').val('');
-    $('#priceW').val('');
-    $('#wholesale_cant').val('');
     $('#amount').val('');
+    $('#purchase_price').val('');
+    $('#brand').val('');
  }
 </script>
 
@@ -316,89 +312,28 @@ function deletefila(index,subTotal){
 
 </script>
 
-<script >
-  function complete($id,$code,$brand,$name,$purchase,$stock){
-    $('#code').val($code);
-    $('#brand').val($brand);
-    $('#product_id').val($id);
-    $('#name').val($name);
-    $('#purchase_price').val($purchase);
-    $('#favoritesModalProduct').modal('hide');
-   $('#mostrar').html('');
-  };
-</script>
-
-
-
-
-<script>
-    $('#btn_add').on('click',function(){
-        invoice_detail();
-    });
-
-  var cont=2000;
-  var TotalCompra=0;
-  var Subtotal=[];
-
-  function invoice_detail(){
-    stock=$('#stock').val();
-     brand=$('#brand').val();
-     code=$('#code').val();
-    product_id=$('#product_id').val();
-    name=$('#name').val();
-    price=$('#purchase_price').val();
-    amount=$('#amount').val();
-    
-  if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
-
-      
-         Subtotal[cont]=parseFloat(amount)*parseFloat(price);
-         TotalCompra= parseFloat($('#TotalCompra').val())+Subtotal[cont];
-         console.log(TotalCompra);
-
-              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
-          cont++;
-          clear();
-        $('#TotalCompra').val(TotalCompra);
-        $('#details').append(fila);
-
-     
-  }else{
-        alert("Error al ingresar detalle de la cotización, revise la cantidad del producto a vender");
-  }
-}
-
-function deletefila(index,subTotal){
-  console.log(index);
-  TotalCompra= parseFloat($('#TotalCompra').val())-subTotal;
-  console.log(subTotal);
-  $('#TotalCompra').val(TotalCompra);
-  $('#'+index).remove();
- }
-
- function clear(){
-    $('#stock').val('');
-    $('#code').val('');
-    $('#product_id').val('');
-    $('#name').val('');
-    $('#price').val('');
-    $('#priceR').val('');
-    $('#priceW').val('');
-    $('#wholesale_cant').val('');
-    $('#amount').val('');
- }
-</script>
-
 <script>
   function calculateSubtotal(number){
 
-     console.log(number);
+    
     price= $('#dprice'+number).val();
     amount=$('#damount'+number).val();
-    console.log(price);
-    console.log(amount);
+
+    if (price=='' || amount==''){
+      price=0;
+      amount=0;
+    }
+    subTotal=parseFloat($('#dsubTotal'+number).val());
+ 
     $('#dsubTotal'+number).val(parseFloat(amount)*parseFloat(price));
 
+    total=parseFloat($('#totalCompra').val());
+    
+    total=total-subTotal;
+    
+    total=total+parseFloat($('#dsubTotal'+number).val());
+   
+   $('#totalCompra').val(total);
   }
 
 </script>

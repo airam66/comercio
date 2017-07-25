@@ -6,11 +6,11 @@
 
 <div class="box-header ">
 <div class="row">
-    <h2 class="box-title col-md-5">Listado de Orden de Compras</h2>
+    <h2 class="box-title col-md-5">Listado de Facturas de Compras</h2>
 </div>
       <div class="row">
       <div class='col-sm-2 pull-right'>
-        <input type ='button' class="btn btn-success"   value = 'Agregar' onclick="location.href = '{{ route('purchases.create') }}'"/> 
+        <input type ='button' class="btn btn-success"   value = 'Agregar' onclick="location.href = '{{ route('purchasesInvoice.create') }}'"/> 
         </div>
         <div class='col-sm-6 pull-left'>
             <div class="form-group">
@@ -36,10 +36,11 @@
        
         <thead>
             <tr>
-                <th>N° Orden Compra</th>
+                <th width="15%" class="text-center">N° Factura Compra</th>
+                <th width="15%" class="text-center">N° Order Compra</th>
                 <th>Fecha</th>
                 <th>Proveedor</th>
-                <th>Estado</th>
+                <th>Total</th>
                 <th></th>
 
                  
@@ -54,37 +55,13 @@
                   
                 <tr>
                               
-                        <td>{{$purchase->id}}</td>
+                        <td class="text-center">{{$purchase->pi_id}}</td>
+                        <td class="text-center">{{$purchase->id}}</td>
                         <td>{{$purchase->created_at->format('d/m/Y')}}</td>
                         <td>{{$purchase->provider->name}}</td>
-                        <td>{{$purchase->status}}</td>
-                        <td>
-
-                       <a href="{{route('purchases.show',$purchase->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
-                         Generar PDF</button></a>
-                        @if ($purchase->status!='rechazada')
-                             <a href="{{route('purchases.desable',$purchase->id)}}" onclick="return confirm('¿Seguro dara de baja el producto?')">
-                        <button type="submit" class="btn btn-danger">
-                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
-                        </button>
-                     </a>
-                       @endif    
-  
-
-                        <a href="{{route('purchases.edit',$purchase->id)}}"  >
-                                <button type="submit" class="btn btn-warning">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
-                            
-                                </button>
-                        </a>
-
-                         <a href="{{route('purchasesInvoice.loadOrder',$purchase->id)}}"  >
-                                <button type="submit" class="btn btn-primary">
-                                    Registrar Compra
-                            
-                                </button>
-                        </a>
-                  </td>
+                        <td>{{$purchase->total}}</td>
+                       
+                        <td></td>
                   </tr>
 
                     @endif

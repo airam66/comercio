@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Purchase;
+use App\PurchaseProduct;
+use App\Product;
 use Illuminate\Support\Facades\DB;
 
 class PurchasesInvoiceController extends Controller
@@ -16,7 +18,8 @@ class PurchasesInvoiceController extends Controller
      */
     public function index()
     {
-        //
+         $purchases=Purchase::all()->where('status','=','realizada');
+      return view('admin.purchasesInvoice.index')->with('purchases',$purchases);
     }
 
     /**
@@ -26,8 +29,10 @@ class PurchasesInvoiceController extends Controller
      */
     public function create()
     {
-       
-        return view('admin.purchasesInvoice.create');
+       $title='BUSCAR PROVEEDORES';
+       $date=date('d').'/'.date('m').'/'.date('Y');
+        return view('admin.purchasesInvoice.create2')->with('title',$title)
+                                                      ->with('date',$date);
     }
 
     public function loadOrder($id){
@@ -51,15 +56,133 @@ class PurchasesInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request,[
+          'cuit'=>'required|exists:providers,cuit',
+          'numberInvoice'=>'required',
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        ]);
+        
+       
+
+        $purchase = new Purchase;
+            $purchase->total=$request->get('TotalCompra');
+            
+            $purchase->provider_id=$request->get('provider_id');
+            
+             $purchase->pi_id=$request->get('numberInvoice');
+
+             $purchase->status='realizada';
+
+            if ($purchase->total>0){
+                 $purchase->save();
+            }
+            else{
+                  flash("Debe ingresar al menos un producto" , 'danger')->important();
+            }
+
+
+            //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE ordencompra//++++++++++++++++++
+
+            $idarticulo = $request->get('dproduct_id');
+            $amount = $request->get('damount');
+            $price = $request->get('dprice');
+
+            $cont =0;
+
+            while ( $cont <  count($idarticulo) ) {
+                //dd($cont);
+                $detalle = new PurchaseProduct();
+                $detalle->purchase_id=$purchase->id; //le asignamos el id de la venta a la que pertenece el detalle
+                $detalle->product_id=$idarticulo[$cont];
+
+               
+                $detalle->amount=$amount[$cont];
+                $detalle->price=$price[$cont];
+                $detalle->subTotal=$amount[$cont]*$price[$cont];
+
+                if ($purchase->total>0){
+                   
+                   $product=Product::find($detalle->product_id);
+
+                   if($product->purchase_price != $detalle->price){
+
+                    $product->purchase_price=$detalle->price;
+                    
+                   }
+
+                   $product->stock=$product->stock + $detalle->amount;
+                   $product->save();
+
+                   $detalle->save();               
+
+
+                }
+                               
+                $cont = $cont+1;
+
+            }
+
+
+
+
+           return redirect()->route('purchasesInvoice.index');
+    }
+    
+
+    public function storePI(Request $request,$id)
+    {
+        $purchase=Purchase::find($id);
+        $purchase->status='realizada';
+        
+        DB::table('purchases_products')->where('purchase_id','=',$id)->delete();
+        
+        $purchase->total=$request->get('totalCompra'); 
+
+      if ($purchase->total>0){
+                 $purchase->save();
+            }
+            else{
+                  flash("Debe ingresar al menos un producto" , 'success')->important();
+            }
+
+            $idprod = $request->get('dproduct_id');
+            $amount = $request->get('damount');
+            $price = $request->get('dprice');
+
+             $cont =0;
+
+            while ( $cont <  count($idprod) ) {
+                //dd($cont);
+                $detail = new PurchaseProduct();
+                $detail->purchase_id=$purchase->id; //le asignamos el id de la venta a la que pertenece el detail
+                $detail->product_id=$idprod[$cont];
+                $detail->amount=$amount[$cont];
+                $detail->price=$price[$cont];
+                $detail->subTotal=$amount[$cont]*$price[$cont];
+
+                if ($purchase->total>0){
+                   
+                   $product=Product::find($detail->product_id);
+
+                   if($product->purchase_price != $detail->price){
+
+                    $product->purchase_price=$detail->price;
+                    
+                   }
+
+                   $product->stock=$product->stock + $detail->amount;
+                   $product->save();
+
+                   $detail->save();               
+
+
+                }
+                               
+                $cont = $cont+1;
+
+            }
+    }
+    
     public function show($id)
     {
         //

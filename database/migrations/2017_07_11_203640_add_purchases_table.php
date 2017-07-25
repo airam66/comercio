@@ -15,6 +15,7 @@ class AddPurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('pi_id')->nullable();
             $table->timestamps();
             $table->decimal('total',9,2);
             $table->enum('status', ['pendiente','realizada','rechazada'])->default('pendiente');
