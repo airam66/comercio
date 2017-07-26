@@ -261,21 +261,26 @@ class ProductsController extends Controller
       
     }
 
-    //*********************************************************************************************
+    //**************************** ACTUALIZAR MATERIALES*****************************************************************
 
+     public function updateStockCreate(){
+       $brand=Brand::where('name','=','CREATÚ')->pluck('id');
+       $products=Product::where('brand_id','<>',$brand)
+                      ->where('status','=','activo')->orderBy('name','ASC')->get();
+
+      return view('admin.products.updateStockCreate')->with('products',$products);
+    }
     public function searchUpdateStockCreate(Request $request){
       // BUSCADOR DE PRODUCTOS MARCA CREATU POR NOMBRE DEL PRODUCTO
     
       if($request->ajax()){
         $output="";
         $comilla="'";
-      $brands=Brand::where('name','<>','CREATÚ')->pluck('id');
-      foreach ($brands as $key => $brand) {
-      $products=Product::where('brand_id','=',$brand)
+      $brands=Brand::where('name','=','CREATÚ')->pluck('id');
+    
+      $products=Product::where('brand_id','<>',$brand)
                       ->where('name','LIKE',"%" . $request->search . "%")
-                      ->where('status','=','activo')->get();
-       }
-       
+                      ->where('status','=','activo')->get();       
         $result=listPopup($products);
         return Response($result);
     }
@@ -298,6 +303,21 @@ class ProductsController extends Controller
 
 
       
+    }
+
+     public function searchProductsCreateLetter(Request $request){
+        //BUSCADOR DE PRODUCTOS  POR LETRAS
+      
+            if($request->ajax()){
+              
+              $brand=Brand::where('name','=','CREATÚ')->pluck('id');
+              $products=Product::SearchProductL($request->searchL)
+                                -> where('brand_id','<>',$brand)
+                                ->get();
+         $result=listPopup($products);
+         return Response($result);
+   
+       }
     }
     
     //********************************Mostrar detalle del producto****************

@@ -49,6 +49,7 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   //******************************Rutas para productos**************************************** 
      
   Route::resource('products','ProductsController');
+
   Route::resource('porcentages','PorcentagesController');
   
   Route::get('/productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
@@ -57,15 +58,15 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::post('products/updateStock','ProductsController@updateStock')->name('products.updateStock');
  //-------------para actualizar el stock de productos personalizados-------------------------------
   Route::get('craftProducts','ProductsController@craftProducts')->name('craftProducts');
+
   Route::post('products/updateStock','ProductsController@updateStock')->name('products.updateStock');
   Route::get('/searchCraftProducts', 'ProductsController@searchCraftProducts');  
   Route::get('/searchCraft', 'ProductsController@searchCraft'); 
  
   //-----------actualizar stock de productos que se utilizan para hacer prod personalizados----------
-  Route::get('updateStockCreate',function(){
-        return view('admin.products.updateStockCreate');
-        });
+   Route::get('updateStockCreate','ProductsController@updateStockCreate')->name('updateStockCreate');
    Route::get('/searchUpdateStockCreate', 'ProductsController@searchUpdateStockCreate');
+   Route::get('/searchProductsCreateLetter', 'ProductsController@searchProductsCreate');
    Route::post('products/updateStockCreateProduct', 'ProductsController@updateStockCreateProduct')->name('products.updateStockCreateProduct'); 
 
 
@@ -90,6 +91,7 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::get('/searchData','PurchasesController@searchDate');
   Route::get('/purchases/{id}/desable','PurchasesController@desable')->name('purchases.desable');
       
+  Route::get('/purchases/{id}/detailPurchaseOrder','PurchasesController@detailPurchaseOrder')->name('purchases.detailPurchaseOrder');
  //*************************Rutas para clientes******************************************************
   Route::resource('clients','ClientsController');
   Route::get('/searchClient','InvoicesController@searchClient');
@@ -115,12 +117,19 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::get('pdfReport','PdfController@index')->name('pdfReport');
   Route::get('reportStock', 'PdfController@createReportStock')->name('reportStock');
 
+
+  Route::resource('purchasesInvoice','PurchasesInvoiceController');
+Route::get('completeOrder','PurchasesInvoiceController@completeOrder');
+
+  
+
 //************************************Rutas para facturas de compras***********************************
 Route::resource('purchasesInvoice','PurchasesInvoiceController'); 
 Route::get('/completeOrder','PurchasesInvoiceController@completeOrder');
 Route::get('/detailOrder','PurchasesInvoiceController@detailPurchase');
 Route::get('purchasesInvoice/{id}/loadOrder','PurchasesInvoiceController@loadOrder')->name('purchasesInvoice.loadOrder');
 Route::post('purchasesInvoice/{id}/storePI','PurchasesInvoiceController@storePI')->name('purchasesInvoice.storePI');
+
 
 });
 
@@ -144,6 +153,7 @@ Route::get('/category/{id}/{name}','CatalogsController@searchCategoryProduct')->
 
 Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
 Route::get('contact', ['as' => 'contact', 'uses' => 'MailController@index'] );
+
 
 
 

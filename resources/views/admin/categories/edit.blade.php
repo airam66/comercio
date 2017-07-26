@@ -42,7 +42,7 @@
               </div>
               
               <div class="form-group">
-              {!! Form::submit('Guardar Cambios',['class'=>'btn btn-primary'])!!}
+              {!! Form::submit('Guardar',['class'=>'btn btn-primary'])!!}
               </div>
  
               {!! Form::close() !!}
