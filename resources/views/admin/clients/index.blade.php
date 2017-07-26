@@ -51,10 +51,29 @@
 		            <td>{{$client->address}}</td>
 		            <td>{{$client->phone}}</td>
 		           
-                    <td>
-                      
+                <td>
+                 @if ($client->status!='inactivo')
+                   <a href="{{route('clients.edit',$client->id)}}"  >
+                        <button type="submit" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                        </button>
+                    </a>  
 
-                    </td>
+                     <a href="{{route('clients.desable',$client->id)}}" onclick="return confirm('¿Seguro dará de baja este cliente?')">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                        </button>
+                     </a> 
+                  @else
+                   <a href="{{route('clients.enable',$client->id)}}" onclick="return confirm('¿Seguro desea dar de alta este cliente?')">
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true" ></span>
+                        </button>
+                     </a>
+
+                 @endif
+                </td>
 		           
                     </tr>
                @endforeach

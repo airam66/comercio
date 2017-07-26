@@ -43,8 +43,25 @@ class BrandController extends Controller
         
         return redirect()->route('brands.index');
     }
-
     
+
+    public function edit($id){
+      
+      $brand=Brand::find($id);
+      return view('admin.brands.edit')->with('brand',$brand);
+
+    }
+    
+    public function update(Request $request, $id){
+
+     $brand=Brand::find($id);
+     $brand->fill($request->all());
+     $brand->save();
+    flash("La marca  ". $brand->name . " ha sido modificada con éxito" , 'success')->important();
+    
+
+    return  redirect()->route('brands.index');
+  }
 
 
 

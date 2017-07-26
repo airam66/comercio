@@ -47,10 +47,9 @@ class ClientsController extends Controller
    
     public function edit($id)
     {   
-    	/*$product= Product::find($id);
+    	$client= Client::find($id);
 
-
-        return view('admin.products.edit')->with('product',$product)*/
+        return view('admin.clients.edit')->with('client',$client);
 
 
     }
@@ -58,18 +57,30 @@ class ClientsController extends Controller
    
     public function update(Request $request, $id)
     {
+
+         $client=Client::find($id);
+         $client->fill($request->all());
+         $client->save();
+        flash("El cliente ". $client->name . " ha sido modificado con éxito" , 'success')->important();
+     
+
+       return redirect()->route('clients.index');
     }
 
     public function desable($id)
     {
+        $client= Client::find($id);
+        $client->status='inactivo';
+        $client->save();
+        return redirect()->route('clients.index');
     }
 
     public function enable($id)
     {
-      /*  $product= Product::find($id);
-        $product->status='activo';
-        $product->save();
-        return redirect()->route('products.index');*/
+        $client= Client::find($id);
+        $client->status='activo';
+        $client->save();
+        return redirect()->route('clients.index');
     }
 
     public function destroy($id)

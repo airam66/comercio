@@ -47,11 +47,22 @@
 
                       <td>{{$brand->name}}</td>
                       <td>{{$brand->status}}</td>
-                      <td> <a href="{{route('brands.desable',$brand->id)}}" onclick="return confirm('¿Seguro dara de baja esta categoria?')">
+                      <td> 
+                      
+                      <a href="{{route('brands.edit',$brand->id)}}"  >
+                        <button type="submit" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                        </button>
+                     </a>
+
+
+                      <a href="{{route('brands.desable',$brand->id)}}" onclick="return confirm('¿Seguro dara de baja esta marca?')">
                           <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                           </button>
-                           </a></td>
+                      </a>
+                      </td>
                     </tr>
           @endforeach
         </tbody>
