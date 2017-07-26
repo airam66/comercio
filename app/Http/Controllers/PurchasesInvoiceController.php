@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
+
 use App\Purchase;
 use App\PurchaseProduct;
 use App\Product;
 use Illuminate\Support\Facades\DB;
+
 
 class PurchasesInvoiceController extends Controller
 {
@@ -18,8 +21,10 @@ class PurchasesInvoiceController extends Controller
      */
     public function index()
     {
+
          $purchases=Purchase::all()->where('status','=','realizada');
       return view('admin.purchasesInvoice.index')->with('purchases',$purchases);
+
     }
 
     /**
@@ -29,6 +34,10 @@ class PurchasesInvoiceController extends Controller
      */
     public function create()
     {
+
+        $title="BUSCAR PROVEEDORES";
+        return view('admin.purchasesInvoice.create')->with('title',$title);
+
        $title='BUSCAR PROVEEDORES';
        $date=date('d').'/'.date('m').'/'.date('Y');
         return view('admin.purchasesInvoice.create2')->with('title',$title)
@@ -46,6 +55,7 @@ class PurchasesInvoiceController extends Controller
         return view('admin.purchasesInvoice.create')->with('purchase',$purchase)
                                                     ->with('details',$details);
 
+
     }
 
     /**
@@ -56,6 +66,7 @@ class PurchasesInvoiceController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request,[
           'cuit'=>'required|exists:providers,cuit',
           'numberInvoice'=>'required',
@@ -182,7 +193,7 @@ class PurchasesInvoiceController extends Controller
 
             }
     }
-    
+
     public function show($id)
     {
         //
@@ -224,6 +235,7 @@ class PurchasesInvoiceController extends Controller
 
 
     public function completeOrder(Request $request){
+
        $cont=0;
     $TotalCompra=0;
     $Subtotal=[];
@@ -277,13 +289,12 @@ class PurchasesInvoiceController extends Controller
             }
         }
 
+
         
     }
 
 
      public function detailPurchase(Request $request){
-
-
 
     $cont=0;
     $TotalCompra=0;
@@ -292,6 +303,7 @@ class PurchasesInvoiceController extends Controller
     if($request->ajax()){
         $output="";
         $comilla="'";
+
         $purchase = Purchase::find($request->searchP);
         $products= DB::table('purchases_products as pp')
                           ->join('products as p','pp.product_id','=','p.id')
@@ -300,6 +312,7 @@ class PurchasesInvoiceController extends Controller
                           ->where('pp.purchase_id','=',$purchase->id)->get();
          
         
+
        if ($products) {
         foreach ($products as $key => $product) {
        
@@ -310,13 +323,13 @@ class PurchasesInvoiceController extends Controller
                         <input readonly type="hidden" name="dproduct_id[]" value="'.$product->product_id.'">'.
                         '<td>'.$product->product_name.'</td>'.
                         '<td>'.$product->brand_name.'</td>'.
+
                         '<td><input type="number" name="dprice[]" value="'.$product->price.'"</td>
                         <td><input id="damount" name="damount[]" type="number" value="'.$product->amount.'" onkeyup="$('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val(this.value*'.$product->price.')" onchange="$('.$comilla.'#TotalCompra'.$comilla.').val(parseFloat($('.$comilla.'#TotalCompra'.$comilla.').val())+ parseFloat($('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val()))"> </td>'.
                         '<td><input readonly id="dsubTotal'.$cont.'" name="dsubtTotal" class="mi_factura" type="number" value="'.$product->subTotal.'"  ></td>'
 
                     .'</tr>';
-                   
-                    $cont++;
+                     $cont++;
                     
         }
 

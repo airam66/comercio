@@ -16,7 +16,7 @@
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker2'>
                      
-                     <input type="text" id="daterange"  name="daterange" class="form-control" value="<?php echo Date('d/m/Y')?>" >          
+                     <input type="text" id="daterange"  name="daterange" class="form-control" value="seleccione una fecha"  >          
                      <span class="input-group-addon">
                         <a href="{{route('purchases.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
                        </span></a>
@@ -60,6 +60,7 @@
                         <td>{{$purchase->status}}</td>
                         <td>
 
+                       <a href="{{route('purchases.detailPurchaseOrder',$purchase->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><span class="fa fa-list" aria-hidden="true" ></span></button></a>
                        <a href="{{route('purchases.show',$purchase->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
                          Generar PDF</button></a>
                         @if ($purchase->status!='rechazada')
@@ -78,12 +79,14 @@
                                 </button>
                         </a>
 
+
                          <a href="{{route('purchasesInvoice.loadOrder',$purchase->id)}}"  >
                                 <button type="submit" class="btn btn-primary">
                                     Registrar Compra
                             
                                 </button>
                         </a>
+
                   </td>
                   </tr>
 

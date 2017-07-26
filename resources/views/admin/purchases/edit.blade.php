@@ -84,7 +84,7 @@
 
 
                     <div class="col-md-2 col-md-offset-1">
-                      <button type="button" id="btn_add" class="btn pull-right">
+                      <button type="button" id="btn_add"  class="btn pull-right">
                       <img src="{{ asset('images/images.png ') }}" width="50" height="50">
                       </button>
                     </div>
@@ -149,7 +149,7 @@
               <div class="row no-print">
                   <div class="col-xs-12">
                         <div class="form-group">
-                        {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
+                        {!! Form::submit('Guardar',['class'=>'btn btn-primary'])!!}
                        </div>
                   </div>
                 </div>
@@ -309,15 +309,13 @@ function deletefila(index,subTotal){
  }
 
  function clear(){
-    $('#stock').val('');
+   
     $('#code').val('');
-    $('#product_id').val('');
     $('#name').val('');
-    $('#price').val('');
-    $('#priceR').val('');
-    $('#priceW').val('');
-    $('#wholesale_cant').val('');
-    $('#amount').val('');
+    $('#purchase_price').val('');
+     $('#amount').val('');
+    $('#brand').val('');
+ 
  }
 </script>
 
@@ -340,87 +338,15 @@ function deletefila(index,subTotal){
 
 @endsection
 
-@section('js')
 
 
 
 
 
-<script >
-  function complete($id,$code,$brand,$name,$purchase,$stock){
-    $('#code').val($code);
-    $('#brand').val($brand);
-    $('#product_id').val($id);
-    $('#name').val($name);
-    $('#purchase_price').val($purchase);
-    $('#favoritesModalProduct').modal('hide');
-   $('#mostrar').html('');
-  };
-</script>
 
 
 
 
-<script>
-    $('#btn_add').on('click',function(){
-        invoice_detail();
-    });
-
-  var cont=2000;
-  var TotalCompra=0;
-  var Subtotal=[];
-
-  function invoice_detail(){
-    stock=$('#stock').val();
-     brand=$('#brand').val();
-     code=$('#code').val();
-    product_id=$('#product_id').val();
-    name=$('#name').val();
-    price=$('#purchase_price').val();
-    amount=$('#amount').val();
-    
-  if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
-
-      
-         Subtotal[cont]=parseFloat(amount)*parseFloat(price);
-         TotalCompra= parseFloat($('#TotalCompra').val())+Subtotal[cont];
-         console.log(TotalCompra);
-
-              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
-          cont++;
-          clear();
-        $('#TotalCompra').val(TotalCompra);
-        $('#details').append(fila);
-
-     
-  }else{
-        alert("Error al ingresar detalle de la cotización, revise la cantidad del producto a vender");
-  }
-}
-
-function deletefila(index,subTotal){
-  console.log(index);
-  TotalCompra= parseFloat($('#TotalCompra').val())-subTotal;
-  console.log(subTotal);
-  $('#TotalCompra').val(TotalCompra);
-  $('#'+index).remove();
- }
-
- function clear(){
-    $('#stock').val('');
-    $('#code').val('');
-    $('#product_id').val('');
-    $('#name').val('');
-    $('#price').val('');
-    $('#priceR').val('');
-    $('#priceW').val('');
-    $('#wholesale_cant').val('');
-    $('#amount').val('');
- }
-</script>
-
-
-@endsection
 
 
 

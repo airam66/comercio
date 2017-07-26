@@ -85,7 +85,7 @@ $('#searchProducts').on('keyup', function(){
   console.log($value);
   $.ajax({
     type: 'get',
-    url:  "{{ URL::to('admin/searchCraftProducts')}}",
+    url:  "{{ URL::to('admin/searchProductsCreateLetter')}}",
     data:{'searchL':$value},
     success: function(data){
       $('#mostrar').html(data);

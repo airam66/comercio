@@ -5,7 +5,8 @@ line-height: 1.7;
 color: #110f0f;
 font-weight: 400;
 overflow-x: hidden;
-background: url('../images/fondo16.jpg') repeat;
+
+background: url('../images/fondo16.jpg');
 }
 
 h4{

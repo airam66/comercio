@@ -1,7 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+
   <div class="container-fluid spark-screen">
+
     <div class="row">
       <div class="col-md-12">
 
@@ -11,6 +13,7 @@
             <h3 class="box-title">Registrar Factura de Compra</h3>
          </div>
       <div class="box-body">
+
           {!! Form::model($purchase,['route'=>['purchasesInvoice.storePI',$purchase->id], 'method'=>'POST', 'files'=>true])!!}
           <section>
               <div class="row">
@@ -26,10 +29,12 @@
                     </h3>
                   </div><!-- /.col -->
               </div>
+
       
               <div class="border">
                 <h3>Proveedor</h3>
                 <div class="row ">
+
                          <div class="col-md-3 pull-left" >
                            
                            <h4><strong>Cuit: </strong> {{$purchase->provider->cuit}} </h4>
@@ -41,6 +46,7 @@
                             <h4><strong>Nombre: </strong> {{$purchase->provider->name}}</h4>
                             <input id="provider_id" name="provider_id" class="form-control myfactura" value=" {{$purchase->provider->id}}" type="hidden" >
                             
+
                       </div>
                 </div>
               </div>
@@ -62,7 +68,9 @@
                    </div>
                    
                    <div class="col-md-2 col-md-offset-2">
+
                        {!!Field::number('purchase_price',null, ['step'=>'any'])!!} 
+
  
                     </div>
                      <div class="col-md-2">
@@ -101,11 +109,14 @@
                           <th>Marca</th>
                           <th>Precio Compra</th>
                           <th>Cantidad</th>
+
                           <th>Subtotal</th>
+
                         </tr>
                       </thead>
 
                       <tbody id="detail">
+
                       @php ($a = 0)
                       @php ($subTotal[$a]=0)
                       @foreach($details as $detail)
@@ -125,6 +136,7 @@
                          
                         @php ($a++) 
                        @endforeach  
+
                       </tbody>
 
                     </table>
@@ -135,13 +147,17 @@
                  
                   <div class="col-xs-6 pull-right">
                       <div class="text-center" style="background-color: gray;">
+
                         <h3 style="color:white;">Total</h3>
+
                       </div>
                     <div class="table-responsive">
                       <table class="table">
                         <tr>
+
                           <th class="text-center">Total:</th>
                           <td class="text-center">$<input type="number" id="totalCompra" name="totalCompra" value="{{$purchase->total}}" step="any" class="mi_factura"></td>
+
                         </tr>
                       </table>
                     </div>
@@ -150,7 +166,9 @@
         
               <div class="row no-print">
                   <div class="col-xs-12">
+
                         <div class="form-group">
+
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
                        </div>
                   </div>
@@ -167,7 +185,9 @@
     </div>
   </div>
 
+
  @include('partials.searchProductsPurchase')
+
 
 @endsection
 
@@ -176,6 +196,7 @@
 <script>
 
 $('#searchP').on('click', function(){
+
   $value=$('#numberPurchase').val();  
   
   $.ajax({
@@ -337,5 +358,6 @@ function deletefila(index,subTotal){
   }
 
 </script>
+
 
 @endsection

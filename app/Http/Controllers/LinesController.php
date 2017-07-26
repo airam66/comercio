@@ -49,13 +49,23 @@ class LinesController extends Controller
      
     public function edit($id)
     {
-        //
+         $line= Line::find($id);
+         return view('admin.lines.edit')->with('line',$line);
     }
 
     
     public function update(Request $request, $id)
     {
-        //
+         $line=Line::find($id);
+
+        $line->fill($request->all());
+             
+
+        $line->save();
+        flash("La linea ". $line->name . " ha sido modificada con exito" , 'success')->important();
+     
+
+       return redirect()->route('lines.index');
     }
 
     public function destroy($id)

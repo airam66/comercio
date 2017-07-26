@@ -46,7 +46,7 @@
                 <th>Nombre</th>
                 <th>Stock</th>
                 <th>Categoría</th>
-               
+               <th>Marca</th>
                 <th>Línea</th>
                 <th>Estado</th>
                 <th>Imagen</th> 
@@ -68,7 +68,7 @@
             <td>{{$product->name}}</td>
             <td>{{$product->stock}}</td>
             <td>{{$product->category->name}}</td>   
-            
+            <td>{{$product->brand->name}}</td>
             <td>{{$product->line->name}}</td>
             <td>{{$product->status}}</td>
 
