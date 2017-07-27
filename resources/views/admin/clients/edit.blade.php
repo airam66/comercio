@@ -1,27 +1,25 @@
 @extends('layouts.main')
- 
- 
+
 @section('content')
-  <div class="container-fluid spark-screen">
+ 
+<div class="container-fluid spark-screen">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
 
         <!-- Default box -->
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nuevo proveedor</h3>
+            <h3 class="box-title">Modificar cliente</h3>
           </div>
           <div class="box-body">
             
-          {!! Form::open(['route'=>'providers.store', 'method'=>'POST', 'files'=>true])!!}
+          {!! Form::model($client,['route'=>['clients.update',$client->id], 'method'=>'PATCH', 'files'=>true])!!}
             
               {!! Field::text('name')!!}
 
-              {!! Field::number('cuit')!!}
-              
-              {!! Field::text('address')!!}
+              {!! Field::text('cuil')!!}
               <div class="col-md-6">
-              {!! Field:: text('province')!!}
+              {!! Field::text('address')!!}
               </div>
               <div class="col-md-6">
               {!! Field:: text('location')!!}
@@ -38,9 +36,9 @@
               {!! Form::label('status','Estado')!!}
               {!! Form::select('status', ['activo'=>'activo','inactivo'=>'inactivo'],null,['class'=>'form-control'])!!} 
               </div>
-              {!! Form::hidden('route',$route)!!}
+
               <div class="form-group">
-              {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
+              {!! Form::submit('Guardar',['class'=>'btn btn-primary'])!!}
               </div>
           
  
@@ -58,7 +56,7 @@
 
 @section('js')
 <script >
-  $('#cuit').on('keypress', function(e){
+  $('#cuil').on('keypress', function(e){
 
     tecla = (document.all) ? e.keyCode : e.which;
 

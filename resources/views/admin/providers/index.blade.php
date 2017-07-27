@@ -54,15 +54,36 @@
                     <td>
                       <button type="button" class="btn btn-primary " data-toggle="modal" id="first" data-title="Detail" data-target="#favoritesModalProduct" onclick="list({{$provider->id}})">
                           <i class="fa fa-list"></i>
-                     </button>
-                     @include('admin.providers.providerProduct')
+                      </button>
                       
+                    
+                     @if ($provider->status!='inactivo')
+                       <a href="{{route('providers.edit',$provider->id)}}"  >
+                            <button type="submit" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                                
+                            </button>
+                        </a>  
 
-                    </td>
+                        <a href="{{route('providers.desable',$provider->id)}}" onclick="return confirm('¿Seguro dará de baja este proveedor?')">
+                            <button type="submit" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                            </button>
+                        </a> 
+                    @else
+                       <a href="{{route('providers.enable',$provider->id)}}" onclick="return confirm('¿Seguro desea dar de alta este proveedor?')">
+                            <button type="submit" class="btn btn-success">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                         </a>
+
+                    @endif
+                    @include('admin.providers.providerProduct')
+                  </td>
 		           
-                    </tr>
+              </tr>
                @endforeach
-             </tbody>
+            </tbody>
         </table>
 
     </div>

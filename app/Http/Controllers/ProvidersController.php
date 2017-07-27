@@ -80,10 +80,10 @@ class ProvidersController extends Controller
    
     public function edit($id)
     {   
-    	/*$product= Product::find($id);
+    	$provider= Provider::find($id);
 
 
-        return view('admin.products.edit')->with('product',$product)*/
+        return view('admin.providers.edit')->with('provider',$provider);
 
 
     }
@@ -91,18 +91,30 @@ class ProvidersController extends Controller
    
     public function update(Request $request, $id)
     {
+      $provider=Provider::find($id);
+      $provider->fill($request->all());
+      $provider->save();
+      flash("El proveedor ". $provider->name . " ha sido modificado con éxito" , 'success')->important();
+     
+
+       return redirect()->route('providers.index');
+
     }
 
     public function desable($id)
     {
+      $provider= Provider::find($id);
+      $provider->status='inactivo';
+      $provider->save();
+      return redirect()->route('providers.index');
     }
 
     public function enable($id)
     {
-      /*  $product= Product::find($id);
-        $product->status='activo';
-        $product->save();
-        return redirect()->route('products.index');*/
+        $provider= Provider::find($id);
+        $provider->status='activo';
+        $provider->save();
+        return redirect()->route('providers.index');
     }
 
     public function destroy($id)

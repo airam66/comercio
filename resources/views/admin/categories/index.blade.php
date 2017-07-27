@@ -85,9 +85,8 @@
                         </button>
                      </a>
             @endif
-
-
-           
+            </td>
+          
         </tr>
   @endforeach
    </tbody>

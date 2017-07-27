@@ -1,19 +1,19 @@
 @extends('layouts.main')
- 
- 
+
 @section('content')
-  <div class="container-fluid spark-screen">
+
+<div class="container-fluid spark-screen">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
 
         <!-- Default box -->
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nuevo proveedor</h3>
+            <h3 class="box-title">Modificar proveedor</h3>
           </div>
           <div class="box-body">
             
-          {!! Form::open(['route'=>'providers.store', 'method'=>'POST', 'files'=>true])!!}
+      {!! Form::model($provider,['route'=>['providers.update',$provider->id], 'method'=>'PATCH'])!!}
             
               {!! Field::text('name')!!}
 
@@ -38,9 +38,9 @@
               {!! Form::label('status','Estado')!!}
               {!! Form::select('status', ['activo'=>'activo','inactivo'=>'inactivo'],null,['class'=>'form-control'])!!} 
               </div>
-              {!! Form::hidden('route',$route)!!}
+             
               <div class="form-group">
-              {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
+              {!! Form::submit('Guardar',['class'=>'btn btn-primary'])!!}
               </div>
           
  
@@ -54,9 +54,10 @@
       </div>
     </div>
   </div>
-@endsection
 
-@section('js')
+  @endsection
+
+  @section('js')
 <script >
   $('#cuit').on('keypress', function(e){
 

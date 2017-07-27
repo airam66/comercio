@@ -55,11 +55,20 @@
                      </a>
                
             @else
+                    <a href="{{route('events.edit',$event->id)}}"  >
+                        <button type="submit" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                        </button>
+                     </a>
+
                    <a href="{{route('events.desable',$event->id)}}" onclick="return confirm('¿Seguro dara de baja este evento?')">
                         <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                         </button>
                      </a>
+
+
             @endif
             </td>
            

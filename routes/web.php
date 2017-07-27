@@ -69,6 +69,9 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
    Route::get('/searchProductsCreateLetter', 'ProductsController@searchProductsCreate');
    Route::post('products/updateStockCreateProduct', 'ProductsController@updateStockCreateProduct')->name('products.updateStockCreateProduct'); 
 
+
+   Route::get('/listDetailProduct','ProductsController@listDetailProduct');
+
 //************************************Rutas para ventas***********************************************
   Route::resource('invoices','InvoicesController');
   Route::get('/search','InvoicesController@search');
@@ -92,6 +95,8 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
  //*************************Rutas para clientes******************************************************
   Route::resource('clients','ClientsController');
   Route::get('/searchClient','InvoicesController@searchClient');
+  Route::get('clients/{id}/desable','ClientsController@desable')->name('clients.desable');
+  Route::get('clients/{id}/enable','ClientsController@enable')->name('clients.enable');
   
  //**************************Rutas para proveedores************************************************** 
   Route::resource('providers','ProvidersController');
@@ -99,6 +104,8 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::get('/searchProvider','PurchasesController@searchProvider');
   Route::get('/searchProducts','PurchasesController@searchProducts');
   Route::resource('providersproducts','ProvidersProductsController');
+  Route::get('providers/{id}/desable','ProvidersController@desable')->name('providers.desable');
+  Route::get('providers/{id}/enable','ProvidersController@enable')->name('providers.enable');
       
   //*********************Rutas para imagenes del carrusel de la pagina web*******************************
   Route::resource('carrusel','CarruselController');

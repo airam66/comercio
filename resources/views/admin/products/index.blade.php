@@ -74,13 +74,17 @@
 
             <td> 
             @if($product->extension!=null)
-                    <div>
-                    <img src="{{ asset('images/products/$product->extension')  }}" width="40" height="40" >
-                    </div>
+                    
+                    <a  data-toggle="modal" id="first" data-title="detail" data-target="#favoritesModalProduct{{$product->id}}">
+                    <img src="{{asset('images/products/'.$product->extension)}}" width="40" height="40" >
+                    </a>
+                    
             @endif
             </td>
 
             <td>
+                
+
             @if ($product->status!='inactivo')
              
                 <a href="{{route('products.edit',$product->id)}}"  >
@@ -103,6 +107,7 @@
                      </a>
 
             @endif
+            @include('admin.products.detailProduct')
             </td>
             <td></td>
            
@@ -120,4 +125,22 @@
 </div>
 
 
+@endsection
+
+@section('js')
+
+<script>
+function list($id){
+ 
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/listDetailProduct')}}",
+    data:{'product_id':$id},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  })
+}
+</script>
 @endsection
