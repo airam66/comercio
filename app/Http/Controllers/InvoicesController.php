@@ -24,8 +24,7 @@ class InvoicesController extends Controller
 
     public function create(){
     	$date=date('d').'/'.date('m').'/'.date('Y');
-        $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
-        $clients=Client::where('status','=','activo')->orderBy('name','ASC')->get();
+        
         $numberinvoice=Invoice::all()->pluck('id');
         if (count($numberinvoice)!=0){
           $numberinvoice=($numberinvoice->last()+1);
@@ -34,8 +33,7 @@ class InvoicesController extends Controller
         }
         $title="BUSCAR CLIENTE";
     	return view('admin.invoices.create')->with('date',$date)
-                                          ->with('products',$products)
-                                          ->with('clients',$clients)
+                                          
                                           ->with('numberinvoice',$numberinvoice)
                                           ->with('title',$title);
     }
