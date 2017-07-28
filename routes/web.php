@@ -129,6 +129,8 @@ Route::get('/completeOrder','PurchasesInvoiceController@completeOrder');
 Route::get('/detailOrder','PurchasesInvoiceController@detailPurchase');
 Route::get('purchasesInvoice/{id}/loadOrder','PurchasesInvoiceController@loadOrder')->name('purchasesInvoice.loadOrder');
 Route::post('purchasesInvoice/{id}/storePI','PurchasesInvoiceController@storePI')->name('purchasesInvoice.storePI');
+//************************************Rutas para Pedidos***********************************
+Route::resource('requests','RequestController'); 
 
 Route::get('/request',function(){
    return view('admin.requests.index');

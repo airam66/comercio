@@ -311,6 +311,10 @@
 
     <!-- datepicker -->
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+     
+
+
+
     <!-- Bootstrap WYSIHTML5 -->
     <script src="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
     <!-- Slimscroll -->
