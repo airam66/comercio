@@ -150,5 +150,27 @@ class ProductsTest extends DuskTestCase
 
    }
 
+   public function test_see_detail_product(){
+
+    $user=User::find(1);
+
+     $this->browse(function (Browser $browser) use ($user){
+            $browser->visit('comercio/public/admin/products')
+                    ->type('email',$user->email)
+                    ->type('password','secret')
+                    ->press('Entrar')
+                    ->assertPathIs('/comercio/public/admin/products')
+                    ->click('#first')
+                    ->whenAvailable('.modal',function($modal){
+                           $modal->pause(1000)
+                                ->assertSee('BOLSITTAS FROZEN45')
+                                ->assertSee('0010811');                             
+                                 
+                    });
+
+   });
+
+   }
+
 }
 
