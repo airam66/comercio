@@ -10,14 +10,16 @@ class Client extends Model
 
     protected $fillable= ['name','cuil','address','location','phone','email','bill','status'];
 
-    public function productos()
-    {
-        return $this->hasMany('App\Invoice');
-    }
 
      public function invoices()
     {
         return $this->hasMany('App\Invoice');
+    }
+
+
+     public function requests()
+    {
+        return $this->hasMany('App\OrderRequest');
     }
 
     public static function clientByCuil($term){

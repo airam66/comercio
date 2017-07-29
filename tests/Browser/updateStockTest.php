@@ -1,9 +1,9 @@
-q<?php
+<?php
 
 namespace Tests\Browser;
-
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
+use Laravel\Dusk\Chrome;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\User;
 
@@ -22,7 +22,7 @@ class updateStockTest extends DuskTestCase
                     ->assertVisible('#modalProduct')
                     ->type('email',$product->name)
                     ->press('Agregar')
-                    ->assertValue('#name', $value)
+                    ->assertValue('#name', $value);
 
 
 

@@ -40,7 +40,7 @@ class ProductsController extends Controller
                           ->select('ep.event_id','e.name as event_name','ep.product_id')
                           ->get();       
        
-      //dd($productEvent);
+      
         return view('admin.products.index')->with('products',$products)
                                            ->with('validacion',$validacion)
                                             ->with('productEvent',$productEvent);
@@ -106,19 +106,27 @@ class ProductsController extends Controller
     public function SearchEventProducts(Request $request){
        $event= Event::searchEventP($request->Evento)->first();
         $validacion=false;
+        $productEvent=DB::table('events as e')
+                          ->join('event_product as ep','e.id','=','ep.event_id')
+                          ->select('ep.event_id','e.name as event_name','ep.product_id')
+                          ->get();    
       if(($event!=null )&&($request->Evento!="")){
          
           $products= $event->products()->paginate(10);
           return view('admin.products.index')->with('products',$products)
-                                            ->with('validacion',$validacion);
+                                            ->with('validacion',$validacion)
+                                            ->with('productEvent',$productEvent);
         }
       $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);  
       if ($event==null) {
             $validacion=true;
-            }                                          
+            }   
+
+                                            
        
-        return view('admin.products.index')->with('products',$products)
-                                           ->with('validacion',$validacion);
+      return view('admin.products.index')->with('products',$products)
+                                           ->with('validacion',$validacion)
+                                           ->with('productEvent',$productEvent);
     
     
         }

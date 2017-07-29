@@ -175,3 +175,54 @@ $factory->define(App\PurchaseProduct::class, function (Faker\Generator $faker) {
       
     ];
 });
+
+$factory->define(App\Client::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+
+        'cuil' => $faker->unique()->creditCardNumber,
+        'name' => $faker->unique()->name,
+        'address'=>$faker->address,
+        'location'=>$faker->city,
+        'phone'=>3874921675,
+        'bill'=>$faker->randomNumber(2),
+        'status' => 'activo',
+        'email'=>$faker->safeEmail,
+       
+    ];
+});
+
+
+$factory->define(App\OrderRequest::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+
+        'total' => $faker->randomNumber(2),
+        'status'=>'pendiente',
+        'advance'=>$faker->randomNumber(2),
+        'delivery_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+       'client_id'=>function(){
+            return factory(\App\Client::class)->create()->id;
+        } 
+        
+    ];
+});
+
+$factory->define(App\OrderRequestProduct::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+        'request_id'=>function(){
+            return factory(\App\OrderRequest::class)->create()->id;
+        }, 
+       'product_id'=>function(){
+            return factory(\App\Product::class)->create()->id;
+        }, 
+        'price' =>$faker->randomNumber(1),
+        'amount'=>$faker->randomNumber(1),
+        'subTotal'=>$faker->randomNumber(1),
+      
+    ];
+});
