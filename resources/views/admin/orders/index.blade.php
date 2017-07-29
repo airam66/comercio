@@ -12,7 +12,7 @@
 
       <div class="row">
         <div class='col-sm-8 pull-right'>
-            <form route='requests.index'  method="GET" class="col-md-3 col-md-offset-4 ">
+            <form route='orders.index'  method="GET" class="col-md-3 col-md-offset-4 ">
             <div class="input-group">
               <input type="text" name="searchClient" class="form-control" placeholder="Nombre..."> 
               <span class="input-group-btn">
@@ -28,7 +28,7 @@
                 <div class='input-group date' id='datetimepicker2'>
                      <input type="text" id="daterange"  name="daterange" class="form-control" value="seleccione una fecha"/>          
                      <span class="input-group-addon">
-                        <a href="{{route('requests.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
+                        <a href="{{route('orders.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
                       </span></a>
                 </div>
             </div>
@@ -62,18 +62,18 @@
 		     
        
                 <tbody id="mostrar">
-                   @foreach ($requests as $key => $request) 
+                   @foreach ($orders as $key => $order) 
          
-                      @if ($request->status!='cancelado' )
+                      @if ($order->status!='cancelado' )
                   
 			                <tr>
 			                              
-			                        <td>{{$request->id}}</td>
-			                        <td>{{$request->created_at->format('d/m/Y')}}</td>
-			                        <td>{{date('d/m/Y', strtotime($request->delivery_date))}}</td>
-			                        <td>{{$request->client->name}}</td>
-			                        <td>{{$request->status}}</td>
-			                        <td>{{$request->client->bill}}</td>
+			                        <td>{{$order->id}}</td>
+			                        <td>{{$order->created_at->format('d/m/Y')}}</td>
+			                        <td>{{date('d/m/Y', strtotime($order->delivery_date))}}</td>
+			                        <td>{{$order->client->name}}</td>
+			                        <td>{{$order->status}}</td>
+			                        <td>{{$order->client->bill}}</td>
 			                        <td> 
 			                        </td>
 			                  </tr>
@@ -144,7 +144,7 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
   $.ajax({
     type: 'get',
-    url:  "{{ URL::to('admin/searchDataRequest')}}",
+    url:  "{{ URL::to('admin/searchDataOrder')}}",
     data:{'fecha1':f1,
           'fecha2':f2},
     success: function(data){

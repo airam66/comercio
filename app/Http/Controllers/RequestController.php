@@ -151,8 +151,29 @@ class RequestController extends Controller
                
    }
     
-    }
-  
+  }
+//*******************************Editar un pedido******************
+  public function edit($id){
+     
+    $orderRequest=OrderRequest::find($id);
 
+   $requestDetail=$orderRequest->products->pluck('name')->ToArray();
+   // dd($requestDetail);
+
+    $title="BUSCAR CLIENTE";
+
+    return view('admin.requests.edit')->with('orderRequest',$orderRequest)
+                                      ->with('title',$title);
+
+
+  }
+
+
+  public function update(Request $request,$id){
+
+
+  }
+  
+//************************************************************************
 
 }

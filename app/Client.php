@@ -17,9 +17,9 @@ class Client extends Model
     }
 
 
-     public function requests()
+     public function orders()
     {
-        return $this->hasMany('App\OrderRequest');
+        return $this->hasMany('App\Order');
     }
 
     public static function clientByCuil($term){

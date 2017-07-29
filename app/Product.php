@@ -101,6 +101,9 @@ class Product extends Model
               ->where('pp.provider_id','=',$provider_id)->get();
     }  */  
 
+     public function requests(){
+        return $this->belongsToMany('App\OrderRequest') ;
+    }
  
      
 }

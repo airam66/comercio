@@ -128,8 +128,8 @@ Route::post('purchasesInvoice/{id}/storePI','PurchasesInvoiceController@storePI'
 
 //************************************Rutas para Pedidos***********************************
 Route::resource('requests','RequestController'); 
-Route::get('/searchDataRequest','RequestController@searchDateRequest');
-
+Route::resource('orders','OrdersController');
+Route::get('/searchDataOrder','OrderController@searchDateOrder');
 });
 
 

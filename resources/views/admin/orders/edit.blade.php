@@ -1,9 +1,8 @@
 @extends('layouts.main')
- 
- 
+
 @section('content')
-   
-  <div class="container-fluid spark-screen">
+
+<div class="container-fluid spark-screen">
     <div class="row">
       <div class="col-md-12">
 
@@ -13,8 +12,8 @@
             <h3 class="box-title">Nuevo Pedido</h3>
          </div>
       <div class="box-body">
-          {!! Form::open(['route'=>'orders.store', 'method'=>'POST', 'files'=>true])!!}
-          <section class="invoice">
+          {!! Form::model($order,['route'=>['orders.update',$order->id], 'method'=>'PATCH'])!!}
+          <section class="order">
                 <!-- title row -->
                 <div class="row">
                   <div class="col-xs-12">
@@ -22,18 +21,20 @@
                         <img src="{{ asset('images/cotillon.png ') }}" width="230" height="80"  >
                      
                       <div class="pull-right">
-                         <b>Pedido N°:</b><br>
-                        ></div>  
+                         <b>Pedido N°:{{$order->id}}</b><br>
+                      </div>  
                            
                     </h3>
                   </div><!-- /.col -->
                 </div>
+               
                 <!-- FECHAS DEL PEDIDO--> 
-<div class="panel panel-primary" >
-<div class="panel-body">
- <div class="pull-left">
-   <h4><b>Fecha: {{$date}}</b></h4>
- </div>
+				
+				  <div class="panel panel-primary" >
+				  <div class="panel-body">
+				      <div class="pull-left">
+				        <h4><b>Fecha de pedido:{{$order->created_at->format('d-m-Y')}} </b></h4>
+				      </div>
                 
                        
                          <!--Fecha-->
@@ -41,49 +42,41 @@
                         <div class='col-sm-4 pull-right '>
                             <div class="form-group">
                                   <div class='input-group date' >
-                                      <input type='text' id="datetimepicker3"  name="datetimepicker3" value="seleccione fecha" class="form-control" />
+                                      <input type='text' id="datetimepicker3"  name="datetimepicker3" value="{{date('d/m/Y', strtotime($order->delivery_date))}}" class="form-control" />
                                       <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                       </span>
                                   </div>
                               </div>
                           </div>
-                          <h4 class="pull-right"> <b>Entrega Pedido: </b></h4>
-                         
-    
-                          
-        
-  
-                         <!--Fin de Fecha-->
-                         
-
-                    
-       </div> 
-       </div>    
-       <!--FIN FECHAS PEDIDO-->       
+                          <h4 class="pull-right"> <b>Fecha de entrega: </b></h4>
+                         </div> 
+                         </div>
+                    <!--Fin de Fecha-->    
+                    <!--FIN FECHAS PEDIDO-->       
+               
                 <!-- info row -->
-      <div class="panel panel-default">
+        <div class="panel panel-default">
           <div class="panel-body"><!--busqueda producto-->
          
-             <div class="border">
+            <div class="border">
                 <h3>Cliente</h3>
                 <div class="row ">
-                       @include('partials.searchPeople')
-                      <div class="col-md-3 pull-left" >
-                           {!! form::label('CUIL/CUIT')!!}
-                           <input id="cuil" class="form-control" name="cuil" type="text" >
+                         <div class="col-md-3 pull-left" >
+                           
+                           <h4><strong>Cuit/Cuil: </strong> {{$order->client->cuil}} </h4>
+                           <input id="cuit"  class="form-control myfactura" value="{{$order->client->cuit}}" type="hidden" >
                        </div>
-                       <div class="pull-left">
-                       <br>
-                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
-                           @include('partials.searchPeople')
+                       
+                      <div class="col-md-6  col-md-offset-2">
+                            
+                            <h4><strong>Nombre: </strong> {{$order->client->name}}</h4>
+                            <input id="client_id" name="client_id" class="form-control myfactura" value=" {{$order->client->id}}" type="hidden" >
+                            
                       </div>
-                      <div class="col-md-6  pull-right">
-                            <input id="client_id" name="client_id" class="form-control" type="hidden" >
-                            {!!Field::text('nombre',null,['disabled'])!!}
-                      </div>
-               </div>
-            </div>
+                </div>
+              </div>
+              <hr>
                 
                   <h3>Producto</h3>
                 <div class="row " >
@@ -128,7 +121,7 @@
 
                 </div>
                 
-<!--find busqueda de producto-->
+                   <!--fin busqueda de producto-->
         </div>
                 <!-- Table row -->
                   <div class="col-xs-12 table-responsive">
@@ -144,8 +137,21 @@
                         </tr>
                       </thead>
 
-                      <tbody>
-                         
+                     <tbody id="detail">
+                      @php ($a = 0)
+                      @foreach($details as $detail)
+                      <tr class="selected" id={{$a}}>
+                          <td><button type="button" class="btn btn-danger" onclick="deletefila({{$a}},{{$detail->subTotal}});">X</button></td>
+                          <td>{{$detail->product_code}}</td> 
+                          <td> <input readonly type="hidden" name="dproduct_id[]" value="{{$detail->product_id}}">{{$detail->product_name}}</td>  
+
+                          <td><input readonly type="number" name="dprice[]" value="{{$detail->price}}" class="mi_factura"></td> 
+                         <td><input readonly type="number" name="damount[]" value="{{$detail->amount}}" class="mi_factura"></td> 
+                         <td><input id="dsubTotal{{$a}}" name="dsubtTotal" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
+                       </tr>
+
+                        @php ($a++) 
+                       @endforeach  
                       </tbody>
 
                     </table>
@@ -163,19 +169,19 @@
                       <table class="table">
                         <tr>
                           <th style="width:60%">Total:</th>
-                          <td>$<input type="number" name="total" id="total"  step="any" class="mi_factura"></td>
+                          <td>$<input type="number" name="total" id="total"  value="{{$order->total}}" step="any" class="mi_factura"></td>
                         </tr>
                         <tr>
                           <th>Adelanto</th>
                           <td>
-                              <input id="advance"  name="advance" type="number" >
+                              $<input disabled id="advance" value="{{$order->advance}}" name="advance" type="number" class="mi_factura">
                                      
                                 
                         </td>
                         </tr>
                         <tr>
                           <th>Saldo:</th>
-                          <td>$<input type="number" name="balance" id="balance"  step="any" class="mi_factura"></td>
+                          <td>$<input type="number" name="balance" id="balance" value="{{$order->client->bill}}" step="any" class="mi_factura"></td>
                         </tr>
                       </table>
                     </div>
@@ -327,36 +333,6 @@ function productStockProvider(){
 <script>
 
 
-
-$('#amount').on('keyup', function(){
-  var am=parseInt($('#amount').val());
-  var maxW=parseInt($('#wholesale_cant').val());
-  var pW=$('#priceW').val();
-  var pR=$('#priceR').val();
-   if (am >= maxW){
-    console.log('mayor a la cantidad');
-        $('#price').val(pW);
-  }
-  else{
-    console.log('menor a la cantidad');
-        $('#price').val(pR);
-  }
-});
-</script>
-
-<script>
-$('#advance').on('keyup', function(){
-  total=parseFloat($('#total').val());
-  console.log(total);
-  balance=parseFloat($('#advance').val());
-  console.log(balance);
-  outStandingBalance=total-balance;
-  console.log(outStandingBalance);
-  $('#balance').val(outStandingBalance);
-  });
-</script>
-
-<script>
 $('#search').on('keyup', function(){
   $value=$(this).val();
   $.ajax({
@@ -371,28 +347,13 @@ $('#search').on('keyup', function(){
 })
 </script>
 
-<script type="text/javascript">
-$('#searchC').on('keyup', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchClient')}}",
-    data:{'searchClient':$value},
-    success: function(data){
-      $('#mostrarC').html(data);
-    }
-    
-  })
-})
-
-</script>
 
 <script>
     $('#btn_add').on('click',function(){
         invoice_detail();
     });
 
-  var cont=0;
+  var cont=2000;
   var Totalventa=0;
   var Subtotal=[];
 
@@ -407,14 +368,18 @@ $('#searchC').on('keyup', function(){
   if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
 
       if (parseInt(amount)<parseInt(stock)){
-         Subtotal[cont]=parseFloat(amount)*parseFloat(price);
-         Totalventa=Totalventa+Subtotal[cont];
 
-              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+         Subtotal[cont]=parseFloat(amount)*parseFloat(price);
+          TotalVenta= parseFloat($('#total').val())+Subtotal[cont];
+          console.log(TotalVenta);
+
+
+              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
-        $('#total').val(Totalventa);
-        $('#Totalventa').val(Totalventa); 
+        $('#total').val(TotalVenta);
+         Balance=parseFloat($('#total').val())-parseFloat($('#advance').val());
+          $('#balance').val(Balance);
         $('#details').append(fila);
 
       }else{
@@ -426,11 +391,19 @@ $('#searchC').on('keyup', function(){
   }
 }
 
-function deletefila(index){
-  Totalventa=Totalventa-Subtotal[index];
-  $('#total').val(Totalventa);
-  $('#Totalventa').val(Totalventa);
-  $('#fila'+index).remove();
+function deletefila(index,subTotal){
+  TotalVenta= parseFloat($('#total').val())-subTotal;
+  $('#total').val(TotalVenta);
+  $('#'+index).remove();
+
+  if($('#total').val() != 0){
+  Balance=parseFloat($('#total').val())-parseFloat($('#advance').val());
+          $('#balance').val(Balance);
+  }
+  else{
+     $('#balance').val(0);
+  }
+
  }
 
  function clear(){
@@ -464,9 +437,5 @@ function deletefila(index){
 
 
 @endsection
- 
 
-@push('scripts')
 
-<script src="{{asset('dist/js/completePerson.js')}}"></script>
-@endpush

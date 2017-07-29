@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-
-class OrderRequest extends Model
+class Order extends Model
 {
-
-	protected $table="order_requests";
+    protected $table="orders";
     protected $fillable= ['client_id','advance','delivery_date','total','status'];
 
   
@@ -18,7 +16,7 @@ class OrderRequest extends Model
         return $this->belongsTo ('App\Client');
     }
 
-    public function scopeSearchRequest($query,$fecha1,$fecha2){
+    public function scopeSearchOrder($query,$fecha1,$fecha2){
          return $query->where( [['created_at','>=',$fecha1],
                 ['created_at','<=',$fecha2],]);
 
