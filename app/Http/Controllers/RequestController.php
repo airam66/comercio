@@ -12,9 +12,33 @@ use App\OrderRequestProduct;
 class RequestController extends Controller
 {
     
-    public function index(){
+    public function index(Request $request){
+
+      $requests=OrderRequest::orderBy('created_at','DESC')->paginate(15);
+      
+       $requests->each(function($requests,$request){
+     
+          $requests->client;
+       
+
+     });
+
+        if ($request->searchClient!=''){
+         $client= Client::SearchClient($request->searchClient)->first();
+          if ($client != null){
+          $requests=$client->requests()->paginate(15);
+         }
+         else{
+          $requests=[];
+         }
+     }
+      
+
+      return view('admin.requests.index')->with('requests',$requests);
+      
 
     }
+    
     public function create()
     {
  	   
@@ -83,5 +107,52 @@ class RequestController extends Controller
 
 
     }
+
+     public function searchDateRequest(Request $request){
+     
+      if($request->ajax()){
+        $output="";
+        $comilla="'";
+
+      $orderRequests=OrderRequest::SearchRequest($request->fecha1,$request->fecha2)->get();
+     
+  
+       if ($orderRequests) {
+        foreach ($orderRequests as $key => $orderRequest) {
+         
+                if ($orderRequest->status!='cancelada'){
+                  $output .='<tr role="row" class="odd">';
+                }
+                else{
+                  $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
+                }
+                  $output .=
+                        '<td>'.$orderRequest->id.'</td>'.
+                        '<td>'.$orderRequest->created_at->format('d/m/Y').'</td>'.
+                        '<td>'.date('d/m/Y', strtotime($orderRequest->delivery_date)).'</td>'.
+                        '<td>'.$orderRequest->client->name.'</td>'.
+                        '<td>'.$orderRequest->status.'</td>'.
+                        '<td>'.$orderRequest->client->bill.'</td>'.
+                        
+                        '<td></td>';
+                        
+        
+                
+         $output .='</tr>';
+                          
+                     
+
+                  
+          }
+        } 
+         
+        return Response($output);
+          
+               
+   }
+    
+    }
+  
+
 
 }

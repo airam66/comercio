@@ -11,21 +11,35 @@
       </div>
 
       <div class="row">
-        <div class='col-sm-2 pull-right'>
-            <input type ='button' class="btn btn-success"   value = 'Agregar'/> 
-        </div>
+        <div class='col-sm-8 pull-right'>
+            <form route='requests.index'  method="GET" class="col-md-3 col-md-offset-4 ">
+            <div class="input-group">
+              <input type="text" name="searchClient" class="form-control" placeholder="Nombre..."> 
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+           </form>
+       </div>
 
-        <div class='col-sm-6 pull-left'>
+
+        <div class='col-sm-4 pull-left'>
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker2'>
                      <input type="text" id="daterange"  name="daterange" class="form-control" value="seleccione una fecha"/>          
                      <span class="input-group-addon">
-                        <a href="{{route('purchases.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
+                        <a href="{{route('requests.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
                       </span></a>
                 </div>
             </div>
          </div>
        </div>
+        
+        <div class="row">
+         <div class='col-sm-2 pull-right'>
+            <input type ='button' class="btn btn-success"   value = 'Agregar'/> 
+        </div>
+
    </div>
 
      <div class="box-body">              
@@ -34,12 +48,12 @@
           
 		        <thead>
 		            <tr>
-		                <th>N° Orden Compra</th>
+		                <th>N° Pedido</th>
 		                <th>Fecha Pedido</th>
 		                 <th>Fecha Entrega</th>
-		                <th>Proveedor</th>
+		                <th>Cliente</th>
 		                <th>Estado</th>
-		                 <th>Monto Pagado</th>
+		                 <th>Saldo a pagar</th>
 		                <th></th>
 
 		                 
@@ -50,16 +64,16 @@
                 <tbody id="mostrar">
                    @foreach ($requests as $key => $request) 
          
-                      @if ($requests->status!='cancelado' )
+                      @if ($request->status!='cancelado' )
                   
 			                <tr>
 			                              
 			                        <td>{{$request->id}}</td>
 			                        <td>{{$request->created_at->format('d/m/Y')}}</td>
-			                        <td>{{$request->date_given->format('d/m/Y')}}</td>
+			                        <td>{{date('d/m/Y', strtotime($request->delivery_date))}}</td>
 			                        <td>{{$request->client->name}}</td>
 			                        <td>{{$request->status}}</td>
-			                        <td>{{$request->bill}}</td>
+			                        <td>{{$request->client->bill}}</td>
 			                        <td> 
 			                        </td>
 			                  </tr>
@@ -130,7 +144,7 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
   $.ajax({
     type: 'get',
-    url:  "{{ URL::to('admin/searchData')}}",
+    url:  "{{ URL::to('admin/searchDataRequest')}}",
     data:{'fecha1':f1,
           'fecha2':f2},
     success: function(data){
