@@ -9,7 +9,7 @@
         <!-- Default box -->
       <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nuevo Pedido</h3>
+            <h3 class="box-title">Editar pedido</h3>
          </div>
       <div class="box-body">
           {!! Form::model($order,['route'=>['orders.update',$order->id], 'method'=>'PATCH'])!!}
@@ -33,7 +33,7 @@
 				  <div class="panel panel-primary" >
 				  <div class="panel-body">
 				      <div class="pull-left">
-				        <h4><b>Fecha de pedido:{{$order->created_at->format('d-m-Y')}} </b></h4>
+				        <h4><b>Fecha de pedido:{{$order->created_at->format('d/m/Y')}} </b></h4>
 				      </div>
                 
                        

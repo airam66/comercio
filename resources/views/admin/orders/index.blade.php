@@ -42,9 +42,9 @@
 
    </div>
 
-     <div class="box-body">              
+     <div class="box-body" id="orders">              
 
-        <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
+        <table id="table table-striped" class="display table table-hover" cellspacing="0" width="100%">
           
 		        <thead>
 		            <tr>
@@ -53,8 +53,9 @@
 		                 <th>Fecha Entrega</th>
 		                <th>Cliente</th>
 		                <th>Estado</th>
-		                 <th>Saldo a pagar</th>
+		                <th>Saldo a pagar</th>
 		                <th></th>
+                    <th></th>
 
 		                 
 		            </tr>
@@ -63,9 +64,7 @@
        
                 <tbody id="mostrar">
                    @foreach ($orders as $key => $order) 
-         
-                      @if ($order->status!='cancelado' )
-                  
+                         
 			                <tr>
 			                              
 			                        <td>{{$order->id}}</td>
@@ -75,10 +74,28 @@
 			                        <td>{{$order->status}}</td>
 			                        <td>{{$order->client->bill}}</td>
 			                        <td> 
+                                 <a href="{{route('orders.pdf',$order->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
+                                 Generar PDF</button></a>
+                                <a href="{{route('orders.edit',$order->id)}}"  >
+                                          <button type="submit" class="btn btn-warning" name="edit">
+                                              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                                      
+                                          </button>
+                                </a>
+                               
+                                </td><td>
+                                  {!!Form::open(['route'=>['orders.destroy',$order->id],'method'=>'DELETE'])!!}
+                                      
+                                        <button type="submit" onclick="return confirm('¿Seguro dará de baja este pedido?')" class="btn btn-danger" name="delete">
+                                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                                        </button>
+                                      
+                                   {!!Form::close()!!}
+                               
 			                        </td>
-			                  </tr>
+			               </tr>
 
-                       @endif
+                   
                          
                     @endforeach
 

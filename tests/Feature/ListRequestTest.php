@@ -8,8 +8,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
 use App\Client;
-use App\OrderRequest;
-use App\OrderRequestProduct;
+use App\Order;
+use App\OrderProduct;
 
 class ListRequestTest extends TestCase
 {
@@ -24,19 +24,19 @@ class ListRequestTest extends TestCase
 
         $client=factory(Client::class)->create(['bill'=>0.0]);
 
-        $request=factory(OrderRequest::class)->create([
+        $order=factory(Order::class)->create([
             'client_id'=>$client->id,
             'delivery_date'=>\Carbon\Carbon::now()->addDay(7)]);
 
-        $orderRequest=factory(OrderRequestProduct::class)->create(['request_id'=>$request->id]);
+        $order=factory(OrderProduct::class)->create(['request_id'=>$request->id]);
 
-        $balance=$request->total-$request->advance;
+        $balance=$order->total-$request->advance;
         $client->bill=$balance;
         $client->save();
 
         $this->actingAs($user);
 
-        $this->visit(route('requests.index'))
+        $this->visit(route('orders.index'))
              ->seeInElement('h2','Listado de Pedidos')
              ->see($request->id)
              ->see($request->created_at->format('d/m/Y'))
@@ -55,7 +55,7 @@ class ListRequestTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->visit(route('requests.index'))
+        $this->visit(route('orders.index'))
              ->type($clientSearch->name,"searchClient")
              ->press('search')
              ->seeInElement("table",$clientSearch->name)

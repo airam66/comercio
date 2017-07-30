@@ -130,6 +130,7 @@ Route::post('purchasesInvoice/{id}/storePI','PurchasesInvoiceController@storePI'
 Route::resource('requests','RequestController'); 
 Route::resource('orders','OrdersController');
 Route::get('/searchDataOrder','OrderController@searchDateOrder');
+ Route::get('orders/{id}/pdf','OrdersController@pdfOrder')->name('orders.pdf');
 });
 
 

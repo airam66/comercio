@@ -144,17 +144,7 @@
              <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
             </div>
           </div>
-          <!-- search form -->
-          <!--<form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>-->
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
+          
           <ul class="sidebar-menu">
             <li class="header">MENU PRINCIPAL</li>
 
@@ -185,7 +175,7 @@
                  <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('invoices.index')}}"><i class="fa fa-circle-o"></i> Listado factura</a></li>
+                <li class="active"><a href="{{route('invoices.index')}}"><i class="fa fa-circle-o"></i> Lista de ventas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
             </li>
@@ -211,6 +201,15 @@
                 <li class="active"><a href="{{route('providersproducts.create')}}"><i class="fa fa-circle-o"></i> Proveedores por productos</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-user"></i>
+                 <span>Pedidos</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li class="active"><a href="{{route('orders.index')}}"><i class="fa fa-circle-o"></i>Lista de pedidos</a></li>
+                  </ul>
             </li>
             <li class="treeview">
               <a href="#">

@@ -10,3 +10,17 @@
     margin-left: -2px;
 
 }
+
+input[type=number]::webkit-outer-spin-button,
+input[type=number]::webkit-inner-spin-button{
+	-webkit-appearance:none !important;
+	margin:0;
+}
+
+input[type=number]{
+	-moz-appearance:textfield !important;
+}
+
+.boton{
+	margin:0;
+}

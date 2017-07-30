@@ -150,7 +150,7 @@ class OrdersController extends Controller
    }
     
   }
-//*******************************Editar un pedido******************
+//*******************************EDITAR UN PEDIDO******************
   public function edit($id){
      
     $order=Order::find($id);
@@ -217,5 +217,34 @@ class OrdersController extends Controller
 
   }
   
-//************************************************************************
+//*****************************DAR DE BAJA UN PEDIDO*******************************************
+
+  public function destroy($id){
+
+  	Order::destroy($id);
+
+  	flash("El pedido ha sido dado de baja exitosamente" , 'success')->important();
+     
+
+       return redirect()->route('orders.index');
+  }
+
+//***************************GENERAR PDF PARA IMPRIMIR PEDIDO****************************************
+  public function pdfOrder($id){
+      
+      $order=Order::find($id);
+      $details= DB::table('order_product as op')
+      ->join('products as p','op.product_id','=','p.id')
+      ->select('p.id as product_id','p.name as product_name','op.price','op.amount','op.subTotal')
+      ->where('op.order_id','=',$id)->get();
+   
+
+      $date = date('Y-m-d');
+      $vistaurl="admin.orders.pdfOrder";
+      $view= \View::make($vistaurl,compact('order','details','date'))->render();
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+
+      return $pdf->stream();
+    }
 }

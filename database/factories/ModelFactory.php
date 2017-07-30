@@ -103,17 +103,23 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
 
         'code' => $faker->unique()->sentence,
         'name' => $faker->unique()->sentence,
-        'category_id'=>1,
-        'line_id'=>1,
+        'category_id'=>function(){
+            return factory(\App\Category::class)->create()->id;
+        }, 
+        'line_id'=>function(){
+            return factory(\App\Line::class)->create()->id;
+        }, 
         
-        'brand_id'=>1,
-        'wholesale_cant'=>20,
-        'description'=>"descripcion siliconas",
-        'stock'=>6,
-        'purchase_price'=>20,
+       'brand_id'=>function(){
+            return factory(\App\Brand::class)->create()->id;
+        }, 
+        'wholesale_cant'=>10,
+        'description'=>$faker->unique()->sentence,
+        'stock'=>100,
+        'purchase_price'=>$faker->randomNumber(2),
         'status' => 'activo',
-        'wholesale_price'=>40,
-        'retail_price'=>50,
+        'wholesale_price'=>$faker->randomNumber(2),
+        'retail_price'=>$faker->randomNumber(2),
         'extension'=>"IMG-20170521-WA0045.jpg",
         /**'user_id'=>function(){
             return factory(\App\User::class)->create()->id;
@@ -194,7 +200,7 @@ $factory->define(App\Client::class, function (Faker\Generator $faker) {
 });
 
 
-$factory->define(App\OrderRequest::class, function (Faker\Generator $faker) {
+$factory->define(App\Order::class, function (Faker\Generator $faker) {
    
 
     return [ 
@@ -203,24 +209,26 @@ $factory->define(App\OrderRequest::class, function (Faker\Generator $faker) {
         'status'=>'pendiente',
         'advance'=>$faker->randomNumber(2),
         'delivery_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
-       'client_id'=>function(){
+        'client_id'=>function(){
             return factory(\App\Client::class)->create()->id;
         } 
         
     ];
 });
 
-$factory->define(App\OrderRequestProduct::class, function (Faker\Generator $faker) {
+$factory->define(App\OrderProduct::class, function (Faker\Generator $faker) {
    
 
     return [ 
-        'request_id'=>function(){
-            return factory(\App\OrderRequest::class)->create()->id;
+        'order_id'=>function(){
+            return factory(\App\Order::class)->create()->id;
         }, 
        'product_id'=>function(){
             return factory(\App\Product::class)->create()->id;
         }, 
-        'price' =>$faker->randomNumber(1),
+        'price' =>function (array $orderProduct) {
+            return App\Product::find($orderProduct['product_id'])->retail_price;
+        },
         'amount'=>$faker->randomNumber(1),
         'subTotal'=>$faker->randomNumber(1),
       
