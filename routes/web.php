@@ -127,11 +127,17 @@ Route::get('purchasesInvoice/{id}/loadOrder','PurchasesInvoiceController@loadOrd
 Route::post('purchasesInvoice/{id}/storePI','PurchasesInvoiceController@storePI')->name('purchasesInvoice.storePI');
 
 //************************************Rutas para Pedidos***********************************
-Route::resource('requests','RequestController'); 
+
 Route::resource('orders','OrdersController');
 Route::get('/searchDateOrder','OrdersController@searchDateOrder');
  Route::get('orders/{id}/pdf','OrdersController@pdfOrder')->name('orders.pdf');
+
+Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment')->name('OrderPayment.register');
+
+Route::post('orderPayment/{id}/storePayment','OrdersController@storePayment')->name('OrderPayment.store');
+
 });
+
 
 
 
