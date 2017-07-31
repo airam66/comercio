@@ -152,7 +152,7 @@ class PurchasesController extends Controller
             }
 
     
-        flash("La factura N° ". $purchase->id . " ha sido modificada con exito" , 'success')->important();
+        flash("La orden de compra N° ". $purchase->id . " ha sido modificada con exito" , 'success')->important();
      
 
        return redirect()->route('purchases.index');
