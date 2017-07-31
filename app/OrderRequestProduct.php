@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderRequestProduct extends Model
 {
-    protected $table="order_requests_products";
+    protected $table="order_request_product";
     protected $fillable= ['request_id','product_id','amount','subTotal','price'];
 }

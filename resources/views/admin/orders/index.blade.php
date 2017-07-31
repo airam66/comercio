@@ -12,7 +12,7 @@
 
       <div class="row">
         <div class='col-sm-8 pull-right'>
-            <form route='requests.index'  method="GET" class="col-md-3 col-md-offset-4 ">
+            <form route='orders.index'  method="GET" class="col-md-3 col-md-offset-4 ">
             <div class="input-group">
               <input type="text" name="searchClient" class="form-control" placeholder="Nombre..."> 
               <span class="input-group-btn">
@@ -28,7 +28,7 @@
                 <div class='input-group date' id='datetimepicker2'>
                      <input type="text" id="daterange"  name="daterange" class="form-control" value="seleccione una fecha"/>          
                      <span class="input-group-addon">
-                        <a href="{{route('requests.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
+                        <a href="{{route('orders.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
                       </span></a>
                 </div>
             </div>
@@ -37,14 +37,14 @@
         
         <div class="row">
          <div class='col-sm-2 pull-right'>
-            <input type ='button' class="btn btn-success"   value = 'Agregar'/> 
+            <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('orders.create') }}'"/> 
         </div>
 
    </div>
 
-     <div class="box-body">              
+     <div class="box-body" id="orders">              
 
-        <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
+        <table id="table table-striped" class="display table table-hover" cellspacing="0" width="100%">
           
 		        <thead>
 		            <tr>
@@ -53,8 +53,9 @@
 		                 <th>Fecha Entrega</th>
 		                <th>Cliente</th>
 		                <th>Estado</th>
-		                 <th>Saldo a pagar</th>
+		                <th>Saldo a pagar</th>
 		                <th></th>
+                    <th></th>
 
 		                 
 		            </tr>
@@ -62,23 +63,39 @@
 		     
        
                 <tbody id="mostrar">
-                   @foreach ($requests as $key => $request) 
-         
-                      @if ($request->status!='cancelado' )
-                  
+                   @foreach ($orders as $key => $order) 
+                         
 			                <tr>
 			                              
-			                        <td>{{$request->id}}</td>
-			                        <td>{{$request->created_at->format('d/m/Y')}}</td>
-			                        <td>{{date('d/m/Y', strtotime($request->delivery_date))}}</td>
-			                        <td>{{$request->client->name}}</td>
-			                        <td>{{$request->status}}</td>
-			                        <td>{{$request->client->bill}}</td>
+			                        <td>{{$order->id}}</td>
+			                        <td>{{$order->created_at->format('d/m/Y')}}</td>
+			                        <td>{{date('d/m/Y', strtotime($order->delivery_date))}}</td>
+			                        <td>{{$order->client->name}}</td>
+			                        <td>{{$order->status}}</td>
+			                        <td>{{$order->client->bill}}</td>
 			                        <td> 
+                                 <a href="{{route('orders.pdf',$order->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
+                                 Generar PDF</button></a>
+                                <a href="{{route('orders.edit',$order->id)}}"  >
+                                          <button type="submit" class="btn btn-warning" name="edit">
+                                              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                                      
+                                          </button>
+                                </a>
+                               
+                                </td><td>
+                                  {!!Form::open(['route'=>['orders.destroy',$order->id],'method'=>'DELETE'])!!}
+                                      
+                                        <button type="submit" onclick="return confirm('¿Seguro dará de baja este pedido?')" class="btn btn-danger" name="delete">
+                                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                                        </button>
+                                      
+                                   {!!Form::close()!!}
+                               
 			                        </td>
-			                  </tr>
+			               </tr>
 
-                       @endif
+                   
                          
                     @endforeach
 
@@ -144,7 +161,7 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
   $.ajax({
     type: 'get',
-    url:  "{{ URL::to('admin/searchDataRequest')}}",
+    url:  "{{ URL::to('admin/searchDateOrder')}}",
     data:{'fecha1':f1,
           'fecha2':f2},
     success: function(data){

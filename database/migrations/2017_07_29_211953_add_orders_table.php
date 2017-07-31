@@ -4,16 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddOrderRequestsTable extends Migration
+class AddOrdersTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+   public function up()
     {
-        Schema::create('order_requests', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->decimal('advance');
             $table->dateTime('delivery_date');
@@ -25,16 +25,16 @@ class AddOrderRequestsTable extends Migration
         });
 
 
-        Schema::create('order_requests_products', function (Blueprint $table) {
+        Schema::create('order_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
-            $table->integer('request_id')->unsigned();
+            $table->integer('order_id')->unsigned();
             $table->integer('amount');
             $table->decimal('price',9,2);
             $table->decimal('subTotal',9,2);
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('request_id')->references('id')->on('order_requests')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -47,6 +47,6 @@ class AddOrderRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_requests');
+        Schema::dropIfExists('orders');
     }
 }
