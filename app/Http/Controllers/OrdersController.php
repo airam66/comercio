@@ -132,7 +132,25 @@ class OrdersController extends Controller
                         '<td>'.$order->status.'</td>'.
                         '<td>'.$order->client->bill.'</td>'.
                         
-                        '<td></td>';
+                        '<td>
+                            <a target="_blank"  href='.$order->url.'> <button  type="button" class="btn btn-primary">
+                                 Generar PDF</button></a>
+                            <a href='.$order->edit.'>
+                                          <button type="submit" class="btn btn-warning" name="edit">
+                                              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                                      
+                                          </button>
+                                </a>
+                               
+                            </td>
+                            <td>
+                              <a href='.$order->remove.' onclick="return confirm('.$comilla.'¿Seguro dará de baja este pedido?'.$comilla.')">
+                                   <button type="submit" class="btn btn-danger" name="delete">
+                                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                                        </button>
+                              </a>
+                               
+			                 </td>';
                         
         
                 
@@ -154,6 +172,7 @@ class OrdersController extends Controller
   public function edit($id){
      
     $order=Order::find($id);
+  
     $details= DB::table('order_product as op')
               ->join('products as p','op.product_id','=','p.id')
               ->select('p.id as product_id','p.name as product_name','p.code as product_code','op.price','op.amount','op.subTotal')

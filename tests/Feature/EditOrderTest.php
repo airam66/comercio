@@ -12,16 +12,13 @@ use App\Product;
 use App\Order;
 use App\OrderProduct;
 
-class EditRequestTest extends TestCase
+class EditOrderTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_edit_a_request()
+    use DatabaseTransactions;
+
+    public function test_edit_a_order()
     {
-        $user=User::find(1);
+       $user=factory(User::class)->create(['email'=>'fairam66@gmail.com',]);
 
         $prod1=factory(Product::class)->create([
             'name'=>'Porta retrato',
@@ -79,16 +76,18 @@ class EditRequestTest extends TestCase
              ->see($order->delivery_date->format('d/m/Y'))
              ->see($client->cuil)
              ->see($client->name)
-             ->seeInElement("table",$prod1->code)
-             ->seeInElement("table",$prod1->name)
-             ->seeInElement("table",$detail1->price)
-             ->seeInElement("table",$detail1->amount)
-             ->seeInElement("table",$detail1->subTotal)
-             ->seeInElement("table",$prod2->code)
-             ->seeInElement("table",$prod2->name)
-             ->seeInElement("table",$detail2->price)
-             ->seeInElement("table",$detail2->amount)
-             ->seeInElement("table",$detail2->subTotal)
+             ->within('#details',function() use($prod1,$prod2,$detail1,$detail2){
+                $this->see($prod1->code)
+                     ->see($prod1->name)
+                     ->see($detail1->price)
+                     ->see($detail1->amount)
+                     ->see($detail1->subTotal)
+                     ->see($prod2->code)
+                     ->see($prod2->name)
+                     ->see($detail2->price)
+                     ->see($detail2->amount)
+                     ->see($detail2->subTotal);
+            })
              ->see($order->total)
              ->see($order->advance)
              ->see($order->client->bill)

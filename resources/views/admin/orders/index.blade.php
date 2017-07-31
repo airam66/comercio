@@ -37,7 +37,7 @@
         
         <div class="row">
          <div class='col-sm-2 pull-right'>
-            <input type ='button' class="btn btn-success"   value = 'Agregar'/> 
+            <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('orders.create') }}'"/> 
         </div>
 
    </div>
@@ -161,7 +161,7 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
   $.ajax({
     type: 'get',
-    url:  "{{ URL::to('admin/searchDataOrder')}}",
+    url:  "{{ URL::to('admin/searchDateOrder')}}",
     data:{'fecha1':f1,
           'fecha2':f2},
     success: function(data){

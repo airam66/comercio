@@ -26,4 +26,19 @@ class Order extends Model
         return $this->belongsToMany('App\Product')->withTimestamps();
 
     }
+
+    public function getUrlAttribute(){
+
+      return route('orders.pdf',$this->id);
+    }
+
+    public function getRemoveAttribute(){
+
+      return route('orders.destroy',$this->id);
+    }
+
+    public function getEditAttribute(){
+
+      return route('orders.edit',$this->id);
+    }
 }

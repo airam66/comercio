@@ -11,16 +11,13 @@ use App\Client;
 use App\Order;
 use App\OrderProduct;
 
-class ListRequestTest extends TestCase
+class ListOrdersTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_see_requests_list()
+    use DatabaseTransactions;
+
+    public function test_see_orders_list()
     {
-        $user=User::find(1);
+        $user=factory(User::class)->create(['email'=>'fairam66@gmail.com',]);
 
         $client=factory(Client::class)->create(['bill'=>0.0]);
 
@@ -28,37 +25,39 @@ class ListRequestTest extends TestCase
             'client_id'=>$client->id,
             'delivery_date'=>\Carbon\Carbon::now()->addDay(7)]);
 
-        $order=factory(OrderProduct::class)->create(['request_id'=>$request->id]);
+        $detail=factory(OrderProduct::class)->create(['order_id'=>$order->id]);
 
-        $balance=$order->total-$request->advance;
+        $balance=$order->total-$order->advance;
         $client->bill=$balance;
         $client->save();
-
+      
         $this->actingAs($user);
 
         $this->visit(route('orders.index'))
              ->seeInElement('h2','Listado de Pedidos')
-             ->see($request->id)
-             ->see($request->created_at->format('d/m/Y'))
-             ->see($request->delivery_date->format('d/m/Y'))
-             ->see($client->name)
+             ->see($order->id)
+             ->see($order->created_at->format('d/m/Y'))
+             ->see($order->delivery_date->format('d/m/Y'))
+             ->see($order->client->name)
              ->see($balance);
 
 
     }
 
-    public function test_search_client_in_requests_list()
+    public function test_search_client_in_orders_list()
     {
-        $user=User::find(1);
+        $user=factory(User::class)->create(['email'=>'fairam66@gmail.com',]);
 
-        $clientSearch=Client::find(1);
+        $order=factory(Order::class)->create();
+
+        $detail=factory(OrderProduct::class)->create(['order_id'=>$order->id]);
 
         $this->actingAs($user);
 
         $this->visit(route('orders.index'))
-             ->type($clientSearch->name,"searchClient")
+             ->type($order->client->name,"searchClient")
              ->press('search')
-             ->seeInElement("table",$clientSearch->name)
+             ->seeInElement("table",$order->client->name)
              ->type("Yanina","searchClient")
              ->press('search')
              ->dontSeeInElement("table","Yanina");
