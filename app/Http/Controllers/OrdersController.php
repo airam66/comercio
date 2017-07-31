@@ -266,4 +266,45 @@ class OrdersController extends Controller
 
       return $pdf->stream();
     }
+
+
+    // //Registrar Pago
+     public function registerPayment($id)
+    {     
+        $order=Order::find($id);
+        return view('admin.orders.registerPayment')->with('order',$order);                          
+  }
+
+    public function storePayment(Request $request, $id){
+     
+         $order=Order::find($id);
+         $client=Client::find($order->client_id);
+                 $client->bill=$request->get('balance');
+                 $client->save();
+      
+    
+        flash("El pedido N° ". $order->id . " ha sido modificado con exito" , 'success')->important();
+     
+
+       return redirect()->route('orders.index');
+
+
+    }
+
+    public function show($id){
+      
+      $order= Order::find($id);
+      $details= DB::table('order_product as dp')
+      ->join('products as p','dp.product_id','=','p.id')
+      ->select('p.id','p.name as product_name','dp.price','dp.amount','dp.subTotal')
+      ->where('dp.order_id','=',$id)->get();
+
+      return view('admin.orders.detailOrderRequest')->with('order',$order)
+                                                   ->with('details',$details); 
+   
+
+    }
+
+
+
 }
