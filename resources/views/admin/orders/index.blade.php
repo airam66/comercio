@@ -11,8 +11,8 @@
       </div>
 
       <div class="row">
-        <div class='col-sm-8 pull-right'>
-            <form route='orders.index'  method="GET" class="col-md-3 col-md-offset-4 ">
+        <div class='col-sm-4 pull-right'>
+            <form route='orders.index'  method="GET">
             <div class="input-group">
               <input type="text" name="searchClient" class="form-control" placeholder="Nombre..."> 
               <span class="input-group-btn">
@@ -36,7 +36,7 @@
        </div>
         
         <div class="row">
-         <div class='col-sm-2 pull-right'>
+         <div class='col-sm-2 pull-left'>
             <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('orders.create') }}'"/> 
         </div>
 

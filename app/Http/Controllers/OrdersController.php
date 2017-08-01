@@ -7,6 +7,7 @@ use App\Order;
 use App\Product;
 use App\OrderProduct;
 use App\Client;
+use App\Http\Requests\OrderRequest;
 
 class OrdersController extends Controller
 {
@@ -61,7 +62,7 @@ class OrdersController extends Controller
 
 
 
-    public function store(Request $request){
+    public function store(OrderRequest $request){
 
     	       $order = new Order;
              

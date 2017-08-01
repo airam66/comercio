@@ -70,8 +70,8 @@
                 <div class="row ">
                        @include('partials.searchPeople')
                       <div class="col-md-3 pull-left" >
-                           {!! form::label('CUIL/CUIT')!!}
-                           <input id="cuil" class="form-control" name="cuil" type="text" >
+                          
+                           {!!Field::text('cuil',null)!!}
                        </div>
                        <div class="pull-left">
                        <br>
@@ -170,7 +170,10 @@
                           <th>Adelanto</th>
                           <td>$</td>
                           <td>
+
                               <input id="advance" value="0" name="advance" type="number" >
+
+
                                      
                                 
                         </td>

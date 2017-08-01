@@ -344,6 +344,6 @@
       function baseUrl(url){
         return "{{url('')}}/"+url;
       }
-    </script>>
+    </script>
   </body>
 </html>

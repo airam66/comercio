@@ -21,8 +21,7 @@
   <input type="text" name="search" id="search" class="form-control"   placeholder="Nombre..."> 
   </div>
     <br>
-    <br>
-    <br>  
+    <br> 
         
   <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        

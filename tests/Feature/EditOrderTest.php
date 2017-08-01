@@ -88,13 +88,18 @@ class EditOrderTest extends TestCase
                      ->see($detail2->amount)
                      ->see($detail2->subTotal);
             })
-             ->see($order->total)
-             ->see($order->advance)
-             ->see($order->client->bill)
+            ->within('#table-total',function() use($order){
+             $this->see($order->total)
+                  ->see($order->advance)
+                  ->see($order->client->bill);
+                     })
              ->press('X')
-             ->dontSeeInElement("table",$prod1->code);
-
-
+             ->dontSeeInElement(".table-striped",$prod1->code)
+             ->within('#table-total',function() use($order,$detail1){
+                
+            })
+             ->press('guardar')
+             ->see('Listado de pedidos');
     }
 
     
