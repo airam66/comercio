@@ -24,7 +24,7 @@
                      
                       <div class="pull-right">
                          <b id="id">Pedido N°: {{$order->id}}</b><br>
-                         <b>Fecha: {{$order->created_at->format('d-m-Y')}}</b><br>
+                         <b>Fecha: {{$order->created_at->format('d/m/Y')}}</b><br>
                          <b>Entrega:{{date('d/m/Y', strtotime($order->delivery_date))}}</b>
 
                       </div>

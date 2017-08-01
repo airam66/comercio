@@ -287,9 +287,9 @@ $('#searchProducts').on('keyup', function(){
       
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          TotalCompra= parseFloat($('#TotalCompra').val())+Subtotal[cont];
-         console.log(TotalCompra);
+       
 
-              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td> <td>$ <input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>$ '+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#TotalCompra').val(TotalCompra);
@@ -302,12 +302,34 @@ $('#searchProducts').on('keyup', function(){
 }
 
 function deletefila(index,subTotal){
-  console.log(index);
+  
   TotalCompra= parseFloat($('#TotalCompra').val())-subTotal;
-  console.log(subTotal);
+  
   $('#TotalCompra').val(TotalCompra);
   $('#'+index).remove();
  }
+function calculateSubtotal(number){
+
+    
+    price= $('#dprice'+number).val();
+    amount=$('#damount'+number).val();
+
+    if (price=='' || amount==''){
+      price=0;
+      amount=0;
+    }
+    subTotal=parseFloat($('#dsubTotal'+number).val());
+ 
+    $('#dsubTotal'+number).val(parseFloat(amount)*parseFloat(price));
+
+    total=parseFloat($('#TotalCompra').val());
+    
+    total=total-subTotal;
+    
+    total=total+parseFloat($('#dsubTotal'+number).val());
+   
+   $('#TotalCompra').val(total);
+  }
 
  function clear(){
     $('#stock').val('');

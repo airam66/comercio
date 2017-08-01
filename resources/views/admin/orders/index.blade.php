@@ -72,12 +72,13 @@
 			                        <td>{{date('d/m/Y', strtotime($order->delivery_date))}}</td>
 			                        <td>{{$order->client->name}}</td>
 			                        <td>{{$order->status}}</td>
-			                        <td>{{$order->client->bill}}</td>
+			                        <td>${{$order->client->bill}}</td>
 			                        <td> 
                                 
-                                <a href="{{route('orders.show',$order->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><span class="fa fa-list" aria-hidden="true" ></span></button></a>
+                                <a href="{{route('orders.show',$order->id)}}" > <button  type="button" class="btn btn-info "  ><span class="fa fa-list" aria-hidden="true" ></span></button></a>
+                                <a href="{{route('orderPayment.register',$order->id)}}" > <button  type="button" class="btn btn-primary "  ><span class="fa fa-usd" aria-hidden="true" ></span></button></a>
                       
-                                 <a href="{{route('orders.pdf',$order->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
+                                 <a href="{{route('orders.pdf',$order->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><i class="fa fa-print"></i> 
                                  Generar PDF</button></a>
                                 <a href="{{route('orders.edit',$order->id)}}"  >
                                           <button type="submit" class="btn btn-warning" name="edit">

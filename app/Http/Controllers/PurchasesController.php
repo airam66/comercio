@@ -278,16 +278,17 @@ public function detailPurchaseOrder($id){
        if ($products) {
         foreach ($products as $key => $product) {
        
-                 $Subtotal[$cont]=0;
+                 
                   $output.='
                        <tr class="selected" id="'.$cont.'">
                         <td><button type="button" class="btn btn-danger" onclick="deletefila('.$cont.',$('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val())">X</button></td>
                         <input readonly type="hidden" name="dproduct_id[]" value="'.$product->product_id.'">'.
                         '<td>'.$product->product_name.'</td>'.
                         '<td>'.$product->brand_name.'</td>'.
-                        '<td><input readonly type="number" name="dprice[]" value="'.$product->purchase_price.'" class="mi_factura"</td>
-                        <td><input id="damount" name="damount[]" type="number" onkeyup="$('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val(this.value*'.$product->purchase_price.')" onchange="$('.$comilla.'#TotalCompra'.$comilla.').val(parseFloat($('.$comilla.'#TotalCompra'.$comilla.').val())+ parseFloat($('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val()))"></td>'.
-                        '<td><input readonly id="dsubTotal'.$cont.'" name="dsubtTotal" class="mi_factura" type="number" value='.$Subtotal[$cont].'></td>'
+                        '<td>$<input id="dprice'.$cont. '" readonly type="number" name="dprice[]" value="'.$product->purchase_price.'" class="mi_factura"</td>
+
+                        <td ><input id="damount'.$cont. '" name="damount[]" type="number" onkeyup="calculateSubtotal('.$cont. ')"></td>'.
+                        '<td>$<input readonly id="dsubTotal'.$cont.'" name="dsubtTotal" class="mi_factura" type="number" value="0"></td>'
 
                     .'</tr>';
                     $cont++;
@@ -313,7 +314,7 @@ public function detailPurchaseOrder($id){
         $output="";
         $comilla="'";
 
-      $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)->get();
+      $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)->where('status','=','pendiente')->get();
      
        if ($purchases) {
         foreach ($purchases as $key => $purchase) {
@@ -326,27 +327,46 @@ public function detailPurchaseOrder($id){
                 }
                   $output .=
                         '<td>'.$purchase->id.'</td>'.
-                        '<td>'.$purchase->created_at.'</td>'.
+                        '<td>'.$purchase->created_at->format('d/m/Y').'</td>'.
                         '<td>'.$purchase->provider->name.'</td>'.
                         '<td>'.$purchase->status.'</td>'.
                         '<td>
-                         
-                        <button type="button" class="btn btn-primary "  data-title="Detail"">
-                         <i class="fa fa-list" aria-hidden="true"></i>
-                          </button>';
+                              <a   href='.$purchase->detail.'> 
+                                  <button  type="button" class="btn btn-info"><i class="fa fa-list" aria-hidden="true"></i>
+                                 </button>
+                              
+                        </a>
+                              <a target="_blank"  href='.$purchase->pdf.'> <button  type="button" class="btn btn-primary">
+                                 Generar PDF</button></a>
 
-                          if ($purchase->status!='rechazada'){
-                            $output .= '<a  onclick="return confirm('.$comilla.'¿Seguro dara de baja esta factura?'.$comilla.')">
-                        <button type="submit" class="btn btn-danger">
-                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
-                        </button>';
-                            }
+                              <a href='.$purchase->register.'  >
+                                <button type="submit" class="btn btn-primary">
+                                    Registrar Compra
+                            
+                                </button>
+                            </a>
+                               <a href='.$purchase->edit.'>
+                                          <button type="submit" class="btn btn-warning" name="edit">
+                                              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                                      
+                                          </button>
+                                </a>
+
+
+                         
+                    
+                            <a href='.$purchase->delete.' onclick="return confirm('.$comilla.'¿Seguro dará de baja este pedido?'.$comilla.')">
+                                   <button type="submit" class="btn btn-danger" name="delete">
+                                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
+                                        </button>
+                              </a>';
+                            
                 
 
                           
                      
 
-                  $output .= '</tr>';
+                  $output .= '</td></tr>';
           }
         } 
          
