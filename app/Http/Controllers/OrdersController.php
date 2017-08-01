@@ -8,6 +8,7 @@ use App\Product;
 use App\OrderProduct;
 use App\Client;
 use App\Http\Requests\OrderRequest;
+use Illuminate\Support\Collection as Collection;
 
 class OrdersController extends Controller
 {
@@ -28,7 +29,7 @@ class OrdersController extends Controller
           $orders=$client->orders()->paginate(15);
          }
          else{
-          $orders=[];
+            $orders = Collection::make();
          }
      }
       
@@ -114,7 +115,7 @@ class OrdersController extends Controller
         $output="";
         $comilla="'";
 
-      $orders=Order::SearchOrder($request->fecha1,$request->fecha2)->get();
+      $orders=Order::SearchOrder($request->fecha1,$request->fecha2)->paginate(10);
      
   
        if ($orders) {
