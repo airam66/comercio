@@ -26,7 +26,14 @@ class Order extends Model
         return $this->belongsToMany('App\Product')->withTimestamps();
 
     }
+    public function getShowAttribute(){
 
+      return route('orders.show',$this->id);
+    }
+    public function getPaymentAttribute(){
+
+      return route('orderPayment.register',$this->id);
+    }
     public function getUrlAttribute(){
 
       return route('orders.pdf',$this->id);

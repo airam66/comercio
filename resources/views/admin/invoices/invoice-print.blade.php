@@ -22,8 +22,7 @@
                     <h3 class="page-header" style="color:gray;">
                         <img src="{{ asset('images/cotillon.png ') }}" 
                         width="230" height="80"  >
-                         <img class="pull-center" src="{{ asset('images/x.png ') }}" 
-                        width="50" height="50"  >
+                        
                      
                       <div class="pull-right">
                          <b id="id">Comprobante N°: {{$invoice->id}}</b><br><br>
@@ -41,7 +40,7 @@
             <address>
               <strong>Cotillón CreaTu</strong><br>
               <strong>CUIT: 38335256729</strong><br>
-              Direccion:Roque Saenz Peña Nro 14 bis 2 <br>
+              Dirección:Roque Saenz Peña Nro 14 bis 2 <br>
               B° San Martin,Rosario de Lerma, Salta<br>
               Telefono: (387)59662005 - (387) 5910201<br>
               Email:creatucotillon@gmail.com
@@ -79,7 +78,7 @@
                           <td>{{$detalle->amount}}</td>
                           <td>{{$detalle->name}}</td>                      
                           <td> {{$detalle->price}}</td>
-                          <td>{{$detalle->subTotal}}</td>
+                          <td>$ {{$detalle->subTotal}}</td>
                         </tr>
                       @endforeach 
                       </tbody>
@@ -87,16 +86,10 @@
                   </div><!-- /.col -->
                 </div><!-- /.row -->
 
-                <div class="row">
-                <div class="col-xs-6 text-center">
-            
-                  <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                    Comprbante no valido como factura. Contillón Creatu.
-                  </p>
-               </div>
+         
                   <!-- accepted payments column -->
                  -
-                  <div class="col-xs-6">
+                  <div class="col-xs-6 pull-right">
                   <div class="text-center" style="background-image:url('{{ asset('images/barra2.png ') }}')" >
                     <h3 >Total</h3>
                     </div>
@@ -104,15 +97,15 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>{{$invoice->total}}</td>
+                          <td>$ {{$invoice->total}}</td>
                         </tr>
                         <tr>
                           <th>Descuento</th>
-                          <td>{{$invoice->discount}}%</td>
+                          <td>{{$invoice->discount}} %</td>
                         </tr>
                         <tr>
                           <th>Total:</th>
-                          <td>{{$invoice->total}}</td>
+                          <td>$ {{$invoice->total}}</td>
                         </tr>
                       </table>
                     </div>
@@ -128,15 +121,23 @@
                         <a onclick="window.print()" id="print" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
                        </div>
                   </div>
-                </div>
+                </div> 
+               
               </section><!-- /.content -->
 
-             
+              <div class="row ">
+                <div class=" col-xs-12 text-center">
+            
+                  <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                    Comprobante no valido como factura. Contillón Creatu.
+                  </p>
+               </div>
  
              
 
           </div>
           <!-- /.box-body -->
+
         </div>
         <!-- /.box -->
 

@@ -40,22 +40,23 @@ class OrdersController extends Controller
     
     public function create()
     {
+ 	       $numberOrder=Order::all()->pluck('id');
+        if (count($numberOrder)!=0){
+          $numberOrder=($numberOrder->last()+1);
+        }else{
+          $numberOrder=1;
+        }
  	   
- 	   $date=date('d').'/'.date('m').'/'.date('Y');
+     $date=date('d').'/'.date('m').'/'.date('Y');
 
  	   $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
         $clients=Client::where('status','=','activo')->orderBy('name','ASC')->get();
-       // $numberinvoice=Invoice::all()->pluck('id');
-       // if (count($numberinvoice)!=0){
-          //$numberinvoice=($numberinvoice->last()+1);
-       // }else{
-          //$numberinvoice=1;
-        //}
+       
         $title="BUSCAR CLIENTE";        
         return view('admin.orders.create')->with('date',$date)
                                            ->with('products',$products)
                                            ->with('clients',$clients)
-                                          //->with('numberinvoice',$numberinvoice)
+                                          ->with('numberOrder',$numberOrder)
                                           ->with('title',$title);
     }
 
@@ -131,10 +132,15 @@ class OrdersController extends Controller
                         '<td>'.date('d/m/Y', strtotime($order->delivery_date)).'</td>'.
                         '<td>'.$order->client->name.'</td>'.
                         '<td>'.$order->status.'</td>'.
-                        '<td>'.$order->client->bill.'</td>'.
+                        '<td>$'.$order->client->bill.'</td>'.
                         
                         '<td>
+                            <a href='.$order->show.'> <button  type="button" class="btn btn-info "  > <span class="fa fa-list" aria-hidden="true" ></span></button></a>
+
+                                <a href='.$order->payment.'> <button  type="button" class="btn btn-primary "  ><span class="fa fa-usd" aria-hidden="true" ></span></button></a>
+                      
                             <a target="_blank"  href='.$order->url.'> <button  type="button" class="btn btn-primary">
+                               <i class="fa fa-print"></i>
                                  Generar PDF</button></a>
                             <a href='.$order->edit.'>
                                           <button type="submit" class="btn btn-warning" name="edit">

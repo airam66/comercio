@@ -22,8 +22,8 @@
                         <img src="{{ asset('images/cotillon.png ') }}" width="230" height="80"  >
                      
                       <div class="pull-right">
-                         <b>Pedido N°:</b><br>
-                        ></div>  
+                         <b>Pedido N°:{{$numberOrder}}</b><br>
+                        </div>  
                            
                     </h3>
                   </div><!-- /.col -->
@@ -163,19 +163,25 @@
                       <table class="table">
                         <tr>
                           <th style="width:60%">Total:</th>
-                          <td>$<input type="number" name="total" id="total"  step="any" class="mi_factura"></td>
+                          <td>$</td>
+                          <td><input type="number" name="total" id="total"  step="any" value="0" class="mi_factura"></td>
                         </tr>
                         <tr>
                           <th>Adelanto</th>
+                          <td>$</td>
                           <td>
-                              <input id="advance"  name="advance" type="number">
+
+                              <input id="advance" value="0" name="advance" type="number" >
+
+
                                      
                                 
                         </td>
                         </tr>
                         <tr>
                           <th>Saldo:</th>
-                          <td>$<input type="number" name="balance" id="balance"  step="any" class="mi_factura"></td>
+                          <td>$</td>
+                          <td><input type="number" name="balance" id="balance"  value="0"step="any" class="mi_factura"></td>
                         </tr>
                       </table>
                     </div>
@@ -278,6 +284,7 @@ $('input[name="datetimepicker3"]').datepicker(
                           $('#priceW').val(product.wholesale_price);
                           $('#amount').val(0);
                           $('#wholesale_cant').val(product.wholesale_cant);
+                          document.getElementById(id).focus('#amount');
                     },
                     onKeyEnterEvent: function () { 
                         var product = $("#code").getSelectedItemData();
@@ -347,11 +354,11 @@ $('#amount').on('keyup', function(){
 <script>
 $('#advance').on('keyup', function(){
   total=parseFloat($('#total').val());
-  console.log(total);
+  
   balance=parseFloat($('#advance').val());
-  console.log(balance);
+  
   outStandingBalance=total-balance;
-  console.log(outStandingBalance);
+  
   $('#balance').val(outStandingBalance);
   });
 </script>
@@ -410,12 +417,13 @@ $('#searchC').on('keyup', function(){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          Totalventa=Totalventa+Subtotal[cont];
 
-              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td>$<input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>$ '+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#total').val(Totalventa);
-        $('#Totalventa').val(Totalventa); 
+        $('#balance').val(Totalventa); 
         $('#details').append(fila);
+        
 
       }else{
           alert ('La cantidad a vender supera el stock');
@@ -430,6 +438,7 @@ function deletefila(index){
   Totalventa=Totalventa-Subtotal[index];
   $('#total').val(Totalventa);
   $('#Totalventa').val(Totalventa);
+  $('#balance').val(Totalventa);
   $('#fila'+index).remove();
  }
 

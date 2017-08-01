@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-
-
+use App\Porcentage;
 use App\Purchase;
 use App\PurchaseProduct;
 use App\Product;
@@ -115,6 +113,12 @@ class PurchasesInvoiceController extends Controller
                    if($product->purchase_price != $detalle->price){
 
                     $product->purchase_price=$detalle->price;
+                    $porcentage=Porcentage::all()->last();
+                    $product->wholesale_price=$product->purchase_price+(($product->purchase_price*$porcentage->wholesale_porcentage)/100);
+                     $product->retail_price=$product->purchase_price+(($product->purchase_price*$porcentage->retail_porcentage)/100);
+                   
+
+
                     
                    }
 
@@ -175,6 +179,10 @@ class PurchasesInvoiceController extends Controller
                    if($product->purchase_price != $detail->price){
 
                     $product->purchase_price=$detail->price;
+                    $porcentage=Porcentage::all()->last();
+                    $product->wholesale_price=$product->purchase_price+(($product->purchase_price*$porcentage->wholesale_porcentage)/100);
+                     $product->retail_price=$product->purchase_price+(($product->purchase_price*$porcentage->retail_porcentage)/100);
+                   
                     
                    }
 
@@ -339,6 +347,42 @@ class PurchasesInvoiceController extends Controller
    
     }
     }
+
+
+    public function searchDate(Request $request){
+     
+      if($request->ajax()){
+        $output="";
+        $comilla="'";
+
+      $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)->where('status','=','realizada')->get();
+     
+       if ($purchases) {
+        foreach ($purchases as $key => $purchase) {
+         
+                if ($purchase->status!='rechazada'){
+                  $output .='<tr role="row" class="odd">';
+                }
+                else{
+                  $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
+                }
+                  $output .=
+                        '<td class="text-center">'.$purchase->pi_id.'</td>'.
+                        '<td class="text-center" >'.$purchase->id.'</td>'.
+                        '<td>'.$purchase->created_at->format('d/m/Y').'</td>'.
+                        '<td>'.$purchase->provider->name.'</td>'.
+                        '<td>$'.$purchase->total.'</td>'.
+                        '</tr>';
+          }
+        } 
+         
+        return Response($output);
+          
+               
+   
+    
+    }
+  }
 
 
 }
