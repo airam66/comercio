@@ -35,9 +35,6 @@ class PurchasesInvoiceController extends Controller
     public function create()
     {
 
-        $title="BUSCAR PROVEEDORES";
-        return view('admin.purchasesInvoice.create')->with('title',$title);
-
        $title='BUSCAR PROVEEDORES';
        $date=date('d').'/'.date('m').'/'.date('Y');
         return view('admin.purchasesInvoice.create2')->with('title',$title)

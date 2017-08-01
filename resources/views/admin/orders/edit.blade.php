@@ -147,7 +147,7 @@
 
                           <td><input readonly type="number" name="dprice[]" value="{{$detail->price}}" class="mi_factura"></td> 
                          <td><input readonly type="number" name="damount[]" value="{{$detail->amount}}" class="mi_factura"></td> 
-                         <td><input id="dsubTotal{{$a}}" name="dsubtTotal" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
+                         <td>$<input id="dsubTotal{{$a}}" name="dsubtTotal" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
                        </tr>
 
                         @php ($a++) 
@@ -166,7 +166,7 @@
                         <h3 style="color:white;">Total</h3>
                       </div>
                     <div class="table-responsive">
-                      <table class="table">
+                      <table class="table" id="table-total">
                         <tr>
                           <th style="width:60%">Total:</th>
                           <td>$<input type="number" name="total" id="total"  value="{{$order->total}}" step="any" class="mi_factura"></td>
@@ -193,13 +193,14 @@
                   <div class="col-xs-12">
                      
                     <div class="form-group">
-                        {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
-                       </div>
+                      {!! Form::submit('Guardar',['class'=>'btn btn-primary'])!!}
+                      
+                    </div>
                   </div>
                 </div>
               </section><!-- /.content -->
 
-             </div>
+         
  
               {!! Form::close() !!}
 
