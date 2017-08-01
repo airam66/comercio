@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
      <div class="box-header ">
-        <h2 class="box-title col-md-5">Clientes Encontrados</h2>    
+        <h2 class="box-title col-md-5">Listado de Clientes</h2>    
         
         <!-- campo de busqueda-->
         <form route='admin.providers.index'  method="GET" class="col-md-3 col-md-offset-4 ">
@@ -22,7 +22,8 @@
 
       </div>
      
-     <div class="box-body">              
+     <div class="box-body">   
+      @if($clients->isNotEmpty())             
 
        <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
@@ -79,6 +80,18 @@
                @endforeach
              </tbody>
         </table>
+
+         <div class="text-center">
+        {!!$clients->render()!!}
+      </div>
+
+      @else
+      <div class="alert alert-dismissable alert-warning">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <p>No se encontró ningún cliente.</p>
+      </div>
+
+      @endif
 
     </div>
 

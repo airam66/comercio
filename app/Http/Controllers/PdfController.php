@@ -46,7 +46,7 @@ class PdfController extends Controller
              ->join('products as p','pp.product_id','=','p.id')
              ->join('providers as pr','pp.provider_id','=','pr.id')
              ->select('provider_id','pr.name as provider_name')
-               ->groupBy('provider_id','provider_name')->where('p.stock', '<', 100)->get();
+               ->groupBy('provider_id','provider_name')->where('p.stock', '<', 10)->get();
                
             
     	return $this->createPDF($products,$provider,$vistaurl);

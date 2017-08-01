@@ -12,6 +12,7 @@ use App\Event;
 use App\EventProduct;
 use App\Porcentage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection as Collection;
 
 class ProductsController extends Controller
 {
@@ -25,30 +26,32 @@ class ProductsController extends Controller
         }
         
 
-        $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);
-      
-        $validacion=false;
+       $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);
 
-       if(count($products)==0){
-
-        $validacion=true;
-        $products=Product::all();
-       }
-
-       $productEvent=DB::table('events as e')
+        $productEvent=DB::table('events as e')
                           ->join('event_product as ep','e.id','=','ep.event_id')
                           ->select('ep.event_id','e.name as event_name','ep.product_id')
-                          ->get();       
+                          ->get();   
+         
+ 
+          if ($request->event!=''){
+               $event= Event::SearchEventP($request->event)->first();          
+
+            if ($event != null){
+               $products= $event->products()->paginate(10);
+             }
+             else{
        
+            $products = Collection::make();
+           
+           }
       
-        return view('admin.products.index')->with('products',$products)
-                                           ->with('validacion',$validacion)
-                                            ->with('productEvent',$productEvent);
-
-                                          
+        }                                           
+       
+      return view('admin.products.index')->with('products',$products)
+                                           ->with('productEvent',$productEvent);
     
-
-    }
+    }  
 
 
 
@@ -103,35 +106,7 @@ class ProductsController extends Controller
 
     }
 
-    public function SearchEventProducts(Request $request){
-       $event= Event::searchEventP($request->Evento)->first();
-        $validacion=false;
-        $productEvent=DB::table('events as e')
-                          ->join('event_product as ep','e.id','=','ep.event_id')
-                          ->select('ep.event_id','e.name as event_name','ep.product_id')
-                          ->get();    
-      if(($event!=null )&&($request->Evento!="")){
-         
-          $products= $event->products()->paginate(10);
-          return view('admin.products.index')->with('products',$products)
-                                            ->with('validacion',$validacion)
-                                            ->with('productEvent',$productEvent);
-        }
-      $products=Product::SearchProduct($request->name)->orderBy('name','ASC')->paginate(10);  
-      if ($event==null) {
-            $validacion=true;
-            }   
-
-                                            
-       
-      return view('admin.products.index')->with('products',$products)
-                                           ->with('validacion',$validacion)
-                                           ->with('productEvent',$productEvent);
-    
-    
-        }
-
-     
+        
     public function show($id)
     {
         //
@@ -328,47 +303,7 @@ class ProductsController extends Controller
        }
     }
     
-    //********************************Mostrar detalle del producto****************
 
-    public function listDetailProduct(Request $request){
-     
-     if($request->ajax()){
-      
-         $output="";
-         $comilla="'";
-         $products= Product::where('id','=',$request->product_id)->get();
-         
-         if ($products) {
-           foreach ($products as $key => $product) {
-                  $path='images/products/'.$product->extension;
-                 
-                  $output.='<figure>
-                   <img src='.$path.'> 
-                  
-                  
-                     <figcaption>'.
-                        
-                        '<h4><b>Código: </b>'.$product->code.'</h4>'.
-                        '<h4><b>Nombre: </b>'.$product->name.'</h4>'.
-                        '<h4><b>Marca: </b>'.$product->brand->name.'</h4>'.
-                        '<h4><b>Línea: </b>'.$product->line->name.'</h4>'.
-                      
-                        '<h4><b>Precio Compra: </b>'.$product->purchase_price.'</h4>'.
-                        '<h4><b>Precio Mayorista: </b>'.$product->whosale_price.'</h4>'.
-                        '<h4><b>Precio Minorista: </b>'.$product->retail_price.'</h4>'.
-
-                    '</figcaption>
-                    <figure>';
-        }
-      
-        return Response($output);
-          
-       }        
-   
-    }
-
-
-    }
    
 }
 

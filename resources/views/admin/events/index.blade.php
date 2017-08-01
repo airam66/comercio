@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
 <div class="box-header ">
-<h2 class="box-title col-md-5">Eventos Encontrados</h2>
+<h2 class="box-title col-md-5">Listado de Eventos</h2>
     
                    <!-- search name form -->
      
@@ -22,7 +22,7 @@
 
 </div>
 <div class="box-body">              
-
+ @if($events->isNotEmpty()) 
  <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
         <thead>
@@ -80,7 +80,13 @@
   {!!$events->render()!!}
 </div>
 
+@else
+<div class="alert alert-dismissable alert-warning">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <p>No se encontró ningún evento.</p>
+</div>
 
+@endif
 
 </div>
 

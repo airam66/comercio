@@ -52,7 +52,6 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 
   Route::resource('porcentages','PorcentagesController');
   
-  Route::get('/productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
   Route::get('products/{id}/desable','ProductsController@desable')->name('products.desable');
   Route::get('products/{id}/enable','ProductsController@enable')->name('products.enable');
   Route::post('products/updateStock','ProductsController@updateStock')->name('products.updateStock');
