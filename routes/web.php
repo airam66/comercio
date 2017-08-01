@@ -125,6 +125,7 @@ Route::get('/completeOrder','PurchasesInvoiceController@completeOrder');
 Route::get('/detailOrder','PurchasesInvoiceController@detailPurchase');
 Route::get('purchasesInvoice/{id}/loadOrder','PurchasesInvoiceController@loadOrder')->name('purchasesInvoice.loadOrder');
 Route::post('purchasesInvoice/{id}/storePI','PurchasesInvoiceController@storePI')->name('purchasesInvoice.storePI');
+Route::get('/searchDataIP','PurchasesInvoiceController@searchDate');
 
 //************************************Rutas para Pedidos***********************************
 
@@ -132,7 +133,7 @@ Route::resource('orders','OrdersController');
 Route::get('/searchDateOrder','OrdersController@searchDateOrder');
  Route::get('orders/{id}/pdf','OrdersController@pdfOrder')->name('orders.pdf');
 
-Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment')->name('OrderPayment.register');
+Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment')->name('orderPayment.register');
 
 Route::post('orderPayment/{id}/storePayment','OrdersController@storePayment')->name('OrderPayment.store');
 

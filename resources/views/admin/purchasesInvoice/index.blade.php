@@ -59,7 +59,7 @@
                         <td class="text-center">{{$purchase->id}}</td>
                         <td>{{$purchase->created_at->format('d/m/Y')}}</td>
                         <td>{{$purchase->provider->name}}</td>
-                        <td>{{$purchase->total}}</td>
+                        <td>${{$purchase->total}}</td>
                        
                         <td></td>
                   </tr>
@@ -132,7 +132,7 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
   $.ajax({
     type: 'get',
-    url:  "{{ URL::to('admin/searchData')}}",
+    url:  "{{ URL::to('admin/searchDataIP')}}",
     data:{'fecha1':f1,
           'fecha2':f2},
     success: function(data){

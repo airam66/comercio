@@ -109,7 +109,7 @@
              
               <div class="form-group">
               
-                                          <button type="submit" class="btn " name="Registrar Pago">
+                                          <button type="submit" class="btn btn-primary " name="Registrar Pago">
                                               Registrar Pago
                                       
                                           </button>

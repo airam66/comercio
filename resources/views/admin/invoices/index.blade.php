@@ -63,7 +63,7 @@
                         <td>${{$invoice->total}}</td>
                         <td>
                          
-                        <button type="button" class="btn btn-primary "  data-title="Detail" onclick="myDetail({{$invoice->id}})">
+                        <button type="button" class="btn btn-info "  data-title="Detail" onclick="myDetail({{$invoice->id}})">
                          <i class="fa fa-list" aria-hidden="true"></i>
                           </button>
 

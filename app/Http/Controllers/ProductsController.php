@@ -148,7 +148,7 @@ class ProductsController extends Controller
         $porcentage=Porcentage::all()->last();
         $productEvent=$product->event->pluck('id')->ToArray(); 
 
-        dd($productEvent);  
+     
 
         return view('admin.products.edit')->with('product',$product)
                                             ->with('categories',$categories)
