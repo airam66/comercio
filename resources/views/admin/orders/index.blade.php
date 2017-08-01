@@ -74,6 +74,9 @@
 			                        <td>{{$order->status}}</td>
 			                        <td>{{$order->client->bill}}</td>
 			                        <td> 
+                                
+                                <a href="{{route('orders.show',$order->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><span class="fa fa-list" aria-hidden="true" ></span></button></a>
+                      
                                  <a href="{{route('orders.pdf',$order->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  >
                                  Generar PDF</button></a>
                                 <a href="{{route('orders.edit',$order->id)}}"  >
