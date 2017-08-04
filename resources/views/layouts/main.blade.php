@@ -6,8 +6,10 @@
     <title>Creatu</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="{{asset('css/my_style.css')}}">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
     <link rel="shortcut icon" type="image/x-ico" href="{{ asset('images/logoss.ico') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -142,17 +144,7 @@
              <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
             </div>
           </div>
-          <!-- search form -->
-          <!--<form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>-->
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
+          
           <ul class="sidebar-menu">
             <li class="header">MENU PRINCIPAL</li>
 
@@ -167,6 +159,11 @@
                 <li class="active"><a href="{{route('lines.index')}}"><i class="fa fa-circle-o"></i> Lista de lineas</a></li>
                 <li class="active"><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i> Lista de marcas</a></li>
                 <li class="active"><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> Lista de productos</a></li>
+
+                 <li class="active"><a href="{{route('craftProducts')}}"><i class="fa fa-circle-o"></i> Stock Productos Personalizados</a></li>
+                 <li class="active"><a href="{{route('updateStockCreate')}}"><i class="fa fa-circle-o"></i> Stock materiales</a></li>
+
+
                 <li class="active"><a href="{{route('porcentages.create')}}"><i class="fa fa-circle-o"></i> Porcentajes de ventas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
               </ul>
@@ -178,19 +175,29 @@
                  <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('invoices.index')}}"><i class="fa fa-circle-o"></i> Listado factura</a></li>
+                <li class="active"><a href="{{route('invoices.index')}}"><i class="fa fa-circle-o"></i> Lista de ventas</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
             </li>
             <li class="treeview">
               <a href="#">
-                 <i class="fa fa-money"></i>
+                 <i class="glyphicon glyphicon-shopping-cart"></i>
                  <span>Compras</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('purchases.create')}}"><i class="fa fa-circle-o"></i> Listado compras</a></li>
+                <li class="active"><a href="{{route('purchases.index')}}"><i class="fa fa-circle-o"></i> Lista de Ordenes de Compras</a></li>
+                <li class="active"><a href="{{route('purchasesInvoice.index')}}"><i class="fa fa-circle-o"></i> Lista de Facturas de Compras</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-truck"></i>
+                 <span>Pedidos</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li class="active"><a href="{{route('orders.index')}}"><i class="fa fa-circle-o"></i>Lista de pedidos</a></li>
+                  </ul>
             </li>
             <li class="treeview">
               <a href="#">
@@ -198,15 +205,25 @@
                  <span>Personas</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('clients.create')}}"><i class="fa fa-circle-o"></i>Listado clientes</a></li>
-                <li class="active"><a href="{{route('providers.create')}}"><i class="fa fa-circle-o"></i> Listado Proveedores</a></li>
+                <li class="active"><a href="{{route('clients.index')}}"><i class="fa fa-circle-o"></i>Lista de clientes</a></li>
+                <li class="active"><a href="{{route('providers.index')}}"><i class="fa fa-circle-o"></i> Lista de proveedores</a></li>
                 <li class="active"><a href="{{route('providersproducts.create')}}"><i class="fa fa-circle-o"></i> Proveedores por productos</a></li>
                <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
             </ul>
             </li>
+            
             <li class="treeview">
               <a href="#">
-                 <i class="fa fa-tags"></i>
+                 <i class="fa fa-fw fa-database"></i>
+                 <span>Reportes</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                 <i class="fa fa-laptop"></i>
                  <span>Pagina Web</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
                <ul class="treeview-menu">
@@ -263,8 +280,9 @@
     <script>
       $.widget.bridge('uibutton', $.ui.button);
     </script>
+
     <!-- Bootstrap 3.3.5 -->
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
    
 
     <!-- Morris.js charts -->
@@ -280,7 +298,7 @@
     <!-- daterangepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
-<!--mydateranguepincker-->
+   <!--mydateranguepincker-->
 
           <!-- Include Required Prerequisites -->
       
@@ -293,6 +311,10 @@
 
     <!-- datepicker -->
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+     
+
+
+
     <!-- Bootstrap WYSIHTML5 -->
     <script src="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
     <!-- Slimscroll -->
@@ -313,13 +335,15 @@
     <script src="{{asset('bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.js')}}"></script>
 
     <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
-
+   
+    
     @yield('js')
-
+    @stack('scripts')
+    
     <script>
       function baseUrl(url){
         return "{{url('')}}/"+url;
       }
-    </script>>
+    </script>
   </body>
 </html>

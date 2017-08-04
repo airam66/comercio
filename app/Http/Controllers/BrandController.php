@@ -9,15 +9,9 @@ use App\Brand;
 
 class BrandController extends Controller
 {
-    public function __construct()
+    public function index(Request $request)
     {
-        $this->middleware('auth');//para que este logueado
-    }
-
-
-     public function index(Request $request)
-    {
-        $brands=Brand::SearchBrandName($request->name)->orderBy('name','status','ASC')->paginate(10);
+        $brands=Brand::SearchBrandName($request->name)->orderBy('name','status','ASC')->where('status','=','activo')->paginate(10);
        
         return view('admin.brands.index')->with('brands',$brands);
     
@@ -40,4 +34,35 @@ class BrandController extends Controller
 
        return redirect()->route('brands.index');//redirecciona la categoria
     }
+
+    public function desable($id)
+    {
+        $brand= Brand::find($id);
+        $brand->status='inactivo';
+        $brand->save();
+        
+        return redirect()->route('brands.index');
+    }
+    
+
+    public function edit($id){
+      
+      $brand=Brand::find($id);
+      return view('admin.brands.edit')->with('brand',$brand);
+
+    }
+    
+    public function update(Request $request, $id){
+
+     $brand=Brand::find($id);
+     $brand->fill($request->all());
+     $brand->save();
+    flash("La marca  ". $brand->name . " ha sido modificada con éxito" , 'success')->important();
+    
+
+    return  redirect()->route('brands.index');
+  }
+
+
+
 }

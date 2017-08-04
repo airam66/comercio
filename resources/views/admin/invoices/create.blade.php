@@ -31,8 +31,28 @@
                 </div>
                 <!-- info row -->
       <div class="panel panel-default">
-          <div class="panel-body borde"><!--busqueda prorducto-->
-                  <h3>Productos</h3>
+          <div class="panel-body borde"><!--busqueda producto-->
+             <div class="border">
+                <h3>Cliente</h3>
+                <div class="row ">
+                       @include('partials.searchPeople')
+                      <div class="col-md-3 pull-left" >
+                           {!! form::label('CUIL/CUIT')!!}
+                           <input id="cuil" class="form-control" name="cuil" type="text" >
+                       </div>
+                       <div class="pull-left">
+                       <br>
+                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
+                           @include('partials.searchPeople')
+                      </div>
+                      <div class="col-md-6  pull-right">
+                            <input id="client_id" name="client_id" class="form-control" type="hidden" >
+                            {!!Field::text('nombre',null,['disabled'])!!}
+                      </div>
+               </div>
+            </div>
+                
+                  <h3>Producto</h3>
                 <div class="row " >
                     <div class="col-md-3 pull-left" >
                          {!! form::label('Codigo')!!}
@@ -46,15 +66,16 @@
                        </button>
                    </div>
                    <div class="col-md-2 pull-right ">
-                       {!!Field::number('price',null, ['disabled','step'=>'any'])!!} 
-                       {!!Field::hidden('priceW',null,['step'=>'any'])!!} 
-                       {!!Field::hidden('priceR',null,['step'=>'any'])!!} 
+                       {!!Field::number('price',null, ['disabled'])!!} 
+                       <input type="number" id="priceW" name="priceW" style="display:none"> 
+                       <input type="number" id="priceR" name="priceR" style="display:none"> 
                     </div>
                     <div class="col-md-2 pull-right ">
                           {!! Field::number('stock' , ['disabled'])!!}
                     </div>
                      <div class="col-md-2 pull-right">
-                        {!!Field::hidden('wholesale_cant',null)!!}
+                        <input type="number"  id="wholesale_cant" name="wholesale_cant" style="display:none"> 
+
                         {!! form::label('Cantidad')!!}
                         <input class="form-control" id="amount" name="amount" type="number" >
                         </div>
@@ -73,25 +94,7 @@
                     </div>
 
                 </div>
-                <div class="border">
-                <h3>Cliente</h3>
-                <div class="row ">
-                       
-                      <div class="col-md-3 pull-left" >
-                           {!! form::label('CUIL/CUIT')!!}
-                           <input id="cuil" class="form-control" name="cuil" type="text" >
-                       </div>
-                       <div class="pull-left">
-                       <br>
-                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
-                            @include('admin.invoices.buscarcliente')
-                      </div>
-                      <div class="col-md-6  pull-right">
-                            <input id="client_id" name="client_id" class="form-control" type="hidden" >
-                            {!!Field::text('nombre',null,['disabled'])!!}
-                      </div>
-                </div>
-                </div>
+                
 <!--find busqueda de producto-->
         </div>
                 <!-- Table row -->
@@ -128,7 +131,7 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>$<input disabled type="number" id="Subtotalventa" name="Subtotalventa" step="any"></td>
+                          <td>$<input disabled type="number" id="Subtotalventa" name="Subtotalventa" step="any" class="mi_factura"></td>
                         </tr>
                         <tr>
                           <th>Descuento</th>
@@ -141,7 +144,7 @@
                         </tr>
                         <tr>
                           <th>Total:</th>
-                          <td>$<input type="number" id="Totalventa" name="Totalventa" step="any"></td>
+                          <td>$<input type="number" id="Totalventa" name="Totalventa" step="any" class="mi_factura"></td>
                         </tr>
                       </table>
                     </div>
@@ -175,12 +178,13 @@
     </div>
   </div>
 
-@include('admin.invoices.buscarproducto')
+@include('partials.searchProductsInvoice')
 
 
 @endsection
 
 @section('js')
+
 <script type="text/javascript">
  var options={
     url: function(q){
@@ -198,6 +202,7 @@
                           $('#price').val(product.retail_price);//por defecto
                           $('#priceR').val(product.retail_price);
                           $('#priceW').val(product.wholesale_price);
+                          $('#amount').val(0);
                           $('#wholesale_cant').val(product.wholesale_cant);
                     },
                     onKeyEnterEvent: function () { 
@@ -208,6 +213,7 @@
                           $('#price').val(product.retail_price);//por defecto
                           $('#priceR').val(product.retail_price);
                           $('#priceW').val(product.wholesale_price);
+                          $('#amount').val(0);
                           $('#wholesale_cant').val(product.wholesale_cant);
                     }
                 }
@@ -216,35 +222,9 @@
   $("#code").easyAutocomplete(options);
 </script>
 
-<script>
-
-  var options={
-    url: function(p){
-      return baseUrl('admin/autocompleteClient?p='+p);
-         }, getValue:'cuil',
-            list: {
-                    match: {
-                        enabled: true
-                    },
-                    onClickEvent: function () { 
-                        var client = $('#cuil').getSelectedItemData();
-                        $('#nombre').val(client.name);
-                        $('#client_id').val(cleint.id);
-                    },
-                    onKeyEnterEvent: function () { 
-                        var client = $('#cuil').getSelectedItemData();
-                        $('#nombre').val(client.name);
-                        $('#client_id').val(client.id);
-                    }
-                }
-   };
-  
-  $("#cuil").easyAutocomplete(options);
-
-
-</script>
-<script >
+<script type="text/javascript">
   function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
+    var am=0;
     $('#stock').val($stock);
      $('#code').val($code);
     $('#product_id').val($id);
@@ -253,30 +233,39 @@
     $('#priceR').val($retail);
     $('#priceW').val($wholesale);
     $('#wholesale_cant').val($amount);
-
+    $('#amount').val(am);
     $('#favoritesModalProduct').modal('hide');
   };
-
-
 </script>
+
+
 <script type="text/javascript">
-  function completeC($id,$cuil,$name){
-    $('#cuil').val($cuil);
-    $('#nombre').val($name);
-    $('#client_id').val($id);
-    $('#favoritesModalClient').modal('hide');
-  };
+
+$('#favoritesModalClient').on('shown.bs.modal', function () {
+  $('#searchC').focus()
+})
+
+function productStockProvider(){
+}
 
 
 </script>
 <script>
+
+
+
 $('#amount').on('keyup', function(){
-  maxW=$('#wholesale_cant').val();
-  if (this.value>=maxW){
-        $('#price').val($('#wholesale_price').val());
+  var am=parseInt($('#amount').val());
+  var maxW=parseInt($('#wholesale_cant').val());
+  var pW=$('#priceW').val();
+  var pR=$('#priceR').val();
+   if (am >= maxW){
+    console.log('mayor a la cantidad');
+        $('#price').val(pW);
   }
-  if (this.value<maxW){
-        $('#price').val($('#retail_price').val());
+  else{
+    console.log('menor a la cantidad');
+        $('#price').val(pR);
   }
 });
 </script>
@@ -286,7 +275,7 @@ $('#discount').on('click', function(){
   St=$('#Subtotalventa').val();
   Tvo=$('#Totalventa').val();
     if(St==Tvo){
-      Tvn=parseFloat(St*0.1)-parseFloat(St);
+      Tvn=parseFloat(St)-parseFloat(St*0.1);
         $('#Totalventa').val(Tvn); 
      }else{
         $('#Totalventa').val(St);
@@ -322,6 +311,7 @@ $('#searchC').on('keyup', function(){
     
   })
 })
+
 </script>
 
 <script>
@@ -347,7 +337,7 @@ $('#searchC').on('keyup', function(){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
          Totalventa=Totalventa+Subtotal[cont];
 
-              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#Subtotalventa').val(Totalventa);
@@ -384,9 +374,8 @@ function deletefila(index){
 </script>
  
  <script>
-
-  $('#searchB').on('click', function(){
-  $value=$(this).val();
+  function SearchLetter($letter){
+  $value=$letter;
   $.ajax({
     type: 'get',
     url:  "{{ URL::to('admin/searchL')}}",
@@ -395,75 +384,16 @@ function deletefila(index){
       $('#mostrar').html(data);
     }
     
-  })
-})
-  $('#searchC').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-  $('#searchD').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-  $('#searchF').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-
-  $('#searchT').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-$('#searchTD').on('click', function(){
-  $value=$(this).val();
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchL')}}",
-    data:{'searchL':$value},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-})
-
-
+  });
+  }
 </script>
-
+ 
 
 
 @endsection
  
 
+@push('scripts')
+
+<script src="{{asset('dist/js/completePerson.js')}}"></script>
+@endpush

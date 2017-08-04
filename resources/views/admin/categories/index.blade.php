@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
 <div class="box-header ">
-<h2 class="box-title col-md-5">Categorias Encontradas</h2>
+<h2 class="box-title col-md-5">Listado de Categorias</h2>
     
                    
         
@@ -19,11 +19,11 @@
             </div>
         </form>
           <!-- /.search form -->
-        <input type ='button' class="btn btn-warning"  value = 'Agregar' onclick="location.href = '{{ route('categories.create') }}'"/> 
+        <input type ='button' class="btn btn-success"  value = 'Agregar' onclick="location.href = '{{ route('categories.create') }}'"/> 
 
 </div>
 <div class="box-body">              
-
+  @if($categories->isNotEmpty())
  <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
         <thead>
@@ -33,7 +33,7 @@
                 <th>Descripcion</th>
                 <th>Estado</th>
                 <th>Imagen</th> 
-                <th>Acción</th>
+                <th></th>
             </tr>
         </thead>
      
@@ -49,12 +49,17 @@
             <td>{{$category->id}}</td>
             <td>{{$category->name}}</td>
             <td>{{$category->description}}</td>
+
             <td>{{$category->status}}</td>
 
             <td> 
             @if($category->extension!=null)
                    <div>
+                  
+                  <a data-toggle="modal" data-target="#favoritesModalCategoryImage{{$category->id}}">
                    <img src="{{ asset('images/categories/'.$category->extension)  }}" width="40" height="40"> 
+                   </a>
+                   @include('admin.categories.imagePopUp')
                    </div>
             @endif
             </td>
@@ -80,20 +85,32 @@
                         </button>
                      </a>
             @endif
-
-
-           
+            </td>
+          
         </tr>
   @endforeach
-</tbody>
-    </table>
+   </tbody>
+ </table>
+ <div class="text-center">
+   {!!$categories->render()!!}
+ </div>
 
+@else
+<div class="alert alert-dismissable alert-warning">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <p>No se encontró ninguna categoría.</p>
+</div>
 
-
+@endif
 
 </div>
 
 </div>
+
+
+@endsection
+
+@section('js')
 
 
 @endsection

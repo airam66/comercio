@@ -10,24 +10,37 @@
         <!-- Default box -->
       <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nueva Compra</h3>
+            <h3 class="box-title">Nueva Orden de Compra</h3>
          </div>
       <div class="box-body">
           {!! Form::open(['route'=>'purchases.store', 'method'=>'POST', 'files'=>true])!!}
           <section>
+              <div class="row">
+                  <div class="col-xs-12">
+                    <h3 class="page-header" style="color:gray;">
+                        <img src="{{ asset('images/cotillon.png ') }}" width="230" height="80"  >
+                     
+                      <div class="pull-right">
+                         <b>Orden de Compra N°:{{$numberPurchase}}</b><br><br>
+                         <b>Fecha: {{$date}}</b>
+                      </div>
+                      
+                    </h3>
+                  </div><!-- /.col -->
+              </div>
       
               <div class="border">
                 <h3>Proveedor</h3>
                 <div class="row ">
                        
                       <div class="col-md-3 pull-left" >
-                           {!! form::label('CUIT')!!}
-                           <input id="cuit" class="form-control" name="cuit" type="text" >
+                           
+                           {!!Field::text('cuit',null)!!}
                        </div>
                        <div class="pull-left">
                        <br>
-                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalProvider"><i class="fa fa-search"></i></button>
-                            @include('admin.purchases.buscarProvider')
+                            <button type="button" class="btn btn-primary " data-toggle="modal" id="second" data-title="Buscar" data-target="#favoritesModalClient"><i class="fa fa-search"></i></button>
+                            @include('partials.searchPeople')
                       </div>
                       <div class="col-md-6  col-md-offset-2">
                             <input id="provider_id" name="provider_id" class="form-control" type="hidden" >
@@ -35,9 +48,10 @@
                       </div>
                 </div>
               </div>
+              <hr>
 
               <div class="panel-body borde"><!--busqueda prorducto-->
-                  <h3>Productos</h3>
+                  <h3>Producto</h3>
                 <div class="row " >
                     <div class="col-md-3 pull-left" >
                          {!! form::label('Codigo')!!}
@@ -52,7 +66,7 @@
                    </div>
                    
                    <div class="col-md-2 col-md-offset-2">
-                       {!!Field::number('price',null, ['step'=>'any'])!!} 
+                       {!!Field::number('purchase_price',null,['disabled'])!!} 
  
                     </div>
                      <div class="col-md-2">
@@ -62,17 +76,67 @@
                       </div>                    
                  </div>
                  <div class="row " >
-                    <div class="col-md-4 ">
+                    <div class="col-md-4 pull-left ">
                          {!!Field::text('name',null,['disabled'])!!}
                     </div>
+                     
+                    <div class="col-md-4  col-md-offset-1 ">
+                         {!!Field::text('brand',null,['disabled'])!!}
+                    </div>
+
+
+                    <div class="col-md-2 col-md-offset-1">
+                      <button type="button" id="btn_add" class="btn pull-right">
+                      <img src="{{ asset('images/images.png ') }}" width="50" height="50">
+                      </button>
+                    </div>
+
                  </div>
+              </div>
+              <hr>
+
+               <!-- Table row -->
+                  <div class="col-xs-12 table-responsive">
+                    <table id="details" class="display table table-hover" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>Eliminar</th>
+                          <th>Nombre</th>
+                          <th>Marca</th>
+                          <th>Precio Compra</th>
+                          <th>Cantidad</th>
+                          <th>Subtotal Estimado</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="detail">
+                         
+                      </tbody>
+
+                    </table>
+                  </div><!-- /.col -->
+
+
+                  <div class="row">
+                 
+                  <div class="col-xs-6 pull-right">
+                      <div class="text-center" style="background-color: gray;">
+                        <h3 style="color:white;">Total Estimado</h3>
+                      </div>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tr>
+                          <th class="text-center">Total Estimado:</th>
+                          <td class="text-center">$<input type="number" id="TotalCompra" name="TotalCompra" value=0 step="any" class="mi_factura"></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div><!-- /.col -->
               </div>
         
               <div class="row no-print">
                   <div class="col-xs-12">
-                      <div class= "form-group">
-                      {!! Form::hidden('status','activo',['class'=>'form-control'])!!} 
-                      </div>
+                      
 
                       <div class="form-group">
                         {!! Form::submit('Confirmar',['class'=>'btn btn-primary'])!!}
@@ -91,30 +155,54 @@
     </div>
   </div>
 
- @include('admin.purchases.buscarProducto')
+ @include('partials.searchProductsPurchase')
 
 @endsection
 
 @section('js')
+
+
 <script>
 
   var options={
     url: function(p){
-      return baseUrl('admin/autocompleteProvide?p='+p);
+      return baseUrl('admin/autocompleteProvider?p='+p);
          }, getValue:'cuit',
             list: {
                     match: {
                         enabled: true
                     },
                     onClickEvent: function () { 
-                        var client = $('#cuit').getSelectedItemData();
-                        $('#nombre').val(client.name);
-                        $('#provide_id').val(cleint.id);
+                        var provider = $('#cuit').getSelectedItemData();
+                        $('#nombre').val(provider.name);
+                        $('#provider_id').val(provider.id);
+                      
+                       $providerid=$('#provider_id').val();
+                       $.ajax({
+                        type: 'get',
+                        url:  "{{ URL::to('admin/detailPurchase')}}",
+                        data:{'provider_id':$providerid},
+                        success: function(data){
+                            $('#detail').html(data);
+    
+                        }
+                       })
+
                     },
                     onKeyEnterEvent: function () { 
-                        var client = $('#cuit').getSelectedItemData();
-                        $('#nombre').val(client.name);
-                        $('#provide_id').val(client.id);
+                        var provider = $('#cuit').getSelectedItemData();
+                        $('#nombre').val(provider.name);
+                        $('#provider_id').val(provider.id);
+
+                        $providerid=$('#provider_id').val();
+                       $.ajax({
+                        type: 'get',
+                        url:  "{{ URL::to('admin/detailPurchase')}}",
+                        data:{'provider_id':$providerid},
+                        success: function(data){
+                          $('#detail').html(data);
+                         }
+                       })
                     }
                 }
    };
@@ -124,35 +212,40 @@
 
 </script>
 <script type="text/javascript">
-  function completeC($id,$cuit,$name){
-    $('#cuit').val($cuit);
+  function completeC($id,$number,$name){
+    $('#cuit').val($number);
     $('#nombre').val($name);
     $('#provider_id').val($id);
-    $('#favoritesModalProvider').modal('hide');
+    $('#favoritesModalClient').modal('hide');
   };
 </script>
+
+
 <script >
-  function complete($id,$code,$name,$wholesale,$retail,$stock,$amount){
+  function complete($id,$code,$brand,$name,$purchase,$stock){
     $('#code').val($code);
+    $('#brand').val($brand);
     $('#product_id').val($id);
     $('#name').val($name);
-    $('#price').val($retail);//por defecto
+    $('#purchase_price').val($purchase);
     $('#favoritesModalProduct').modal('hide');
+   $('#mostrar').html('');
   };
 </script>
 <script >
-$('#searchP').on('keyup', function(){
+$('#searchC').on('keyup', function(){
   $value=$(this).val();
   $.ajax({
     type: 'get',
     url:  "{{ URL::to('admin/searchProvider')}}",
     data:{'searchProvider':$value},
     success: function(data){
-      $('#mostrarP').html(data);
+      $('#mostrarC').html(data);
     }
     
   })
 })
+
 </script>
 <script>
 $('#searchProducts').on('keyup', function(){
@@ -169,6 +262,103 @@ $('#searchProducts').on('keyup', function(){
   })
 })
 </script>
+
+
+<script>
+    $('#btn_add').on('click',function(){
+        invoice_detail();
+    });
+
+  var cont=2000;
+  var TotalCompra=0;
+  var Subtotal=[];
+
+  function invoice_detail(){
+    stock=$('#stock').val();
+     brand=$('#brand').val();
+     code=$('#code').val();
+    product_id=$('#product_id').val();
+    name=$('#name').val();
+    price=$('#purchase_price').val();
+    amount=$('#amount').val();
+    
+  if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
+
+      
+         Subtotal[cont]=parseFloat(amount)*parseFloat(price);
+         TotalCompra= parseFloat($('#TotalCompra').val())+Subtotal[cont];
+       
+
+              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td> <td>$ <input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>$ '+Subtotal[cont]+'</td> </tr>';
+          cont++;
+          clear();
+        $('#TotalCompra').val(TotalCompra);
+        $('#details').append(fila);
+
+     
+  }else{
+        alert("Error al ingresar detalle de la cotización, revise la cantidad del producto a vender");
+  }
+}
+
+function deletefila(index,subTotal){
+  
+  TotalCompra= parseFloat($('#TotalCompra').val())-subTotal;
+  
+  $('#TotalCompra').val(TotalCompra);
+  $('#'+index).remove();
+ }
+function calculateSubtotal(number){
+
+    
+    price= $('#dprice'+number).val();
+    amount=$('#damount'+number).val();
+
+    if (price=='' || amount==''){
+      price=0;
+      amount=0;
+    }
+    subTotal=parseFloat($('#dsubTotal'+number).val());
+ 
+    $('#dsubTotal'+number).val(parseFloat(amount)*parseFloat(price));
+
+    total=parseFloat($('#TotalCompra').val());
+    
+    total=total-subTotal;
+    
+    total=total+parseFloat($('#dsubTotal'+number).val());
+   
+   $('#TotalCompra').val(total);
+  }
+
+ function clear(){
+    $('#stock').val('');
+    $('#code').val('');
+    $('#product_id').val('');
+    $('#name').val('');
+    $('#purchase_price').val('');
+    $('#brand').val('');
+    $('#amount').val('');
+ }
+</script>
+
+
+<script>
+  function productStockProvider(){
+     $providerid=$('#provider_id').val();
+                       $.ajax({
+                        type: 'get',
+                        url:  "{{ URL::to('admin/detailPurchase')}}",
+                        data:{'provider_id':$providerid},
+                        success: function(data){
+                            $('#detail').html(data);
+    
+                        }
+                       });
+  }
+
+</script>
+
 @endsection
  
 

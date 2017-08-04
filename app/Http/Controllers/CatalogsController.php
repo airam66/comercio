@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Product;	
 use App\Event;
 use App\Category;
@@ -26,15 +27,13 @@ public function show($id)
 
  public function filtro($name){
     $event= Event::searchEvent($name)->first();
-    $products= $event->products()->paginate(5);
-     $i=0;
-    foreach ($products as $product) {
-      
-     $categories1[$i]=Category::SearchCategory($product->category_id)->first();
-     $i=$i+1;
-    }
+    $categories=DB::table('event_product as pe')
+      ->join('products as p','pe.product_id','=','p.id')
+      ->join('categories as c','c.id','=','p.category_id')
+      ->select('c.id','c.name','c.extension')
+      ->where('pe.event_id','=',$event->id)->distinct()->get();
 
-  $categories= array_values(array_unique($categories1));
+   
  	  return view('main.pagine.Catalogo.filtroCategoriaCatalogo')
           ->with('categories',$categories)
  					->with('name',$name);

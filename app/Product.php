@@ -66,30 +66,44 @@ class Product extends Model
     public function scopeSearchProduct($query,$name){
 
         return $query->where('name','LIKE',"%" . $name . "%");
+                     
     }
 
     public function scopeSearchProductL($query,$letra){
 
-        return $query->where('name','LIKE', $letra . "%");
+        return $query->where('name','LIKE', $letra . "%")
+                    ->where('status','=','activo');
+                    
     }
 
     public function scopeSearchProductC($query,$category){
 
         return $query->where('category_id','=',$category);
-        ;
+                     
+                             
     }
 
-    public function scopeSearchProductP($query,$name,$provider){
-
-        return $query->where('name','LIKE', $name . "%");
-    }
 
     public static function productByCode($term){
         return static::select('id', 'name','code','stock','wholesale_price','retail_price','wholesale_cant')
             ->where('code','LIKE',"%$term%")
+            ->where('status','=','activo')
             ->get();
 
     }    
+
+   /* public static function productByCodeProvider($term,$provider_id){
+        return $products= DB::table('providers_products as pp')
+              ->join('products as p','pp.product_id','=','p.id')
+              ->select('*')
+              ->where('code','LIKE',"%$term%")
+              ->where('status','=','activo')
+              ->where('pp.provider_id','=',$provider_id)->get();
+    }  */  
+
+     public function requests(){
+        return $this->belongsToMany('App\OrderRequest') ;
+    }
  
      
 }
