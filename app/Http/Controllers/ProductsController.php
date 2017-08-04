@@ -169,7 +169,6 @@ class ProductsController extends Controller
         $products->event()->sync($request->events);
         }
         else{
-
         }
 
 

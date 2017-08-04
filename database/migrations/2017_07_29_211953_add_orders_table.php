@@ -46,6 +46,7 @@ class AddOrdersTable extends Migration
      */
     public function down()
     {   
+        
         Schema::dropIfExists('payments');
         Schema::dropIfExists('orders');
     }

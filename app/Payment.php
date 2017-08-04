@@ -13,6 +13,7 @@ class Payment extends Model
     public function order(){
 
         return $this->belongsTo ('App\Order');
+        
     }
 
 }

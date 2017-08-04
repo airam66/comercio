@@ -12,6 +12,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">Nuevo Pedido</h3>
          </div>
+         
       <div class="box-body">
           {!! Form::open(['route'=>'orders.store', 'method'=>'POST', 'files'=>true])!!}
           <section class="invoice">

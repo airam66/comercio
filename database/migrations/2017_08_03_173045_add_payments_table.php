@@ -19,8 +19,7 @@ class AddPaymentsTable extends Migration
             $table->decimal('amount_paid',9,2);
             $table->decimal('balance_paid',9,2);
             $table->timestamps();
-
-            //clave foranea
+           //clave foranea
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             
         });

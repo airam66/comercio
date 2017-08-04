@@ -26,6 +26,7 @@ class OrderRequest extends FormRequest
         return [
             'cuil'=>'required',
             'datetimepicker3'=>'required',
+            
         ];
     }
 }

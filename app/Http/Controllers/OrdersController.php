@@ -48,6 +48,7 @@ class OrdersController extends Controller
         }else{
           $numberOrder=1;
         }
+        
  	   
      $date=date('d').'/'.date('m').'/'.date('Y');
 

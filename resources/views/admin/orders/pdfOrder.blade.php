@@ -81,6 +81,7 @@
 
                    @endforeach
                    @if((count($payments)==1) && ($order->client->bill != 0))
+                   
                    <tr>
                        <td class="text-center" height="10"></td>
                        <td class="text-center"></td>
