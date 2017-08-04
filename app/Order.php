@@ -48,4 +48,9 @@ class Order extends Model
 
       return route('orders.edit',$this->id);
     }
+
+    public function payments(){
+
+        return $this->hasMany('App\Payment');
+    }
 }

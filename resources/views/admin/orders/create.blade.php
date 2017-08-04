@@ -162,26 +162,38 @@
                     <div class="table-responsive">
                       <table class="table">
                         <tr>
-                          <th style="width:60%">Total:</th>
-                          <td>$</td>
-                          <td><input type="number" name="total" id="total"  step="any" value="0" class="mi_factura"></td>
+                          <th style="width:50%">Subtotal:</th>
+                          <td>$<input disabled type="number" id="Subtotalventa" name="Subtotalventa" step="any" class="mi_factura" value="0"></td>
                         </tr>
+                        <tr>
+                          <th>Descuento</th>
+                          <td><div class="checkbox">
+                                  <label>
+                                      <input id="discount" name="discount" type="checkbox" value="10">
+                                      10%
+                                  </label>
+                              </div></td>
+                        </tr>
+                        <tr>
+                          <th>Total:</th>
+                          <td>$<input type="number" id="Totalventa" name="Totalventa" step="any" class="mi_factura" value="0"></td>
+                        </tr>
+
                         <tr>
                           <th>Adelanto</th>
                           <td>$</td>
                           <td>
 
-                              <input id="advance" value="0" name="advance" type="number" >
-
-
-                                     
+                              <input id="advance" value="0" name="advance" type="number" >        
                                 
                         </td>
                         </tr>
+                       
+
                         <tr>
                           <th>Saldo:</th>
                           <td>$</td>
-                          <td><input type="number" name="balance" id="balance"  value="0"step="any" class="mi_factura"></td>
+                          <td><input type="number" name="balance" id="balance"  value="0" step="any" class="mi_factura"></td>
                         </tr>
                       </table>
                     </div>
@@ -353,7 +365,13 @@ $('#amount').on('keyup', function(){
 
 <script>
 $('#advance').on('keyup', function(){
-  total=parseFloat($('#total').val());
+
+  if ($('#advance').val()==''){
+
+    $('#balance').val(0);
+  }
+
+  total=parseFloat($('#Totalventa').val());
   
   balance=parseFloat($('#advance').val());
   
@@ -415,13 +433,15 @@ $('#searchC').on('keyup', function(){
 
       if (parseInt(amount)<parseInt(stock)){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
+         Subtotal[cont]=Math.round(Subtotal[cont]*100)/100;
          Totalventa=Totalventa+Subtotal[cont];
 
               var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td>$<input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>$ '+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
-        $('#total').val(Totalventa);
+        $('#Subtotalventa').val(Totalventa);
         $('#balance').val(Totalventa); 
+         $('#Totalventa').val(Totalventa); 
         $('#details').append(fila);
         
 
@@ -432,11 +452,12 @@ $('#searchC').on('keyup', function(){
   }else{
         alert("Error al ingresar detalle de la cotización, revise la cantidad del producto a vender");
   }
+
 }
 
 function deletefila(index){
   Totalventa=Totalventa-Subtotal[index];
-  $('#total').val(Totalventa);
+  $('#Subtotalventa').val(Totalventa);
   $('#Totalventa').val(Totalventa);
   $('#balance').val(Totalventa);
   $('#fila'+index).remove();
@@ -469,7 +490,29 @@ function deletefila(index){
   });
   }
 </script>
+
+ <script>
+$('#discount').on('click', function(){
+ St=$('#Subtotalventa').val();
+ St=Math.round(St*100)/100;
+ Tvo=$('#Totalventa').val();
  
+  if (document.getElementById('discount').checked){
+
+          Tvn=parseFloat(St)-parseFloat(St*0.1);
+          Tvn=Math.round(Tvn*100)/100;
+            $('#Totalventa').val(Tvn);
+            $('#balance').val(Tvn);
+         
+
+  }
+  else{
+            $('#Totalventa').val(St);
+            $('#balance').val(St);
+         }
+});
+
+ </script>
 
 
 @endsection

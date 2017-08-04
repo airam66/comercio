@@ -24,7 +24,7 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'cuil'=>'required|exists:categories,id',
+            'cuil'=>'required',
             'datetimepicker3'=>'required',
         ];
     }

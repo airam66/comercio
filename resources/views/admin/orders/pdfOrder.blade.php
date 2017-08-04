@@ -57,6 +57,67 @@
              <div class="pull-right">
                <h3>Total: ${{$order->total}}</h3>
              </div>
+
+             <div class="text-center" style="background-color: pink; width: 50%;">
+                        <h3 style="color:black;">PAGOS</h3>
+             </div>
+             
+             <div>
+             <div class="col-xs-6 pull-left">
+             <table>
+                <tr>
+                   <th>Fecha</th>
+                   <th>Monto pagado</th>
+                   <th>Saldo a pagar</th>
+                </tr>
+
+                <tbody>
+                   @foreach($payments as $payment)
+                     <tr>
+                       <td class="text-center">{{$payment->created_at->format('d/m/Y')}}</td>
+                       <td class="text-center">${{$payment->amount_paid}}</td>
+                       <td class="text-center">${{$payment->balance_paid}}</td>
+                     </tr>
+
+                   @endforeach
+                   @if((count($payments)==1) && ($order->client->bill != 0))
+                   <tr>
+                       <td class="text-center" height="10"></td>
+                       <td class="text-center"></td>
+                       <td class="text-center"></td>
+                     </tr>
+                    <tr>
+                       <td class="text-center" height="10"></td>
+                       <td class="text-center"></td>
+                       <td class="text-center"></td>
+                     </tr>
+                      <tr>
+                       <td class="text-center" height="10"></td>
+                       <td class="text-center"></td>
+                       <td class="text-center"></td>
+                     </tr>
+                      <tr>
+                       <td class="text-center" height="10"></td>
+                       <td class="text-center"></td>
+                       <td class="text-center"></td>
+                     </tr>
+                  
+                    @endif
+
+                </tbody>
+
+             </table> 
+           </div>
+            @if ($order->client->bill == 0)
+            <div>
+            <img src="{{ asset('images/pagado.png ') }}" width="140px"  height="120px" class="payment">
+            </div>
+            @else
+
+            @endif
+          
+            </div>
+
             </main>
            
 

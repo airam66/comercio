@@ -7,6 +7,7 @@ use App\Order;
 use App\Product;
 use App\OrderProduct;
 use App\Client;
+use App\Payment;
 use App\Http\Requests\OrderRequest;
 use Illuminate\Support\Collection as Collection;
 
@@ -67,15 +68,20 @@ class OrdersController extends Controller
 
     	       $order = new Order;
              
-            $order->total=$request->get('total');
+            $order->total=$request->get('Totalventa');
             $order->client_id=$request->get('client_id');
             $order->delivery_date=date("Y-m-d",strtotime($request->get('datetimepicker3')));
-            $order->advance=$request->get('advance');
+           
             if ($order->total>0){
                  $order->save();
                  $client=Client::find($order->client_id);
                  $client->bill=$request->get('balance');
                  $client->save();
+                  $payment=new Payment;
+                  $payment->order_id=$order->id;
+                  $payment->amount_paid=$request->get('advance');
+                  $payment->balance_paid=$order->total-$payment->amount_paid;
+                 $payment->save();
             }
             else{
                   flash("Debe ingresar al menos un producto" , 'danger')->important();
@@ -264,11 +270,11 @@ class OrdersController extends Controller
       ->join('products as p','op.product_id','=','p.id')
       ->select('p.id as product_id','p.name as product_name','op.price','op.amount','op.subTotal')
       ->where('op.order_id','=',$id)->get();
-   
+      $payments=$order->payments()->get(); 
 
       $date = date('Y-m-d');
       $vistaurl="admin.orders.pdfOrder";
-      $view= \View::make($vistaurl,compact('order','details','date'))->render();
+      $view= \View::make($vistaurl,compact('order','details','date','payments'))->render();
       $pdf=\App::make('dompdf.wrapper');
       $pdf->loadHTML($view);
 
@@ -276,7 +282,7 @@ class OrdersController extends Controller
     }
 
 
-    // //Registrar Pago
+    // ********************************Registrar Pago*************************************************
      public function registerPayment($id)
     {     
         $order=Order::find($id);
@@ -287,7 +293,13 @@ class OrdersController extends Controller
      
          $order=Order::find($id);
          $client=Client::find($order->client_id);
+                 
+                 $payment=new Payment;
+                 $payment->order_id=$order->id;
+                 $payment->amount_paid=$request->get('Rode');
+                 $payment->balance_paid=$client->bill-$payment->amount_paid;
                  $client->bill=$request->get('balance');
+                 $payment->save();
                  $client->save();
       
     

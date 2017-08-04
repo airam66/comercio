@@ -146,6 +146,10 @@ class ProductsController extends Controller
         ]);
 
         $products= Product::find($id);
+        $id= $products->event->pluck('id');
+        $eventProduct=EventProduct::where()
+
+        DB::table('event_product')->where('product_id','=',$id)->delete();
 
         $products->fill($request->all());
 
@@ -160,6 +164,15 @@ class ProductsController extends Controller
           }
 
         $products->save();
+         if(!empty($request->events)){
+
+        $products->event()->sync($request->events);
+        }
+        else{
+
+        }
+
+
        return redirect()->route('products.index');
     }
 
