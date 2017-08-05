@@ -377,6 +377,8 @@ $('#advance').on('keyup', function(){
   balance=parseFloat($('#advance').val());
   
   outStandingBalance=total-balance;
+
+  outStandingBalance=Math.round(outStandingBalance*100)/100;
   
   $('#balance').val(outStandingBalance);
   });

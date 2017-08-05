@@ -55,10 +55,14 @@
 
              </table> 
              <div class="pull-right">
-               <h3>Total: ${{$order->total}}</h3>
+             @if ($order->discount!=0)
+               <h3>Con descuento del {{$order->discount}}% -TOTAL: ${{$order->total}}</h3>
+              @else
+               <h3>TOTAL: ${{$order->total}}</h3>
+             @endif
              </div>
 
-             <div class="text-center" style="background-color: pink; width: 50%;">
+             <div class="text-center" style="background-color: orange; width: 50%;">
                         <h3 style="color:black;">PAGOS</h3>
              </div>
              
@@ -111,7 +115,7 @@
            </div>
             @if ($order->client->bill == 0)
             <div>
-            <img src="{{ asset('images/pagado.png ') }}" width="140px"  height="120px" class="payment">
+            <img src="{{ asset('images/pagado.png ') }}" width="160px"  height="140px" class="payment">
             </div>
             @else
 

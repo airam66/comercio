@@ -136,6 +136,11 @@ Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment
 
 Route::post('orderPayment/{id}/storePayment','OrdersController@storePayment')->name('OrderPayment.store');
 
+
+//***************************Rutas para usuarios******************************************
+
+Route::resource('users','UsersController');
+
 });
 
 

@@ -73,6 +73,11 @@ class OrdersController extends Controller
             $order->client_id=$request->get('client_id');
             $order->delivery_date=date("Y-m-d",strtotime($request->get('datetimepicker3')));
            
+           $order->discount=$request->get('discount');
+            if (empty($order->discount)){
+              $order->discount=0;
+            }
+
             if ($order->total>0){
                  $order->save();
                  $client=Client::find($order->client_id);

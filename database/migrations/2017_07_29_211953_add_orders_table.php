@@ -17,6 +17,7 @@ class AddOrdersTable extends Migration
             $table->increments('id');
             $table->dateTime('delivery_date');
             $table->decimal('total',9,2);
+            $table->integer('discount');
             $table->enum('status', ['pendiente','proceso','preparado','entregado','cancelado'])->default('pendiente');
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
