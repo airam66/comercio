@@ -149,7 +149,7 @@ Route::group(['middleware'=>'orderUser','purchaseUser'],function(){
 
 Route::group(['middleware'=>'orderUser'],function(){
    //***************************Rutas para usuarios******************************************
-     Route::resource('users','UsersController');
+  Route::resource('users','UsersController');
 
    //*********************Rutas para imagenes del carrusel de la pagina web*******************************
   Route::resource('carrusel','CarruselController');
@@ -168,6 +168,11 @@ Route::get('/noAutorizhed',function(){
 return view('admin.role');
 
 })->name('noAutorizhed');
+
+
+Route::post('/users/editPassword','UsersController@editPassword')->name('users.editPassword');
+Route::post('/users/changePassword','UsersController@changePassword')->name('users.changePassword');
+
 
 });
 
