@@ -11,6 +11,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">Editar pedido</h3>
          </div>
+         
       <div class="box-body">
           {!! Form::model($order,['route'=>['orders.update',$order->id], 'method'=>'PATCH'])!!}
           <section class="order">

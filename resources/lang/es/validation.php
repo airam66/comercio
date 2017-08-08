@@ -141,6 +141,9 @@ return [
     'brand'                  =>        'Marca',
     'amount'                 =>        'Cantidad',
     'numberInvoice'          =>        'N° Factura de Compra',
+    'password'               =>        'Contraseña',
+    'password_confirmation'  =>        'Confirmar contraseña',
+    'photo'                  =>        'Foto',
     ],
 
 ];
