@@ -17,7 +17,7 @@ public function __construct()
     public function index(Request $request)
     {
  	    $imagenes=Carrusel::all();          
-        return view('admin.PaginaWeb.Carrusel')->with('imagenes',$imagenes);
+        return view('admin.paginaWeb.Carrusel')->with('imagenes',$imagenes);
     }
 
      public function edit($id)

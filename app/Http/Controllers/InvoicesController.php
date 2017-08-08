@@ -13,7 +13,7 @@ class InvoicesController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('auth');
+       
         $this->products= new Product();
         $this->clients=new Client();
     }
@@ -24,18 +24,18 @@ class InvoicesController extends Controller
 
     public function create(){
     	$date=date('d').'/'.date('m').'/'.date('Y');
-        $products=Product::where('status','=','activo')->orderBy('name','ASC')->get();
-        $clients=Client::where('status','=','activo')->orderBy('name','ASC')->get();
+        
         $numberinvoice=Invoice::all()->pluck('id');
         if (count($numberinvoice)!=0){
           $numberinvoice=($numberinvoice->last()+1);
         }else{
           $numberinvoice=1;
         }
+        $title="BUSCAR CLIENTE";
     	return view('admin.invoices.create')->with('date',$date)
-                                          ->with('products',$products)
-                                          ->with('clients',$clients)
-                                          ->with('numberinvoice',$numberinvoice);
+                                          
+                                          ->with('numberinvoice',$numberinvoice)
+                                          ->with('title',$title);
     }
 
     public function store(Request $request){
@@ -70,7 +70,7 @@ class InvoicesController extends Controller
 
             }
 
-            return redirect()->route('invoices.show',$venta->id);
+            return redirect()->route('invoices.index',$venta->id);
 
     }
 
@@ -78,29 +78,11 @@ class InvoicesController extends Controller
     public function search(Request $request){
    
       if($request->ajax()){
-        $output="";
-        $comilla="'";
-      $products=Product::SearchProduct($request->search)->get();
-
-       if ($products) {
-        foreach ($products as $key => $product) {
-                  $output.='<tr>'.
-                        '<td>'.$product->code.'</td>'.
-                        '<td>'.$product->name.'</td>'.
-                        '<td>'.$product->stock.'</td>'.
-
-                        '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.','.$product->wholesale_cant.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
-                    .'</tr>';
-        }
-
-   
-        return Response($output);
-          
-       }        
-   
-    }
+       
+        $products=Product::SearchProduct($request->search)->where('status','=','activo')->get();       
+        $result=popUpProductsInvoice($products);
+        return Response($result);
+      }
     }
 
 
@@ -109,27 +91,10 @@ class InvoicesController extends Controller
       if($request->ajax()){
         $output="";
         $comilla="'";
-      $clients=Client::searchClient($request->searchClient)->get();
-       if ($clients) {
-        foreach ($clients as $key => $client) {
-                  $output.='<tr>'.
-                        '<td>'.$client->cuil.'</td>'.
-                        '<td>'.$client->name.'</td>'.
-                        '<td>'.$client->address.'</td>'.
-                        '<td>'.$client->phone.'</td>'.
-                        '<td>'.$client->email.'</td>'.
-                       
-                        '<td><a onclick="completeC('.$comilla.$client->id.$comilla.','.$client->cuil.','.$comilla.$client->name.$comilla.')" type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
-                    .'</tr>';
-        }
-
-   
-        return Response($output);
-          
-       }        
-   
+      $clients=Client::searchClient($request->searchClient)->where('status','=','activo')->get();
+      $type="Client";
+      $result=popUpPeople($clients,$type);
+      return Response($result);
     }
     }
 
@@ -137,28 +102,14 @@ class InvoicesController extends Controller
    
 
       if($request->ajax()){
-        $output="";
-        $comilla="'";
-      $products=Product::SearchProductL($request->searchL)->get();
-       if ($products) {
-        foreach ($products as $key => $product) {
-                  $output.='<tr>'.
-                        '<td>'.$product->code.'</td>'.
-                        '<td>'.$product->name.'</td>'.
-                        '<td>'.$product->stock.'</td>'.
+    
+          $products=Product::SearchProductL($request->searchL)->get();
 
-                        '<td><a onclick="complete('.$product->id.','.$comilla.$product->code.$comilla.','.$comilla.$product->name.$comilla.','.$product->wholesale_price.','.$product->retail_price.','.$product->stock.','.$product->wholesale_cant.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
-                    .'</tr>';
+         $result=popUpProductsInvoice($products);
+         return Response($result);
+              
+   
         }
-
-   
-        return Response($output);
-          
-       }        
-   
-    }
     }
 
 

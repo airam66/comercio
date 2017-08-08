@@ -10,20 +10,23 @@ class Client extends Model
 
     protected $fillable= ['name','cuil','address','location','phone','email','bill','status'];
 
-    public function productos()
-    {
-        return $this->hasMany('App\Invoice');
-    }
 
      public function invoices()
     {
         return $this->hasMany('App\Invoice');
     }
 
+
+     public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
     public static function clientByCuil($term){
 
         return static::select('id', 'name','cuil','address' ,'phone','email')
-            ->where(strval('cuil'),'LIKE',"%$term%")
+            ->where('cuil','LIKE',"%$term%")
+            ->where('status','=','activo')
             ->get();
 
     }   
@@ -33,5 +36,6 @@ class Client extends Model
     public function scopeSearchClient($query,$name){
 
         return $query->where('name','LIKE',"%" . $name . "%");
+                     
     }
 }

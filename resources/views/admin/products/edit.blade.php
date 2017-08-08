@@ -59,16 +59,19 @@
               {!! Form::text('description',$product->description, ['class'=>'form-control'])!!}
               </div>
 
-              <div class="controls col-md-4">
-             {!! Field::number('purchase_price',$product->purchase_price, ['class'=>'form-control','step'=>'any'])!!}
-             </div>
+              @if($product->brand->name=="CREATÚ")
 
-              <div class="col-md-3 col-md-offset-1">
-              {!! Field::number('wholesale_price',$product->wholesale_price, ['class'=>'form-control','step'=>'any'])!!}
-              </div>
-              <div class="col-md-3 col-md-offset-1">
-              {!! Field::number('retail_price',$product->retail_price, ['class'=>'form-control','step'=>'any'])!!}
-              </div>
+                  <div class="controls col-md-4">
+                 {!! Field::number('purchase_price',$product->purchase_price, ['class'=>'form-control','step'=>'any'])!!}
+                 </div>
+
+                  <div class="col-md-3 col-md-offset-1">
+                  {!! Field::number('wholesale_price',$product->wholesale_price, ['class'=>'form-control','step'=>'any'])!!}
+                  </div>
+                  <div class="col-md-3 col-md-offset-1">
+                  {!! Field::number('retail_price',$product->retail_price, ['class'=>'form-control','step'=>'any'])!!}
+                  </div>
+              @endif
 
              {!! Field::number('stock')!!}
 

@@ -1,0 +1,27 @@
+  <a class="btn"  id ="searchA" onclick="$('#searchA').val('A'),SearchLetter($('#searchA').val());">A</a> |
+  <a class="btn" id ="searchB"  onclick="$('#searchB').val('B'),SearchLetter($('#searchB').val());">B</a>|
+  <a class="btn" id ="searchC"  onclick="$('#searchC').val('C'),SearchLetter($('#searchC').val())">C</a>|
+  <a class="btn" id ="searchD"  onclick="$('#searchD').val('D'),SearchLetter($('#searchD').val())">D</a>|
+  <a class="btn" id ="searchE"  onclick="$('#searchE').val('E'),SearchLetter($('#searchE').val())">E</a>|
+  <a class="btn" id ="searchF"  onclick="$('#searchF').val('F'),SearchLetter($('#searchF').val())">F</a>|
+  <a class="btn" id ="searchG"  onclick="$('#searchG').val('G'),SearchLetter($('#searchG').val())">G</a>|
+  <a class="btn" id ="searchH"  onclick="$('#searchH').val('H'),SearchLetter($('#searchH').val())">H</a>|
+  <a class="btn" id ="searchI"  onclick="$('#searchI').val('I'),SearchLetter($('#searchI').val())">I</a>|
+  <a class="btn" id ="searchJ"  onclick="$('#searchJ').val('J'),SearchLetter($('#searchJ').val())">J</a>|
+  <a class="btn" id ="searchK"  onclick="$('#searchK').val('K'),SearchLetter($('#searchK').val())">K</a>|
+  <a class="btn" id ="searchL"  onclick="$('#searchL').val('L'),SearchLetter($('#searchL').val())">L</a>|
+  <a class="btn" id ="searchM"  onclick="$('#searchM').val('M'),SearchLetter($('#searchM').val())">M</a>|
+  <a class="btn" id ="searchN"  onclick="$('#searchN').val('N'),SearchLetter($('#searchN').val())">N</a>|
+  <a class="btn" id ="searchO"  onclick="$('#searchO').val('O'),SearchLetter($('#searchO').val())">O</a>|
+  <a class="btn" id ="searchP"  onclick="$('#searchP').val('P'),SearchLetter($('#searchP').val())">P</a>|
+  <a class="btn" id ="searchQ"  onclick="$('#searchQ').val('Q'),SearchLetter($('#searchQ').val())">Q</a>|
+  <a class="btn" id ="searchR"  onclick="$('#searchR').val('R'),SearchLetter($('#searchR').val())">R</a>|
+  <a class="btn" id ="searchS"  onclick="$('#searchS').val('S'),SearchLetter($('#searchS').val())">S</a>|
+  <a class="btn" id ="searchT"  onclick="$('#searchT').val('T'),SearchLetter($('#searchT').val())">T</a>|
+  <a class="btn" id ="searchU"  onclick="$('#searchU').val('U'),SearchLetter($('#searchU').val())">U</a>|
+  <a class="btn" id ="searchV"  onclick="$('#searchV').val('V'),SearchLetter($('#searchV').val())">V</a>|
+  <a class="btn" id ="searchW"  onclick="$('#searchW').val('W'),SearchLetter($('#searchW').val())">W</a>|
+  <a class="btn" id ="searchX"  onclick="$('#searchX').val('X'),SearchLetter($('#searchX').val())">X</a>|
+  <a class="btn" id ="searchY"  onclick="$('#searchY').val('Y'),SearchLetter($('#searchY').val())">Y</a>|
+  <a class="btn" id ="searchZ"  onclick="$('#searchZ').val('Z'),SearchLetter($('#searchZ').val())">Z</a>|
+  <a class="btn" id ="searchTD"  onclick="$('#searchTD').val(''),SearchLetter($('#searchTD').val())">TODOS</a>

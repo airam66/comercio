@@ -28,7 +28,7 @@
              <th style="width:10px">Codigo</th>
                 <th>Nombre</th>
                 <th>Stock</th>
-                <th>Acción</th>
+                <th></th>
                    
             </tr>
     </thead>

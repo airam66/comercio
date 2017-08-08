@@ -10,7 +10,7 @@
 </div>
       <div class="row">
       <div class='col-sm-2 pull-right'>
-        <input type ='button' class="btn btn-warning "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
+        <input type ='button' class="btn btn-success "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
         </div>
         <div class='col-sm-6 pull-left'>
             <div class="form-group">
@@ -40,7 +40,7 @@
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Total</th>
-                <th>Acción</th>
+                <th></th>
                    
             </tr>
         </thead>
@@ -60,10 +60,10 @@
                         <td>{{$invoice->id}}</td>
                         <td>{{$invoice->created_at}}</td>
                         <td>{{$invoice->client->name}}</td>
-                        <td>{{$invoice->total}}</td>
+                        <td>${{$invoice->total}}</td>
                         <td>
                          
-                        <button type="button" class="btn btn-primary "  data-title="Detail" onclick="myDetail({{$invoice->id}})">
+                        <button type="button" class="btn btn-info "  data-title="Detail" onclick="myDetail({{$invoice->id}})">
                          <i class="fa fa-list" aria-hidden="true"></i>
                           </button>
 

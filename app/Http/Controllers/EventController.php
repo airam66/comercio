@@ -7,12 +7,7 @@ use App\Http\Requests\EventRequest;
 class EventController extends Controller
 {
 
-   public function __construct()
-    {
-        $this->middleware('auth');//para que este logueado
-    }
-
-  public function index(Request $request)
+    public function index(Request $request)
     {
 
       $events=Event::SearchEventP($request->name)->orderBy('name','ASC')->paginate(10);
@@ -30,9 +25,9 @@ class EventController extends Controller
 
        $event= new Event($request->all());
        $event->save();
-       flash("El evento  ". $event->name . " ha sido creado con exito" , 'success')->important();
+       flash("El evento  ". $event->name . " ha sido creado con éxito" , 'success')->important();
      
-       return redirect()->route('events.index');//redirecciona la categoria
+       return redirect()->route('events.index');
     }
 
 
@@ -51,5 +46,21 @@ class EventController extends Controller
         $event->status='activo';
         $event->save();
         return redirect()->route('events.index');
+    }
+
+    public function edit($id){
+
+     $event=Event::find($id);
+     return view('admin.events.edit')->with('event',$event);
+    }
+
+    public function update(Request $request,$id){
+      $event=Event::find($id);
+      $event->fill($request->all());
+      $event->save();
+      
+      flash("El evento  ". $event->name . " ha sido modificado con éxito" , 'success')->important();
+
+      return redirect()->route('events.index');
     }
 }

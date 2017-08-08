@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema; //lo agregue
 use Laravel\Dusk\DuskServiceProvider;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -20,10 +21,15 @@ class AppServiceProvider extends ServiceProvider
  public function boot()
 {
     Schema::defaultStringLength(191);
+
+    
+
 }
+
    // public function boot()
     //{
         //
+
     //}
 
     /**

@@ -5,7 +5,8 @@ line-height: 1.7;
 color: #110f0f;
 font-weight: 400;
 overflow-x: hidden;
-background: url('../images/fondo16.jpg') repeat;
+
+background: url('../images/fondo16.jpg');
 }
 
 h4{
@@ -17,6 +18,7 @@ p{
 
 
 .navbar-inverse {
+    /*background-color: rgb(254, 209, 17) !important;*/
     background-color: rgb(203, 38, 19) !important;
     border-color:rgb(190, 21, 108) !important;
 }
@@ -178,7 +180,7 @@ margin-bottom: 10px;}
     Sidebar styles starts here
    ========================================================================== */
 
-.page-styling{background: #fff;padding: 0 30px;margin-top: 120px;border-radius: 45px; padding-bottom: 50px; box-shadow: 5px 5px 30px 10px #301b1f;}
+.page-styling{background: #fff;padding: 0 10px;margin-top: 120px;border-radius: 45px; padding-bottom: 50px; box-shadow: 5px 5px 30px 10px #301b1f;}
  .ruler{border-bottom: 3px solid #af0579;}
 .more-btn{padding: 0 15px; background: #ebebeb; display: inline-block; margin: 0 auto;}
 .more-btn .btn{color: #ebebeb; font-size: 16px; background: #ed3237;font-family: 'source_sans_probold';
@@ -222,8 +224,8 @@ font-size: 70px;
 
 .mi_letter h3{
     font-family: 'Kaushan Script', cursive;
-    color:blue;
-text-shadow: 4px 4px 5px rgba(196, 64, 234, 0.7);
+    color:#0fc1c8;
+text-shadow: 4px 4px 5px rgba(64, 204, 234, 0.7);
     font-size: 35px;
 
 }
@@ -460,12 +462,13 @@ display:inline-block;
 }
 
 .panel-success{
-  background-image:url('../images/f6.jpg'); 
+ /* background-image:url('../images/f6.jpg'); */
+ border-color: rgb(209, 207, 31);
 }
 
 .panel-success > .panel-heading {
     color: #151517;
-    background-color: rgb(7,161,211);
+    background-color: rgb(209, 207, 31);
     border-color: #ba84ec;
 }
 

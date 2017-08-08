@@ -75,7 +75,7 @@
                           <td>{{$detalle->name}}</td>
                           <td>{{$detalle->description}}</td>
                           <td>{{$detalle->amount}}</td>
-                          <td>{{$detalle->subTotal}}</td>
+                          <td>$ {{  $detalle->subTotal}}</td>
                         </tr>
                       @endforeach 
                       </tbody>
@@ -95,7 +95,7 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>{{$invoice->total}}</td>
+                          <td>$ {{$invoice->total}}</td>
                         </tr>
                         <tr>
                           <th>Descuento</th>
@@ -103,7 +103,7 @@
                         </tr>
                         <tr>
                           <th>Total:</th>
-                          <td>{{$invoice->total}}</td>
+                          <td>$ {{$invoice->total}}</td>
                         </tr>
                       </table>
                     </div>
