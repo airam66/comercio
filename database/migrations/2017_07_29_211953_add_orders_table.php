@@ -15,9 +15,9 @@ class AddOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('advance');
             $table->dateTime('delivery_date');
             $table->decimal('total',9,2);
+            $table->integer('discount');
             $table->enum('status', ['pendiente','proceso','preparado','entregado','cancelado'])->default('pendiente');
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
@@ -46,7 +46,9 @@ class AddOrdersTable extends Migration
      * @return void
      */
     public function down()
-    {
+    {   
+        
+        Schema::dropIfExists('payments');
         Schema::dropIfExists('orders');
     }
 }

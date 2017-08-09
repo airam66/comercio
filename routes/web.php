@@ -52,7 +52,6 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 
   Route::resource('porcentages','PorcentagesController');
   
-  Route::get('/productsSearch','ProductsController@SearchEventProducts')->name('productsSearch');
   Route::get('products/{id}/desable','ProductsController@desable')->name('products.desable');
   Route::get('products/{id}/enable','ProductsController@enable')->name('products.enable');
   Route::post('products/updateStock','ProductsController@updateStock')->name('products.updateStock');
@@ -72,16 +71,42 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 
    Route::get('/listDetailProduct','ProductsController@listDetailProduct');
 
-//************************************Rutas para ventas***********************************************
-  Route::resource('invoices','InvoicesController');
-  Route::get('/search','InvoicesController@search');
-  Route::get('/searchL','InvoicesController@searchL');
-  Route::get('/searchData','InvoicesController@searchDate');
-  Route::post('invoices/desable','InvoicesController@desable')->name('invoices.desable');
-  Route::get('/invoices/{id}/print','InvoicesController@print')->name('print');
-  Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
-  Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
+
+
+Route::group(['middleware' => 'purchaseUser'],function(){
   
+   //*************************Rutas para clientes******************************************************
+ 
+  Route::resource('clients','ClientsController');
+  Route::get('/searchClient','InvoicesController@searchClient');
+  Route::get('clients/{id}/desable','ClientsController@desable')->name('clients.desable');
+  Route::get('clients/{id}/enable','ClientsController@enable')->name('clients.enable');
+  
+
+
+});
+
+Route::group(['middleware'=>'saleUser','purchaseUser'],function(){
+ //************************************Rutas para Pedidos**********************************
+  Route::resource('orders','OrdersController');
+  Route::get('/searchDateOrder','OrdersController@searchDateOrder');
+  Route::get('orders/{id}/pdf','OrdersController@pdfOrder')->name('orders.pdf');
+  Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment')->name('orderPayment.register');
+  Route::post('orderPayment/{id}/storePayment','OrdersController@storePayment')->name('OrderPayment.store');
+
+});
+
+Route::group(['middleware'=>'orderUser','saleUser'],function(){
+  
+ //**************************Rutas para proveedores************************************************** 
+  Route::resource('providers','ProvidersController');
+  Route::get('/listProducts','ProvidersController@listProducts');
+  Route::get('/searchProvider','PurchasesController@searchProvider');
+  Route::get('/searchProducts','PurchasesController@searchProducts');
+  Route::resource('providersproducts','ProvidersProductsController');
+  Route::get('providers/{id}/desable','ProvidersController@desable')->name('providers.desable');
+  Route::get('providers/{id}/enable','ProvidersController@enable')->name('providers.enable');
+
   //########################### Rutas para compras###################
   Route::resource('purchases','PurchasesController');
   Route::get('/detailPurchase','PurchasesController@detailPurchase');
@@ -92,32 +117,12 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::get('/purchases/{id}/desable','PurchasesController@desable')->name('purchases.desable');
       
   Route::get('/purchases/{id}/detailPurchaseOrder','PurchasesController@detailPurchaseOrder')->name('purchases.detailPurchaseOrder');
- //*************************Rutas para clientes******************************************************
-  Route::resource('clients','ClientsController');
-  Route::get('/searchClient','InvoicesController@searchClient');
-  Route::get('clients/{id}/desable','ClientsController@desable')->name('clients.desable');
-  Route::get('clients/{id}/enable','ClientsController@enable')->name('clients.enable');
-  
- //**************************Rutas para proveedores************************************************** 
-  Route::resource('providers','ProvidersController');
-  Route::get('/listProducts','ProvidersController@listProducts');
-  Route::get('/searchProvider','PurchasesController@searchProvider');
-  Route::get('/searchProducts','PurchasesController@searchProducts');
-  Route::resource('providersproducts','ProvidersProductsController');
-  Route::get('providers/{id}/desable','ProvidersController@desable')->name('providers.desable');
-  Route::get('providers/{id}/enable','ProvidersController@enable')->name('providers.enable');
-      
-  //*********************Rutas para imagenes del carrusel de la pagina web*******************************
-  Route::resource('carrusel','CarruselController');
 
- //*******************administrar datos de pagina web****************************************************
-  Route::resource('cotillon','MainPagineController');
 
 //*************************************Rutas para pdf*****************************************************
   Route::get('pdfReport','PdfController@index')->name('pdfReport');
   Route::get('reportStock', 'PdfController@createReportStock')->name('reportStock');
 
- 
 
 //************************************Rutas para facturas de compras***********************************
 Route::resource('purchasesInvoice','PurchasesInvoiceController'); 
@@ -126,16 +131,43 @@ Route::get('/detailOrder','PurchasesInvoiceController@detailPurchase');
 Route::get('purchasesInvoice/{id}/loadOrder','PurchasesInvoiceController@loadOrder')->name('purchasesInvoice.loadOrder');
 Route::post('purchasesInvoice/{id}/storePI','PurchasesInvoiceController@storePI')->name('purchasesInvoice.storePI');
 Route::get('/searchDataIP','PurchasesInvoiceController@searchDate');
+ 
+});
 
-//************************************Rutas para Pedidos***********************************
+Route::group(['middleware'=>'orderUser','purchaseUser'],function(){
+  //************************************Rutas para ventas***********************************************
+  Route::resource('invoices','InvoicesController');
+  Route::get('/search','InvoicesController@search');
+  Route::get('/searchL','InvoicesController@searchL');
+  Route::get('/searchData','InvoicesController@searchDate');
+  Route::post('invoices/desable','InvoicesController@desable')->name('invoices.desable');
+  Route::get('/invoices/{id}/print','InvoicesController@print')->name('print');
+  Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+  Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
 
-Route::resource('orders','OrdersController');
-Route::get('/searchDateOrder','OrdersController@searchDateOrder');
- Route::get('orders/{id}/pdf','OrdersController@pdfOrder')->name('orders.pdf');
+});
 
-Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment')->name('orderPayment.register');
+Route::group(['middleware'=>'orderUser'],function(){
+   //***************************Rutas para usuarios******************************************
+     Route::resource('users','UsersController');
 
-Route::post('orderPayment/{id}/storePayment','OrdersController@storePayment')->name('OrderPayment.store');
+   //*********************Rutas para imagenes del carrusel de la pagina web*******************************
+  Route::resource('carrusel','CarruselController');
+
+ //*******************administrar datos de pagina web****************************************************
+  Route::resource('cotillon','MainPagineController');
+
+
+});
+
+
+
+//*******************Pagin no autorizada******************************
+
+Route::get('/noAutorizhed',function(){
+return view('admin.role');
+
+})->name('noAutorizhed');
 
 });
 
