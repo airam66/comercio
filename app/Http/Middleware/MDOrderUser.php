@@ -18,7 +18,7 @@ class MDOrderUser
         $user=\Auth::user();
 
         
-        if (($user->role_id != 2) && ($user->role_id != 3)){
+        if (($user->role_id == 2) && ($user->role_id == 3)){
           flash("No tiene autorización para acceder a esta sección." , 'danger')->important();
           return redirect()->route('noAutorizhed');
         }

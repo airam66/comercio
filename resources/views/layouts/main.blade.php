@@ -99,9 +99,9 @@
                                    </li>
                                 <!-- Menu footer-->
                                     <li class="user-footer">
-                                      <!--!<div class="pull-left">
-                                      <a href="#" class="btn btn-default btn-flat">Perfil</a>
-                                     </div>-->
+                                      <div class="pull-left">
+                                      <a href="{{route('users.editPassword')}}" class="btn btn-default btn-flat">Perfil</a>
+                                     </div>
                                     <div class="pull-right">
 
                                        <a href="{{ route('logout') }}" class="btn btn-default btn-flat" id="logout"
