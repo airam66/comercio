@@ -37,8 +37,11 @@ class PdfController extends Controller
              ->join('products as p','pp.product_id','=','p.id')
              ->join('providers as pr','pp.provider_id','=','pr.id')
              ->join('brands as b','p.brand_id','=','b.id')
-              ->select('provider_id','p.id as product_id','p.name as product_name','b.name as brand_name','pr.name as provider_name','p.stock')
-              ->where('stock','<',10)->orderBy('pr.name','ASC')->get();
+
+             ->select('provider_id','p.id as product_id','p.name as product_name','b.name as brand_name','pr.name as provider_name','p.stock')
+             ->where('stock','<',10)->orderBy('pr.name','ASC')->get();
+
+>>>>>>> Stashed changes
 
          
                 
@@ -46,7 +49,12 @@ class PdfController extends Controller
              ->join('products as p','pp.product_id','=','p.id')
              ->join('providers as pr','pp.provider_id','=','pr.id')
              ->select('provider_id','pr.name as provider_name')
+<<<<<<< Updated upstream
                ->groupBy('provider_id','provider_name')->where('p.stock', '<', 10)->get();
+=======
+             ->groupBy('provider_id','provider_name')->where('p.stock', '<', 10)->get();
+               
+>>>>>>> Stashed changes
                
             
     	return $this->createPDF($products,$provider,$vistaurl);

@@ -11,9 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
-    protected function index(){
+    protected function index(Request $request){
 
-    	//return view('admin.users.create');
+        $users=User::SearchUserName($request->name)->orderBy('name','ASC')->paginate(10);
+       
+        return view('admin.users.index')->with('users',$users);
+    
+
+    
     }
 
    protected function create(){
@@ -36,18 +41,17 @@ class UsersController extends Controller
                  $extension=$file->getClientOriginalName();
                  $path=public_path().'/images/users/';
                  $file->move($path,$extension);
-                $users->name_photo=$extension;
+                $user->name_photo=$extension;
                 }
 
     $user->save();
+     return redirect()->route('users.index');
 
       
 
    }
 
-   public function edit($id){
-
-   }
+   
 
 
    public function update(UserRequest $request,$id){

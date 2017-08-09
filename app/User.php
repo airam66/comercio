@@ -31,5 +31,10 @@ class User extends Authenticatable
 
      return $this->belongsTo('App\Role');
    }
+   public function scopeSearchUserName($query,$name)
+    {
+        return $query->where('name','LIKE',"%".$name."%");
+      }
+
 
 }

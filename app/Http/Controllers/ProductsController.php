@@ -291,7 +291,7 @@ class ProductsController extends Controller
         $product->stock=$product->stock - $request->amount ;
         $product->save();
         flash("El stock del producto ". $product->name . " ha sido actualizado con éxito" , 'success')->important();
-        return view('admin.products.updateStockCreate');
+        return redirect()->route('updateStockCreate');
 
 
       

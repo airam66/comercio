@@ -73,7 +73,19 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 
 
 
+
 Route::group(['middleware' => 'purchaseUser'],function(){
+
+//************************************Rutas para ventas***********************************************
+  Route::resource('invoices','InvoicesController');
+  Route::get('/search','InvoicesController@search');
+  Route::get('/searchL','InvoicesController@searchL');
+  Route::get('/searchDateInvoice','InvoicesController@searchDate');
+  Route::get('/invoices/{id}/desable','InvoicesController@desable')->name('invoices.desable');
+  Route::get('/invoices/{id}/print','InvoicesController@print')->name('print');
+  Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+  Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
+
   
    //*************************Rutas para clientes******************************************************
  
