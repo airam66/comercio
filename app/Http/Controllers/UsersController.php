@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\User;
+use App\Role;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -16,7 +18,9 @@ class UsersController extends Controller
 
    protected function create(){
 
-   	return view('admin.users.create');
+    $roles=Role::orderBy('name','ASC')->pluck('name','id')->ToArray();
+
+   	return view('admin.users.create')->with('roles',$roles);
    }
 
    protected function store(UserRequest $request){
@@ -40,5 +44,39 @@ class UsersController extends Controller
       
 
    }
+
+   public function edit($id){
+
+   }
+
+
+   public function update(UserRequest $request,$id){
+    
+
+
+   }
+
+   public function editPassword(){
+
+    return view('admin.users.changePassword');
+   }
+
+   public function show(){
+
+    return view('admin.users.changePassword');
+   }
+
+
+   public function changePassword(ChangePasswordRequest $request){
+
+    $user=\Auth::user();
+
+     $user->password=bcrypt($request->newpassword);
+     $user->save();
+
+   }
+
+
+
 
 }
