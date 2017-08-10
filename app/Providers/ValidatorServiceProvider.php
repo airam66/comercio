@@ -15,6 +15,7 @@ class ValidatorServiceProvider extends ServiceProvider{
 	}
 
 	public function register(){
-
+     
+     
 	}
 }

@@ -62,8 +62,8 @@ class UsersController extends Controller
    }
 
    public function show(){
-
-    return view('admin.users.changePassword');
+   return view('admin.users.changePassword');
+   
    }
 
 
@@ -73,6 +73,12 @@ class UsersController extends Controller
 
      $user->password=bcrypt($request->newpassword);
      $user->save();
+
+   }
+
+   public function profile(){
+ 
+    return view('admin.users.perfil');
 
    }
 

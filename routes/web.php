@@ -162,17 +162,17 @@ Route::group(['middleware'=>'orderUser'],function(){
 
 
 
-//*******************Pagin no autorizada******************************
+//*******************Pagina no autorizada******************************
 
 Route::get('/noAutorizhed',function(){
 return view('admin.role');
 
 })->name('noAutorizhed');
 
-
+//****************************Nuevas rutas**************************************************************
 Route::post('/users/editPassword','UsersController@editPassword')->name('users.editPassword');
 Route::post('/users/changePassword','UsersController@changePassword')->name('users.changePassword');
-
+Route::get('profile','UsersController@profile')->name('profile');
 
 });
 
