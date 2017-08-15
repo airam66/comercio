@@ -94,14 +94,14 @@
                                    <img src="dist/img/default-50x50.gif" class="img-circle" alt="User Image">
                                     <p>
                                       {{ Auth::user()->name }}
-                                       <small>Miembro desde {{Auth::user()->created_at}}</small>
+                                       <small>Usuario desde {{Auth::user()->created_at->format('d-m-Y')}}</small>
                                    </p>
                                    </li>
                                 <!-- Menu footer-->
                                     <li class="user-footer">
-                                      <!--!<div class="pull-left">
-                                      <a href="#" class="btn btn-default btn-flat">Perfil</a>
-                                     </div>-->
+                                      <div class="pull-left">
+                                      <a href="{{route('profile')}}" class="btn btn-default btn-flat">Perfil</a>
+                                     </div>
                                     <div class="pull-right">
 
                                        <a href="{{ route('logout') }}" class="btn btn-default btn-flat" id="logout"
@@ -214,11 +214,23 @@
             
             <li class="treeview">
               <a href="#">
+                 <i class="fa fa-user"></i>
+                 <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                <li class="active"><a href="{{route('users.create')}}"><i class="fa fa-circle-o"></i>Lista de usuarios</a></li>
+            </ul>
+            </li>
+
+            
+            <li class="treeview">
+              <a href="#">
                  <i class="fa fa-fw fa-database"></i>
                  <span>Reportes</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
                 <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
+                 <li class="active"><a href="{{route('admin.reportPurchase')}}"><i class="fa fa-circle-o"></i> Compras</a></li>
               </ul>
             </li>
             <li class="treeview">

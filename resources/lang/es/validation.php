@@ -87,6 +87,7 @@ return [
     'unique'               => 'El elemento :attribute ya está en uso.',
     'uploaded'             => 'El elemento :attribute fallo al subir.',
     'url'                  => 'El formato de :attribute no corresponde con el de una URL válida.',
+    'current_password'     => 'La contraseña no coincide',
 
     /*
     |--------------------------------------------------------------------------
@@ -141,6 +142,14 @@ return [
     'brand'                  =>        'Marca',
     'amount'                 =>        'Cantidad',
     'numberInvoice'          =>        'N° Factura de Compra',
+    'password'               =>        'Contraseña',
+    'password_confirmation'  =>        'Confirmar contraseña',
+    'photo'                  =>        'Foto',
+    'role_id'                =>        'Rol',
+    'newpassword'            =>        'Nueva contraseña',
+    'newpassword_confirmation'  =>        'Confirmar contraseña',
+    'from_number'            =>         'Mes de Inicio',
+    'to_number'              =>         'Mes de Fin',
     ],
 
 ];

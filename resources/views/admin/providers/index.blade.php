@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
      <div class="box-header ">
-        <h2 class="box-title col-md-5">Proveedores Encontrados</h2>    
+        <h2 class="box-title col-md-5">Listado de Proveedores</h2>    
         
         <!-- campo de busqueda-->
         <form route='admin.providers.index'  method="GET" class="col-md-3 col-md-offset-4 ">
@@ -23,7 +23,7 @@
       </div>
      
      <div class="box-body">              
-
+       @if($providers->isNotEmpty())
        <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
           <thead>
@@ -85,6 +85,17 @@
                @endforeach
             </tbody>
         </table>
+        <div class="text-center">
+          {!!$providers->render()!!}
+        </div>
+
+@else
+<div class="alert alert-dismissable alert-warning">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <p>No se encontró ningún proveedor.</p>
+</div>
+
+@endif
 
     </div>
 

@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
 <div class="box-header ">
-<h2 class="box-title col-md-5">Lineas Encontradas</h2>
+<h2 class="box-title col-md-5">Listado de Líneas</h2>
         
  
                    <!-- search name form -->
@@ -22,7 +22,7 @@
 
 </div>
 <div class="box-body">              
-
+ @if($lines->isNotEmpty()) 
  <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
         <thead>
@@ -62,9 +62,19 @@
            
       
     @endforeach
-</tbody>
+      </tbody>
     </table>
+  <div class="text-center">
+    {!!$lines->render()!!}
+  </div>
 
+  @else
+  <div class="alert alert-dismissable alert-warning">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <p>No se encontró ninguna línea.</p>
+  </div>
+
+  @endif
 
 
 

@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
   <div class="box-header ">
-    <h2 class="box-title col-md-5">Marcas encontradas</h2>
+    <h2 class="box-title col-md-5">Listado de Marcas</h2>
       
       <!-- form busqueda -->
         <form route='admin.brands.index'  method="GET" class="col-md-3 col-md-offset-4 ">
@@ -22,7 +22,8 @@
 
   </div>
   <!--Inicio body-->
-  <div class="box-body">              
+  <div class="box-body"> 
+  @if($brands->isNotEmpty())             
 
     <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
@@ -70,6 +71,13 @@
     <div class="text-center">
       {!!$brands->render()!!}
     </div>
+    @else
+ <div class="alert alert-dismissable alert-warning">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <p>No se encontró ninguna marca.</p>
+</div>
+
+@endif
   </div><!--Fin body-->
 </div>
 

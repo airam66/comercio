@@ -5,7 +5,7 @@
 <div class="box box-primary">
 
 <div class="box-header ">
-<h2 class="box-title col-md-5">Categorias Encontradas</h2>
+<h2 class="box-title col-md-5">Listado de Categorias</h2>
     
                    
         
@@ -23,7 +23,7 @@
 
 </div>
 <div class="box-body">              
-
+  @if($categories->isNotEmpty())
  <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
         <thead>
@@ -95,7 +95,13 @@
    {!!$categories->render()!!}
  </div>
 
+@else
+<div class="alert alert-dismissable alert-warning">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <p>No se encontró ninguna categoría.</p>
+</div>
 
+@endif
 
 </div>
 

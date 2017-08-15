@@ -6,7 +6,7 @@
 
 <div class="box-header ">
 <div class="row">
-    <h2 class="box-title col-md-5">Listado de Orden de Compras</h2>
+    <h2 class="box-title col-md-5">Listado de Órdenes de Compras</h2>
 </div>
       <div class="row">
       <div class='col-sm-2 pull-right'>

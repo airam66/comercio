@@ -24,3 +24,21 @@ input[type=number]{
 .boton{
 	margin:0;
 }
+
+.widget-user-2 .widget-user-header {
+    padding-top: 30px !important;
+    padding-bottom: 50px !important;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.widget-user-2 .widget-user-image>img {
+    width: 120px !important;
+    height: 120px !important;
+    float: left;
+}
+
+.widget-user-2 .widget-user-username, .widget-user-2 .widget-user-desc {
+    margin-left: 140px !important;
+}
+

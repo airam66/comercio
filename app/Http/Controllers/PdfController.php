@@ -38,7 +38,7 @@ class PdfController extends Controller
              ->join('providers as pr','pp.provider_id','=','pr.id')
              ->join('brands as b','p.brand_id','=','b.id')
               ->select('provider_id','p.id as product_id','p.name as product_name','b.name as brand_name','pr.name as provider_name','p.stock')
-              ->where('stock','<',100)->orderBy('pr.name','ASC')->get();
+              ->where('stock','<',10)->orderBy('pr.name','ASC')->get();
 
          
                 
@@ -46,11 +46,60 @@ class PdfController extends Controller
              ->join('products as p','pp.product_id','=','p.id')
              ->join('providers as pr','pp.provider_id','=','pr.id')
              ->select('provider_id','pr.name as provider_name')
-               ->groupBy('provider_id','provider_name')->where('p.stock', '<', 100)->get();
+               ->groupBy('provider_id','provider_name')->where('p.stock', '<', 10)->get();
                
             
     	return $this->createPDF($products,$provider,$vistaurl);
     }
 
+    public function createReportPurchases(){
+
+      
+
+       
+    $months=collect([['number'=>'1','month'=>'Enero'],['number'=>'2','month'=>'Febrero'],['number'=>'3','month'=>'Marzo'],['number'=>'4','month'=>'Abril'],['number'=>'5','month'=>'Mayo'],['number'=>'6','month'=>'Junio'],['number'=>'7','month'=>'Julio'],['number'=>'8','month'=>'Agosto'],['number'=>'9','month'=>'Septiembre'],['number'=>'10','month'=>'Octubre'],['number'=>'11','month'=>'Noviembre'],['number'=>'12','month'=>'Diciembre']])->pluck('month','number')->ToArray();
+
+        
+     return view('admin.pdf.purchases')->with('months',$months);
+
+    }
+
+    public function viewReportPurchase(Request $request){
+
+     $this->validate($request,[
+          'from_number'=>'required',
+          'to_number'=>'required',
+        ]);
+
+    $purchases= \App\Purchase::where('status','=','realizada')
+                           ->whereMonth('created_at','>=',$request->from_number)
+                            ->whereMonth('created_at','<=',$request->to_number)->orderBy('created_at','ASC')->get();
+   if($purchases->isEmpty()){
+
+    flash("No hay compras en los meses seleccionados" , 'warning')->important();
+    return redirect()->route('admin.reportPurchase');
+
+
+   }else{
+
+     $month=collect([]);
+     $m=0;
+     
+     foreach ($purchases as $key => $value) {
+       $a=0;
+       if ($m != date_format($value->created_at,'n')){
+          $m=date_format($value->created_at,'n');
+          $a=$a+1;
+          $month->push($m);
+     }
+   }
     
+      $vistaurl="admin.pdf.reportPurchases";
+     
+     
+      return $this->createPDF($purchases,$month,$vistaurl);
+
+    }
+
+  }
 }

@@ -43,7 +43,7 @@
    </div>
 
      <div class="box-body" id="orders">              
-
+      @if($orders->isNotEmpty()) 
         <table id="table table-striped" class="display table table-hover" cellspacing="0" width="100%">
           
 		        <thead>
@@ -105,6 +105,17 @@
 
               </tbody>
          </table>
+         <div class="text-center">
+         {!!$orders->render()!!}
+        </div>
+
+        @else
+        <div class="alert alert-dismissable alert-warning">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <p>No se encontró ningún pedido del cliente ingresado.</p>
+        </div>
+
+        @endif
 
      </div>
  </div>
