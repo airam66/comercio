@@ -14,21 +14,14 @@
           
           <div class="box-body">
             
-            {!! Form::open(['route'=>'users.store', 'method'=>'POST','files'=>true])!!}
+            {!! Form::model($user,['route'=>['users.update',$user->id], 'method'=>'PATCH', 'files'=>true])!!}
 
               {!! Field::text('name')!!}
         
-              {!! Field::email('email')!!}
-
-              {!! Field::password('password')!!}
-
-              {!! Field::password('password_confirmation')!!}
-             
               {!! Field::file('photo')!!}
 
               {!! Field::select('role_id', $roles ,['class'=>'select-roles','empty'=>'Seleccione un rol'])!!} 
-             
-             
+         
               <div class="form-group">
               {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
               </div>
@@ -53,3 +46,5 @@
 
 </script>
 @endsection
+
+   }

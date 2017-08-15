@@ -30,7 +30,7 @@ class UsersController extends Controller
 
    protected function store(UserRequest $request){
 
-   
+   dd($request);
     
     $user=new User($request->all());
     $user->fill($request->all());
@@ -45,11 +45,19 @@ class UsersController extends Controller
                 }
 
     $user->save();
-     return redirect()->route('users.index');
+     return redirect()->route('index');
 
       
 
    }
+
+   public function edit($id){
+    $user=User::find($id);
+     $roles=Role::orderBy('name','ASC')->pluck('name','id')->ToArray();
+        return view('admin.users.edit')->with('user',$user)
+                                       ->with('roles',$roles);  
+     }
+
 
    
 
@@ -70,7 +78,11 @@ class UsersController extends Controller
     return view('admin.users.changePassword');
    }
 
+  protected function register(){
 
+
+    return view('admin.users.register');
+  }
    public function changePassword(ChangePasswordRequest $request){
 
     $user=\Auth::user();

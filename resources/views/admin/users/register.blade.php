@@ -13,12 +13,12 @@
  <div class="row ">
      <div class="col-md-7 col-md-offset-3">
             
-            {!! Form::open(['route'=>'users.store', 'method'=>'POST','files'=>true])!!}
+            {!! Form::open(['route'=>'webUser.store', 'method'=>'POST','files'=>true])!!}
 
 
               {!! Field::text('name')!!}
 
-              <div >{!! Field::number('cuit')!!}</div>
+              <div >{!! Field::number('cuil')!!}</div>
 
                   <label> Localidad</label><br>
                    @include('location.location')
@@ -30,7 +30,7 @@
               {!! Field::password('password')!!}
 
               {!! Field::password('password_confirmation')!!}
-              {!! Form::hidden('rol_id',0)!!}
+              {!! Form::hidden('role_id',5)!!}
 
               
                
@@ -62,7 +62,7 @@
 
 @section('js')
 <script>
-  $('.select-location').chosen();
+  $('.chosen-select').chosen();
 
 </script>
 @endsection

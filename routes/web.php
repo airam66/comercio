@@ -134,6 +134,7 @@ Route::group(['middleware'=>'orderUser','saleUser'],function(){
 //*************************************Rutas para pdf*****************************************************
   Route::get('pdfReport','PdfController@index')->name('pdfReport');
   Route::get('reportStock', 'PdfController@createReportStock')->name('reportStock');
+  Route::get('pdfPurchaseReport/{startDate}/{endDate}/','PdfController@createReportPPurchase')->name('pdfPurchaseReport');
 
 
 //************************************Rutas para facturas de compras***********************************
@@ -162,6 +163,7 @@ Route::group(['middleware'=>'orderUser','purchaseUser'],function(){
 Route::group(['middleware'=>'orderUser'],function(){
    //***************************Rutas para usuarios******************************************
   Route::resource('users','UsersController');
+ 
 
    //*********************Rutas para imagenes del carrusel de la pagina web*******************************
   Route::resource('carrusel','CarruselController');
@@ -209,6 +211,7 @@ Route::get('/category/{id}/{name}','CatalogsController@searchCategoryProduct')->
 
 Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
 Route::get('contact', ['as' => 'contact', 'uses' => 'MailController@index'] );
+Route::resource('webUser','UserWebController');
 
 
 

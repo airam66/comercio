@@ -56,7 +56,15 @@
                    </div>
             @endif
             </td>
-            <td></td>
+            <td>
+              <a href="{{route('users.edit',$user->id)}}"  >
+                        <button type="submit" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                        </button>
+                     </a>
+
+            </td>
           
           
         </tr>

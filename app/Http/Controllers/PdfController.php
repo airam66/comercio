@@ -7,14 +7,17 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Provider;
 use App\Brand;
-
+use App\Purchase;
 use Illuminate\Support\Facades\DB;
 
 class PdfController extends Controller
 {
 
     public function index(){
-        return view('admin.pdf.reports');
+        $startDate= date('Y-m-d');
+        $endDate= date('Y-m-d');
+        return view('admin.pdf.reports')->with('startDate',$startDate)
+                                        ->with('endDate',$endDate);
     }
 
 
@@ -23,6 +26,7 @@ class PdfController extends Controller
     	$data =$datos;
     	$data2=$datos2;
     	$date = date('Y-m-d');
+       
     	$view= \View::make($vistaurl,compact('data','data2','date'))->render();
     	$pdf=\App::make('dompdf.wrapper');
     	$pdf->loadHTML($view);
@@ -41,7 +45,6 @@ class PdfController extends Controller
              ->select('provider_id','p.id as product_id','p.name as product_name','b.name as brand_name','pr.name as provider_name','p.stock')
              ->where('stock','<',10)->orderBy('pr.name','ASC')->get();
 
->>>>>>> Stashed changes
 
          
                 
@@ -49,16 +52,27 @@ class PdfController extends Controller
              ->join('products as p','pp.product_id','=','p.id')
              ->join('providers as pr','pp.provider_id','=','pr.id')
              ->select('provider_id','pr.name as provider_name')
-<<<<<<< Updated upstream
                ->groupBy('provider_id','provider_name')->where('p.stock', '<', 10)->get();
-=======
-             ->groupBy('provider_id','provider_name')->where('p.stock', '<', 10)->get();
-               
->>>>>>> Stashed changes
-               
             
     	return $this->createPDF($products,$provider,$vistaurl);
     }
+
+    public function createReportPPurchase($fStart ,$fEnd){
+        $vistaurl="admin.pdf.reportProviderPurchases";
+
+     $invoices= Purchase::whereDate('created_at','>=',$fStart)
+                          ->orWhereDate('created_at','<=',$fEnd)
+                          ->where('status','=','realizada')
+                          ->orderBy('created_at','ASC')->get();
+
+   
+         
+                
+    $provider=Provider::all();
+            
+        return $this->createPDF($invoices,$provider,$vistaurl);
+    }
+
 
     
 }

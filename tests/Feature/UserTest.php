@@ -9,10 +9,11 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
 use App\Role;
 
-class ExampleTest extends TestCase
+class UserTest extends TestCase
 {
   
- public function test_edit_a_user()
+
+    public function test_edit_a_user()
     {
         use DatabaseTransactions;
 
@@ -41,7 +42,6 @@ class ExampleTest extends TestCase
              ->see('Listado de usuarios');
              ->see('Yanina');
     }
-      
 
-   }
 
+}

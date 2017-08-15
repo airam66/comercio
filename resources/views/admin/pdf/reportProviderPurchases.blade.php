@@ -10,7 +10,7 @@
       <div id="logo">
         <img src="{{ asset('images/cotillon.png ') }}" >
       </div>
-      <h1>LISTADO DE PRODUCTOS CON BAJO STOCK</h1>
+      <h1>LISTADO DE PROVEEDORES</h1>
       
     </header>
       
@@ -24,23 +24,24 @@
              <table>
               <thead>
                <tr>
-                <th>Productos</th>
-                <th>Marca</th>
-                <th>Stock</th>
+                <th>Factura</th>
+                <th>Fecha</th>
+                <th>Total</th>
                 </tr>
                 </thead> 
                  <tbody>
                  
-                    @foreach($data as $product)
+                    @foreach($data as $invoice)
 
-                        @if($provider->provider_id == $product->provider_id)
-                  
+                      
+                         @if($provider->id == $invoice->provider_id)
                             <tr>
-                            <td class="text-center">{{$product->product_name}}</td>
-                            <td class="text-center">{{$product->brand_name}}</td>
-                            <td class="text-center">{{$product->stock}}</td>
+                            <td class="text-center">{{$invoice->id}}</td>
+                            <td class="text-center">{{$invoice->created_at->format('d/m/Y')}}</td>
+                            <td class="text-center">${{$invoice->total}}</td>
                             </tr>
-                        @endif
+                          @endif
+                      
 
                      @endforeach 
          
