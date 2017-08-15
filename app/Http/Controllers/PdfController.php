@@ -58,17 +58,24 @@ class PdfController extends Controller
     }
 
     public function createReportPPurchase($fStart ,$fEnd){
+        dd('hola');
         $vistaurl="admin.pdf.reportProviderPurchases";
 
      $invoices= Purchase::whereDate('created_at','>=',$fStart)
-                          ->orWhereDate('created_at','<=',$fEnd)
+                          ->whereDate('created_at','<=',$fEnd)
                           ->where('status','=','realizada')
                           ->orderBy('created_at','ASC')->get();
 
    
          
                 
-    $provider=Provider::all();
+    $provider=DB::table('providers as pr')
+             ->join('purchases as p','pr.id','=','p.provider_id')
+             ->select('provider_id','pr.name','pr.address')
+             ->groupBy('provider_id','pr.name','pr.address')
+             ->whereDate('p.created_at','>=',$fStart)
+             ->whereDate('p.created_at','<=',$fEnd)
+             ->where('p.status','=','realizada')->distinct()->get();
             
         return $this->createPDF($invoices,$provider,$vistaurl);
     }

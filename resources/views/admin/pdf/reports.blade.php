@@ -41,6 +41,7 @@
  @endsection
  @section('js')
  <script type="text/javascript">
+  var hoy= new Date();
 $('input[name="daterange"]').daterangepicker(
 {
     locale: {
@@ -77,8 +78,9 @@ $('input[name="daterange"]').daterangepicker(
             "firstDay": 1
        
     },
-    startDate: '30-06-2015',
-    endDate: '31-07-2015'
+     startDate: hoy.getMonth()+"/"+hoy.getDate()+"/"+hoy.getFullYear(),
+    endDate: hoy
+
 
 });
 
@@ -86,13 +88,15 @@ $('input[name="daterange"]').daterangepicker(
 </script>
 <script type="text/javascript">
 
-     $('#daterange').on('change',function(){
+    function acept(){
 
-    {{$startDate}}=$('#daterange') .data('daterangepicker').startDate.format('YYYY-MM-DD');
-    {{$endDate}}=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
-
-
-});
+    var f1=$('#daterange') .data('daterangepicker').startDate.format('YYYY-MM-DD');
+    var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
+    {{$startDate='f1'}}
+    {{$endDate='f2'}}
+   
+    
+   }
 
 
 </script>

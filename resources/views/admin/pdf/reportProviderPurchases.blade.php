@@ -17,7 +17,10 @@
 
       @foreach($data2 as $provider)
 
-         <h2>Proveedor: {{$provider->name}}</h2>
+             <div class="provider">
+           <p class="name"><b>Proveedor:</b>  {{$provider->name}}<b>--   CUIT/CUIL:</b> <b>--Direccion:</b> {{$provider->address}} </p>
+            </div>
+         
         
          
             <main>
@@ -34,7 +37,7 @@
                     @foreach($data as $invoice)
 
                       
-                         @if($provider->id == $invoice->provider_id)
+                         @if($provider->provider_id == $invoice->provider_id)
                             <tr>
                             <td class="text-center">{{$invoice->id}}</td>
                             <td class="text-center">{{$invoice->created_at->format('d/m/Y')}}</td>
