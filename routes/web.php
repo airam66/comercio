@@ -176,6 +176,9 @@ Route::get('profile','UsersController@profile')->name('profile');
 
 Route::get('/reportPurchase','PdfController@createReportPurchases')->name('admin.reportPurchase');
 Route::get('/viewReportPurchase','PdfController@viewReportPurchase')->name('admin.viewReportPurchase');
+Route::get('/reportSales','PdfController@createReportSales')->name('admin.reportSales');
+Route::get('/viewReportSales','PdfController@viewReportSales')->name('admin.viewReportSales');
+
 });
 
 

@@ -73,6 +73,10 @@ class UsersController extends Controller
 
      $user->password=bcrypt($request->newpassword);
      $user->save();
+    flash("Su contraseña se ha cambiado correctamente ", 'success')->important();
+     
+
+       return redirect()->route('users.editPassword');
 
    }
 

@@ -88,6 +88,7 @@ return [
     'uploaded'             => 'El elemento :attribute fallo al subir.',
     'url'                  => 'El formato de :attribute no corresponde con el de una URL válida.',
     'current_password'     => 'La contraseña no coincide',
+   
 
     /*
     |--------------------------------------------------------------------------

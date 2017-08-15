@@ -7,11 +7,11 @@
         <!-- Default box -->
       <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Reporte de Compras Mensuales</h3>
+            <h3 class="box-title">Reporte de Ventas Mensuales</h3>
          </div>
       <div class="box-body">
                     <!-- form busqueda -->
-                      <form action='viewReportPurchase'  method="GET">
+                      <form action='viewReportSales'  method="GET">
                             
                       
                       <div class="col-md-4 pull-left">
