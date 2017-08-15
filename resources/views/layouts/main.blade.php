@@ -230,6 +230,7 @@
                   </a>
                   <ul class="treeview-menu">
                 <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
+                 <li class="active"><a href="{{route('admin.reportPurchase')}}"><i class="fa fa-circle-o"></i> Compras</a></li>
               </ul>
             </li>
             <li class="treeview">

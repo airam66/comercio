@@ -148,6 +148,8 @@ return [
     'role_id'                =>        'Rol',
     'newpassword'            =>        'Nueva contraseña',
     'newpassword_confirmation'  =>        'Confirmar contraseña',
+    'from_number'            =>         'Mes de Inicio',
+    'to_number'              =>         'Mes de Fin',
     ],
 
 ];

@@ -19,6 +19,11 @@ class ProfileTest extends TestCase
       $this->actingAs($user);
 
       $this->visit(route('profile'))
-           ->seeInElement('h2',$user->name);                 
+           ->seeInElement('h2',$user->name)
+           ->seeInElement('h3',$user->role->name)
+           ->seeInElement('h3',$user->email)
+           ->click('Cambiar Contraseña')
+           ->seePageIs(route('users.editPassword'));
+
     }
 }

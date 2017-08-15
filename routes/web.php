@@ -174,6 +174,8 @@ Route::post('/users/editPassword','UsersController@editPassword')->name('users.e
 Route::post('/users/changePassword','UsersController@changePassword')->name('users.changePassword');
 Route::get('profile','UsersController@profile')->name('profile');
 
+Route::get('/reportPurchase','PdfController@createReportPurchases')->name('admin.reportPurchase');
+Route::get('/viewReportPurchase','PdfController@viewReportPurchase')->name('admin.viewReportPurchase');
 });
 
 
@@ -198,6 +200,12 @@ Route::get('/category/{id}/{name}','CatalogsController@searchCategoryProduct')->
 Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
 Route::get('contact', ['as' => 'contact', 'uses' => 'MailController@index'] );
 
+
+//*********Login pagina web*****************************
+
+Route::get('loginUser','Auth\AuthController@getLogin');
+Route::post('loginUser',['as'=>'loginUser','uses'=>'Auth\AuthController@postLogin']);
+Route::get('logout',['as'=>'logoutUser','uses'=>'Auth\AuthController@getLogout']);
 
 
 

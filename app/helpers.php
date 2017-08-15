@@ -83,3 +83,10 @@ function popUpPeople($people,$type){
           
        } 
 }
+
+function nameMonth($mes){
+  setlocale(LC_TIME,"spanish");
+  $name=strftime(' %B',mktime(0,0,0,$mes,1,2000));
+  return $name;
+
+}
