@@ -33,6 +33,7 @@
                
                 <th>Nombre</th>
                 <th>Correo</th>
+                <th>Rol</th>
                 <th>Foto</th> 
                 <th></th>
             </tr>
@@ -45,6 +46,7 @@
             <tr role="row" class="odd">
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
+            <td>{{$user->role->name}}</td>
             <td> 
             @if($user->name_photo!=null)
                    <div>
