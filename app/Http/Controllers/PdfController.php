@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Product;
 use App\Provider;
+use App\Purchase;
 use App\Brand;
 use App\Http\Requests\MonthRequest;
 
@@ -15,7 +16,10 @@ class PdfController extends Controller
 {
 
     public function index(){
-        return view('admin.pdf.reports');
+       $startDate= date('Y-m-d');
+        $endDate= date('Y-m-d');
+        return view('admin.pdf.reports')->with('startDate',$startDate)
+                                        ->with('endDate',$endDate);
     }
 
 
@@ -139,4 +143,34 @@ class PdfController extends Controller
 
   }
 
+<<<<<<< HEAD
+
+  
+  public function createReportPPurchase($fStart ,$fEnd){
+       
+        $vistaurl="admin.pdf.reportProviderPurchases";
+
+     $invoices= Purchase::whereDate('created_at','>=',$fStart)
+                          ->whereDate('created_at','<=',$fEnd)
+                          ->where('status','=','realizada')
+                          ->orderBy('created_at','ASC')->get();
+
+   
+         
+                
+    $provider=DB::table('providers as pr')
+             ->join('purchases as p','pr.id','=','p.provider_id')
+             ->select('provider_id','pr.name','pr.address')
+             ->groupBy('provider_id','pr.name','pr.address')
+             ->whereDate('p.created_at','>=',$fStart)
+             ->whereDate('p.created_at','<=',$fEnd)
+             ->where('p.status','=','realizada')->distinct()->get();
+            
+        return $this->createPDF($invoices,$provider,$vistaurl);
+    }
+
+
+
+=======
+>>>>>>> 8e8637b10511d2be6c3371fbc92fecbdaefab752
 }

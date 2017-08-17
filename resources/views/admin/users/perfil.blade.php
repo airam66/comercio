@@ -25,7 +25,9 @@
 			</div>
 			<div class="col-sm-4 border-right">
 				<div class="description-block">
-					<a href="#">Modificar datos</a>
+
+					<a href="{{route('users.edit',Auth::user()->id)}}"  >Modificar datos</a>
+
 				</div>
 			</div>
 		</div>

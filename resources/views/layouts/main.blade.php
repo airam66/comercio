@@ -218,7 +218,7 @@
                  <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                <li class="active"><a href="{{route('users.create')}}"><i class="fa fa-circle-o"></i>Lista de usuarios</a></li>
+                <li class="active"><a href="{{route('users.index')}}"><i class="fa fa-circle-o"></i>Lista de usuarios</a></li>
             </ul>
             </li>
 
@@ -227,10 +227,12 @@
               <a href="#">
                  <i class="fa fa-fw fa-database"></i>
                  <span>Reportes</span> <i class="fa fa-angle-left pull-right"></i>
-                  </a>
+                </a>
                   <ul class="treeview-menu">
+
                 <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
                  <li class="active"><a href="{{route('admin.reportPurchase')}}"><i class="fa fa-circle-o"></i> Compras</a></li>
+
               </ul>
             </li>
             <li class="treeview">

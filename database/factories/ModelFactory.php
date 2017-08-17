@@ -16,8 +16,10 @@ use App\Product;
 
 $factory->define(App\Role::class, function (Faker\Generator $faker) {
 
+
     return [
         'name' => $faker->name,
+
     ];
 });
 
@@ -27,8 +29,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => 'Administrador',
         'email' => $faker->unique()->safeEmail,
+        
+      
         'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+
+
+        'remember_token' => str_random(10), 
+
+
         'role_id'=>function(){
             return factory(\App\Role::class)->create()->id;
         }, 

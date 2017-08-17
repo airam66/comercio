@@ -336,8 +336,8 @@ font-size:20px;
      }
 
      .title img{
-	    width: 990px;
-        height: 155px;
+	    width: 800px;
+        height: 200px;
 }
 
 .user-image {
@@ -346,6 +346,7 @@ font-size:20px;
     margin-top: -8px;
     line-height: 10px;
 }
+
 
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #f3f0f0 !important;
@@ -378,7 +379,13 @@ font-size:20px;
   }
   .logo{
   	width:100px; height:50px;
+
+
   }
+   .title img{
+      width: 400px;
+        height: 150px;
+}
   
 }
 
