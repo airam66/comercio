@@ -143,6 +143,7 @@ class PdfController extends Controller
 
   }
 
+<<<<<<< HEAD
 
   
   public function createReportPPurchase($fStart ,$fEnd){
@@ -170,4 +171,6 @@ class PdfController extends Controller
 
 
 
+=======
+>>>>>>> 8e8637b10511d2be6c3371fbc92fecbdaefab752
 }

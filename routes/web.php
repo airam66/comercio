@@ -225,6 +225,12 @@ Route::get('loginUser','Auth\AuthController@getLogin');
 Route::post('loginUser',['as'=>'loginUser','uses'=>'Auth\AuthController@postLogin']);
 Route::get('logout',['as'=>'logoutUser','uses'=>'Auth\AuthController@getLogout']);
 
+//*********Login pagina web*****************************
+
+Route::get('loginUser','Auth\AuthController@getLogin');
+Route::post('loginUser',['as'=>'loginUser','uses'=>'Auth\AuthController@postLogin']);
+Route::get('logout',['as'=>'logoutUser','uses'=>'Auth\AuthController@getLogout']);
+
 
 
 

@@ -44,7 +44,7 @@ margin:auto;
     <ul class="nav navbar-nav navbar-right">
 @if (Auth::guest())
          <li><a href="{{route('login')}}"><b>INICIAR SESION</b></a></li>
-         
+
                  @else
 
                               <li class="dropdown">
