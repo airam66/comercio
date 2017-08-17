@@ -186,6 +186,8 @@ return [
        Laracasts\Flash\FlashServiceProvider::class,
        Styde\Html\HtmlServiceProvider::class,
        Barryvdh\DomPDF\ServiceProvider::class,
+       App\Providers\ValidatorServiceProvider::class,
+
 
        // ...
         

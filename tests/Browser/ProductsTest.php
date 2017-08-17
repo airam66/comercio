@@ -25,8 +25,13 @@ class ProductsTest extends DuskTestCase
 
     public function test_create_a_product()
     {
-        $user=factory(User::class)->create(['email'=>'fairam66@gmail.com',]);
-        $category= factory(\App\Category::class)->create(['name'=>'Tarjetas',]);
+        $user=factory(User::class)->create(['email'=>'gaby73@gmail.com',]);
+        $category= factory(\App\Category::class)->create(['name'=>'Tarjetas',]); 
+        $brand= factory(\App\Brand::class)->create(['name'=>'Sprit',]);
+        $line= factory(\App\Line::class)->create(['name'=>'Princesas',]);
+        $event= factory(\App\Event::class)->create(['name'=>'Cumpleaños',]);
+        $product=factory(Product::class)->create(['name'=>'Bolsittas Frozen','code'=>'001001',]);
+        $porcentage= factory(\App\Porcentage::class)->create();
 
         $this->browse(function (Browser $browser) use ($user,$category){
 
@@ -40,9 +45,15 @@ class ProductsTest extends DuskTestCase
                     ->type('code',$this->code)
                     
                     ->select('category_id',(string)$category->id)
+                    ->select('event_id',(string)$event->id)
+                    ->select('line_id',(string)$line->id)
+                    ->select('brand_id',(string)$brand->id)
                     ->type('description',$this->description)
                     ->type('price',$this->price)
+                    ->value('retail_price',($this->price*30/100)+$this->price)
+                    ->value('wholesale_price',($this->price*10/100)+$this->price)
                     ->type('stock',$this->stock)
+                    ->type('wholesale_cant',$this->ws)
                     ->select('status','active')
                     ->attach('image','D:\tar\001.png')
 

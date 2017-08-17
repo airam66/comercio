@@ -29,7 +29,16 @@
                     </h3>
                   </div><!-- /.col -->
               </div>
-
+           <div class="border">
+                <div class="row ">
+                       
+                      <div class="col-md-3 pull-left" >
+                           
+                           {!!Field::number('numberInvoice',null)!!}
+                       </div>
+                       
+                </div>
+              </div>
       
               <div class="border">
                 <h3>Proveedor</h3>

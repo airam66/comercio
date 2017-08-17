@@ -109,8 +109,3 @@
 
 
 @endsection
-
-@section('js')
-
-
-@endsection

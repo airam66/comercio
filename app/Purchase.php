@@ -25,6 +25,12 @@ class Purchase extends Model
 
     }
 
+    public function scopeSearchPurchaseByMonth($query,$month){
+
+        return $query->where([('created_at'),'=',$month]);
+
+    }
+
      public function getDetailAttribute(){
 
       return route('purchases.detailPurchaseOrder',$this->id);

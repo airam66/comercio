@@ -17,7 +17,7 @@
 
       @foreach($data2 as $provider)
 
-         <h2>Proveedor: {{$provider->provider_name}}</h2>
+         <h2>Proveedor: {{$provider->name}}</h2>
         
          
             <main>
