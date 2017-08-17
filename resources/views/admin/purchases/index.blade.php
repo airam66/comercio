@@ -73,7 +73,7 @@
 
                         
                              <a href="{{route('purchases.desable',$purchase->id)}}" onclick="return confirm('¿Seguro dara de baja el producto?')">
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger" name="delete">
                           <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                         </button>
                      </a>
