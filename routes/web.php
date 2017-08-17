@@ -176,17 +176,22 @@ Route::group(['middleware'=>'orderUser'],function(){
 
 
 
-//*******************Pagin no autorizada******************************
+//*******************Pagina no autorizada******************************
 
 Route::get('/noAutorizhed',function(){
 return view('admin.role');
 
 })->name('noAutorizhed');
 
-
+//****************************Nuevas rutas**************************************************************
 Route::post('/users/editPassword','UsersController@editPassword')->name('users.editPassword');
 Route::post('/users/changePassword','UsersController@changePassword')->name('users.changePassword');
+Route::get('profile','UsersController@profile')->name('profile');
 
+Route::get('/reportPurchase','PdfController@createReportPurchases')->name('admin.reportPurchase');
+Route::get('/viewReportPurchase','PdfController@viewReportPurchase')->name('admin.viewReportPurchase');
+Route::get('/reportSales','PdfController@createReportSales')->name('admin.reportSales');
+Route::get('/viewReportSales','PdfController@viewReportSales')->name('admin.viewReportSales');
 
 });
 
@@ -213,6 +218,12 @@ Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
 Route::get('contact', ['as' => 'contact', 'uses' => 'MailController@index'] );
 Route::resource('webUser','UserWebController');
 
+
+//*********Login pagina web*****************************
+
+Route::get('loginUser','Auth\AuthController@getLogin');
+Route::post('loginUser',['as'=>'loginUser','uses'=>'Auth\AuthController@postLogin']);
+Route::get('logout',['as'=>'logoutUser','uses'=>'Auth\AuthController@getLogout']);
 
 
 
