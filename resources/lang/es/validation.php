@@ -123,7 +123,7 @@ return [
     'category_id'            =>        'categoria',
     'cuil'                   =>        'CUIL/CUIT',
     'cuit'                   =>        'CUIT',
-    'address'                =>        'direccion',
+    'address'                =>        'dirección',
     'location'               =>        'localidad',
     'province'               =>        'provincia',
     'phone'                  =>        'telefono',

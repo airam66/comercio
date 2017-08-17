@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role_id',
+        'name','cuit', 'phone','location','address','email','photo_name', 'password','role_id',
     ];
 
     /**
@@ -31,5 +31,10 @@ class User extends Authenticatable
 
      return $this->belongsTo('App\Role');
    }
+   public function scopeSearchUserName($query,$name)
+    {
+        return $query->where('name','LIKE',"%".$name."%");
+      }
+
 
 }

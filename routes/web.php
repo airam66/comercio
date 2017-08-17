@@ -73,7 +73,19 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 
 
 
+
 Route::group(['middleware' => 'purchaseUser'],function(){
+
+//************************************Rutas para ventas***********************************************
+  Route::resource('invoices','InvoicesController');
+  Route::get('/search','InvoicesController@search');
+  Route::get('/searchL','InvoicesController@searchL');
+  Route::get('/searchDateInvoice','InvoicesController@searchDate');
+  Route::get('/invoices/{id}/desable','InvoicesController@desable')->name('invoices.desable');
+  Route::get('/invoices/{id}/print','InvoicesController@print')->name('print');
+  Route::get('/autocomplete', 'InvoicesController@autocomplete')->name('autocomplete');
+  Route::get('/autocompleteClient', 'InvoicesController@autocompleteClient')->name('autocompleteClient');
+
   
    //*************************Rutas para clientes******************************************************
  
@@ -122,6 +134,7 @@ Route::group(['middleware'=>'orderUser','saleUser'],function(){
 //*************************************Rutas para pdf*****************************************************
   Route::get('pdfReport','PdfController@index')->name('pdfReport');
   Route::get('reportStock', 'PdfController@createReportStock')->name('reportStock');
+  Route::get('pdfPurchaseReport/{startDate}/{endDate}/','PdfController@createReportPPurchase')->name('pdfPurchaseReport');
 
 
 //************************************Rutas para facturas de compras***********************************
@@ -150,6 +163,7 @@ Route::group(['middleware'=>'orderUser','purchaseUser'],function(){
 Route::group(['middleware'=>'orderUser'],function(){
    //***************************Rutas para usuarios******************************************
   Route::resource('users','UsersController');
+ 
 
    //*********************Rutas para imagenes del carrusel de la pagina web*******************************
   Route::resource('carrusel','CarruselController');
@@ -202,7 +216,14 @@ Route::get('/category/{id}/{name}','CatalogsController@searchCategoryProduct')->
 
 Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
 Route::get('contact', ['as' => 'contact', 'uses' => 'MailController@index'] );
+Route::resource('webUser','UserWebController');
 
+
+//*********Login pagina web*****************************
+
+Route::get('loginUser','Auth\AuthController@getLogin');
+Route::post('loginUser',['as'=>'loginUser','uses'=>'Auth\AuthController@postLogin']);
+Route::get('logout',['as'=>'logoutUser','uses'=>'Auth\AuthController@getLogout']);
 
 //*********Login pagina web*****************************
 
