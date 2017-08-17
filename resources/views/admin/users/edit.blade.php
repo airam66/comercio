@@ -9,7 +9,7 @@
         <!-- Default box -->
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Nuevo usuario</h3>
+            <h3 class="box-title">Modificar usuario</h3>
           </div>
           
           <div class="box-body">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Product;
 use App\Provider;
+use App\Purchase;
 use App\Brand;
 use App\Http\Requests\MonthRequest;
 
@@ -15,7 +16,10 @@ class PdfController extends Controller
 {
 
     public function index(){
-        return view('admin.pdf.reports');
+       $startDate= date('Y-m-d');
+        $endDate= date('Y-m-d');
+        return view('admin.pdf.reports')->with('startDate',$startDate)
+                                        ->with('endDate',$endDate);
     }
 
 

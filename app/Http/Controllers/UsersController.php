@@ -30,7 +30,7 @@ class UsersController extends Controller
 
    protected function store(UserRequest $request){
 
-   dd($request);
+ 
     
     $user=new User($request->all());
     $user->fill($request->all());
@@ -62,9 +62,22 @@ class UsersController extends Controller
    
 
 
-   public function update(UserRequest $request,$id){
+   public function update(Request $request,$id){
     
+    $user=User::find($id);
+    $user->fill($request->all());
+   
+     if($request->file('photo')){
+                 $file =$request->file('photo');
+                 $extension=$file->getClientOriginalName();
+                 $path=public_path().'/images/users/';
+                 $file->move($path,$extension);
+                $user->name_photo=$extension;
+                }
 
+    $user->save();
+    flash("El usuario ". $user->name . " ha sido modificada/o con exito" , 'success')->important();
+     return view('admin.users.perfil');
 
    }
 
