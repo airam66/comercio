@@ -25,7 +25,10 @@
               {!! Field::password('password_confirmation')!!}
              
               {!! Field::file('photo')!!}
-         
+
+              {!! Field::select('role_id', $roles ,['class'=>'select-roles','empty'=>'Seleccione un rol'])!!} 
+             
+             
               <div class="form-group">
               {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
               </div>
@@ -42,4 +45,11 @@
     </div>
   </div>
 
+@endsection
+
+@section('js')
+<script>
+  $('.select-roles').chosen();
+
+</script>
 @endsection

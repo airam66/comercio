@@ -16,7 +16,9 @@ class PurchasesController extends Controller
         $this->provider=new Provider();
     }
     public function index(Request $request){
-        $purchases=Purchase::all()->where('status','<>','realizada');
+        $purchases=Purchase::where('status','<>','realizada')
+                            ->orderBy('created_at','DESC')
+                            ->paginate(15);
       return view('admin.purchases.index')->with('purchases',$purchases);
     }
 
@@ -79,6 +81,9 @@ class PurchasesController extends Controller
                 $detalle->subTotal=$amount[$cont]*$price[$cont];
 
                 if ($purchase->total>0){
+                   $product=Product::find($detalle->product_id);
+                   $product->stock = $product->stock+$detalle->amount;
+                   $product->save();
                    $detalle->save(); 
                 }
                                

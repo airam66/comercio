@@ -16,6 +16,10 @@ class AddUpdateUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             
             $table->integer('role_id')->unsigned();
+            $table->integer('cuit');
+            $table->string('address');
+            $table->string('location');
+            $table->double('phone');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }

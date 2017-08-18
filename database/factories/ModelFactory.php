@@ -14,14 +14,32 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Product;
 
+$factory->define(App\Role::class, function (Faker\Generator $faker) {
+
+
+    return [
+        'name' => $faker->name,
+
+    ];
+});
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
+        'name' => 'Administrador',
         'email' => $faker->unique()->safeEmail,
+        
+      
         'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+
+
+        'remember_token' => str_random(10), 
+
+
+        'role_id'=>function(){
+            return factory(\App\Role::class)->create()->id;
+        }, 
     ];
 });
 
@@ -139,7 +157,7 @@ $factory->define(App\Provider::class, function (Faker\Generator $faker) {
         'address'=>$faker->address,
         'location'=>$faker->city,
         'province'=>$faker->country,
-        'phone'=>$faker->phoneNumber,
+        'phone'=>3874921675,
         'bill'=>$faker->randomNumber(2),
         'status' => 'activo',
         'email'=>$faker->safeEmail,
@@ -172,9 +190,8 @@ $factory->define(App\PurchaseProduct::class, function (Faker\Generator $faker) {
        'product_id'=>function(){
             return factory(\App\Product::class)->create()->id;
         }, 
-        'price' =>function(){
-            $price=Product::find(1);
-            return $price->purchase_price;
+        'price' =>function (array $purchaseProduct) {
+           return App\Product::find($purchaseProduct['product_id'])->purchase_price;
         },
         'amount'=>1,
         'subTotal'=>$faker->randomNumber(2),

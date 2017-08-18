@@ -30,6 +30,7 @@ class UserRequest extends FormRequest
             'password' => 'required|string|min:6|confirmed',
             'photo_name'=>'image',
            
+           
         ];
     }
 }

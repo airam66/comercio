@@ -37,7 +37,6 @@
         <thead>
             <tr>
                 <th width="15%" class="text-center">N° Factura Compra</th>
-                <th width="15%" class="text-center">N° Order Compra</th>
                 <th>Fecha</th>
                 <th>Proveedor</th>
                 <th>Total</th>
@@ -56,12 +55,22 @@
                 <tr>
                               
                         <td class="text-center">{{$purchase->pi_id}}</td>
-                        <td class="text-center">{{$purchase->id}}</td>
+                        
                         <td>{{$purchase->created_at->format('d/m/Y')}}</td>
                         <td>{{$purchase->provider->name}}</td>
                         <td>${{$purchase->total}}</td>
                        
-                        <td></td>
+                        <td><a href="{{route('purchasesInvoice.show',$purchase->id)}}" > <button  type="button" class="btn btn-info "  ><span class="fa fa-list" aria-hidden="true" ></span></button></a>
+                        <a href="{{route('purchasesInvoice.edit',$purchase->id)}}"  >
+                                <button type="submit" class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
+                            
+                                </button>
+                        </a>
+
+
+
+                        </td>
                   </tr>
 
                     @endif
