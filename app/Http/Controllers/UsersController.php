@@ -43,9 +43,12 @@ class UsersController extends Controller
                  $file->move($path,$extension);
                 $user->name_photo=$extension;
                 }
+     else{
+      $user->photo_name='profile.jpg';
+     }
 
     $user->save();
-     return redirect()->route('index');
+     return redirect()->route('users.index');
 
       
 
@@ -81,7 +84,7 @@ class UsersController extends Controller
 
    }
 
-   public function editPassword(){
+   public function modifyMyPassword(){
 
     return view('admin.users.changePassword');
    }
@@ -96,7 +99,9 @@ class UsersController extends Controller
 
     return view('admin.users.register');
   }
-   public function changePassword(ChangePasswordRequest $request){
+
+
+   public function changeMyPassword(ChangePasswordRequest $request){
 
     $user=\Auth::user();
 
@@ -105,7 +110,7 @@ class UsersController extends Controller
     flash("Su contraseña se ha cambiado correctamente ", 'success')->important();
      
 
-       return redirect()->route('users.editPassword');
+       return redirect()->route('users.modifyMyPassword');
 
    }
 

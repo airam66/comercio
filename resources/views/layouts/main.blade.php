@@ -83,7 +83,7 @@
                    
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+                                <img src="{{asset('images/users/'.Auth::user()->photo_name)}}" class="user-image" alt="User Image">
                                 <span class="hidden-xs">{{ Auth::user()->name }}</span>
                                 </a>
 
@@ -91,7 +91,7 @@
 
                                 <!-- User image -->
                                   <li class="user-header">
-                                   <img src="dist/img/default-50x50.gif" class="img-circle" alt="User Image">
+                                   <img src="{{asset('images/users/'.Auth::user()->photo_name)}}" class="img-circle" alt="User Image">
                                     <p>
                                       {{ Auth::user()->name }}
                                        <small>Usuario desde {{Auth::user()->created_at->format('d-m-Y')}}</small>
@@ -137,7 +137,7 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+              <img src="{{asset('images/users/'.Auth::user()->photo_name)}}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                <p>{{ Auth::user()->name }}</p>
@@ -232,6 +232,7 @@
 
                 <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
                  <li class="active"><a href="{{route('admin.reportPurchase')}}"><i class="fa fa-circle-o"></i> Compras</a></li>
+                 <li class="active"><a href="{{route('admin.reportSales')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
 
               </ul>
             </li>

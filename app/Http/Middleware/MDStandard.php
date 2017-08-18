@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class MDOrderUser
+class MDStandard
 {
     /**
      * Handle an incoming request.
@@ -15,14 +15,11 @@ class MDOrderUser
      */
     public function handle($request, Closure $next)
     {
-        $user=\Auth::user();
-
         
-        if (($user->role->name == 'Encargado de Compras') || ($user->role->name == 'Encargado de Ventas')){
-          flash("No tiene autorización para acceder a esta sección." , 'danger')->important();
-          return redirect()->route('noAutorizhed');
+        $user=\Auth::user();
+        if($user->standard()){
+            abort(401);
         }
-
         return $next($request);
     }
 }
