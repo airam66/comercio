@@ -88,6 +88,7 @@ return [
     'uploaded'             => 'El elemento :attribute fallo al subir.',
     'url'                  => 'El formato de :attribute no corresponde con el de una URL válida.',
     'current_password'     => 'La contraseña no coincide',
+   
 
     /*
     |--------------------------------------------------------------------------
@@ -122,7 +123,7 @@ return [
     'category_id'            =>        'categoria',
     'cuil'                   =>        'CUIL/CUIT',
     'cuit'                   =>        'CUIT',
-    'address'                =>        'direccion',
+    'address'                =>        'dirección',
     'location'               =>        'localidad',
     'province'               =>        'provincia',
     'phone'                  =>        'telefono',

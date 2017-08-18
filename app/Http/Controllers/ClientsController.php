@@ -33,6 +33,8 @@ class ClientsController extends Controller
         $clients= new Client($request->all());
     	
         $clients->save();
+
+        flash("El cliente ". $clients->name . " ha sido registrado con exito" , 'success')->important();
        
         return redirect()->route('clients.create');
 

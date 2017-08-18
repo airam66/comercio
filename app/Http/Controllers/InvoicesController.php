@@ -17,8 +17,10 @@ class InvoicesController extends Controller
         $this->products= new Product();
         $this->clients=new Client();
     }
+    
+
     public function index(Request $request){
-      $invoices=Invoice::all();
+      $invoices=Invoice::orderBy('created_at','DESC')->paginate(15);
       return view('admin.invoices.index')->with('invoices',$invoices);
     }
 
@@ -114,7 +116,7 @@ class InvoicesController extends Controller
 
 
 public function searchDate(Request $request){
-   
+     
       if($request->ajax()){
         $output="";
         $comilla="'";
@@ -129,10 +131,10 @@ public function searchDate(Request $request){
                   $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
                 };
                   $output=$output.
-                        '<td>'.$invoice->id.'</td>'.
-                        '<td>'.$invoice->created_at.'</td>'.
+                        '<td class="text-center">'.$invoice->id.'</td>'.
+                        '<td>'.$invoice->created_at->format('d/m/Y').'</td>'.
                         '<td>'.$invoice->client->name.'</td>'.
-                        '<td>'.$invoice->total.'</td>'.
+                        '<td>$'.$invoice->total.'</td>'.
                         '<td>
                          
                         <button type="button" class="btn btn-primary "  data-title="Detail" onclick="myDetail('.$invoice->id.')">
@@ -140,7 +142,7 @@ public function searchDate(Request $request){
                           </button>';
 
                           if ($invoice->status!='inactivo'){
-                            $output .= '<a  onclick="return confirm('.$comilla.'¿Seguro dara de baja esta factura?'.$comilla.'),myDelete('.$invoice->id.')">
+                            $output .= '<a  onclick="return confirm('.$comilla.'¿Seguro dara de baja esta factura?'.$comilla.')" href='.$invoice->desable.'>
                         <button type="submit" class="btn btn-danger">
                           <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                         </button>';
@@ -162,13 +164,43 @@ public function searchDate(Request $request){
     }
   }
 
-       public function desable(Request $request)
-    {
-        $invoice= Invoice::find($request->id);
+  //***************************GENERAR PDF PARA IMPRIMIR FACTURA****************************************
+  public function pdfInvoice($id){
+      
+      $invoice= Invoice::find($id);
+      $details= DB::table('invoices_products as ip')
+      ->join('products as p','ip.product_id','=','p.id')
+      ->select('p.id','p.name as product_name','ip.price','ip.amount','ip.subTotal')
+      ->where('ip.invoice_id','=',$id)->get();
+
+      $date = date('Y-m-d');
+      $vistaurl="admin.invoices.pdfInvoices";
+      $view= \View::make($vistaurl,compact('invoice','details','date'))->render();
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+
+      return $pdf->stream();
+    }
+
+    //********************************Desabilitar una factura**************************************//
+
+       public function desable($id)
+    {   
+        
+        $invoice= Invoice::find($id);
+        
+         $invoiceProducts=InvoiceProduct::where('invoices_id','=',$id)->get();
+                 foreach ($purchaseProducts as $purchaseProduct) {
+                    $product=Product::find($invoiceProduct->product_id);
+                    $product->stock = $product->stock-$invoiceProduct->amount;
+                    $product->save();
+                    $purchaseProduct->delete();
+                }
+
         $invoice->status='inactivo';
         $invoice->save();
 
-        return redirect()->route('admin.invoices.index');
+        return redirect()->route('invoices.index');
     }
 
     public function autocomplete(Request $request){

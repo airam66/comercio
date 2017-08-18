@@ -24,7 +24,7 @@
                         <br>
                         <div class="pull-left">
                             <div class="form-group">
-                             {!! Form::submit('buscar',['class'=>'btn btn-primary'])!!}
+                             {!! Form::submit('Buscar',['class'=>'btn btn-primary'])!!}
                             </div>
                          </div> 
                    

@@ -20,7 +20,9 @@ class PurchasesInvoiceController extends Controller
     public function index()
     {
 
-         $purchases=Purchase::all()->where('status','=','realizada');
+         $purchases=Purchase::where('status','=','realizada')
+                              ->orderBy('created_at','DESC')
+                              ->paginate(15);
       return view('admin.purchasesInvoice.index')->with('purchases',$purchases);
 
     }
@@ -145,6 +147,7 @@ class PurchasesInvoiceController extends Controller
     {
         $purchase=Purchase::find($id);
         $purchase->status='realizada';
+        $purchase->pi_id=$request->get('numberInvoice');
         
         DB::table('purchases_products')->where('purchase_id','=',$id)->delete();
         
@@ -197,11 +200,20 @@ class PurchasesInvoiceController extends Controller
                 $cont = $cont+1;
 
             }
+            return redirect()->route('purchasesInvoice.index');
     }
 
     public function show($id)
     {
-        //
+        $purchaseInvoice= Purchase::find($id);
+      $details= DB::table('purchases_products as dp')
+      ->join('products as p','dp.product_id','=','p.id')
+      ->join('brands as b','b.id','=','p.brand_id')
+      ->select('p.id','p.name as product_name','b.name as brand_name','dp.price','dp.amount','dp.subTotal')
+      ->where('dp.purchase_id','=',$id)->get();
+
+      return view('admin.purchasesInvoice.detailInvoicePurchase')->with('purchasesInvoice',$purchaseInvoice)
+                                                   ->with('details',$details);
     }
 
     /**
@@ -212,7 +224,15 @@ class PurchasesInvoiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $purchaseInvoice=Purchase::find($id);
+        $details= DB::table('purchases_products as pp')
+                          ->join('products as p','pp.product_id','=','p.id')
+                          ->join('brands as b','p.brand_id','=','b.id')
+                          ->select('p.id as product_id','p.name as product_name','pp.price','b.name as brand_name','pp.amount','pp.subTotal')
+                          ->where('pp.purchase_id','=',$purchaseInvoice->id)->get();
+
+        return view('admin.purchasesInvoice.edit')->with('purchaseInvoice',$purchaseInvoice)
+                                            ->with('details',$details); 
     }
 
     /**
@@ -224,7 +244,58 @@ class PurchasesInvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $purchaseInvoice=Purchase::find($id);
+      $purchaseInvoice->total=$request->get('TotalCompra'); 
+
+      if ($purchaseInvoice->total>0){
+                 $purchaseInvoice->save();
+            }
+      else{
+                  flash("Debe ingresar al menos un producto" , 'success')->important();
+            }
+
+        $purchaseProducts=PurchaseProduct::where('purchase_id','=',$id)->get();
+                 foreach ($purchaseProducts as $purchaseProduct) {
+                   $product=Product::find($purchaseProduct->product_id);
+                  $product->stock = $product->stock-$purchaseProduct->amount;
+                  $product->save();
+                  $purchaseProduct->delete();
+
+                }
+
+
+            $idarticulo = $request->get('dproduct_id');
+            $amount = $request->get('damount');
+            $price = $request->get('dprice');
+
+             $cont =0;
+
+            while ( $cont <  count($idarticulo) ) {
+                //dd($cont);
+                $detalle = new PurchaseProduct();
+                $detalle->purchase_id=$purchaseInvoice->id; //le asignamos el id de la venta a la que pertenece el detalle
+                $detalle->product_id=$idarticulo[$cont];
+                $detalle->amount=$amount[$cont];
+                $detalle->price=$price[$cont];
+                $detalle->subTotal=$amount[$cont]*$price[$cont];
+
+                if ($purchaseInvoice->total>0){
+               
+                 $product=Product::find($detalle->product_id);
+                $product->stock = $product->stock+$detalle->amount;
+                $product->save();
+                   $detalle->save(); 
+                }
+                               
+                $cont = $cont+1;
+
+            }
+
+    
+        flash("La Factura de Compra N° ". $purchaseInvoice->id . " ha sido modificada con exito" , 'success')->important();
+     
+
+       return redirect()->route('purchasesInvoice.index');
     }
 
     /**

@@ -36,7 +36,7 @@
        
         <thead>
             <tr>
-                <th>N° Venta</th>
+                <th class="text-center">N° Venta</th>
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Total</th>
@@ -57,21 +57,24 @@
                 
                 @endif
                  
-                        <td>{{$invoice->id}}</td>
-                        <td>{{$invoice->created_at}}</td>
+                        <td class="text-center">{{$invoice->id}}</td>
+                        <td>{{$invoice->created_at->format('d/m/Y')}}</td>
                         <td>{{$invoice->client->name}}</td>
                         <td>${{$invoice->total}}</td>
                         <td>
                          
-                        <button type="button" class="btn btn-info "  data-title="Detail" onclick="myDetail({{$invoice->id}})">
-                         <i class="fa fa-list" aria-hidden="true"></i>
-                          </button>
+
+                        <a href="{{route('invoices.show',$invoice->id)}}" > <button  type="button" class="btn btn-info "  >
+                        <span class="fa fa-list" aria-hidden="true" ></span></button></a>
 
                           @if ($invoice->status!='inactivo')
-                             <a  onclick="return confirm('¿Seguro dara de baja esta factura?'),myDelete({{$invoice->id}})">
+                             <a href="{{route('invoices.desable',$invoice->id)}}" onclick="return confirm('¿Seguro dara de baja el producto?')">
                         <button type="submit" class="btn btn-danger">
                           <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                         </button>
+                     </a>
+                     <a href="{{route('invoices.pdf',$invoice->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><i class="fa fa-print"></i> 
+                      Generar PDF</button></a>
                        @endif     
         </tr>
         @endforeach
@@ -139,7 +142,7 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
   $.ajax({
     type: 'get',
-    url:  "{{ URL::to('admin/searchData')}}",
+    url:  "{{ URL::to('admin/searchDateInvoice')}}",
     data:{'fecha1':f1,
           'fecha2':f2},
     success: function(data){
@@ -169,7 +172,7 @@ function myDelete(id){
   $.ajax({
 
 type: "POST",
-url: "{{ URL::to('admin/invoices/desable')}}",
+url: "{{ URL::to('invoices/desable')}}",
 data: { id: id }
 });
 

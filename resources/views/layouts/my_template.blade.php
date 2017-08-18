@@ -44,6 +44,7 @@ margin:auto;
     <ul class="nav navbar-nav navbar-right">
 @if (Auth::guest())
          <li><a href="{{route('login')}}"><b>INICIAR SESION</b></a></li>
+
                  @else
 
                               <li class="dropdown">
@@ -85,7 +86,7 @@ margin:auto;
   
 
     <div class="title">
-         <img src="{{ asset('images/titulo1.png')}}" width="1350"; height="300"> 
+         <img src="{{ asset('images/titulo2.png')}}" width="1350"; height="250"> 
     </div>
 
     <div class="container-change page-styling">

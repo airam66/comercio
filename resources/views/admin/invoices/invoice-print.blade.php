@@ -20,8 +20,9 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <h3 class="page-header" style="color:gray;">
+                    <p align="left">
                         <img src="{{ asset('images/cotillon.png ') }}" 
-                        width="230" height="80"  >
+                        width="230" height="80"  ><p>
                         
                      
                       <div class="pull-right">

@@ -11,9 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
-    protected function index(){
+    protected function index(Request $request){
 
-    	//return view('admin.users.create');
+        $users=User::SearchUserName($request->name)->orderBy('name','ASC')->paginate(10);
+       
+        return view('admin.users.index')->with('users',$users);
+    
+
+    
     }
 
    protected function create(){
@@ -25,7 +30,7 @@ class UsersController extends Controller
 
    protected function store(UserRequest $request){
 
-   
+ 
     
     $user=new User($request->all());
     $user->fill($request->all());
@@ -36,23 +41,43 @@ class UsersController extends Controller
                  $extension=$file->getClientOriginalName();
                  $path=public_path().'/images/users/';
                  $file->move($path,$extension);
-                $users->name_photo=$extension;
+                $user->name_photo=$extension;
                 }
 
     $user->save();
+     return redirect()->route('index');
 
       
 
    }
 
    public function edit($id){
+    $user=User::find($id);
+     $roles=Role::orderBy('name','ASC')->pluck('name','id')->ToArray();
+        return view('admin.users.edit')->with('user',$user)
+                                       ->with('roles',$roles);  
+     }
 
-   }
+
+   
 
 
-   public function update(UserRequest $request,$id){
+   public function update(Request $request,$id){
     
+    $user=User::find($id);
+    $user->fill($request->all());
+   
+     if($request->file('photo')){
+                 $file =$request->file('photo');
+                 $extension=$file->getClientOriginalName();
+                 $path=public_path().'/images/users/';
+                 $file->move($path,$extension);
+                $user->name_photo=$extension;
+                }
 
+    $user->save();
+    flash("El usuario ". $user->name . " ha sido modificada/o con exito" , 'success')->important();
+     return view('admin.users.perfil');
 
    }
 
@@ -66,13 +91,21 @@ class UsersController extends Controller
    
    }
 
+  protected function register(){
 
+
+    return view('admin.users.register');
+  }
    public function changePassword(ChangePasswordRequest $request){
 
     $user=\Auth::user();
 
      $user->password=bcrypt($request->newpassword);
      $user->save();
+    flash("Su contraseña se ha cambiado correctamente ", 'success')->important();
+     
+
+       return redirect()->route('users.editPassword');
 
    }
 
