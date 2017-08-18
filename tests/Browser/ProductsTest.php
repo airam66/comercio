@@ -120,12 +120,7 @@ class ProductsTest extends DuskTestCase
                     ->press('#iconSearch')
                     ->whenAvailable('.modal',function($modal){
                            $modal->pause(1000)
-                                ->assertSee('BUSCAR PRODUCTOS');
-                                
-                                /*->with('#tabla',function($table){
-                                       $table->assertSee('Hola');
-                                });*/
-                                                                
+                                ->assertSee('BUSCAR PRODUCTOS');                                  
                                  
                     })
                     ->clickLink('TODOS')

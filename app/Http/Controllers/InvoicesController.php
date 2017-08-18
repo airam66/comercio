@@ -164,6 +164,7 @@ public function searchDate(Request $request){
     }
   }
 
+
   //***************************GENERAR PDF PARA IMPRIMIR FACTURA****************************************
   public function pdfInvoice($id){
       

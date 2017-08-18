@@ -19,7 +19,7 @@ class MDSaleUser
          $user=\Auth::user();
 
         
-        if (($user->role_id == 2) && ($user->role_id == 4)){
+        if (($user->role->name=='Encargado de Pedidos') || ($user->role->name == 'Encargado de Compras')){
           flash("No tiene autorización para acceder a esta sección." , 'danger')->important();
           return redirect()->route('noAutorizhed');
         }

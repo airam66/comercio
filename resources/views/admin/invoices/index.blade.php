@@ -73,6 +73,7 @@
                           <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                         </button>
                      </a>
+
                      <a href="{{route('invoices.pdf',$invoice->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><i class="fa fa-print"></i> 
                       Generar PDF</button></a>
                        @endif     
