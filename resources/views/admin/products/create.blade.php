@@ -62,7 +62,6 @@
               {!! Form::label('status','Estado')!!}
               {!! Form::select('status', ['activo'=>'activo','inactivo'=>'inactivo'],null,['class'=>'form-control'])!!} 
               </div>
-              {!! Form::hidden('route',$route)!!}
               <div class="form-group">
               {!! Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
               </div>
