@@ -150,6 +150,8 @@ Route::group(['middleware' => 'orderUser'],function(){
   Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment')->name('orderPayment.register');
   Route::post('orderPayment/{id}/storePayment','OrdersController@storePayment')->name('OrderPayment.store');
 
+  Route::put('orders/changeStatus/{order}','OrdersController@changeStatus')->name('orders.changeStatus');
+ 
 });
 
 Route::group(['middleware' => 'orderUser','saleUser'],function(){
