@@ -176,6 +176,9 @@ Route::post('users/changeMyPassword','UsersController@changeMyPassword')->name('
 Route::get('profile','UsersController@profile')->name('profile');
 Route::get('users/{user}','UsersController@show')->name('users.show');
  });
+
+//Nueva ruta
+Route::get('/calendar','CalendarsController@calendar');
 });
 Auth::routes();
 //##########################################################################################################
