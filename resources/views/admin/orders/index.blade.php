@@ -52,13 +52,11 @@
 		                <th>Fecha Pedido</th>
 		                 <th>Fecha Entrega</th>
 		                <th>Cliente</th>
+                    <th>Saldo a pagar</th>
 		                <th>Estado</th>
-		                <th>Saldo a pagar</th>
 		                <th></th>
                     <th></th>
-
-		                 
-		            </tr>
+               </tr>
 		        </thead>
 		     
        
@@ -66,20 +64,44 @@
                    @foreach ($orders as $key => $order) 
                          
 			                <tr>
-			                              
+			                      
+                              {!! Form::open(['route'=>['orders.changeStatus',$order->id],'method'=> 'PUT']) !!}         
 			                        <td>{{$order->id}}</td>
 			                        <td>{{$order->created_at->format('d/m/Y')}}</td>
 			                        <td>{{date('d/m/Y', strtotime($order->delivery_date))}}</td>
 			                        <td>{{$order->client->name}}</td>
-			                        <td>{{$order->status}}</td>
-			                        <td>${{$order->client->bill}}</td>
+                              <td>${{$order->client->bill}}</td>
+			                        <td>
+                              @if($order->status=="pendiente")
+                                {!! Form::select('status',['pendiente'=>'Pendiente','proceso'=>'En proceso','preparado'=>'Preparado','entregado'=>'Entregado'],$order->status,['class'=>'label label-danger'])!!} 
+                              @endif
+
+                               @if($order->status=="proceso")
+                                {!! Form::select('status',['proceso'=>'En proceso','preparado'=>'Preparado','entregado'=>'Entregado'],$order->status,['class'=>'label label-warning'])!!} 
+                              @endif
+                              
+                               @if($order->status=="preparado")
+                                {!! Form::select('status',['preparado'=>'Preparado','entregado'=>'Entregado'],$order->status,['class'=>'label label-primary'])!!} 
+                              @endif
+                              
+                               @if($order->status!='entregado')
+                              <button type="submit" name="changeStatus">
+                                      <span class="fa fa-star-o" aria-hidden="true"></span></button>
+                               @else
+
+                                 <span class="label label-success">Entregado</span>
+                              @endif
+                              </td>
+			                     
+                              {!!Form::close()!!}
+                             
 			                        <td> 
                                 
                                 <a href="{{route('orders.show',$order->id)}}" > <button  type="button" class="btn btn-info "  ><span class="fa fa-list" aria-hidden="true" ></span></button></a>
                                 <a href="{{route('orderPayment.register',$order->id)}}" > <button  type="button" class="btn btn-primary "  ><span class="fa fa-usd" aria-hidden="true" ></span></button></a>
                       
                                  <a href="{{route('orders.pdf',$order->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><i class="fa fa-print"></i> 
-                                 Generar PDF</button></a>
+                                 </button></a>
                                 <a href="{{route('orders.edit',$order->id)}}"  >
                                           <button type="submit" class="btn btn-warning" name="edit">
                                               <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
@@ -99,7 +121,7 @@
 			                        </td>
 			               </tr>
 
-                   
+                 
                          
                     @endforeach
 
@@ -193,5 +215,16 @@ var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
 
 </script>
 
+<script type="text/javascript">
+
+$('#favoritesModalStatus').on('shown.bs.modal', function () {
+  $('.yo').focus()
+})
+
+function productStockProvider(){
+}
+
+
+</script>
 
 @endsection

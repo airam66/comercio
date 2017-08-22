@@ -136,6 +136,9 @@ Route::group(['middleware' => 'orderUser'],function(){
   Route::get('orders/{id}/pdf','OrdersController@pdfOrder')->name('orders.pdf');
   Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment')->name('orderPayment.register');
   Route::post('orderPayment/{id}/storePayment','OrdersController@storePayment')->name('OrderPayment.store');
+
+  Route::put('orders/changeStatus/{order}','OrdersController@changeStatus')->name('orders.changeStatus');
+ 
 });
 Route::group(['middleware' => 'orderUser','saleUser'],function(){
   //para buscar productos
