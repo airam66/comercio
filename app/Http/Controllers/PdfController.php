@@ -142,7 +142,6 @@ class PdfController extends Controller
     }
 
   }
-
   
   public function createReportPPurchase($fStart ,$fEnd){
        
@@ -166,6 +165,5 @@ class PdfController extends Controller
             
         return $this->createPDF($invoices,$provider,$vistaurl);
     }
-
 
 }

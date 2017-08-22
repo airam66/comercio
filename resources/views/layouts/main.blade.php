@@ -230,9 +230,10 @@
                 </a>
                   <ul class="treeview-menu">
 
-                <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
-                 <li class="active"><a href="{{route('admin.reportPurchase')}}"><i class="fa fa-circle-o"></i> Compras</a></li>
-                 <li class="active"><a href="{{route('admin.reportSales')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
+            <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
+            <li class="active"><a href="{{route('admin.reportPurchase')}}"><i class="fa fa-circle-o"></i> Compras</a></li>
+            <li class="active"><a href="{{route('admin.reportSales')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
+
 
               </ul>
             </li>

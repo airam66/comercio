@@ -63,9 +63,9 @@
                         <td>${{$invoice->total}}</td>
                         <td>
                          
-                        <button type="button" class="btn btn-info "  data-title="Detail" onclick="myDetail({{$invoice->id}})">
-                         <i class="fa fa-list" aria-hidden="true"></i>
-                          </button>
+
+                        <a href="{{route('invoices.show',$invoice->id)}}" > <button  type="button" class="btn btn-info "  >
+                        <span class="fa fa-list" aria-hidden="true" ></span></button></a>
 
                           @if ($invoice->status!='inactivo')
                              <a href="{{route('invoices.desable',$invoice->id)}}" onclick="return confirm('¿Seguro dara de baja el producto?')">
@@ -73,6 +73,9 @@
                           <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
                         </button>
                      </a>
+
+                     <a href="{{route('invoices.pdf',$invoice->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><i class="fa fa-print"></i> 
+                      Generar PDF</button></a>
                        @endif     
         </tr>
         @endforeach

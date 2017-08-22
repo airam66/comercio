@@ -24,8 +24,7 @@ class ProvidersController extends Controller
 
     public function create()
     {   
-        $route=redirect()->back()->getTargetUrl();
-        return view('admin.providers.create')->with('route',$route);
+        return view('admin.providers.create');
     }
 
     
@@ -33,7 +32,8 @@ class ProvidersController extends Controller
     {
         $providers= new Provider($request->all());
         $providers->save();
-        return redirect()->to($request->route);
+         flash("El proveedor ". $providers->name . " ha sido registrado con exito" , 'success')->important();
+       return redirect()->route('providers.index');
 
     }
 

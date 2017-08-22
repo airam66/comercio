@@ -157,7 +157,6 @@ function dehabilitedRode(Rode){
     estadoActual.disabled=false;
     $balance={{$order->client->bill}};
     $('#balance').val($balance);
-
   }else{
     estadoActual.disabled=true;
     $('#balance').val(0);

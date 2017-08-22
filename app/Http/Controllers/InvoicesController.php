@@ -164,6 +164,27 @@ public function searchDate(Request $request){
     }
   }
 
+
+  //***************************GENERAR PDF PARA IMPRIMIR FACTURA****************************************
+  public function pdfInvoice($id){
+      
+      $invoice= Invoice::find($id);
+      $details= DB::table('invoices_products as ip')
+      ->join('products as p','ip.product_id','=','p.id')
+      ->select('p.id','p.name as product_name','ip.price','ip.amount','ip.subTotal')
+      ->where('ip.invoice_id','=',$id)->get();
+
+      $date = date('Y-m-d');
+      $vistaurl="admin.invoices.pdfInvoices";
+      $view= \View::make($vistaurl,compact('invoice','details','date'))->render();
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+
+      return $pdf->stream();
+    }
+
+    //********************************Desabilitar una factura**************************************//
+
        public function desable($id)
     {   
         

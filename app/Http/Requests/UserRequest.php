@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'email' => 'required|string|email|max:50|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'photo_name'=>'image',
-           
+          
            
         ];
     }
