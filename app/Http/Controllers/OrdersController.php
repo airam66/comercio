@@ -351,7 +351,7 @@ class OrdersController extends Controller
      
          $order=Order::find($id);
          $client=Client::find($order->client_id);
-                 
+                 //dd($request);
                  $payment=new Payment;
                  $payment->order_id=$order->id;
                  $payment->amount_paid=$request->get('Rode');

@@ -31,7 +31,7 @@ class Purchase extends Model
 
     }
 
-     public function getDetailAttribute(){
+    public function getDetailAttribute(){
 
       return route('purchases.detailPurchaseOrder',$this->id);
     }
