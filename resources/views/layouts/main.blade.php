@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
    
     <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.css')}}">
-    
 
     <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -48,6 +47,7 @@
 
     <!-- Scripts -->
     <script>
+
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
@@ -319,6 +319,8 @@
       
       <script type="text/javascript" src="{{asset('plugins/daterangepicker/moment.min.js')}}"></script>
       
+      <!--calendar-->
+
  
       <!-- Include Date Range Picker -->
      
