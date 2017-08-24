@@ -34,10 +34,10 @@
                     <div >
                        <h4 class="text-center" style="height: 30px;">{{$product->name}}</h4>
                           <div class="text-right" >
-                            <!--href="{{ route('catalogueShow.show', $product->id ) }}"-->
-                            <a  href="{{ route('catalogueShow.show', $product->id ) }}" >
-                               <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  > 
-                            </a>
+                            <a data-toggle="modal" id="first" data-title="detail" data-target="#favoritesModalProduct{{$product->id}}">
+                          <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  >
+                          </a>
+                          @include('main.pagine.Catalogo.ProductShow')
                           </div>
                     </div>
                    </div>
@@ -54,6 +54,7 @@
         <img src="{{ asset('images/line.png')}}" alt=""> 
         </div>
 </div>
+
 
 
 @endsection
