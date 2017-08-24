@@ -177,10 +177,14 @@ Route::get('profile','UsersController@profile')->name('profile');
 Route::get('users/{user}','UsersController@show')->name('users.show');
  });
 
+
 //Nueva ruta
-Route::get('/calendar','CalendarsController@calendar');
+Route::get('/calendar','CalendarsController@calendar')->name('calendar');
+
+Route::get('/calendar/{status}','CalendarsController@searchStatus')->name('searchStatus');
 });
 Auth::routes();
+
 //##########################################################################################################
                                     //Rutas para la pagina Web
 //##########################################################################################################

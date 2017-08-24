@@ -17,4 +17,15 @@ class CalendarsController extends Controller
    	return view('admin.orders.calendar')->with('orders',$orders);
    }
 
+   public function searchStatus($status){
+   
+   $orders= DB::table('orders as o')
+      ->join('clients as c','o.client_id','=','c.id')
+      ->select('o.id as id','o.delivery_date as end','c.name as title','o.status as status','o.created_at as start')
+      ->where('o.status','=',$status)->get();
+   	//dd($orders);
+   	return view('admin.orders.calendar')->with('orders',$orders);
+
+   }
+
 }

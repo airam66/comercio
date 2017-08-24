@@ -86,7 +86,7 @@ margin:auto;
   
 
     <div class="title">
-         <img src="{{ asset('images/titulo2.png')}}" width="1350"; height="250"> 
+         <img src="{{ asset('images/titulo3.png')}}" width="1350"; height="250"> 
     </div>
 
     <div class="container-change page-styling">

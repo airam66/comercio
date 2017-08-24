@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
    
     <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.css')}}">
-    
 
     <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -48,6 +47,7 @@
     @yield('style')
     <!-- Scripts -->
     <script>
+
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
@@ -193,10 +193,12 @@
             <li class="treeview">
               <a href="#">
                  <i class="fa fa-truck"></i>
-                 <span>Pedidos</span> <i class="fa fa-angle-left pull-right"></i>
+                 <span>Pedidos</span><i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
                     <li class="active"><a href="{{route('orders.index')}}"><i class="fa fa-circle-o"></i>Lista de pedidos</a></li>
+                    <li class="active"><a href="{{route('calendar')}}" target="_blank"><i class="fa fa-circle-o"></i>Calendario</a></li>
+                    
                   </ul>
             </li>
             <li class="treeview">
@@ -321,6 +323,8 @@
       
       <script type="text/javascript" src="{{asset('plugins/daterangepicker/moment.min.js')}}"></script>
       
+      <!--calendar-->
+
  
       <!-- Include Date Range Picker -->
      

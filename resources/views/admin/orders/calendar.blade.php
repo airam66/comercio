@@ -19,44 +19,48 @@
         var order=<?php echo json_encode($orders);?>;
         
         for(var i=0;i<order.length;i++){
+            id= order[i].id;
             if (order[i].status=='pendiente'){
                 event.push({ id: order[i].id,
-                            end: order[i].end,
                             title: order[i].title,
-                            start: order[i].start,
-                            backgroundColor: '#f56954',//red
-                            borderColor    : '#f56954'//red
+                            start: order[i].end,
+                            backgroundColor: '##dd4b39',//red
+                            borderColor    : '##dd4b39',//red
+                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
                             });
             }
             if (order[i].status=='proceso'){
                 event.push({ id: order[i].id,
-                            end: order[i].end,
                             title: order[i].title,
-                            start: order[i].start,
+                            start: order[i].end,
                             backgroundColor: '#f39c12', //yellow
-                            borderColor    : '#f39c12' //yellow
+                            borderColor    : '#f39c12', //yellow
+                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
                             });
             }
             if (order[i].status=='preparado'){
                 event.push({ id: order[i].id,
-                            end: order[i].end,
                             title: order[i].title,
-                            start: order[i].start,
-                            backgroundColor: '#0073b7', //Blue
-                            borderColor    : '#0073b7' //Blue
+                            start: order[i].end,
+                            backgroundColor: '#3c8dbc', //Blue
+                            borderColor    : '#3c8dbc', //Blue
+                           url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'                          
                             });
             }
             if (order[i].status=='entregado'){
                 event.push({ id: order[i].id,
-                            end: order[i].end,
                             title: order[i].title,
-                            start: order[i].start,
+                            start: order[i].end,
                             backgroundColor: '#00a65a', //Success (green)
-                            borderColor    : '#00a65a' //Success (green)
+                            borderColor    : '#00a65a', //Success (green)
+                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
                             });
             }
-        console.log(event[i]);
+        
         }
+
+
+
 
         $('#calendar').fullCalendar({
 
@@ -77,24 +81,105 @@
 
 </script>
 <style>
-
-    body {
-        margin: 40px 10px;
-        padding: 0;
-        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+body {
+        margin-top: 40px;
+        text-align: center;
         font-size: 14px;
+        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
     }
 
-    #calendar {
-        max-width: 900px;
+#external-events a{
+    text-decoration: none;
+    color:white;
+}
+        
+    #wrap {
+        width: 1100px;
         margin: 0 auto;
+    }
+        
+    #external-events {
+        float: left;
+        width: 150px;
+        padding: 0 10px;
+        border: 1px solid #e97c7c;
+        background: pink;
+        
+    }
+        
+    #external-events h4 {
+        font-size: 16px;
+        margin-top: 0;
+        padding-top: 1em;
+    }
+        
+    #external-events .yellow-event {
+        margin: 10px 0;
+        cursor: pointer;
+         background-color: #f39c12;
+         position: relative;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #d47c19;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    }
+
+     #external-events .red-event {
+      background-color: #dd4b39;
+       margin: 10px 0;
+        cursor: pointer;
+    position: relative;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #db1399;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    
+
+    }
+
+    #external-events .blue-event {
+      background-color: #3c8dbc;
+       margin: 10px 0;
+        cursor: pointer;
+       position: relative;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #3a87ad;
+    padding-bottom: 5px;
+     padding-top: 5px;
+    }
+
+    #external-events .green-event {
+      background-color: #00a65a;
+       margin: 10px 0;
+        cursor: pointer;
+      position: relative;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #118383;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    }
+        
+    
+    #calendar {
+        float: right;
+        width: 900px;
     }
 
 </style>
 </head>
 <body>
+<div id='wrap'>
+
+        @include('admin.orders.asideStatus')
 
     <div id='calendar'></div>
+<div style='clear:both'></div>
+
+</div>
 
 </body>
 </html>
