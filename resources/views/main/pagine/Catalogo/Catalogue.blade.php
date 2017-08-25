@@ -31,8 +31,14 @@
             
                        @endif
                       </div>
-                    <div >
+                    <div>
                        <h4 class="text-center" style="height: 30px;">{{$product->name}}</h4>
+                       @if (!Auth::guest())
+                       <div class="mi_letter">
+                         <h5 class="text-center">${{$product->wholesale_price}}c/u por mayor</h5>
+                         <h5 class="text-center">${{$product->retail_price}}c/u</h5>
+                       </div>
+                       @endif
                           <div class="text-right" >
                             <a data-toggle="modal" id="first" data-title="detail" data-target="#favoritesModalProduct{{$product->id}}">
                           <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  >
