@@ -127,6 +127,8 @@ Route::group(['middleware' => 'saleUser'],function(){
 //********************Reporte de ventas mensuales*******************************************************
 Route::get('/reportSales','PdfController@createReportSales')->name('admin.reportSales');
 Route::get('/viewReportSales','PdfController@viewReportSales')->name('admin.viewReportSales');
+//*******************Reporte de compras por proveedores************************************************
+ Route::get('pdfClientReport/{startDate}/{endDate}/','PdfController@createReportCOrder')->name('pdfClientReport');
 });
 //################################Rutas para el encargado de pedidos#####################################
 Route::group(['middleware' => 'orderUser'],function(){

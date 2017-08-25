@@ -13,7 +13,7 @@
       <h1>Reporte de Compras</h1>
       
     </header>
-      
+
   @php ($a = 0)   
   @php ($m = 0) 
   @foreach($data2 as $month)
