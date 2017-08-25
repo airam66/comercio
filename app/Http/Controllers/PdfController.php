@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Provider;
 use App\Purchase;
+use App\Invoice;
+use App\Order;
+use App\Client;
 use App\Brand;
 use App\Http\Requests\MonthRequest;
 
@@ -164,6 +167,25 @@ class PdfController extends Controller
              ->where('p.status','=','realizada')->distinct()->get();
             
         return $this->createPDF($invoices,$provider,$vistaurl);
+    }
+
+    public function createReportCOrder($fStart ,$fEnd){
+       
+      $vistaurl="admin.pdf.reportClientOrder";
+
+     $invoices= Order::whereDate('created_at','>=',$fStart)
+                          ->whereDate('created_at','<=',$fEnd)
+                          ->orderBy('created_at','ASC')->get();
+                
+    $clients=DB::table('clients as c')
+             ->join('orders as o','c.id','=','o.client_id')
+             ->select('client_id','c.name','c.address','c.phone','c.bill')
+             ->groupBy('client_id','c.name','c.address','c.phone','c.bill')
+             ->whereDate('o.created_at','>=',$fStart)
+             ->whereDate('o.created_at','<=',$fEnd)
+             ->where('c.bill','>','0')->distinct()->get();
+            
+        return $this->createPDF($invoices,$clients,$vistaurl);
     }
 
 }
