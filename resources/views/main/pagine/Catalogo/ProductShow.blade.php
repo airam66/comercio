@@ -17,6 +17,19 @@
                   <img src="{{ asset('images/products/'.$product->extension)  }}" width="300" height="300">
                 </div>
                 <div class="col-sm-6 col-xs-12 text-center">
+                  @if (!Auth::guest())
+                    <p >
+                       <b> Cantidad mayorista:  </b>{{$product->wholesale_cant}}
+                    </p>
+        
+                    <p>
+                         <b> Precio por mayor:  </b>${{$product->wholesale_price}}c/u
+                    </p>
+                  
+                     <p >
+                       <b> Precio por unidad:  </b>${{$product->retail_price}}
+                    </p>
+                  @endif
                     <p >
                       <strong>Descripción</strong>
                     </p>
