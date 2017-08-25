@@ -12,6 +12,7 @@
    
   <link rel="stylesheet" href="{{asset('template/bootstrap/css/bootstrap.css')}}"> 
   <link rel="stylesheet" href="{{asset('template/styles.css')}}">
+  <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
   
 
 <style>
@@ -43,6 +44,7 @@ margin:auto;
 
     <ul class="nav navbar-nav navbar-right">
 @if (Auth::guest())
+         <li><a href="{{route('register')}}"><b>REGISTRARSE</b></a></li>
          <li><a href="{{route('login')}}"><b>INICIAR SESION</b></a></li>
 
                  @else
@@ -54,6 +56,13 @@ margin:auto;
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                      <a href="{{ route('webUsers.edit') }}">
+                                            Editar Perfil
+                                        </a>
+
+                                    </li>
+                                    <hr>
+                                    <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -64,6 +73,8 @@ margin:auto;
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    
+                                   
                                 </ul>
                             </li>
                   @endif 
@@ -112,6 +123,8 @@ margin:auto;
 <!--Javascripts-->
  <script src= "{{asset('template/jquery/js/jquery-3.2.1.js')}}"></script>
  <script src= "{{asset('template/bootstrap/js/bootstrap.js')}}"></script>
+ <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
    
+ @yield('js')
 </body>
 </html>

@@ -531,3 +531,19 @@ img .user-image {
 }
 
 
+.papers {
+    position: relative;
+    width: 90%;
+    padding: 2em;
+    margin: 0px auto;
+    margin-top: 40px;
+    font-size: 12px;
+}
+
+.papers, .papers:before, .papers:after {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.1), 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+

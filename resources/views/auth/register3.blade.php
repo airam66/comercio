@@ -24,19 +24,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Correo</label>
+                         <div class="form-group{{ $errors->has('cuit') ? ' has-error' : '' }}">
+                            <label for="cuit" class="col-md-4 control-label">CUIT</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="cuit" type="text" class="form-control" name="cuit" value="{{ old('cuit') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('cuit'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('cuit') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+
                         <div class="form-group{{ $errors->has('location') ? ' has-error' : '' }}">
                             <label for="location" class="col-md-4 control-label">Localidad</label>
 
@@ -50,6 +51,21 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">Correo</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Contraseña</label>

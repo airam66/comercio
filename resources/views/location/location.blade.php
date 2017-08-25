@@ -1,5 +1,5 @@
- <select name="location" class="chosen-select" data-placeholder="Seleccione una localidad..." default="Seleccione una localidad.."style="width:350px;" tabindex="1">
-                  <option value=""></option>
+ <select name="location" class="form-control" value="{{ old('location') }}" required autofocus>
+                  <option value="" selected="selected">Seleccione una localidad</option>
                   <option value="Rosario de Lerma">Rosario de Lerma</option>
                   <option value="Salta ">Salta</option>
                   <option value="San Lorenzo">San Lorenzo</option>
