@@ -24,10 +24,17 @@
                     
                     </tr>
                     <tr>
-                      <td>1</td>
+                      <td>2</td>
                       <td>Reporte de compras de proveedores</td>
                       <td><a data-toggle="modal" id="first" data-title="detail" data-target="#chooseDate"><button class="btn btn-block btn-primary btn-xs">Ver</button></a></td>
                       @include('admin.pdf.ChooseDate')
+                    
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Reporte de ventas a clientes</td>
+                      <td><a data-toggle="modal" id="Client" data-title="detail" data-target="#chooseDateClient"><button class="btn btn-block btn-primary btn-xs">Ver</button></a></td>
+                      @include('admin.pdf.ChooseDateClient')
                     
                     </tr>
                    
