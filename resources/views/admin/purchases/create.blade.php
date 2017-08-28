@@ -286,6 +286,7 @@ $('#searchProducts').on('keyup', function(){
 
       
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
+         Subtotal[cont]=Math.round(Subtotal[cont]*100)/100;
          TotalCompra= parseFloat($('#TotalCompra').val())+Subtotal[cont];
        
 
@@ -357,6 +358,22 @@ function calculateSubtotal(number){
                        });
   }
 
+</script>
+
+<script>
+  function SearchLetter($letter){
+  $value=$letter;
+  $providerid=$('#provider_id').val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchLetter')}}",
+    data:{'searchL':$value,'provider_id':$providerid},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  });
+  }
 </script>
 
 @endsection

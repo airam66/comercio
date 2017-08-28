@@ -274,8 +274,7 @@
              
         @yield('content')
 
-        </section><!-- /.content -->
-        
+        </section>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer no-print">
         <div class="pull-right hidden-xs">
@@ -332,6 +331,7 @@
 
     <!-- datepicker -->
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
      
 
 

@@ -142,7 +142,7 @@ return [
     'price'                  =>        'Precio',
     'brand'                  =>        'Marca',
     'amount'                 =>        'Cantidad',
-    'numberInvoice'          =>        'N° Factura de Compra',
+    'number_invoice'          =>        'N° Factura de Compra',
     'password'               =>        'Contraseña',
     'password_confirmation'  =>        'Confirmar contraseña',
     'photo'                  =>        'Foto',
@@ -151,6 +151,7 @@ return [
     'newpassword_confirmation'  =>        'Confirmar contraseña',
     'from_number'            =>         'Mes de Inicio',
     'to_number'              =>         'Mes de Fin',
+    'datepicker'             =>         'Fecha'
     ],
 
 ];

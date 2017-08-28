@@ -120,7 +120,7 @@
                
 
                 <div class="row">
-                  <!-- accepted payments column -->
+            
                   <div class="col-xs-6">
                   </div>
                   <div class="col-xs-6">
@@ -335,9 +335,10 @@ $('#searchC').on('keyup', function(){
 
       if (parseInt(amount)<parseInt(stock)){
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
+         Subtotal[cont]=Math.round(Subtotal[cont]*100)/100;
          Totalventa=Totalventa+Subtotal[cont];
 
-              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td>$<input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>$'+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#Subtotalventa').val(Totalventa);

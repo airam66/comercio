@@ -88,6 +88,7 @@ Route::group(['middleware' => 'purchaseUser'],function(){
   Route::get('/detailPurchase','PurchasesController@detailPurchase');
   Route::get('/searchProvider','PurchasesController@searchProvider');
   Route::get('/searchProducts','PurchasesController@searchProducts');
+   Route::get('/searchLetter','PurchasesController@searchLetter');
   Route::get('/autocompleteProvider', 'PurchasesController@autocompleteProvider')->name('autocompleteProvider');
   Route::get('/searchData','PurchasesController@searchDate');
   Route::get('/purchases/{id}/desable','PurchasesController@desable')->name('purchases.desable');

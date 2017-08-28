@@ -20,13 +20,14 @@
         
         for(var i=0;i<order.length;i++){
             id= order[i].id;
+            x='orders/'+id+'/pdf';
             if (order[i].status=='pendiente'){
                 event.push({ id: order[i].id,
                             title: order[i].title,
                             start: order[i].end,
                             backgroundColor: '##dd4b39',//red
                             borderColor    : '##dd4b39',//red
-                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
+                            url:x
                             });
             }
             if (order[i].status=='proceso'){
@@ -35,7 +36,7 @@
                             start: order[i].end,
                             backgroundColor: '#f39c12', //yellow
                             borderColor    : '#f39c12', //yellow
-                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
+                            url:x
                             });
             }
             if (order[i].status=='preparado'){
@@ -44,7 +45,7 @@
                             start: order[i].end,
                             backgroundColor: '#3c8dbc', //Blue
                             borderColor    : '#3c8dbc', //Blue
-                           url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'                          
+                           url:x                          
                             });
             }
             if (order[i].status=='entregado'){
@@ -53,7 +54,7 @@
                             start: order[i].end,
                             backgroundColor: '#00a65a', //Success (green)
                             borderColor    : '#00a65a', //Success (green)
-                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
+                            url:x
                             });
             }
         
