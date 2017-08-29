@@ -78,8 +78,9 @@
                 </tbody>
              </table> 
              </main>
-                <div class="row" align="right">
-                  <div class="col-xs-6">
+                <div class="row">
+                  
+                  <div class="col-xs-6 total">
                   <div class="text-center" style="background-color: gray;">
                     <h3 style="color:white;">Total</h3>
                     </div>
@@ -106,13 +107,15 @@
                     </div>
                   </div>
                 </div>  
+
               <div class="row ">
                 <div class=" col-xs-12 text-center">
-                  <p>
-                    Comprobante no valido como factura. Contillón Creatu.
+            
+                  <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                    Comprobante no válido como factura. Cotillón Creatú.
                   </p>
                </div>
-             </div>  
+              
 
     <footer>
     

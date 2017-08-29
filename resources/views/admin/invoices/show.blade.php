@@ -11,7 +11,7 @@
       <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Venta</h3>
-         <!-- <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>-->
+    
            
          </div>
           <div class="box-body">
@@ -84,9 +84,9 @@
                 </div><!-- /.row -->
 
                 <div class="row">
-                  <!-- accepted payments column -->
+                
                   <div class="col-xs-6">
-                  </div><!-- /.col -->
+                  </div>
                   <div class="col-xs-6">
                   <div class="text-center" style="background-color: gray;">
                     <h3 style="color:white;">Total</h3>

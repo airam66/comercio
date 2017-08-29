@@ -75,28 +75,28 @@
                    @foreach ($orders as $key => $order) 
                          
 			                <tr>
-			                      
-                              {!! Form::open(['route'=>['orders.changeStatus',$order->id],'method'=> 'PUT']) !!}         
 			                        <td>{{$order->id}}</td>
-			                        <td>{{$order->created_at->format('d/m/Y')}}</td>
-			                        <td>{{date('d/m/Y', strtotime($order->delivery_date))}}</td>
-			                        <td>{{$order->client->name}}</td>
+                              <td>{{$order->created_at->format('d/m/Y')}}</td>
+                              <td>{{date('d/m/Y', strtotime($order->delivery_date))}}</td>
+                              <td>{{$order->client->name}}</td>
                               <td>${{$order->client->bill}}</td>
-			                        <td>
+                              <td>
+                              {!! Form::open(['route'=>['orders.changeStatus',$order->id],'method'=> 'PUT']) !!}         
+			                        
                               @if($order->status=="pendiente")
                                 {!! Form::select('status',['pendiente'=>'Pendiente','proceso'=>'En proceso','preparado'=>'Preparado','entregado'=>'Entregado'],$order->status,['class'=>'label label-danger'])!!} 
                               @endif
 
                                @if($order->status=="proceso")
-                                {!! Form::select('status',['proceso'=>'En proceso','preparado'=>'Preparado','entregado'=>'Entregado'],$order->status,['class'=>'label label-warning'])!!} 
+                                {!! Form::select('status',['pendiente'=>'Pendiente','proceso'=>'En proceso','preparado'=>'Preparado','entregado'=>'Entregado'],$order->status,['class'=>'label label-warning'])!!} 
                               @endif
                               
                                @if($order->status=="preparado")
-                                {!! Form::select('status',['preparado'=>'Preparado','entregado'=>'Entregado'],$order->status,['class'=>'label label-primary'])!!} 
+                                {!! Form::select('status',['pendiente'=>'Pendiente','proceso'=>'En proceso','preparado'=>'Preparado','entregado'=>'Entregado'],$order->status,['class'=>'label label-primary'])!!} 
                               @endif
                               
                                @if($order->status!='entregado')
-                              <button type="submit" name="changeStatus">
+                              <button type="submit" onclick="return confirm('¿Seguro quiere cambiar el estado?')" name="changeStatus">
                                       <span class="fa fa-star-o" aria-hidden="true"></span></button>
                                @else
 

@@ -178,10 +178,13 @@ h3{
     text-align: left;
 }
 
-.col-xs-6 {
-    
-    position: relative;
-    width:50%;
+.col-xs-6 {    
+float: left;    
+width:50%;
+position: relative;
+min-height: 1px;
+padding-right: 15px;
+padding-left: 15px;
 
 }
 
@@ -191,4 +194,8 @@ h3{
 
 .payment{
   margin-left: 60px;
+}
+
+.total{
+  margin-left: 320px;
 }

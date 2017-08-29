@@ -20,8 +20,7 @@ class Invoice extends Model
     
     public function scopeSearchInvoice($query,$fecha1,$fecha2){
 
-        return $query->where( [['created_at','>=',$fecha1],
-                ['created_at','<=',$fecha2],]);
+        return $query->whereDate('created_at','>=',$fecha1)->whereDate('created_at','<=',$fecha2);
 
     }
 

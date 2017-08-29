@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="es"
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -97,7 +97,7 @@ margin:auto;
   
 
     <div class="title">
-         <img src="{{ asset('images/titulo3.png')}}" width="1350"; height="250"> 
+         <img src="{{ asset('images/titulo3.png')}}" width="1350" height="250"> 
     </div>
 
     <div class="container-change page-styling">

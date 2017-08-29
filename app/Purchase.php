@@ -20,9 +20,7 @@ class Purchase extends Model
    
     public function scopeSearchPurchase($query,$fecha1,$fecha2){
 
-        return $query->where( [['created_at','>=',$fecha1],
-                ['created_at','<=',$fecha2],]);
-
+     return $query->whereDate('created_at','>=',$fecha1)->whereDate('created_at','<=',$fecha2);
     }
 
     public function scopeSearchPurchaseByMonth($query,$month){

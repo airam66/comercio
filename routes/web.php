@@ -172,6 +172,7 @@ Route::group(['middleware'=>'adminUser'],function(){
 //*******************Pagina no autorizada******************************
 Route::get('/noAutorizhed',function(){
 return view('admin.role');})->name('noAutorizhed');
+
 //**********************Ver perfil y cambiar contraseña***************************************************
  //Route::resource('users','UsersController');
 Route::post('users/modifyMyPassword','UsersController@modifyMyPassword')->name('users.modifyMyPassword');

@@ -25,6 +25,12 @@
              <b>{{strtoupper($statu)}}</b>
           </a></div>
         @endif
+
+         @if ($statu=='todos')
+           <div class='grey-event'><a href="{{route('calendar')}}">
+             <b>TODOS</b>
+          </a></div>
+        @endif
       
        @endforeach
 </div>
