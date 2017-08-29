@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\UserEditRequest;
 use App\User;
 use App\Role;
 use Illuminate\Support\Facades\Validator;
@@ -58,11 +59,13 @@ class UsersController extends Controller
    
      if($request->file('photo')){
                  $file =$request->file('photo');
-                 $extension=$file->getClientOriginalName();
-                 $path=public_path().'/images/users/';
-                 $file->move($path,$extension);
-                $user->name_photo=$extension;
-                }
+                 $name=$file->getClientOriginalName();
+                 if ($name!=$user->photo_name){
+                       $path=public_path().'/images/users/';
+                       $file->move($path,$name);
+                      $user->photo_name=$name;
+                    }
+          }
     $user->save();
     flash("El usuario ". $user->name . " ha sido modificada/o con exito" , 'success')->important();
      return view('admin.users.perfil');
@@ -95,5 +98,32 @@ class UsersController extends Controller
    public function profile(){
  
     return view('admin.users.perfil');
+   }
+
+   public function editDatas(){
+    return view('admin.users.changeDatas');
+   }
+
+   public function changeMyDatas(UserEditRequest $request){
+
+   $user=\Auth::user();
+  
+    $user->fill($request->all());
+   
+      if($request->file('photo')){
+                 $file =$request->file('photo');
+                 $name=$file->getClientOriginalName();
+                 if ($name!=$user->photo_name){
+                       $path=public_path().'/images/users/';
+                       $file->move($path,$name);
+                      $user->photo_name=$name;
+                    }
+          }
+
+    $user->save();
+    flash("Sus datos se cambiaron correctamente ", 'success')->important();
+     
+       return redirect()->route('users.editDatas');
+   
    }
 }

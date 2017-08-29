@@ -126,7 +126,7 @@ return [
     'address'                =>        'dirección',
     'location'               =>        'localidad',
     'province'               =>        'provincia',
-    'phone'                  =>        'telefono',
+    'phone'                  =>        'teléfono',
     'line_id'                =>        'línea',
     'brand_id'               =>        'marca',
     'purchase_price'         =>        'precio',
