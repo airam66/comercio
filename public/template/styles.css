@@ -476,6 +476,14 @@ div.my_style {
   margin-left: 10px;
 }
 
+div.photo_style {
+  width: 190px;
+  height: 260px;
+  margin-right:10px; 
+  margin-bottom:8px;
+  margin-left: 10px;
+}
+
 .card{
 background-attachment: scroll;
 background-clip: border-box;
@@ -565,3 +573,16 @@ img .user-image {
 }
 
 
+.dropdown-menu {
+    background-color: #870a0a !important;
+}
+
+.dropdown-menu > li > a {
+    color: #fff !important;
+   
+}
+
+.dropdown-menu > li > a:hover {
+    background-color: #c93131!important;
+   
+}

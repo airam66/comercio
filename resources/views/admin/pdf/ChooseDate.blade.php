@@ -13,29 +13,28 @@
              <h4 class="modal-title" id="favoritesModalLabel"> </h4>
       </div>
       <div class="modal-body">
-
-      <div class="form-group">
-                <div class='input-group date' id='datetimepicker2'>
-                     
-                     <input type="text" id="daterange"  name="daterange" class="form-control" value="12/06/2017 - 16/07/2017" >          
-                     <span class="input-group-addon">
-                        <a href="#"> <span  class="glyphicon glyphicon-calendar"></span>
-                       </span></a>
-
-
-                </div>
-            </div>
-
          
+           <form action='createReportPPurchase'  method="GET" target="_blank" >
+              <div class="input-group date">
+                 <div class="input-group input-daterange">
+                  <div class="input-group-addon">DESDE</div>
+                    <input type="text" class="form-control" name="fecha1" data-date-end-date="0d" placeholder="Seleccione una fecha" id="fecha1">
+                  <div class="input-group-addon">HASTA</div>
+                  <input type="text" class="form-control" name="fecha2" data-date-end-date="0d" placeholder="Seleccione una fecha" id="fecha2">
+                  <div class="input-group-addon">
+                    
+                    <button type="submit" class="btn btn-primary">
+                                  <i class="fa fa-calendar"></i>
+                      </button>
+                  </div>
+                </div>
+              </div>
+         </form>
       </div><!--FIN DEL BODY-->
      
      
 
       <div class="modal-footer">
-        <a href="{{route('pdfPurchaseReport', [$startDate, $endDate])}}" target="_blank" >
-        <button type="button" 
-           class="btn btn-primary" 
-          >ACEPTAR</button></a>
            <button type="button" 
            class="btn btn-default" 
            data-dismiss="modal">SALIR</button>

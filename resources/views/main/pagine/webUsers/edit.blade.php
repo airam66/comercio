@@ -18,7 +18,7 @@
     
                   <div class="col-md-3">
       
-                      <div class="card product mystyle">
+                      <div class="card product photo_style">
                        <div>             
                           <img src="{{ asset('images/users/'.Auth::user()->photo_name)  }}"  width="160" height="150" >
                         </div>

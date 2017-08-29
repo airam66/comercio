@@ -14,8 +14,9 @@ Route::group(['middleware' => 'auth'], function(){
          Route::get('/admin', function(){
           return view('admin.home');
           });
-    });
+      });
 });
+
 //##########################################################################################################
                                     //Rutas para el sistema de administracion
 //##########################################################################################################
@@ -90,7 +91,6 @@ Route::group(['middleware' => 'purchaseUser'],function(){
   Route::get('/searchProducts','PurchasesController@searchProducts');
    Route::get('/searchLetter','PurchasesController@searchLetter');
   Route::get('/autocompleteProvider', 'PurchasesController@autocompleteProvider')->name('autocompleteProvider');
-  Route::get('/searchData','PurchasesController@searchDate');
   Route::get('/purchases/{id}/desable','PurchasesController@desable')->name('purchases.desable');
       
   Route::get('/purchases/{id}/detailPurchaseOrder','PurchasesController@detailPurchaseOrder')->name('purchases.detailPurchaseOrder');
@@ -105,7 +105,7 @@ Route::get('/reportPurchase','PdfController@createReportPurchases')->name('admin
 Route::get('/viewReportPurchase','PdfController@viewReportPurchase')->name('admin.viewReportPurchase');
 
 //*******************Reporte de compras por proveedores************************************************
- Route::get('pdfPurchaseReport/{startDate}/{endDate}/','PdfController@createReportPPurchase')->name('pdfPurchaseReport');
+ Route::get('createReportPPurchase','PdfController@createReportPPurchase')->name('createReportPPurchase');
 
 //************************************Rutas para facturas de compras***********************************
 Route::resource('purchasesInvoice','PurchasesInvoiceController'); 
@@ -128,8 +128,9 @@ Route::group(['middleware' => 'saleUser'],function(){
 //********************Reporte de ventas mensuales*******************************************************
 Route::get('/reportSales','PdfController@createReportSales')->name('admin.reportSales');
 Route::get('/viewReportSales','PdfController@viewReportSales')->name('admin.viewReportSales');
-//*******************Reporte de compras por proveedores************************************************
- Route::get('pdfClientReport/{startDate}/{endDate}/','PdfController@createReportCOrder')->name('pdfClientReport');
+
+//*******************Reporte de compras por clientes************************************************
+ Route::get('createReportCOrder','PdfController@createReportCOrder')->name('createReportCOrder');
 });
 //################################Rutas para el encargado de pedidos#####################################
 Route::group(['middleware' => 'orderUser'],function(){
@@ -169,6 +170,13 @@ Route::group(['middleware'=>'adminUser'],function(){
  //*******************administrar datos de pagina web****************************************************
   Route::resource('cotillon','MainPagineController');
  });
+
+//**********************CALENDARIO DE PEDIDOS***********************************************************
+Route::get('/calendar','CalendarsController@calendar')->name('calendar');
+
+Route::get('/calendar/{status}','CalendarsController@searchStatus')->name('searchStatus');
+
+
 //*******************Pagina no autorizada******************************
 Route::get('/noAutorizhed',function(){
 return view('admin.role');})->name('noAutorizhed');
@@ -177,15 +185,15 @@ return view('admin.role');})->name('noAutorizhed');
  //Route::resource('users','UsersController');
 Route::post('users/modifyMyPassword','UsersController@modifyMyPassword')->name('users.modifyMyPassword');
 Route::post('users/changeMyPassword','UsersController@changeMyPassword')->name('users.changeMyPassword');
+Route::get('users/editDatas','UsersController@editDatas')->name('users.editDatas');
+Route::patch('users/changeDatas','UsersController@changeMyDatas')->name('users.changeMyDatas');
 Route::get('profile','UsersController@profile')->name('profile');
 Route::get('users/{user}','UsersController@show')->name('users.show');
  });
 
 
 //Nueva ruta
-Route::get('/calendar','CalendarsController@calendar')->name('calendar');
 
-Route::get('/calendar/{status}','CalendarsController@searchStatus')->name('searchStatus');
 });
 Auth::routes();
 
