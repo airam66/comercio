@@ -67,9 +67,9 @@
 @else
 <div class="box-body">
 <p>
-Para cargar productos dede ingresar al catalogo
-</p><br>
-<a href="{{route('catalogue')}}"><b>CATÁLOGO</b></a>
+Para cargar productos debe ingresar al <a href="{{route('catalogue')}}"><b>CATÁLOGO</b></a>
+</p>
+
 </div>
 
 @endif

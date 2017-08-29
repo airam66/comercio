@@ -48,7 +48,7 @@ class ShoppingCartsProductsController extends Controller
                 $id=$scp->id;
             }
         }
-        if ($repet) {
+        if ($repet=='true') {
            $response=ShoppingCartProduct::find($id);
            $response->amount++;
            if ($response->amount>=$product->wholesale_cant) {
