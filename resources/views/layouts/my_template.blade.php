@@ -48,10 +48,11 @@ margin:auto;
          <li><a href="{{route('login')}}"><b>INICIAR SESION</b></a></li>
 
                  @else
-                            <li><a href="{{url('/carrito')}}" id="cart"><b>Carrito</b>
-                                  <span class="circle-shopping-cart">
+                            <li><a href="{{url('/carrito')}}" id="cart">
+                            <b><span class="glyphicon glyphicon-shopping-cart">
+                    
                                     {{$shopping_cart->productsSize()}}
-                                  </span>
+                                  </span></b>
                                   </a>
                              </li>
 

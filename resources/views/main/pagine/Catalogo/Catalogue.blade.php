@@ -39,13 +39,25 @@
                        @endif
                       </div>
                         <div class="text-center">
-                           <h4 style="height: 60px;">{{$product->name}}</h4>
+                           <h4 style="height: 50px;">{{$product->name}}</h4>
                            <div class="mi_letter">
                              <h5>${{$product->wholesale_price}}c/u por mayor</h5>
                              <h5>${{$product->retail_price}}c/u</h5>
                            </div>
                           
                         </div>
+                        <div class="pull-left">
+                            {!!Form::open(['url'=>'/shoppingcartsproducts', 'method'=>'POST', 'class'=>'inline-block'])!!}
+                              <input type ='hidden' name='product_id' value="{{$product->id}}">
+                              <button type ='submit' class="btn btn-success" value='Carrito' id="Agregar">
+                               Agregar al carrito
+                              @if(in_array($product->id,$idproducts))
+                              <span class="glyphicon glyphicon-check"></span>
+                              @else
+                              <span class="glyphicon glyphicon-shopping-cart"></span>
+                             @endif</button>
+                            {!!form::close()!!}
+                            </div>
                         <div class="text-right" >
                             <a data-toggle="modal" id="first" data-title="detail" data-target="#favoritesModalProduct{{$product->id}}">
                               <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  >
@@ -55,28 +67,27 @@
                         
                    </div>
                    @else
-                      <div class="card product my_style">
-                        <div>
-                          @if($product->extension!=null)
+                      <div class="card product mystyle">
+                     <div>
+                       @if($product->extension!=null)
              
                           <img src="{{ asset('images/products/'.$product->extension)  }}"  width="160" height="150" >
             
-                           @endif
-                        </div>
+                       @endif
+                      </div>
                         <div class="text-center">
-                           <h4 style="height: 60px;">{{$product->name}}</h4>
-                          
+                           <h4 style="height: 60px;">{{$product->name}}</h4>                        
                         </div>
                         <div class="text-right" >
-                            @if(in_array($product->id,$idproducts))
-                            <span class="glyphicon glyphicon-check"></span>
-                             @endif
+
                             <a data-toggle="modal" id="first" data-title="detail" data-target="#favoritesModalProduct{{$product->id}}">
                               <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  >
                             </a>
-                             
-                        </div>  
-                     </div>
+                        
+                        </div>
+                        
+                   </div>
+                     
 
 
 
