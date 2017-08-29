@@ -10,7 +10,7 @@
       @endforeach</h6>
       </div>
       <div class="mi_letter text-center">
-                                    <h1>Nuestros productos</h1>
+                  <h1>Nuestros productos</h1>
                   <img src="{{ asset('images/line.png')}}" alt=""> 
       </div>
                      
@@ -48,6 +48,7 @@
                         </div>
                         <div class="pull-left">
                             {!!Form::open(['url'=>'/shoppingcartsproducts', 'method'=>'POST', 'class'=>'inline-block'])!!}
+                            <input type ='hidden' name='user_id' value="{{Auth::user()->id}}">
                               <input type ='hidden' name='product_id' value="{{$product->id}}">
                               <button type ='submit' class="btn btn-success" value='Carrito' id="Agregar">
                                Agregar al carrito
