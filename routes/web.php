@@ -218,3 +218,11 @@ Route::post('webUsers/store','UserWebController@store')->name('webUsers.store');
 Route::get('my_profile/edit','UserWebController@edit')->name('webUsers.edit');
 Route::put('my_profile/update','UserWebController@changeDatas')->name('webUsers.changeDatas');
 Route::patch('my_profile/changePassword','UserWebController@changePassword')->name('webUsers.changePassword');
+
+//****************************Rutas para carrito de compras************************************
+Route::resource('shoppingcartsproducts','ShoppingCartsProductsController',['only'=>['store']]);
+Route::get('/shoppingcartsproducts/{id}/destroy','ShoppingCartsProductsController@destroy')->name('shoppingcartsproducts.destroy');
+route::get('/carrito','ShoppingCartsController@edit');
+Route::resource('shoppingcarts','ShoppingCartsController',['only'=>['update']]);
+
+                  //se restringe a solo el uso de rutas store y destroy

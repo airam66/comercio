@@ -4,8 +4,13 @@
     
     
  <div class="content-wrap centering">
+      <div style="visibility: hidden;"><h6>
+      @foreach($shopping_cart->ShoppingCartProducts()->get() as $sc)
+              {{array_push($idproducts,$sc->product_id)}}
+      @endforeach</h6>
+      </div>
       <div class="mi_letter text-center">
-                  <h1>Nuestros productos</h1>
+                                    <h1>Nuestros productos</h1>
                   <img src="{{ asset('images/line.png')}}" alt=""> 
       </div>
                      
@@ -63,6 +68,9 @@
                           
                         </div>
                         <div class="text-right" >
+                            @if(in_array($product->id,$idproducts))
+                            <span class="glyphicon glyphicon-check"></span>
+                             @endif
                             <a data-toggle="modal" id="first" data-title="detail" data-target="#favoritesModalProduct{{$product->id}}">
                               <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  >
                             </a>

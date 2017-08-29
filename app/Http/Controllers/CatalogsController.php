@@ -14,9 +14,12 @@ class CatalogsController extends Controller
    
     public function index(Request $request)
     {   
-        $products= Product::orderBy('name','ASC')->where('status','=','Activo')->paginate(12);
         
-        return view('main.pagine.Catalogo.Catalogue')->with('products',$products);
+
+        $products= Product::orderBy('name','ASC')->where('status','=','Activo')->paginate(12);
+        $idproducts=[];
+        return view('main.pagine.Catalogo.Catalogue')->with('products',$products)
+                                                     ->with('idproducts',$idproducts);
     }
 
 public function show($id)
