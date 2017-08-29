@@ -183,6 +183,7 @@ return [
       //Proviers Personales
 
         Collective\Html\HtmlServiceProvider::class,
+        App\Providers\ShoppingCartProvider::class,
        
        Laracasts\Flash\FlashServiceProvider::class,
        Styde\Html\HtmlServiceProvider::class,

@@ -17,7 +17,7 @@
                   <img src="{{ asset('images/products/'.$product->extension)  }}" width="300" height="300">
                 </div>
                 <div class="col-sm-6 col-xs-12 text-center">
-                       
+
                         <h4 class="text-left"><b>Descripción: </b>{{$product->description}}</h4>
                         <h4 class="text-left"><b>Marca: </b>{{$product->brand->name}}</h4>
                             
@@ -26,9 +26,15 @@
                           <h5 class="text-left"><b>Precio: </b>${{$product->retail_price}}c/u</h5>
                           <h5 class="text-left">${{$product->wholesale_price}}c/u (mayor a {{$product->wholesale_cant-1}} unidades)</h5> 
                         </div>
-                             
+                            <p>
+                            {!!Form::open(['url'=>'/shoppingcartsproducts', 'method'=>'POST', 'class'=>'inline-block'])!!}
+                              <input type ='hidden' name='product_id' value="{{$product->id}}">
+                              <input type ='submit' class="btn btn-success col-md-offset-2" value='Agregar al Carrito' id="Agregar">
+                            {!!form::close()!!}
+                            </p>
                         @endif
                        
+
                 </div>
           </div>
       </div>
