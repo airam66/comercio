@@ -14,8 +14,8 @@
                     <table id="details" class="display table table-hover" cellspacing="0" width="100%">
                       <thead>
                         <tr>
-                          <th>Eliminar</th>
-                          <th>Nombre</th>
+                          <th></th>
+                          <th>Producto</th>
                           <th>Precio Compra</th>
                           <th>Cantidad</th>
                           <th>Subtotal</th>
@@ -30,7 +30,10 @@
         <a href="{{route('shoppingcartsproducts.destroy',$detail->shopping_cart_id)}}" type="button" class="btn btn-danger" onclick="deletefila({{$a}},{{$detail->subTotal}});">X</a></td>
                       <td> 
                         <input readonly type="hidden" name="product_id[]" value="{{$detail->product_id}}">
-                        <input readonly type="hidden" name="dproduct_id[]" value="{{$detail->shopping_cart_id}}">{{$detail->product_name}}</td> 
+                        <input readonly type="hidden" name="dproduct_id[]" value="{{$detail->shopping_cart_id}}">
+                      @if($detail->extension!=null)
+                          <img src="{{asset('images/products/'.$detail->extension)}}" width="40" height="40" >
+                      @endif {{$detail->product_name}}</td> 
                         <td>{{$detail->price}}</td> 
                         <td><input type="number" name="damount[]" value="{{$detail->amount}}"></td> 
                         <td>{{$detail->subTotal}}</td>
@@ -42,6 +45,7 @@
                     </table>
                   </div><!-- /.col -->
                        <div class="form-group ">
+                        <input type ='hidden' name='user_id' value="{{Auth::user()->id}}">
                         {!! Form::submit('Actualizar Carrito',['class'=>'btn btn-primary'])!!}
                        </div>
 

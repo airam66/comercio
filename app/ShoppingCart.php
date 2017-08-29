@@ -26,8 +26,9 @@ class ShoppingCart extends Model
 	}
 
 	public static function findOrCreateBySessionID($shopping_cart_id){
-		if($shopping_cart_id)
-			return ShoppingCart::findBySeccion($shopping_cart_id);
+		$shopping_carts=ShoppingCart::findBySeccion($shopping_cart_id);
+		if($shopping_carts)
+			return $shopping_carts;
 		else
 			return ShoppingCart::createWithoutSession();
 
@@ -40,7 +41,6 @@ class ShoppingCart extends Model
 	public static function createWithoutSession(){
 		return ShoppingCart::create([
 			'status' => 'pendiente',
-			'user_id'=>1,
 			'total'=>0,
 			]);
 	}

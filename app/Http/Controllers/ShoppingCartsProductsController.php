@@ -69,7 +69,11 @@ class ShoppingCartsProductsController extends Controller
                 ]);
         }
         
-        $shopping_cart->total=$shopping_cart->total();
+        $shopping_cart->total=$shopping_cart->total();  
+        if($shopping_cart->user_id==null){
+            $shopping_cart->user_id=$request->user_id;
+            }
+        
         $shopping_cart->save();
 
 

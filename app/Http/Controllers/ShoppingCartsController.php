@@ -66,7 +66,7 @@ class ShoppingCartsController extends Controller
 
         $details= DB::table('shopping_cart_product as scp')
                           ->join('products as p','scp.product_id','=','p.id')
-                          ->select('scp.id as shopping_cart_id','p.id as product_id','p.name as product_name','scp.price','scp.amount','scp.subTotal')
+                          ->select('scp.id as shopping_cart_id','p.id as product_id','p.extension','p.name as product_name','scp.price','scp.amount','scp.subTotal')
                           ->where('scp.shopping_cart_id','=',$shopping_cart->id)->get();
         //dd($details);
 
@@ -84,7 +84,6 @@ class ShoppingCartsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request);
         $shoppingcart=ShoppingCart::find($id);
 
         $idarticulo = $request->get('product_id');
@@ -112,6 +111,9 @@ class ShoppingCartsController extends Controller
 
             }
         $shoppingcart->total=$shoppingcart->total(); 
+        if($shoppingcart->user_id==null){
+            $shoppingcart->user_id=$request->user_id;
+            }
 
       if ($shoppingcart->total>0){
                  $shoppingcart->save();
