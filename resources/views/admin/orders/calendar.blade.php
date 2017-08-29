@@ -20,40 +20,44 @@
         
         for(var i=0;i<order.length;i++){
             id= order[i].id;
+            x='orders/'+id;
+            d=order[i].end;
+            date=d.substring(0,10);
+           
             if (order[i].status=='pendiente'){
                 event.push({ id: order[i].id,
                             title: order[i].title,
-                            start: order[i].end,
-                            backgroundColor: '##dd4b39',//red
-                            borderColor    : '##dd4b39',//red
-                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
+                            start: date,
+                            backgroundColor: '#dd4b39',//red
+                            borderColor    : '#dd4b39',//red
+                            url:x
                             });
             }
             if (order[i].status=='proceso'){
                 event.push({ id: order[i].id,
                             title: order[i].title,
-                            start: order[i].end,
+                            start: date,
                             backgroundColor: '#f39c12', //yellow
                             borderColor    : '#f39c12', //yellow
-                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
+                            url:x
                             });
             }
             if (order[i].status=='preparado'){
                 event.push({ id: order[i].id,
                             title: order[i].title,
-                            start: order[i].end,
+                            start: date,
                             backgroundColor: '#3c8dbc', //Blue
                             borderColor    : '#3c8dbc', //Blue
-                           url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'                          
+                           url:x                          
                             });
             }
             if (order[i].status=='entregado'){
                 event.push({ id: order[i].id,
                             title: order[i].title,
-                            start: order[i].end,
+                            start: date,
                             backgroundColor: '#00a65a', //Success (green)
                             borderColor    : '#00a65a', //Success (green)
-                            url:'http://localhost/comercio/public/admin/orders/'+order[i].id+'/pdf'
+                            url:x
                             });
             }
         
@@ -162,7 +166,18 @@ body {
     padding-bottom: 5px;
     padding-top: 5px;
     }
-        
+    
+    #external-events .grey-event {
+    background-color: #494d4b;
+    margin: 10px 0;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #2b2f2f;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}  
     
     #calendar {
         float: right;

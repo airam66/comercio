@@ -120,7 +120,7 @@ class PdfController extends Controller
    if($sales->isEmpty()){
 
     flash("No hay compras en los meses seleccionados" , 'warning')->important();
-    return redirect()->route('admin.reportSale');
+    return redirect()->route('admin.reportSales');
 
 
    }else{

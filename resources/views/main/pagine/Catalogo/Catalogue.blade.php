@@ -10,7 +10,7 @@
       @endforeach</h6>
       </div>
       <div class="mi_letter text-center">
-                  <h1>Nuestros productos</h1>
+                                    <h1>Nuestros productos</h1>
                   <img src="{{ asset('images/line.png')}}" alt=""> 
       </div>
                      
@@ -28,6 +28,8 @@
                    <p>No hay datos para mostrar</p>
                 @else
                   @foreach($products as $product)
+
+                   @if (!Auth::guest())
                    <div class="card product mystyle">
                      <div>
                        @if($product->extension!=null)
@@ -36,25 +38,50 @@
             
                        @endif
                       </div>
-                    <div>
-                       <h4 class="text-center" style="height: 30px;">{{$product->name}}</h4>
-                       @if (!Auth::guest())
-                       <div class="mi_letter">
-                         <h5 class="text-center">${{$product->wholesale_price}}c/u por mayor</h5>
-                         <h5 class="text-center">${{$product->retail_price}}c/u</h5>
-                       </div>
-                       @endif
-                          <div class="text-right">                          
-                          @if(in_array($product->id,$idproducts))
-                            <span class="glyphicon glyphicon-check"></span>
-                          @endif
+                        <div class="text-center">
+                           <h4 style="height: 60px;">{{$product->name}}</h4>
+                           <div class="mi_letter">
+                             <h5>${{$product->wholesale_price}}c/u por mayor</h5>
+                             <h5>${{$product->retail_price}}c/u</h5>
+                           </div>
+                          
+                        </div>
+                        <div class="text-right" >
                             <a data-toggle="modal" id="first" data-title="detail" data-target="#favoritesModalProduct{{$product->id}}">
-                          <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  >
-                          </a>
-                          @include('main.pagine.Catalogo.ProductShow')
-                          </div>
-                    </div>
+                              <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  >
+                            </a>
+                        
+                        </div>
+                        
                    </div>
+                   @else
+                      <div class="card product my_style">
+                        <div>
+                          @if($product->extension!=null)
+             
+                          <img src="{{ asset('images/products/'.$product->extension)  }}"  width="160" height="150" >
+            
+                           @endif
+                        </div>
+                        <div class="text-center">
+                           <h4 style="height: 60px;">{{$product->name}}</h4>
+                          
+                        </div>
+                        <div class="text-right" >
+                            @if(in_array($product->id,$idproducts))
+                            <span class="glyphicon glyphicon-check"></span>
+                             @endif
+                            <a data-toggle="modal" id="first" data-title="detail" data-target="#favoritesModalProduct{{$product->id}}">
+                              <img src="{{ asset('images/informacion3.png ') }}" width="45" height="45"  >
+                            </a>
+                             
+                        </div>  
+                     </div>
+
+
+
+                   @endif 
+                    @include('main.pagine.Catalogo.ProductShow')
                   @endforeach
                @endif
              </div>
@@ -71,11 +98,4 @@
 
 
 
-@endsection
-@section('js')
-<script type="text/javascript">
-$('#Agregar').on('click',function(){
-  $('#Agregar').val = 'producto Agregado';
-});
-</script>
 @endsection

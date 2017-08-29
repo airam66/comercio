@@ -54,3 +54,7 @@ select .color-rojo{
 .azul{
     color:blue;
 }
+
+.input-group-addon .btn{
+padding: 1px 12px !important;
+}

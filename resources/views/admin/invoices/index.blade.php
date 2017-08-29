@@ -5,25 +5,31 @@
 <div class="box box-primary">
 
 <div class="box-header ">
-<div class="row">
-    <h2 class="box-title col-md-5">Listado de Ventas</h2>
-</div>
+  <div class="row">
+      <h2 class="box-title col-md-5">Listado de Ventas</h2>
+  </div>
       <div class="row">
-      <div class='col-sm-2 pull-right'>
-        <input type ='button' class="btn btn-success "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
+        <div class='col-sm-2 pull-right'>
+          <input type ='button' class="btn btn-success "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
         </div>
+        <br>
         <div class='col-sm-6 pull-left'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker2'>
-                     
-                     <input type="text" id="daterange"  name="daterange" class="form-control" value="12/06/2017 - 16/07/2017" >          
-                     <span class="input-group-addon">
-                        <a href="{{route('invoices.index')}}"> <span  class="glyphicon glyphicon-calendar"></span>
-                       </span></a>
-
-
+            <form route='invoices.index'  method="GET">
+              <div class="input-group date">
+                 <div class="input-group input-daterange">
+                  <div class="input-group-addon">DESDE</div>
+                    <input type="text" class="form-control" name="fecha1" data-date-end-date="0d" placeholder="Seleccione una fecha">
+                  <div class="input-group-addon">HASTA</div>
+                  <input type="text" class="form-control" name="fecha2" data-date-end-date="0d" placeholder="Seleccione una fecha">
+                  <div class="input-group-addon">
+                        <button type="submit" class="btn btn-primary">
+                                  <i class="fa fa-calendar"></i>
+                                  </button>
+                  </div>
                 </div>
-            </div>
+              </div>
+
+            </form>
 
         </div>
       </div>
@@ -31,7 +37,7 @@
 </div>
 
 <div class="box-body">              
-
+ @if($invoices->isNotEmpty())
  <table id="tabla table-striped" class="display table table-hover" cellspacing="0" width="100%">
        
         <thead>
@@ -75,14 +81,24 @@
                      </a>
 
                      <a href="{{route('invoices.pdf',$invoice->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><i class="fa fa-print"></i> 
-                      Generar PDF</button></a>
+                      </button></a>
                        @endif     
         </tr>
         @endforeach
 
-</tbody>
+     </tbody>
     </table>
+    <div class="text-center">
+         {!!$invoices->render()!!}
+    </div>
 
+ @else
+        <div class="alert alert-dismissable alert-warning">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <p>No se encontró ninguna venta entre {{$fecha1}} y {{$fecha2}}.</p>
+        </div>
+
+  @endif
 
 
 
@@ -91,74 +107,17 @@
 </div>
 @endsection
 @section('js')
- <script type="text/javascript">
-$('input[name="daterange"]').daterangepicker(
-{
-    locale: {
-      format: 'DD-MM-YYYY',
-      "separator": " - ",
-            "applyLabel": "Guardar",
-            "cancelLabel": "Cancelar",
-            "fromLabel": "Desde",
-            "toLabel": "Hasta",
-            "customRangeLabel": "Personalizar",
-            "daysOfWeek": [
-                "Do",
-                "Lu",
-                "Ma",
-                "Mi",
-                "Ju",
-                "Vi",
-                "Sa"
-            ],
-            "monthNames": [
-                "Enero",
-                "Febrero",
-                "Marzo",
-                "Abril",
-                "Mayo",
-                "Junio",
-                "Julio",
-                "Agosto",
-                "Setiembre",
-                "Octubre",
-                "Noviembre",
-                "Diciembre"
-            ],
-            "firstDay": 1
-       
-    },
-    startDate: '30-06-2015',
-    endDate: '31-07-2015'
-
-});
-</script>
-
 <script type="text/javascript">
 
-  $('#daterange').on('change',function(){
-
-var f1=$('#daterange') .data('daterangepicker').startDate.format('YYYY-MM-DD');
-var f2=$('#daterange') .data('daterangepicker').endDate.format('YYYY-MM-DD');
-
-  $.ajax({
-    type: 'get',
-    url:  "{{ URL::to('admin/searchDateInvoice')}}",
-    data:{'fecha1':f1,
-          'fecha2':f2},
-    success: function(data){
-      $('#mostrar').html(data);
-    }
-    
-  })
-
-
-
-    
+$('.input-daterange input').each(function() {
+    $(this).datepicker({
+         language: "es",
+         autoclose: true,
+         format:"yyyy/mm/dd"
+    });
 });
-
-
 </script>
+
 <script type="text/javascript">
 function myDetail(id){
 dir=baseUrl('admin/invoices/'+id);

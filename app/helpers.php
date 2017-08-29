@@ -37,6 +37,7 @@ function popUpProductsInvoice($products){
         foreach ($products as $key => $product) {
                   $output.='<tr>'.
                          '<td>'.$product->name.'</td>'.
+                         '<td>'.$product->brand->name.'</td>'.
                         '<td>$ '.$product->retail_price.'</td>'.
                         '<td>'.$product->wholesale_cant.'</td>'.
                         '<td>$ '.$product->wholesale_price.'</td>'.
@@ -53,6 +54,31 @@ function popUpProductsInvoice($products){
           
    }
 }
+
+function popUpProductsPurchases($products){
+  
+        $output="";
+        $comilla="'";
+        
+        if ($products) {
+        foreach ($products as $key => $product) {
+                   $output.='<tr>'.
+                        '<td>'.$product->product_name.'</td>'.
+                        '<td>'.$product->brand_name.'</td>'.
+                        '<td>'.$product->stock.'</td>'.
+
+                        '<td><a onclick="complete('.$product->product_id.','.$product->code.','.$comilla.$product->brand_name.$comilla.','.$comilla.$product->product_name.$comilla.','.$product->purchase_price.','.$product->stock.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
+
+
+                    .'</tr>';
+        }
+
+   
+        return $output;
+          
+   }
+}
+
 
 function popUpPeople($people,$type){
         

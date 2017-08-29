@@ -116,9 +116,9 @@
 
                           <td>{{$detail->brand_name}}</td> 
 
-                          <td><input readonly type="number" name="dprice[]" value="{{$detail->price}}" class="mi_factura"></td> 
+                          <td>$<input readonly type="number" name="dprice[]" value="{{$detail->price}}" class="mi_factura"></td> 
                          <td><input readonly type="number" name="damount[]" value="{{$detail->amount}}" class="mi_factura"></td> 
-                         <td><input id="dsubTotal{{$a}}" name="dsubtTotal" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
+                         <td>$<input id="dsubTotal{{$a}}" name="dsubtTotal" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
                        </tr>
 
                         @php ($a++) 
@@ -274,6 +274,21 @@ function deletefila(index,subTotal){
                        });
   }
 
+</script>
+
+<script>
+  function SearchLetter($letter){
+  $value=$letter;
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchLetter')}}",
+    data:{'searchL':$value,'provider_id':{{$purchaseInvoice->provider->id}} },
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  });
+  }
 </script>
 
 @endsection

@@ -274,8 +274,7 @@
              
         @yield('content')
 
-        </section><!-- /.content -->
-        
+        </section>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer no-print">
         <div class="pull-right hidden-xs">
@@ -314,24 +313,11 @@
     <script src="{{asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
     <!-- jQuery Knob Chart -->
     <script src="{{asset('plugins/knob/jquery.knob.js')}}"></script>
-    <!-- daterangepicker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
-   <!--mydateranguepincker-->
-
-          <!-- Include Required Prerequisites -->
-      
-      <script type="text/javascript" src="{{asset('plugins/daterangepicker/moment.min.js')}}"></script>
-      
-      <!--calendar-->
-
- 
-      <!-- Include Date Range Picker -->
-     
-      <link rel="stylesheet" type="text/css" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}" />
+    
 
     <!-- datepicker -->
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
      
 
 

@@ -8,7 +8,7 @@ use App\Repositories\UserRepository;
 */
 class AsideComposerStatus{
 	public function compose(View $view ){
-		$status=collect(['pendiente','proceso','preparado','entregado']);
+		$status=collect(['pendiente','proceso','preparado','entregado','todos']);
 		$view->with('status',$status);
 
 	}

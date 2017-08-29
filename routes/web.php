@@ -88,6 +88,7 @@ Route::group(['middleware' => 'purchaseUser'],function(){
   Route::get('/detailPurchase','PurchasesController@detailPurchase');
   Route::get('/searchProvider','PurchasesController@searchProvider');
   Route::get('/searchProducts','PurchasesController@searchProducts');
+   Route::get('/searchLetter','PurchasesController@searchLetter');
   Route::get('/autocompleteProvider', 'PurchasesController@autocompleteProvider')->name('autocompleteProvider');
   Route::get('/searchData','PurchasesController@searchDate');
   Route::get('/purchases/{id}/desable','PurchasesController@desable')->name('purchases.desable');
@@ -171,6 +172,7 @@ Route::group(['middleware'=>'adminUser'],function(){
 //*******************Pagina no autorizada******************************
 Route::get('/noAutorizhed',function(){
 return view('admin.role');})->name('noAutorizhed');
+
 //**********************Ver perfil y cambiar contraseña***************************************************
  //Route::resource('users','UsersController');
 Route::post('users/modifyMyPassword','UsersController@modifyMyPassword')->name('users.modifyMyPassword');

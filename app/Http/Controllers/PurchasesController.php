@@ -12,14 +12,29 @@ class PurchasesController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('auth');
+       
         $this->provider=new Provider();
     }
     public function index(Request $request){
-        $purchases=Purchase::where('status','<>','realizada')
-                            ->orderBy('created_at','DESC')
+
+      $fecha1=$request->fecha1;
+      $fecha2=$request->fecha2;
+     $purchases=Purchase::where('status','<>','realizada')
+                            ->orderBy('id','DESC')
                             ->paginate(15);
-      return view('admin.purchases.index')->with('purchases',$purchases);
+
+      if($request->fecha1!='' and $request->fecha2!=''){
+
+         $fecha1=$request->fecha1;
+         $fecha2=$request->fecha2;
+         $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)
+                            ->where('status','<>','realizada')
+                            ->orderBy('id','DESC')->paginate(15);
+
+
+     }
+      
+      return view('admin.purchases.index')->with('purchases',$purchases)->with('fecha1',$fecha1)->with('fecha2',$fecha2);
     }
 
     public function create(){
@@ -174,6 +189,7 @@ class PurchasesController extends Controller
       if($request->ajax()){
         $output="";
         $comilla="'";
+
       $products= DB::table('providers_products as pp')
               ->join('products as p','pp.product_id','=','p.id')
               ->join('brands as b','p.brand_id','=','b.id')
@@ -182,29 +198,34 @@ class PurchasesController extends Controller
               ->where('p.status','=','activo')
               ->where('b.name',"<>","CREATÚ")
               ->where('pp.provider_id','=',$request->provider_id)->get();
-     
-
-       if ($products) {
-        foreach ($products as $key => $product) {
-          
-                  $output.='<tr>'.
-                        '<td>'.$product->code.'</td>'.
-                        '<td>'.$product->product_name.'</td>'.
-                        '<td>'.$product->stock.'</td>'.
-
-                        '<td><a onclick="complete('.$product->product_id.','.$product->code.','.$comilla.$product->brand_name.$comilla.','.$comilla.$product->product_name.$comilla.','.$product->purchase_price.','.$product->stock.')'.'"'.' type="button" class="btn btn-primary"> Agregar </a></td>'
-
-
-                    .'</tr>';
-        }
-      
-        return Response($output);
-          
-       }        
+        
+        $result=popUpProductsPurchases($products);
+         return Response($result);       
    
     }
     }
-
+    
+     public function searchLetter(Request $request){
+   
+      if($request->ajax()){
+   
+         $output="";
+        $comilla="'";
+        $products= DB::table('providers_products as pp')
+              ->join('products as p','pp.product_id','=','p.id')
+              ->join('brands as b','p.brand_id','=','b.id')
+              ->select('code','p.id as product_id','p.name as product_name','purchase_price','b.name as brand_name','stock','p.status','b.name')
+              ->where('p.name','LIKE', $request->searchL."%")
+              ->where('p.status','=','activo')
+              ->where('b.name',"<>","CREATÚ")
+              ->where('pp.provider_id','=',$request->provider_id)->get();
+         
+         $result=popUpProductsPurchases($products);
+         return Response($result);
+              
+   
+        }
+    }
 
      public function searchProvider(Request $request){
    
@@ -309,79 +330,6 @@ public function detailPurchaseOrder($id){
    
     }
     }
-
-
-
-
-    public function searchDate(Request $request){
-     
-      if($request->ajax()){
-        $output="";
-        $comilla="'";
-
-      $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)->where('status','=','pendiente')->get();
-     
-       if ($purchases) {
-        foreach ($purchases as $key => $purchase) {
-         
-                if ($purchase->status!='rechazada'){
-                  $output .='<tr role="row" class="odd">';
-                }
-                else{
-                  $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
-                }
-                  $output .=
-                        '<td>'.$purchase->id.'</td>'.
-                        '<td>'.$purchase->created_at->format('d/m/Y').'</td>'.
-                        '<td>'.$purchase->provider->name.'</td>'.
-                        '<td>'.$purchase->status.'</td>'.
-                        '<td>
-                              <a   href='.$purchase->detail.'> 
-                                  <button  type="button" class="btn btn-info"><i class="fa fa-list" aria-hidden="true"></i>
-                                 </button>
-                              
-                        </a>
-                              <a target="_blank"  href='.$purchase->pdf.'> <button  type="button" class="btn btn-primary">
-                                 Generar PDF</button></a>
-
-                              <a href='.$purchase->register.'  >
-                                <button type="submit" class="btn btn-primary">
-                                    Registrar Compra
-                            
-                                </button>
-                            </a>
-                               <a href='.$purchase->edit.'>
-                                          <button type="submit" class="btn btn-warning" name="edit">
-                                              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
-                                      
-                                          </button>
-                                </a>
-
-
-                         
-                    
-                            <a href='.$purchase->delete.' onclick="return confirm('.$comilla.'¿Seguro dará de baja este pedido?'.$comilla.')">
-                                   <button type="submit" class="btn btn-danger" name="delete">
-                                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
-                                        </button>
-                              </a>';
-                            
-                
-
-                          
-                     
-
-                  $output .= '</td></tr>';
-          }
-        } 
-         
-        return Response($output);
-          
-               
-   
-    
-    }
-  }
 
 
 

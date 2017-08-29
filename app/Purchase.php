@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     protected $table="purchases";
-    protected $fillable= ['id','provider_id','total','status','created_at','pi_id'];
+    protected $fillable= ['id','provider_id','total','status','created_at','number_invoice'];
 
     public function products(){
     	return $this->belongsToMany('App\Product')->withTimestamps();
@@ -20,9 +20,7 @@ class Purchase extends Model
    
     public function scopeSearchPurchase($query,$fecha1,$fecha2){
 
-        return $query->where( [['created_at','>=',$fecha1],
-                ['created_at','<=',$fecha2],]);
-
+     return $query->whereDate('created_at','>=',$fecha1)->whereDate('created_at','<=',$fecha2);
     }
 
     public function scopeSearchPurchaseByMonth($query,$month){

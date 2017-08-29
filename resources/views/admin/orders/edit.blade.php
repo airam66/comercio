@@ -41,16 +41,23 @@
                          <!--Fecha-->
                       
                         <div class='col-sm-4 pull-right '>
+                            <div class="form-group{{ $errors->has('datepicker') ? ' has-error' : '' }}">
                             <div class="form-group">
                                   <div class='input-group date' >
-                                      <input type='text' id="datetimepicker3"  name="datetimepicker3" value="{{date('d/m/Y', strtotime($order->delivery_date))}}" class="form-control" />
+                                      <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" value="{{ $order->delivery_date }}">
                                       <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                       </span>
                                   </div>
                               </div>
+                            @if ($errors->has('datepicker'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('datepicker') }}</strong>
+                                    </span>
+                          @endif
                           </div>
-                          <h4 class="pull-right"> <b>Fecha de entrega: </b></h4>
+                      </div>
+                        <h4 class="pull-right"> <b>Fecha de entrega: </b></h4>
                          </div> 
                          </div>
                     <!--Fin de Fecha-->    
@@ -146,7 +153,7 @@
                           <td>{{$detail->product_code}}</td> 
                           <td> <input readonly type="hidden" name="dproduct_id[]" value="{{$detail->product_id}}">{{$detail->product_name}}</td>  
 
-                          <td><input readonly type="number" name="dprice[]" value="{{$detail->price}}" class="mi_factura"></td> 
+                          <td>$<input readonly type="number" name="dprice[]" value="{{$detail->price}}" class="mi_factura"></td> 
                          <td><input readonly type="number" name="damount[]" value="{{$detail->amount}}" class="mi_factura"></td> 
                          <td>$<input id="dsubTotal{{$a}}" name="dsubtTotal" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
                        </tr>
@@ -221,52 +228,18 @@
 
 @section('js')
  
-<script type="text/javascript">
-var hoy= new Date();    
-$('input[name="datetimepicker3"]').datepicker(
-{
-    locale: {
-      format: 'DD-MM-YYYY',
-      "separator": " - ",
-            "applyLabel": "Guardar",
-            "cancelLabel": "Cancelar",
-            "fromLabel": "Desde",
-            "toLabel": "Hasta",
-            "customRangeLabel": "Personalizar",
-            "daysOfWeek": [
-                "Do",
-                "Lu",
-                "Ma",
-                "Mi",
-                "Ju",
-                "Vi",
-                "Sa"
-            ],
-            "monthNames": [
-                "Enero",
-                "Febrero",
-                "Marzo",
-                "Abril",
-                "Mayo",
-                "Junio",
-                "Julio",
-                "Agosto",
-                "Setiembre",
-                "Octubre",
-                "Noviembre",
-                "Diciembre"
-            ],
-            "firstDay": 1
-       
-    },
-    startDate: hoy
-   
+<script>
 
-});
+$('#datepicker').datepicker({
+     language: "es",
+     autoclose: true,
+     format:'yyyy/mm/dd'
+    ,
+    })
 </script>
 
          
-</script>
+
 <script type="text/javascript">
  var options={
     url: function(q){
@@ -369,14 +342,14 @@ $('#search').on('keyup', function(){
     
   if (product_id!="" && code!="" && name!="" && price!="" && amount>0){
 
-      if (parseInt(amount)<parseInt(stock)){
 
          Subtotal[cont]=parseFloat(amount)*parseFloat(price);
+          Subtotal[cont]=Math.round(Subtotal[cont]*100)/100;
           TotalVenta= parseFloat($('#total').val())+Subtotal[cont];
-          console.log(TotalVenta);
+         
 
 
-              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>'+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td> <td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+code+'</td> <td>'+name+'</td> <td>$<input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>$'+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#total').val(TotalVenta);
@@ -384,9 +357,6 @@ $('#search').on('keyup', function(){
           $('#balance').val(Balance);
         $('#details').append(fila);
 
-      }else{
-          alert ('La cantidad a vender supera el stock');
-      }
 
   }else{
         alert("Error al ingresar detalle de la cotización, revise la cantidad del producto a vender");

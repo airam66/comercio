@@ -20,8 +20,23 @@ class InvoicesController extends Controller
     
 
     public function index(Request $request){
-      $invoices=Invoice::orderBy('created_at','DESC')->paginate(15);
-      return view('admin.invoices.index')->with('invoices',$invoices);
+
+      $fecha1=$request->fecha1;
+      $fecha2=$request->fecha2;
+     $invoices=Invoice::orderBy('id','DESC')->paginate(15);
+
+      if($request->fecha1!='' and $request->fecha2!=''){
+
+         $fecha1=$request->fecha1;
+         $fecha2=$request->fecha2;
+         $invoices=Invoice::SearchInvoice($request->fecha1,$request->fecha2)
+                            ->orderBy('id','DESC')->paginate(15);
+
+
+     }
+      
+      return view('admin.invoices.index')->with('invoices',$invoices)->with('fecha1',$fecha1)->with('fecha2',$fecha2);
+
     }
 
     public function create(){
