@@ -26,7 +26,7 @@
                          <b> Precio por mayor:  </b>${{$product->wholesale_price}}c/u
                     </p>
                   
-                     <p >
+                     <p>
                        <b> Precio por unidad:  </b>${{$product->retail_price}}
                     </p>
                   @endif
@@ -39,6 +39,14 @@
                     <p>
                       <b> Marca:  </b>{{$product->brand->name}}
                     </p>
+                    @if (!Auth::guest())
+                    <p>
+                    {!!Form::open(['url'=>'/shoppingcartsproducts', 'method'=>'POST', 'class'=>'inline-block'])!!}
+                      <input type ='hidden' name='product_id' value="{{$product->id}}">
+                      <input type ='submit' class="btn btn-success col-md-offset-2" value='Agregar al Carrito' id="Agregar">
+                    {!!form::close()!!}
+                    </p>
+                    @endif
                 </div>
           </div>
       </div>

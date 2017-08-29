@@ -48,6 +48,12 @@ margin:auto;
          <li><a href="{{route('login')}}"><b>INICIAR SESION</b></a></li>
 
                  @else
+                            <li><a href="{{url('/carrito')}}" id="cart"><b>Carrito</b>
+                                  <span class="circle-shopping-cart">
+                                    {{$shopping_cart->productsSize()}}
+                                  </span>
+                                  </a>
+                             </li>
 
                               <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -126,5 +132,6 @@ margin:auto;
  <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
    
  @yield('js')
+ 
 </body>
 </html>
