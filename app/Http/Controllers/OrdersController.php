@@ -15,8 +15,10 @@ class OrdersController extends Controller
 {
     public function index(Request $request){
 
-      $orders=Order::orderBy('created_at','DESC')->paginate(15);
-      
+      $orders=Order::orderBy('id','DESC')->paginate(15);
+       $fecha1=$request->fecha1;
+       $fecha2=$request->fecha2;
+       
        $orders->each(function($orders){
      
           $orders->client;
@@ -33,9 +35,21 @@ class OrdersController extends Controller
             $orders = Collection::make();
          }
      }
+
+    
+
+      if($request->fecha1!='' and $request->fecha2!=''){
+
+         $fecha1=$request->fecha1;
+         $fecha2=$request->fecha2;
+         $orders=Order::SearchOrder($request->fecha1,$request->fecha2)
+                            ->orderBy('id','DESC')->paginate(15);
+
+
+     }
       
 
-      return view('admin.orders.index')->with('orders',$orders);
+      return view('admin.orders.index')->with('orders',$orders)->with('fecha1',$fecha1)->with('fecha2',$fecha2);
       
 
     }
@@ -71,7 +85,8 @@ class OrdersController extends Controller
              
             $order->total=$request->get('Totalventa');
             $order->client_id=$request->get('client_id');
-            $order->delivery_date=date("Y-m-d",strtotime($request->get('datetimepicker3')));
+            $order->delivery_date=date("Y-m-d",strtotime($request->get('datepicker')));
+            
            
            $order->discount=$request->get('discount');
             if (empty($order->discount)){
@@ -121,73 +136,7 @@ class OrdersController extends Controller
 
     }
 
-     public function searchDateOrder(Request $request){
-     
-      if($request->ajax()){
-        $output="";
-        $comilla="'";
-
-      $orders=Order::SearchOrder($request->fecha1,$request->fecha2)->paginate(10);
-     
-  
-       if ($orders) {
-        foreach ($orders as $key => $order) {
-         
-                if ($order->status!='cancelada'){
-                  $output .='<tr role="row" class="odd">';
-                }
-                else{
-                  $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
-                }
-                  $output .=
-                        '<td>'.$order->id.'</td>'.
-                        '<td>'.$order->created_at->format('d/m/Y').'</td>'.
-                        '<td>'.date('d/m/Y', strtotime($order->delivery_date)).'</td>'.
-                        '<td>'.$order->client->name.'</td>'.
-                        '<td>'.$order->status.'</td>'.
-                        '<td>$'.$order->client->bill.'</td>'.
-                        
-                        '<td>
-                            <a href='.$order->show.'> <button  type="button" class="btn btn-info "  > <span class="fa fa-list" aria-hidden="true" ></span></button></a>
-
-                                <a href='.$order->payment.'> <button  type="button" class="btn btn-primary "  ><span class="fa fa-usd" aria-hidden="true" ></span></button></a>
-                      
-                            <a target="_blank"  href='.$order->url.'> <button  type="button" class="btn btn-primary">
-                               <i class="fa fa-print"></i>
-                                 Generar PDF</button></a>
-                            <a href='.$order->edit.'>
-                                          <button type="submit" class="btn btn-warning" name="edit">
-                                              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
-                                      
-                                          </button>
-                                </a>
-                               
-                            </td>
-                            <td>
-                              <a href='.$order->remove.' onclick="return confirm('.$comilla.'¿Seguro dará de baja este pedido?'.$comilla.')">
-                                   <button type="submit" class="btn btn-danger" name="delete">
-                                          <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>
-                                        </button>
-                              </a>
-                               
-			                 </td>';
-                        
-        
-                
-         $output .='</tr>';
-                          
-                     
-
-                  
-          }
-        } 
-         
-        return Response($output);
-          
-               
-   }
     
-  }
 //*******************************EDITAR UN PEDIDO******************
   public function edit($id){
      
@@ -299,7 +248,7 @@ class OrdersController extends Controller
      
          $order=Order::find($id);
          $client=Client::find($order->client_id);
-                 
+                 //dd($request);
                  $payment=new Payment;
                  $payment->order_id=$order->id;
                  $payment->amount_paid=$request->get('Rode');
@@ -330,7 +279,22 @@ class OrdersController extends Controller
    
 
     }
+//************************cambiar estado***************************************
+    public function changeStatus(Request $request,$id){
+
+     $order=Order::find($id);
+
+     flash("El pedido N°". $order->id . " de ".$order->client->name." cambió de ".$order->status." a ".$request->status , 'success')->important();
+     
+     $order->fill($request->all());
+     $order->save();
 
 
+       return redirect()->route('orders.index');
+
+    
+    }
+
+    
 
 }

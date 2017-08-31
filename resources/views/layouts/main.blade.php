@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
    
     <link rel="stylesheet" href="{{asset('bower_components/EasyAutocomplete/dist/easy-autocomplete.css')}}">
-    
 
     <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -45,9 +44,10 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    @yield('style')
     <!-- Scripts -->
     <script>
+
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
@@ -83,7 +83,7 @@
                    
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+                                <img src="{{asset('images/users/'.Auth::user()->photo_name)}}" class="user-image" alt="User Image">
                                 <span class="hidden-xs">{{ Auth::user()->name }}</span>
                                 </a>
 
@@ -91,7 +91,7 @@
 
                                 <!-- User image -->
                                   <li class="user-header">
-                                   <img src="dist/img/default-50x50.gif" class="img-circle" alt="User Image">
+                                   <img src="{{asset('images/users/'.Auth::user()->photo_name)}}" class="img-circle" alt="User Image">
                                     <p>
                                       {{ Auth::user()->name }}
                                        <small>Usuario desde {{Auth::user()->created_at->format('d-m-Y')}}</small>
@@ -137,7 +137,7 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+              <img src="{{asset('images/users/'.Auth::user()->photo_name)}}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                <p>{{ Auth::user()->name }}</p>
@@ -193,10 +193,12 @@
             <li class="treeview">
               <a href="#">
                  <i class="fa fa-truck"></i>
-                 <span>Pedidos</span> <i class="fa fa-angle-left pull-right"></i>
+                 <span>Pedidos</span><i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
                     <li class="active"><a href="{{route('orders.index')}}"><i class="fa fa-circle-o"></i>Lista de pedidos</a></li>
+                    <li class="active"><a href="{{route('calendar')}}" target="_blank"><i class="fa fa-circle-o"></i>Calendario</a></li>
+                    
                   </ul>
             </li>
             <li class="treeview">
@@ -230,8 +232,10 @@
                 </a>
                   <ul class="treeview-menu">
 
-                <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
-                 <li class="active"><a href="{{route('admin.reportPurchase')}}"><i class="fa fa-circle-o"></i> Compras</a></li>
+            <li class="active"><a href="{{route('pdfReport')}}"><i class="fa fa-circle-o"></i> Productos</a></li>
+            <li class="active"><a href="{{route('admin.reportPurchase')}}"><i class="fa fa-circle-o"></i> Compras</a></li>
+            <li class="active"><a href="{{route('admin.reportSales')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
+
 
               </ul>
             </li>
@@ -270,7 +274,7 @@
              
         @yield('content')
 
-        </section><!-- /.content -->
+        </section>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer no-print">
         <div class="pull-right hidden-xs">
@@ -309,22 +313,11 @@
     <script src="{{asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
     <!-- jQuery Knob Chart -->
     <script src="{{asset('plugins/knob/jquery.knob.js')}}"></script>
-    <!-- daterangepicker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
-   <!--mydateranguepincker-->
-
-          <!-- Include Required Prerequisites -->
-      
-      <script type="text/javascript" src="{{asset('plugins/daterangepicker/moment.min.js')}}"></script>
-      
- 
-      <!-- Include Date Range Picker -->
-     
-      <link rel="stylesheet" type="text/css" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}" />
+    
 
     <!-- datepicker -->
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
      
 
 

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Provider;
 use App\Purchase;
+use App\Invoice;
+use App\Order;
+use App\Client;
 use App\Brand;
 use App\Http\Requests\MonthRequest;
 
@@ -61,8 +64,9 @@ class PdfController extends Controller
        
     $months=collect([['number'=>'1','month'=>'Enero'],['number'=>'2','month'=>'Febrero'],['number'=>'3','month'=>'Marzo'],['number'=>'4','month'=>'Abril'],['number'=>'5','month'=>'Mayo'],['number'=>'6','month'=>'Junio'],['number'=>'7','month'=>'Julio'],['number'=>'8','month'=>'Agosto'],['number'=>'9','month'=>'Septiembre'],['number'=>'10','month'=>'Octubre'],['number'=>'11','month'=>'Noviembre'],['number'=>'12','month'=>'Diciembre']])->pluck('month','number')->ToArray();
 
-        
-     return view('admin.pdf.purchases')->with('months',$months);
+      $date='viewReportPurchase';
+
+     return view('admin.pdf.purchases')->with('months',$months)->with('date',$date);
 
     }
 
@@ -104,8 +108,8 @@ class PdfController extends Controller
        
     $months=collect([['number'=>'1','month'=>'Enero'],['number'=>'2','month'=>'Febrero'],['number'=>'3','month'=>'Marzo'],['number'=>'4','month'=>'Abril'],['number'=>'5','month'=>'Mayo'],['number'=>'6','month'=>'Junio'],['number'=>'7','month'=>'Julio'],['number'=>'8','month'=>'Agosto'],['number'=>'9','month'=>'Septiembre'],['number'=>'10','month'=>'Octubre'],['number'=>'11','month'=>'Noviembre'],['number'=>'12','month'=>'Diciembre']])->pluck('month','number')->ToArray();
 
-        
-     return view('admin.pdf.sales')->with('months',$months);
+       $date='viewReportSales';
+     return view('admin.pdf.sales')->with('months',$months)->with('date',$date);
 
     }
 
@@ -117,7 +121,7 @@ class PdfController extends Controller
    if($sales->isEmpty()){
 
     flash("No hay compras en los meses seleccionados" , 'warning')->important();
-    return redirect()->route('admin.reportSale');
+    return redirect()->route('admin.reportSales');
 
 
    }else{
@@ -142,35 +146,45 @@ class PdfController extends Controller
     }
 
   }
-
-<<<<<<< HEAD
-
   
-  public function createReportPPurchase($fStart ,$fEnd){
+  public function createReportPPurchase(Request $request){
        
         $vistaurl="admin.pdf.reportProviderPurchases";
 
-     $invoices= Purchase::whereDate('created_at','>=',$fStart)
-                          ->whereDate('created_at','<=',$fEnd)
+     $invoices= Purchase::whereDate('created_at','>=',$request->fecha1)
+                          ->whereDate('created_at','<=',$request->fecha2)
                           ->where('status','=','realizada')
-                          ->orderBy('created_at','ASC')->get();
-
-   
+                          ->orderBy('id','ASC')->get();
          
                 
     $provider=DB::table('providers as pr')
              ->join('purchases as p','pr.id','=','p.provider_id')
              ->select('provider_id','pr.name','pr.address')
              ->groupBy('provider_id','pr.name','pr.address')
-             ->whereDate('p.created_at','>=',$fStart)
-             ->whereDate('p.created_at','<=',$fEnd)
+             ->whereDate('p.created_at','>=',$request->fecha1)
+             ->whereDate('p.created_at','<=',$request->fecha2)
              ->where('p.status','=','realizada')->distinct()->get();
             
         return $this->createPDF($invoices,$provider,$vistaurl);
     }
 
+    public function createReportCOrder(Request $request){
+       
+      $vistaurl="admin.pdf.reportClientOrder";
 
+     $invoices= Order::whereDate('created_at','>=',$request->fecha1)
+                          ->whereDate('created_at','<=',$request->fecha2)
+                          ->orderBy('created_at','ASC')->get();
+                
+    $clients=DB::table('clients as c')
+             ->join('orders as o','c.id','=','o.client_id')
+             ->select('client_id','c.name','c.address','c.phone','c.bill')
+             ->groupBy('client_id','c.name','c.address','c.phone','c.bill')
+             ->whereDate('o.created_at','>=',$request->fecha1)
+             ->whereDate('o.created_at','<=',$request->fecha2)
+             ->where('c.bill','>','0')->distinct()->get();
+            
+        return $this->createPDF($invoices,$clients,$vistaurl);
+    }
 
-=======
->>>>>>> 8e8637b10511d2be6c3371fbc92fecbdaefab752
 }

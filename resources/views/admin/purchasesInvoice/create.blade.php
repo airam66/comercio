@@ -34,9 +34,29 @@
                        
                       <div class="col-md-3 pull-left" >
                            
-                           {!!Field::number('numberInvoice',null)!!}
+                           {!!Field::text('number_invoice',null)!!}
+                       </div>
+
+                       <div class="col-md-3" >
+                         <div class="form-group{{ $errors->has('datepicker') ? ' has-error' : '' }}">
+                        {!! form::label('Fecha')!!}
+                         <div class="input-group date">
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" data-date-end-date="0d" value="{{ old('datepicker') }}">
+                         
+                         </div> 
+
+                          @if ($errors->has('datepicker'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('datepicker') }}</strong>
+                                    </span>
+                          @endif
                        </div>
                        
+                        </div>
+
                 </div>
               </div>
       
@@ -47,13 +67,13 @@
                          <div class="col-md-3 pull-left" >
                            
                            <h4><strong>Cuit: </strong> {{$purchase->provider->cuit}} </h4>
-                           <input id="cuit"  class="form-control myfactura" value="{{$purchase->provider->cuit}}" type="hidden" >
+                           <input id="cuit"  class="form-control mi_factura" value="{{$purchase->provider->cuit}}" type="hidden" >
                        </div>
                        
                       <div class="col-md-6  col-md-offset-2">
                             
                             <h4><strong>Nombre: </strong> {{$purchase->provider->name}}</h4>
-                            <input id="provider_id" name="provider_id" class="form-control myfactura" value=" {{$purchase->provider->id}}" type="hidden" >
+                            <input id="provider_id" name="provider_id" class="form-control mi_factura" value=" {{$purchase->provider->id}}" type="hidden" >
                             
 
                       </div>
@@ -135,11 +155,11 @@
 
                           <td>{{$detail->brand_name}}</td> 
 
-                          <td><input  type="number" name="dprice[]" id="dprice{{$a}}" value="{{$detail->price}}" step="any" onkeyup="calculateSubtotal({{$a}});"></td> 
+                          <td>$<input  type="number" name="dprice[]" id="dprice{{$a}}" value="{{$detail->price}}" step="any" onkeyup="calculateSubtotal({{$a}});"></td> 
 
                          <td><input  type="number" name="damount[]" id="damount{{$a}}" value="{{$detail->amount}}"onkeyup="calculateSubtotal({{$a}});"></td> 
 
-                         <td><input id="dsubTotal{{$a}}" name="dsubtTotal" step="any" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
+                         <td>$<input id="dsubTotal{{$a}}" name="dsubtTotal" step="any" class="mi_factura" type="number" value="{{$detail->subTotal}}"></td>
                        </tr>
                           
                          
@@ -343,6 +363,21 @@ function deletefila(index,subTotal){
 </script>
 
 <script>
+  function SearchLetter($letter){
+  $value=$letter;
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchLetter')}}",
+    data:{'searchL':$value,'provider_id':$providerid},
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  });
+  }
+</script>
+
+<script>
   function calculateSubtotal(number){
 
     
@@ -367,6 +402,29 @@ function deletefila(index,subTotal){
   }
 
 </script>
+<script>
 
+$('#datepicker').datepicker({
+     language: "es",
+     autoclose: true,
+     format:'yyyy/mm/dd'
+    ,
+    })
+</script>
+
+<script>
+  function SearchLetter($letter){
+  $value=$letter;
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchLetter')}}",
+    data:{'searchL':$value,'provider_id':{{$purchase->provider->id}} },
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  });
+  }
+</script>
 
 @endsection

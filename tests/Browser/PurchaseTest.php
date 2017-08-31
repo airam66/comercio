@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Category;
 use App\Event;
@@ -17,10 +18,11 @@ use App\Provider;
 use App\Purchase;
 use App\PurchaseProduct;
 class PurchaseTest extends DuskTestCase
-{
+{   //use DatabaseTransactions;
    
     public function test_delete_purchaseOrder()
     {
+
         $user=factory(User::class)->create(['email'=>'fairam66@gmail.com',]);
        
         $purchaseDetail=factory(PurchaseProduct::class)->create();
@@ -35,14 +37,11 @@ class PurchaseTest extends DuskTestCase
                     ->assertPathIs('/comercio/public/admin/purchases')
                     ->with('.table', function ($table) use($purchaseRemove)
                     {
-                      $table->press('Eliminar')
+                      $table->press('delete')
                             ->acceptDialog()
                             ->assertDontSee($purchaseRemove->id);                       
                     });
                                             
-         $this->assertDatabaseHas('purchases',[
-                   'status'=>'rechazada',                    
-                ]);
     });
 }
 

@@ -11,7 +11,6 @@
       </div>
       <div class="modal-body">
           <div>
-          <input type ='button' class="btn btn-warning pull-left"  value = 'Agregar' onclick="location.href = '{{ route('providers.create') }}'"/>
               <div class="input-group pull-right" >
                 
                   <input type="text" name="searchP" id="searchP" class="form-control"   placeholder="Nombre..."> 

@@ -80,7 +80,10 @@ font-family:'Playball',cursive;
      font-size: 21px;
      margin-top:0;}
    
-   
+    .mi_letter h5{
+     font-size: 4px;
+     margin-top:0;}
+
     .title img{
 	    width: 300px;
 	    height: 180px;
@@ -229,6 +232,13 @@ font-size: 70px;
 text-shadow: 4px 4px 5px rgba(64, 204, 234, 0.7);
     font-size: 35px;
 
+}
+
+.mi_letter h5{
+    font-family: 'Kaushan Script', cursive;
+    color:#ff5100;
+    text-shadow: 4px 4px 5px rgba(64, 204, 234, 0.7);
+     font-size: 15px;
 }
 
 .intro{
@@ -452,10 +462,26 @@ img{
 
 div.mystyle {
 	width: 190px;
-	height: 270px;
+	height: 380px;
 	margin-right:10px; 
 	margin-bottom:8px;
 	margin-left: 10px;
+}
+
+div.my_style {
+  width: 190px;
+  height: 320px;
+  margin-right:10px; 
+  margin-bottom:8px;
+  margin-left: 10px;
+}
+
+div.photo_style {
+  width: 190px;
+  height: 260px;
+  margin-right:10px; 
+  margin-bottom:8px;
+  margin-left: 10px;
 }
 
 .card{
@@ -531,3 +557,32 @@ img .user-image {
 }
 
 
+.papers {
+    position: relative;
+    width: 90%;
+    padding: 2em;
+    margin: 0px auto;
+    margin-top: 40px;
+    font-size: 12px;
+}
+
+.papers, .papers:before, .papers:after {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.1), 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+
+.dropdown-menu {
+    background-color: #870a0a !important;
+}
+
+.dropdown-menu > li > a {
+    color: #fff !important;
+   
+}
+
+.dropdown-menu > li > a:hover {
+    background-color: #c93131!important;
+   
+}

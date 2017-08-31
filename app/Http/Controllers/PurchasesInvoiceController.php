@@ -17,13 +17,27 @@ class PurchasesInvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-         $purchases=Purchase::where('status','=','realizada')
-                              ->orderBy('created_at','DESC')
-                              ->paginate(15);
-      return view('admin.purchasesInvoice.index')->with('purchases',$purchases);
+      $fecha1=$request->fecha1;
+      $fecha2=$request->fecha2;
+      $purchases=Purchase::where('status','=','realizada')
+                            ->orderBy('id','DESC')
+                            ->paginate(15);
+
+      if($request->fecha1!='' and $request->fecha2!=''){
+
+         $fecha1=$request->fecha1;
+         $fecha2=$request->fecha2;
+         $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)
+                            ->where('status','=','realizada')
+                            ->orderBy('id','DESC')->paginate(15);
+
+
+     }
+      
+      return view('admin.purchasesInvoice.index')->with('purchases',$purchases)->with('fecha1',$fecha1)->with('fecha2',$fecha2);
 
     }
 
@@ -66,7 +80,8 @@ class PurchasesInvoiceController extends Controller
 
         $this->validate($request,[
           'cuit'=>'required|exists:providers,cuit',
-          'numberInvoice'=>'required',
+          'number_invoice'=>'required|max:15|unique:purchases',
+          'datepicker'=>'required',
 
         ]);
         
@@ -77,7 +92,8 @@ class PurchasesInvoiceController extends Controller
             
             $purchase->provider_id=$request->get('provider_id');
             
-             $purchase->pi_id=$request->get('numberInvoice');
+            $purchase->number_invoice=$request->get('number_nvoice');
+            $purchase->created_at=date("Y-m-d",strtotime($request->datepicker));
 
              $purchase->status='realizada';
 
@@ -145,15 +161,25 @@ class PurchasesInvoiceController extends Controller
 
     public function storePI(Request $request,$id)
     {
+      $this->validate($request,[
+         
+          'number_invoice'=>'required|max:15|unique:purchases',
+          'datepicker'=>'required',
+
+        ]);
+
         $purchase=Purchase::find($id);
         $purchase->status='realizada';
-        $purchase->pi_id=$request->get('numberInvoice');
+        $purchase->number_invoice=$request->number_invoice;
+        $purchase->created_at=date("Y-m-d",strtotime($request->datepicker));
+        
         
         DB::table('purchases_products')->where('purchase_id','=',$id)->delete();
         
         $purchase->total=$request->get('totalCompra'); 
 
       if ($purchase->total>0){
+
                  $purchase->save();
             }
             else{
@@ -400,9 +426,9 @@ class PurchasesInvoiceController extends Controller
                         '<td>'.$product->product_name.'</td>'.
                         '<td>'.$product->brand_name.'</td>'.
 
-                        '<td><input type="number" name="dprice[]" value="'.$product->price.'"</td>
+                        '<td>$<input type="number" name="dprice[]" value="'.$product->price.'"</td>
                         <td><input id="damount" name="damount[]" type="number" value="'.$product->amount.'" onkeyup="$('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val(this.value*'.$product->price.')" onchange="$('.$comilla.'#TotalCompra'.$comilla.').val(parseFloat($('.$comilla.'#TotalCompra'.$comilla.').val())+ parseFloat($('.$comilla.'#dsubTotal'.$cont.''.$comilla.').val()))"> </td>'.
-                        '<td><input readonly id="dsubTotal'.$cont.'" name="dsubtTotal" class="mi_factura" type="number" value="'.$product->subTotal.'"  ></td>'
+                        '<td>$<input readonly id="dsubTotal'.$cont.'" name="dsubtTotal" class="mi_factura" type="number" value="'.$product->subTotal.'"  ></td>'
 
                     .'</tr>';
                      $cont++;
@@ -418,42 +444,6 @@ class PurchasesInvoiceController extends Controller
    
     }
     }
-
-
-    public function searchDate(Request $request){
-     
-      if($request->ajax()){
-        $output="";
-        $comilla="'";
-
-      $purchases=Purchase::SearchPurchase($request->fecha1,$request->fecha2)->where('status','=','realizada')->get();
-     
-       if ($purchases) {
-        foreach ($purchases as $key => $purchase) {
-         
-                if ($purchase->status!='rechazada'){
-                  $output .='<tr role="row" class="odd">';
-                }
-                else{
-                  $output .='<tr role="row" class="odd" style="background-color: rgb(255,96,96);">';
-                }
-                  $output .=
-                        '<td class="text-center">'.$purchase->pi_id.'</td>'.
-                        '<td class="text-center" >'.$purchase->id.'</td>'.
-                        '<td>'.$purchase->created_at->format('d/m/Y').'</td>'.
-                        '<td>'.$purchase->provider->name.'</td>'.
-                        '<td>$'.$purchase->total.'</td>'.
-                        '</tr>';
-          }
-        } 
-         
-        return Response($output);
-          
-               
-   
-    
-    }
-  }
 
 
 }

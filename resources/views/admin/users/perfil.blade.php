@@ -8,7 +8,11 @@
 	<div class="widget-user-header bg-aqua-active">
 		
 	  <div class="widget-user-image">
-	   <img src="{{asset('dist/img/photo3.jpg')}}" class="img-circle" alt="User avatar">
+	     @if(Auth::user()->photo_name!=null)
+           <img src="{{asset('images/users/'.Auth::user()->photo_name)}}" class="img-circle" alt="User avatar">
+            
+         @endif
+	  
 	  </div>
 	   <h3 class="widget-user-username"><b>{{ Auth::user()->name }}</b></h3>
 	   <h4 class="widget-user-desc">Rol: {{ Auth::user()->role->name }}</h4>
@@ -20,13 +24,13 @@
 			<div class="col-sm-4 border-right">
 				<div class="description-block">
 					
-				<a href="{{ route('users.editPassword')}}">Cambiar Contraseña</a>
+				<a href="{{ route('users.modifyMyPassword')}}">Cambiar Contraseña</a>
 				</div>
 			</div>
 			<div class="col-sm-4 border-right">
 				<div class="description-block">
 
-					<a href="{{route('users.edit',Auth::user()->id)}}"  >Modificar datos</a>
+					<a href="{{route('users.editDatas')}}"  >Modificar datos</a>
 
 				</div>
 			</div>

@@ -3,7 +3,7 @@
 
  <div class="modal fade" id="favoritesModalProduct" tabindex="-1" 
 
-      role="dialog" aria-labelledby="favoritesModalLabel">
+      role="dialog" aria-labelledby="favoritesModalLabel" width="90%">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color:lightblue">
@@ -29,8 +29,9 @@
             <tr style="background-color:lightgray">
                 
                 <th>Nombre</th>
+                <th>Marca</th>
                 <th>Precio Minorista</th>
-                <th>Cantidad Mayorista</th>
+                <th>Cant Mayor</th>
                 <th>Precio Mayorista</th>
                 <th>Stock</th>
                 <th></th>

@@ -11,10 +11,10 @@ use App\Role;
 
 class ExampleTest extends TestCase
 {
-  
+    use DatabaseTransactions;
  public function test_edit_a_user()
     {
-        use DatabaseTransactions;
+      
 
         $rol1=factory(Role::class)->create([
             'name'=>'Admin'
@@ -38,7 +38,7 @@ class ExampleTest extends TestCase
              ->see($user->name)
              ->type("Yanina","name")
              ->press('guardar')
-             ->see('Listado de usuarios');
+             ->see('Listado de usuarios')
              ->see('Yanina');
     }
       

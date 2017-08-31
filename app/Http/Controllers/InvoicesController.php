@@ -20,8 +20,23 @@ class InvoicesController extends Controller
     
 
     public function index(Request $request){
-      $invoices=Invoice::orderBy('created_at','DESC')->paginate(15);
-      return view('admin.invoices.index')->with('invoices',$invoices);
+
+      $fecha1=$request->fecha1;
+      $fecha2=$request->fecha2;
+     $invoices=Invoice::orderBy('id','DESC')->paginate(15);
+
+      if($request->fecha1!='' and $request->fecha2!=''){
+
+         $fecha1=$request->fecha1;
+         $fecha2=$request->fecha2;
+         $invoices=Invoice::SearchInvoice($request->fecha1,$request->fecha2)
+                            ->orderBy('id','DESC')->paginate(15);
+
+
+     }
+      
+      return view('admin.invoices.index')->with('invoices',$invoices)->with('fecha1',$fecha1)->with('fecha2',$fecha2);
+
     }
 
     public function create(){
@@ -163,6 +178,27 @@ public function searchDate(Request $request){
     
     }
   }
+
+
+  //***************************GENERAR PDF PARA IMPRIMIR FACTURA****************************************
+  public function pdfInvoice($id){
+      
+      $invoice= Invoice::find($id);
+      $details= DB::table('invoices_products as ip')
+      ->join('products as p','ip.product_id','=','p.id')
+      ->select('p.id','p.name as product_name','ip.price','ip.amount','ip.subTotal')
+      ->where('ip.invoice_id','=',$id)->get();
+
+      $date = date('Y-m-d');
+      $vistaurl="admin.invoices.pdfInvoices";
+      $view= \View::make($vistaurl,compact('invoice','details','date'))->render();
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+
+      return $pdf->stream();
+    }
+
+    //********************************Desabilitar una factura**************************************//
 
        public function desable($id)
     {   

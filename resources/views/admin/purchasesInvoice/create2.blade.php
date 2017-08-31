@@ -14,7 +14,7 @@
             <h3 class="box-title">Nueva Factura de Compra</h3>
          </div>
       <div class="box-body">
-          {!! Form::open(['route'=>'purchasesInvoice.store', 'method'=>'POST', 'files'=>true])!!}
+          {!! Form::open(['route'=>'purchasesInvoice.store', 'method'=>'POST'])!!}
           <section>
               <div class="row">
                   <div class="col-xs-12">
@@ -35,8 +35,28 @@
                        
                       <div class="col-md-3 pull-left" >
                            
-                           {!!Field::number('numberInvoice',null)!!}
+                           {!!Field::text('number_invoice',null)!!}
                        </div>
+
+                       <div class="col-md-3" >
+                         <div class="form-group{{ $errors->has('datepicker') ? ' has-error' : '' }}">
+                            {!! form::label('Fecha')!!}
+                             <div class="input-group date">
+                                <div class="input-group-addon">
+                                  <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" data-date-end-date="0d" value="{{ old('datepicker') }}">
+                             
+                             </div> 
+
+                              @if ($errors->has('datepicker'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('datepicker') }}</strong>
+                                        </span>
+                             @endif
+                          </div>
+                       
+                      </div>
                        
                 </div>
               </div>
@@ -281,7 +301,7 @@ $('#searchProducts').on('keyup', function(){
          TotalCompra= parseFloat($('#TotalCompra').val())+Subtotal[cont];
          console.log(TotalCompra);
 
-              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td>$  <td><input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>$ '+Subtotal[cont]+'</td> </tr>';
+              var fila='<tr class="selected" id="'+cont+'"><td><button type="button" class="btn btn-danger" onclick="deletefila('+cont+','+Subtotal[cont]+');">X</button></td><td> <input readonly type="hidden" name="dproduct_id[]" value="'+product_id+'">'+name+'</td> <td>'+brand+'</td><td>$<input readonly type="number" name="dprice[]" value="'+price+'" class="mi_factura"></td> <td><input readonly type="number" name="damount[]" value="'+amount+'" class="mi_factura"></td> <td>$ '+Subtotal[cont]+'</td> </tr>';
           cont++;
           clear();
         $('#TotalCompra').val(TotalCompra);
@@ -318,6 +338,32 @@ function deletefila(index,subTotal){
      
   }
 
+</script>
+
+<script>
+
+$('#datepicker').datepicker({
+     language: "es",
+     autoclose: true,
+     format:'yyyy/mm/dd'
+    ,
+    })
+</script>
+
+<script>
+  function SearchLetter($letter){
+  $value=$letter;
+  $providerid=$('#provider_id').val();
+  $.ajax({
+    type: 'get',
+    url:  "{{ URL::to('admin/searchLetter')}}",
+    data:{'searchL':$value,'provider_id':$providerid },
+    success: function(data){
+      $('#mostrar').html(data);
+    }
+    
+  });
+  }
 </script>
 
 @endsection

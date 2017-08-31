@@ -29,8 +29,8 @@
        
     <thead>
             <tr style="background-color:lightgray">
-             <th style="width:10px">Codigo</th>
-                <th>Nombre</th>
+             <th width="35%">Nombre</th>
+                <th>Marca</th>
                 <th>Stock</th>
                 <th></th>
                    

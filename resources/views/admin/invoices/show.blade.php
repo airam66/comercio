@@ -11,7 +11,7 @@
       <div class="box box-info">
           <div class="box-header with-border">
             <h3 class="box-title">Venta</h3>
-         <!-- <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>-->
+    
            
          </div>
           <div class="box-body">
@@ -84,9 +84,9 @@
                 </div><!-- /.row -->
 
                 <div class="row">
-                  <!-- accepted payments column -->
+                
                   <div class="col-xs-6">
-                  </div><!-- /.col -->
+                  </div>
                   <div class="col-xs-6">
                   <div class="text-center" style="background-color: gray;">
                     <h3 style="color:white;">Total</h3>
@@ -95,7 +95,11 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>$ {{$invoice->total}}</td>
+                          @if($invoice->discount!=0)
+                            <td>$ {{($invoice->total/9)*10}}</td>
+                          @else
+                            <td>$ {{$invoice->total}}</td>
+                          @endif
                         </tr>
                         <tr>
                           <th>Descuento</th>
@@ -115,8 +119,8 @@
                   <div class="col-xs-12">
 
                       <div class="form-group">
-                       
-                        <a onclick="location.href='{{route('print',$invoice->id)}}' "id="print" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Generar Comprobante</a>
+                        <a href="{{route('invoices.pdf',$invoice->id)}}" target="_blank" > <button  type="button" class="btn btn-primary "  ><i class="fa fa-print"></i> 
+                      Generar PDF</button></a>
                        </div>
                   </div>
                 </div>

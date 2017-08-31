@@ -74,9 +74,9 @@
                         <tr>
                           <td>{{$detail->product_name}}</td>
                           <td>{{$detail->brand_name}}</td>
-                          <td>{{$detail->price}}</td>
+                          <td>${{$detail->price}}</td>
                           <td>{{$detail->amount}}</td>
-                          <td>{{$detail->subTotal}}</td>
+                          <td>${{$detail->subTotal}}</td>
                         </tr>
                       @endforeach 
                       </tbody>
@@ -96,7 +96,7 @@
                       <table class="table">
                         <tr>
                           <th>Total:</th>
-                          <td>{{$purchase->total}}</td>
+                          <td>${{$purchase->total}}</td>
                         </tr>
                       </table>
                     </div>

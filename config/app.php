@@ -178,10 +178,12 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
       
+        App\Providers\Composer2ServiceProvider::class,
 
       //Proviers Personales
 
         Collective\Html\HtmlServiceProvider::class,
+        App\Providers\ShoppingCartProvider::class,
        
        Laracasts\Flash\FlashServiceProvider::class,
        Styde\Html\HtmlServiceProvider::class,

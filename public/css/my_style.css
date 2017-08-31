@@ -42,3 +42,19 @@ input[type=number]{
     margin-left: 140px !important;
 }
 
+.box-admin{
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+select .color-rojo{
+   background-color:red !important;
+}
+
+.azul{
+    color:blue;
+}
+
+.input-group-addon .btn{
+padding: 1px 12px !important;
+}

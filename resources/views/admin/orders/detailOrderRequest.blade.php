@@ -80,9 +80,9 @@
                         <tr>
                           <td>{{$detail->product_name}}</td>
                           
-                          <td>{{$detail->price}}</td>
+                          <td>${{$detail->price}}</td>
                           <td>{{$detail->amount}}</td>
-                          <td>{{$detail->subTotal}}</td>
+                          <td>${{$detail->subTotal}}</td>
                         </tr>
                       @endforeach 
                       </tbody>
@@ -102,11 +102,11 @@
                       <table class="table">
                         <tr>
                           <th>Total:</th>
-                          <td>{{$order->total}}</td>
+                          <td>${{$order->total}}</td>
                         </tr>
                         <tr>
-                          <th>Saldo:</th>
-                          <td>{{$order->client->bill}}</td>
+                          <th>Saldo a pagar:</th>
+                          <td>${{$order->client->bill}}</td>
                         </tr>
                       </table>
                     </div>

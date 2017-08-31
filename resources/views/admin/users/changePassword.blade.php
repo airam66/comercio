@@ -15,7 +15,7 @@
           
           <div class="box-body">
             
-            {!! Form::open(['route'=>'users.changePassword', 'method'=>'POST','files'=>true])!!}
+            {!! Form::open(['route'=>'users.changeMyPassword', 'method'=>'POST'])!!}
 
 
               {!! Field::password('password')!!}

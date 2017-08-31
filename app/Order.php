@@ -17,8 +17,7 @@ class Order extends Model
     }
 
     public function scopeSearchOrder($query,$fecha1,$fecha2){
-         return $query->where( [['created_at','>=',$fecha1],
-                ['created_at','<=',$fecha2],]);
+       return $query->whereDate('created_at','>=',$fecha1)->whereDate('created_at','<=',$fecha2);   
 
     }
 
@@ -26,28 +25,7 @@ class Order extends Model
         return $this->belongsToMany('App\Product')->withTimestamps();
 
     }
-    public function getShowAttribute(){
-
-      return route('orders.show',$this->id);
-    }
-    public function getPaymentAttribute(){
-
-      return route('orderPayment.register',$this->id);
-    }
-    public function getUrlAttribute(){
-
-      return route('orders.pdf',$this->id);
-    }
-
-    public function getRemoveAttribute(){
-
-      return route('orders.destroy',$this->id);
-    }
-
-    public function getEditAttribute(){
-
-      return route('orders.edit',$this->id);
-    }
+   
 
     public function payments(){
 

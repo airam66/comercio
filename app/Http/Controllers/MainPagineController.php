@@ -12,6 +12,7 @@ class MainPagineController extends Controller
 	public function index(){
 
  $cotillones= Cotillon::orderBy('id','DESC')->paginate(1);
+ 
 
     return view('main.cotillon.index')->with('cotillones', $cotillones);    
 

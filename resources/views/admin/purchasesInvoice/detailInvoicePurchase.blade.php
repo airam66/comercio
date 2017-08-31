@@ -79,9 +79,9 @@
                         <tr>
                           <td>{{$detail->product_name}}</td>
                           <td>{{$detail->brand_name}}</td>
-                          <td>{{$detail->price}}</td>
+                          <td>${{$detail->price}}</td>
                           <td>{{$detail->amount}}</td>
-                          <td>{{$detail->subTotal}}</td>
+                          <td>${{$detail->subTotal}}</td>
                         </tr>
                       @endforeach 
                       </tbody>
@@ -101,7 +101,7 @@
                       <table class="table">
                         <tr>
                           <th>Total:</th>
-                          <td>{{$purchasesInvoice->total}}</td>
+                          <td>${{$purchasesInvoice->total}}</td>
                         </tr>
                       </table>
                     </div>
@@ -116,7 +116,7 @@
                        <!--Boton generar PDF-->
                         
                         <!--Boton generar Editar-->
-                         <a href="#"  >
+                         <a href="{{route('purchasesInvoice.edit',$purchasesInvoice->id)}}" >
 
                                 <button type="submit" class="btn btn-warning">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
