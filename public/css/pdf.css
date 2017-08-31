@@ -156,6 +156,14 @@ h3{
   padding:0px 5px 0 5px;
   margin-bottom: 10px;
 }
+
+.message{
+  border:1px solid red;
+  background-color: pink;
+  padding:0px 5px 0 5px;
+  margin-bottom: 10px;
+}
+
 .provider{
   border:1px solid  orange;
   border-radius: 10px 10 10px 10px;

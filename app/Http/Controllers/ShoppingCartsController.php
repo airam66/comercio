@@ -139,5 +139,21 @@ class ShoppingCartsController extends Controller
         //
     }
 
+     
 
+//***************************GENERAR PDF PARA IMPRIMIR PEDIDO****************************************
+  public function pdfOrderOnline(){
+      $user=\Auth::user();
+
+      $shoppingCart=$user->shoppingCarts->last();
+
+      $details=ShoppingCartProduct::searchOrderOnline($shoppingCart->id)->get();  
+
+      $vistaurl="main.pagine.shoppingcart.pdfOrderOnline";
+      $view= \View::make($vistaurl,compact('shoppingCart','details'))->render();
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+
+      return $pdf->stream();
+    }
 }

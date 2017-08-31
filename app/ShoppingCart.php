@@ -44,4 +44,9 @@ class ShoppingCart extends Model
 			'total'=>0,
 			]);
 	}
+
+	public function user(){
+
+        return $this->belongsTo ('App\User');
+    }
 }

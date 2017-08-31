@@ -40,4 +40,10 @@ class User extends Authenticatable
        return $this->role_id===5;
     }
 
+
+     public function shoppingCarts()
+    {
+        return $this->hasMany('App\ShoppingCart');
+    }
+
 }
