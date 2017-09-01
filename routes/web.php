@@ -169,6 +169,9 @@ Route::group(['middleware'=>'adminUser'],function(){
   Route::resource('carrusel','CarruselController');
  //*******************administrar datos de pagina web****************************************************
   Route::resource('cotillon','MainPagineController');
+
+  //********************MOVIMIENTOS************************************************************
+  Route::resource('movements','MovementsController',['only'=>['create','store']]);
  });
 
 //**********************CALENDARIO DE PEDIDOS***********************************************************
