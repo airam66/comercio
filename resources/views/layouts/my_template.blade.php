@@ -51,7 +51,7 @@ margin:auto;
                             <li><a href="{{url('/carrito')}}" id="cart">
                             <b><span class="glyphicon glyphicon-shopping-cart">
                     
-                                    {{$shopping_cart->productsSize()}}
+                                    {{$shoppingcart->productsSize()}}
                                   </span></b>
                                   </a>
                              </li>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShoppingCartProduct extends Model
 {
-    protected $table="shopping_cart_product";
+    protected $table="shoppingcart_product";
     protected $fillable= ['shopping_cart_id','product_id','amount','subTotal','price'];
 
    public function scopeSearchOrderOnline($query,$id){

@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShoppingCart extends Model
 {
-	protected $table="shopping_carts";
-	protected $fillable = ['status','user_id','total'];
+	protected $table="shoppingcarts";
+	protected $fillable = ['status','user_id','total','delivery_date'];
 
 	public function ShoppingCartProducts(){
 		return $this->hasMany('App\ShoppingCartProduct');
 	}
 
 	public function products(){
-		return $this->belongsToMany('App\Product','shopping_cart_product');
+		return $this->belongsToMany('App\Product','shoppingcart_product');
 	}
 
 	public function productsSize(){
@@ -25,17 +25,22 @@ class ShoppingCart extends Model
 		return $this->ShoppingCartProducts()->sum('subTotal');
 	}
 
-	public static function findOrCreateBySessionID($shopping_cart_id){
-		$shopping_carts=ShoppingCart::findBySeccion($shopping_cart_id);
-		if($shopping_carts)
-			return $shopping_carts;
-		else
+	public static function findOrCreateBySessionID($shoppingcart_id){
+		$shoppingcarts=ShoppingCart::findBySeccion($shoppingcart_id);
+		if(empty($shoppingcarts)){
 			return ShoppingCart::createWithoutSession();
+		}
+		else{if ($shoppingcarts->status!='pendiente'){
+				return ShoppingCart::createWithoutSession();
+			}else{
+				return $shoppingcarts;
+			}
+		}
 
 	}    
 
-	public static function findBySeccion($shopping_cart_id){
-		return ShoppingCart::find($shopping_cart_id);
+	public static function findBySeccion($shoppingcart_id){
+		return ShoppingCart::find($shoppingcart_id);
 	}
 
 	public static function createWithoutSession(){

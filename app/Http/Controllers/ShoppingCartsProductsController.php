@@ -36,13 +36,13 @@ class ShoppingCartsProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $shopping_cart_id=\Session::get('shopping_cart_id');
-        $shopping_cart=ShoppingCart::findOrCreateBySessionID($shopping_cart_id);
+        $shoppingcart_id=\Session::get('shoppingcart_id');
+        $shoppingcart=ShoppingCart::findOrCreateBySessionID($shoppingcart_id);
         
         $product=Product::find($request->product_id);
         $repet='false';
-        $shopping_cart_product=$shopping_cart->ShoppingCartProducts()->get();
-        foreach ($shopping_cart_product as $scp) {
+        $shoppingcart_product=$shoppingcart->ShoppingCartProducts()->get();
+        foreach ($shoppingcart_product as $scp) {
             if ($product->id==$scp->product_id){
                 $repet='true';
                 $id=$scp->id;
@@ -61,7 +61,7 @@ class ShoppingCartsProductsController extends Controller
            $response->save();
         }else{
             $response=ShoppingCartProduct::create([
-                'shopping_cart_id'=>$shopping_cart_id,
+                'shopping_cart_id'=>$shoppingcart_id,
                 'product_id'=>$product->id,
                 'price'=>$product->retail_price,
                 'amount'=>1,
@@ -69,12 +69,12 @@ class ShoppingCartsProductsController extends Controller
                 ]);
         }
         
-        $shopping_cart->total=$shopping_cart->total();  
-        if($shopping_cart->user_id==null){
-            $shopping_cart->user_id=$request->user_id;
+        $shoppingcart->total=$shoppingcart->total();  
+        if($shoppingcart->user_id==null){
+            $shoppingcart->user_id=$request->user_id;
             }
         
-        $shopping_cart->save();
+        $shoppingcart->save();
 
 
         return redirect('/catalogue');
