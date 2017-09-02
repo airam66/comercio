@@ -171,7 +171,8 @@ Route::group(['middleware'=>'adminUser'],function(){
   Route::resource('cotillon','MainPagineController');
 
   //********************MOVIMIENTOS************************************************************
-  Route::resource('movements','MovementsController',['only'=>['create','store']]);
+  Route::resource('movements','MovementsController',['only'=>['create','store','index']]);
+
  });
 
 //**********************CALENDARIO DE PEDIDOS***********************************************************
