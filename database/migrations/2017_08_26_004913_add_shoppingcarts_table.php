@@ -13,10 +13,11 @@ class AddShoppingCartsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_carts', function (Blueprint $table) {
+        Schema::create('shoppingcarts', function (Blueprint $table) {
             $table->increments('id');
+            $table->dateTime('delivery_date');
             $table->decimal('total',9,2);
-            $table->enum('status', ['pendiente','proceso','preparado','entregado','cancelado'])->default('pendiente');
+            $table->enum('status', ['confirmar','pendiente','proceso','preparado','entregado','cancelado'])->default('pendiente');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
@@ -30,6 +31,6 @@ class AddShoppingCartsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping_carts');
+        Schema::dropIfExists('shoppingcarts');
     }
 }

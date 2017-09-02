@@ -229,5 +229,6 @@ Route::get('/shoppingcartsproducts/{id}/destroy','ShoppingCartsProductsControlle
 route::get('/carrito','ShoppingCartsController@edit');
 Route::resource('shoppingcarts','ShoppingCartsController',['only'=>['update']]);
 Route::get('my_order/pdf','ShoppingCartsController@pdfOrderOnline')->name('my_order.pdf');
+Route::get('/orderOnline','ShoppingCartsController@confirmOrderOnline')->name('orderOnline');
 
                   //se restringe a solo el uso de rutas store y destroy

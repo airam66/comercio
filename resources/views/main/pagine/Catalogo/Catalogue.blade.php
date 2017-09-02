@@ -5,7 +5,7 @@
     
  <div class="content-wrap centering">
       <div style="visibility: hidden;"><h6>
-      @foreach($shopping_cart->ShoppingCartProducts()->get() as $sc)
+      @foreach($shoppingcart->ShoppingCartProducts()->get() as $sc)
               {{array_push($idproducts,$sc->product_id)}}
       @endforeach</h6>
       </div>
@@ -50,7 +50,7 @@
                             {!!Form::open(['url'=>'/shoppingcartsproducts', 'method'=>'POST', 'class'=>'inline-block'])!!}
                             <input type ='hidden' name='user_id' value="{{Auth::user()->id}}">
                               <input type ='hidden' name='product_id' value="{{$product->id}}">
-                              <button type ='submit' class="btn btn-success" value='Carrito' id="Agregar">
+                              <button type ='submit' class="btn btn-success" value='Carrito' id="">
                                Agregar al carrito
                               @if(in_array($product->id,$idproducts))
                               <span class="glyphicon glyphicon-check"></span>
@@ -68,7 +68,7 @@
                         
                    </div>
                    @else
-                      <div class="card product mystyle">
+                      <div class="card product my_style">
                      <div>
                        @if($product->extension!=null)
              
@@ -77,7 +77,7 @@
                        @endif
                       </div>
                         <div class="text-center">
-                           <h4 style="height: 60px;">{{$product->name}}</h4>                        
+                           <h4 style="height: 40px;">{{$product->name}}</h4>                        
                         </div>
                         <div class="text-right" >
 

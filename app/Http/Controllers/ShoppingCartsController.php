@@ -59,19 +59,21 @@ class ShoppingCartsController extends Controller
      */
     public function edit()
     {
-        $shopping_cart_id=\Session::get('shopping_cart_id');
-        $shopping_cart=ShoppingCart::findOrCreateBySessionID($shopping_cart_id);
+        $shoppingcart_id=\Session::get('shoppingcart_id');
+        $shoppingcart=ShoppingCart::findOrCreateBySessionID($shoppingcart_id);
 
-        $ShoppingCartProducts=$shopping_cart->ShoppingCartProducts()->get();
+        $ShoppingCartProducts=$shoppingcart->ShoppingCartProducts()->get();
 
-        $details= DB::table('shopping_cart_product as scp')
+        $details= DB::table('shoppingcart_product as scp')
                           ->join('products as p','scp.product_id','=','p.id')
                           ->select('scp.id as shopping_cart_id','p.id as product_id','p.extension','p.name as product_name','scp.price','scp.amount','scp.subTotal')
-                          ->where('scp.shopping_cart_id','=',$shopping_cart->id)->get();
+                          ->where('scp.shopping_cart_id','=',$shoppingcart->id)->get();
         //dd($details);
+        $date=date('d').'/'.date('m').'/'.date('Y');
 
-        return view('main.pagine.shoppingcart.edit')->with('shopping_cart',$shopping_cart)
-                                                    ->with('details',$details); 
+        return view('main.pagine.shoppingcart.edit')->with('shoppingcart',$shoppingcart)
+                                                    ->with('details',$details)
+                                                    ->with('date',$date); 
         
     }
 
@@ -85,7 +87,7 @@ class ShoppingCartsController extends Controller
     public function update(Request $request, $id)
     {
         $shoppingcart=ShoppingCart::find($id);
-
+            dd($request);
         $idarticulo = $request->get('product_id');
         $idshoppingcart = $request->get('dproduct_id');
         $amount = $request->get('damount');
@@ -155,5 +157,15 @@ class ShoppingCartsController extends Controller
       $pdf->loadHTML($view);
 
       return $pdf->stream();
+    }
+
+    public function confirmOrderOnline(Request $request){
+        $shoppingcart_id=\Session::get('shoppingcart_id');
+        $shoppingcart=ShoppingCart::findOrCreateBySessionID($shoppingcart_id);
+        $shoppingcart->status='confirmar';
+        dd($request);
+        $shoppingcart->save();
+
+        return view('main.pagine.shoppingcart.confirmOrderOnline')->with('shoppingcart',$shoppingcart);
     }
 }

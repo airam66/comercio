@@ -26,10 +26,10 @@
                           <h5 class="text-left"><b>Precio: </b>${{$product->retail_price}}c/u</h5>
                           <h5 class="text-left">${{$product->wholesale_price}}c/u (mayor a {{$product->wholesale_cant-1}} unidades)</h5> 
                         </div>
-                          <br><br><br>
                               {!!Form::open(['url'=>'/shoppingcartsproducts', 'method'=>'POST', 'class'=>'inline-block'])!!}
+                              <input type ='hidden' name='user_id' value="{{Auth::user()->id}}">
                               <input type ='hidden' name='product_id' value="{{$product->id}}">
-                              <button type ='submit' class="btn btn-success col-md-offset-1" value='Carrito' id="Agregar">
+                              <button type ='submit' class="btn btn-success col-md-offset-1" value='Carrito' id="add_cart">
                               @if(in_array($product->id,$idproducts))
                               <span class="glyphicon glyphicon-check"></span>
                               @else
