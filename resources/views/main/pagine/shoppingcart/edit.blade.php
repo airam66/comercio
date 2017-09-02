@@ -2,15 +2,31 @@
 
 @section('content')
       <div class="mi_letter text-center">
-                  <h1>Tu Carrito</h1>
+                  <h3>Tu Carrito</h3>
                   <img src="{{ asset('images/line.png')}}" alt=""> 
       </div>
-@if ($shopping_cart->productsSize()>0)
+@if ($shoppingcart->productsSize()>0)
     <div class="box-body">
-          {!! Form::model($shopping_cart,['route'=>['shoppingcarts.update',$shopping_cart->id], 'method'=>'PATCH', 'files'=>true])!!}
+          {!! Form::model($shoppingcart,['route'=>['shoppingcarts.update',$shoppingcart->id], 'method'=>'PATCH', 'files'=>true])!!}
           <section>
               <!-- Table row -->
-                  <div class="col-xs-12 table-responsive">
+          <div class="col-xs-12 table-responsive">
+                                            <!-- FECHAS DEL PEDIDO--> 
+            <div class="panel panel-primary" >
+               <div class="panel-body">
+                  <div class="pull-left">
+                     <h4><b>Fecha: {{$date}}</b></h4>
+                  </div>
+                
+                       
+                         <!--Fecha-->
+                      <h4 class="pull-right"> <b>Entrega Pedido: 
+                      </b>{!! Form::date('delivery_date')!!}</h4>
+
+                         
+              </div> 
+           </div>    
+
                     <table id="details" class="display table table-hover" cellspacing="0" width="100%">
                       <thead>
                         <tr>
@@ -34,19 +50,19 @@
                       @if($detail->extension!=null)
                           <img src="{{asset('images/products/'.$detail->extension)}}" width="40" height="40" >
                       @endif {{$detail->product_name}}</td> 
-                        <td>{{$detail->price}}</td> 
+                        <td>$ {{$detail->price}}</td> 
                         <td><input type="number" name="damount[]" value="{{$detail->amount}}"></td> 
-                        <td>{{$detail->subTotal}}</td>
+                        <td>$ {{$detail->subTotal}}</td>
                        </tr>
 
                         @php ($a++) 
                        @endforeach  
                        </tbody>
                     </table>
-                  </div><!-- /.col -->
-                       <div class="form-group ">
+          </div><!-- /.col -->
+                       <div class="form-group col-md-offset-8 ">
                         <input type ='hidden' name='user_id' value="{{Auth::user()->id}}">
-                        {!! Form::submit('Actualizar Carrito',['class'=>'btn btn-primary'])!!}
+                        <input class="btn btn-success col-xs-5" type="submit" value="Actualizar Carrito">
                        </div>
 
 
@@ -59,13 +75,20 @@
                       <table class="table">
                         <tr>
                           <th class="text-center">Total:</th>
-                          <td class="text-center">$<input type="number" id="TotalCompra" name="TotalCompra" value="{{$shopping_cart->total}}" step="any" class="mi_factura"></td>
+                          <td class="text-center">$<input disabled type="number" id="TotalCompra" name="TotalCompra" value="{{$shoppingcart->total}}" step="any" class="mi_factura"></td>
                         </tr>
                       </table>
                     </div>
                   </div><!-- /.col -->
               </div>
               </section><!-- /.content -->
+              {!! Form::close() !!}
+              <br>
+              {!! Form::open(['route'=>'orderOnline', 'method'=>'GET'])!!}
+              <div class="form-group">
+              <input type="hidden" name="date_delivery" id="date_delivery">
+              {!! Form::submit('FINALIZAR COMPRA',['class'=>'btn btn-success col-xs-6 pull-right', 'id'=>'confirm'])!!}
+              </div>
               {!! Form::close() !!}
              </div>
 @else
@@ -92,6 +115,9 @@ function deletefila(index,subTotal){
   $('#'+index).remove();
  }
   
+  $('#confirm').on('click' function(){
+    $('#date_delivery').val($('#delivery_date').val());
+  })
 
 </script>
 @endsection
