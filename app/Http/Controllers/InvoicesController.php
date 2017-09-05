@@ -7,6 +7,7 @@ use App\Product;
 use App\Client;
 use App\Invoice;
 use App\InvoiceProduct;
+use App\Movement;
 class InvoicesController extends Controller
 {   
     private $products=null;
@@ -67,7 +68,17 @@ class InvoicesController extends Controller
             if (empty($venta->discount)){
               $venta->discount=0;
             }
-            $venta->save();
+            if ($venta->total>0){
+                 $venta->save();
+                 $income=new Movement();
+                 $income->concept="Venta N° ".$invoice->id;
+                 $income->type="entrada";
+                 $income->rode=$venta->total;
+            }
+            else{
+                  flash("Debe ingresar al menos un producto" , 'danger')->important();
+            }
+           
             //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE VENTA//++++++++++++++++++
             $idarticulo = $request->get('dproduct_id');
             $amount = $request->get('damount');

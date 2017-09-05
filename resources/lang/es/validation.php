@@ -151,7 +151,10 @@ return [
     'newpassword_confirmation'  =>        'Confirmar contraseña',
     'from_number'            =>         'Mes de Inicio',
     'to_number'              =>         'Mes de Fin',
-    'datepicker'             =>         'Fecha'
+    'datepicker'             =>         'Fecha',
+    'type'                   =>         'Tipo',
+    'concept'                =>         'Concepto',
+    'rode'                   =>         'Monto'
     ],
 
 ];

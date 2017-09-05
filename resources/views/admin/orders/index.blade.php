@@ -72,7 +72,7 @@
 		     
        
                 <tbody id="mostrar">
-                   @foreach ($orders as $key => $order) 
+                   @foreach ($orders as $order) 
                          
 			                <tr>
 			                        <td>{{$order->id}}</td>

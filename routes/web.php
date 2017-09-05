@@ -169,6 +169,11 @@ Route::group(['middleware'=>'adminUser'],function(){
   Route::resource('carrusel','CarruselController');
  //*******************administrar datos de pagina web****************************************************
   Route::resource('cotillon','MainPagineController');
+
+  //********************MOVIMIENTOS************************************************************
+  Route::resource('movements','MovementsController',['only'=>['create','store','index']]);
+  
+  Route::resource('webUser','UserWebController',['only'=>'index']);
  });
 
 //**********************CALENDARIO DE PEDIDOS***********************************************************
@@ -213,8 +218,7 @@ Route::post('send', ['as' => 'send', 'uses' => 'MailController@send'] );
 Route::get('contact', ['as' => 'contact', 'uses' => 'MailController@index'] );
 
 //**************************Rutas para usuarios de pagina web*********************************
-Route::get('webUsers/create','UserWebController@create')->name('webUsers.create');
-Route::post('webUsers/store','UserWebController@store')->name('webUsers.store');
+
 Route::get('my_profile/edit','UserWebController@edit')->name('webUsers.edit');
 Route::put('my_profile/update','UserWebController@changeDatas')->name('webUsers.changeDatas');
 Route::patch('my_profile/changePassword','UserWebController@changePassword')->name('webUsers.changePassword');

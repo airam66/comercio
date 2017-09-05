@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\User;
 
-class WebUserRequest extends FormRequest
+class MovementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +24,9 @@ class WebUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50',
-            'cuit'=>'max:11|min:11|unique:users',
-            'phone'=>'required|numeric',
-            'photo_name'=>'image',
-            'location'=>'required',
-            'address'=>'required',
-            
-          
-           
+            'concept'=>'max:50|required',
+            'type'=>'required',
+            'rode'=>'required',
         ];
     }
 }
