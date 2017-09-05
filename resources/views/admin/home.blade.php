@@ -19,18 +19,18 @@
         </div>
         <div class="row text-center">
           <div class="col-md-6 text-center">
-            <a href="{{route('products.index')}}"><img src="{{ asset('images/main/list.png')}}" width="100" height="150"><br> Lista de productos</a>
+            <a href="{{route('products.index')}}" id="ProductIndex"><button><img src="{{ asset('images/main/list.png')}}" width="150" height="150"><br> Lista de productos</button></a>
           </div>
           <div class="col-md-5 text-center">
-            <a href="{{route('invoices.create')}}"><img src="{{ asset('images/main/sale.png')}}" width="150" height="150"><br> Nueva venta</a>
+            <a href="{{route('invoices.create')}}" id="sales"><button><img src="{{ asset('images/main/sale.png')}}" width="150" height="150"><br> Nueva venta</button></a>
           </div>
         </div>
         <div class="row text-center">
           <div class="col-md-6 text-center">
-            <a href="{{route('orders.create')}}"><img src="{{ asset('images/main/truck.png')}}" width="150" height="150"><br> Nuevo pedido</a>
+            <a href="{{route('orders.create')}}" id="orders"><button><img src="{{ asset('images/main/truck.png')}}" width="150" height="150"><br> Nuevo pedido</button></a>
           </div>
           <div class="col-md-5 text-center">
-            <a href="{{route('calendar')}}" target="_blank"><img src="{{ asset('images/main/calendar.png')}} " width="120" height="150"><br> Calendario</a>
+            <a href="{{route('calendar')}}" target="_blank" id="calendar"><button><img src="{{ asset('images/main/calendar.png')}} " width="150" height="150"><br> Calendario</button></a>
           </div>
         </div>
       </div>
