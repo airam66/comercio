@@ -126,4 +126,10 @@ class UsersController extends Controller
        return redirect()->route('users.editDatas');
    
    }
+
+    public function destroy($id)
+    {
+        User::destroy($id);
+        return redirect()->route('users.index');
+    }
 }

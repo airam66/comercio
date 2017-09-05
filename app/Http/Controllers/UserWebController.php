@@ -79,5 +79,12 @@ class UserWebController extends Controller
      
        return redirect()->route('webUsers.edit');
    }
+
+
+    public function destroy($id)
+    {
+        User::destroy($id);
+        return redirect()->back();
+    }
    
 }
