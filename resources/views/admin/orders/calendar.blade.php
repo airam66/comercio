@@ -20,7 +20,7 @@
         
         for(var i=0;i<order.length;i++){
             id= order[i].id;
-            x='orders/'+id;
+            x='orders/'+id+'/pdf';
             d=order[i].end;
             date=d.substring(0,10);
            
