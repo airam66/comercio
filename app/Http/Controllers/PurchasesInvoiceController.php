@@ -8,6 +8,7 @@ use App\Purchase;
 use App\PurchaseProduct;
 use App\Product;
 use Illuminate\Support\Facades\DB;
+use App\Movement;
 
 
 class PurchasesInvoiceController extends Controller
@@ -99,6 +100,11 @@ class PurchasesInvoiceController extends Controller
 
             if ($purchase->total>0){
                  $purchase->save();
+                 $outcome=new Movement();
+                 $outcome->concept="Compra N° ".$purchase->id;
+                 $outcome->type="salida";
+                 $outcome->rode=$purchase->total;
+                 $outcome->save();
             }
             else{
                   flash("Debe ingresar al menos un producto" , 'danger')->important();
@@ -181,6 +187,11 @@ class PurchasesInvoiceController extends Controller
       if ($purchase->total>0){
 
                  $purchase->save();
+                 $outcome=new Movement();
+                 $outcome->concept="Compra N° ".$purchase->id;
+                 $outcome->type="salida";
+                 $outcome->rode=$purchase->total;
+                 $outcome->save();
             }
             else{
                   flash("Debe ingresar al menos un producto" , 'success')->important();

@@ -8,6 +8,7 @@ use App\Product;
 use App\OrderProduct;
 use App\Client;
 use App\Payment;
+use App\Movement;
 use App\Http\Requests\OrderRequest;
 use Illuminate\Support\Collection as Collection;
 
@@ -248,7 +249,6 @@ class OrdersController extends Controller
      
          $order=Order::find($id);
          $client=Client::find($order->client_id);
-                 //dd($request);
                  $payment=new Payment;
                  $payment->order_id=$order->id;
                  $payment->amount_paid=$request->get('Rode');
@@ -256,9 +256,14 @@ class OrdersController extends Controller
                  $client->bill=$request->get('balance');
                  $payment->save();
                  $client->save();
+                 $income=new Movement();
+                 $income->concept="Pago Pedido N° ".$order->id;
+                 $income->type="entrada";
+                 $income->rode= $payment->amount_paid;
+                 $income->save();
       
     
-        flash("El pedido N° ". $order->id . " ha sido modificado con exito" , 'success')->important();
+        flash("El pago del pedido N° ". $order->id . " de ".$order->client->name." se registró con exito" , 'success')->important();
      
 
        return redirect()->route('orders.index');

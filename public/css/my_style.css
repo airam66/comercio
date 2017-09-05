@@ -58,3 +58,11 @@ select .color-rojo{
 .input-group-addon .btn{
 padding: 1px 12px !important;
 }
+
+.table-bordered > tbody > tr > th, {
+    border: 1px solid #5ba4f6 !important;
+}
+
+.total_table{
+  background-color: #d8d4d4;
+}

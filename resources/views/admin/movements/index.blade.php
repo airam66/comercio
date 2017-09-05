@@ -73,8 +73,8 @@
             <br>
             <div class="row">
               <div class="pull-right" >
-	            <table class="table table-bordered" style="width: 150px">
-                    <tr>
+	            <table class="table table-bordered" style="width: 150px;">
+                    <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL CAJA</th>
 	                </tr>
 	                <tr>
@@ -84,7 +84,7 @@
 	           </div>
 	           <div class=" pull-right">
 	             <table class="table table-bordered" style="width: 150px">
-	                <tr>
+	                <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL SALIDAS</th>
 	                </tr>
 	                <tr>
@@ -94,7 +94,7 @@
 	            </div>
 	            <div class=" pull-right">
 	             <table class="table table-bordered" style="width: 150px">
-	                <tr>
+	                <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL ENTRADAS</th>
 	                </tr>
 	                <tr>
