@@ -16,13 +16,13 @@ class AddShoppingCartsProductsTable extends Migration
         Schema::create('shoppingcart_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
-            $table->integer('shoppingcart_id')->unsigned();
+            $table->integer('shopping_cart_id')->unsigned();
             $table->integer('amount');
             $table->decimal('price',9,2);
             $table->decimal('subTotal',9,2);
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('shoppingcart_id')->references('id')->on('shoppingcarts')->onDelete('cascade');
+            $table->foreign('shopping_cart_id')->references('id')->on('shoppingcarts')->onDelete('cascade');
 
             $table->timestamps();
         });

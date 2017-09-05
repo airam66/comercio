@@ -29,8 +29,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => 'Administrador',
         'email' => $faker->unique()->safeEmail,
-        
-      
+        'cuit'=>0,
+        'address'=> 'Ragone N°3',
+        'location'=>'Salta',
+        'phone'=>0,
         'password' => $password ?: $password = bcrypt('secret'),
 
 

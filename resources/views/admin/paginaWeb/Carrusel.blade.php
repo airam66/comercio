@@ -30,9 +30,12 @@
             <td class="sorting_1">{{$imagen->id}}</td>
             <td> 
             @if($imagen->extension!=null)
-                    <div>
-                    <img src="{{ asset('images/carrusel/'.$imagen->extension)  }}" width="40" height="40" >
-                    </div>
+                <div>
+                    <a data-toggle="modal" data-target="#favoritesModalCarruselImage{{$imagen->id}}">
+                   <img src="{{ asset('images/carrusel/'.$imagen->extension)  }}" width="40" height="40"> 
+                   </a>
+                   @include('admin.paginaWeb.imagePopUp')
+                </div>
             @endif
             </td>
 
