@@ -11,38 +11,12 @@ use App\Role;
 
 class UserWebController extends Controller
 {
-  protected function create(){
 
-   $locations= array('Rosario de Lerma', 'Salta');
-   	return view('admin.users.register')->with('locations',$locations);
-   }
+  public function index(Request $request){
 
- protected function store(Request $request){
-
- 
-    
-    $user=new User($request->all());
-    $user->fill($request->all());
-
-    $user->password=bcrypt($request->password);
-
-     if($request->file('photo')){
-                 $file =$request->file('photo');
-                 $extension=$file->getClientOriginalName();
-                 $path=public_path().'/images/users/';
-                 $file->move($path,$extension);
-                $user->name_photo=$extension;
-                }
-     
-    $role=Role::where('name','=','Standard');
-    dd($role);
-    $user->save();
-     return redirect()->route('index');
-
-      
-
-   }
-
+    $users=User::searchUserName($request->name)->orderBy('name')->paginate('15');
+   return view('admin.users.indexUsersWeb')->with('users',$users);
+  }
 
    public function edit(){
 
