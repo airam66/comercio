@@ -1,6 +1,5 @@
 @extends('layouts.main')
- 
- 
+
 @section('content')
   <div class="container-fluid spark-screen">
     <div class="row">
