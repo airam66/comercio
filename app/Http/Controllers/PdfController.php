@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Provider;
 use App\Purchase;
-use App\Invoice;
+use App\InvoiceProduct;
 use App\Order;
 use App\Client;
 use App\Brand;
@@ -19,10 +19,12 @@ class PdfController extends Controller
 {
 
     public function index(){
-       $startDate= date('Y-m-d');
+        $startDate= date('Y-m-d');
         $endDate= date('Y-m-d');
+        $months=collect([['number'=>'1','month'=>'Enero'],['number'=>'2','month'=>'Febrero'],['number'=>'3','month'=>'Marzo'],['number'=>'4','month'=>'Abril'],['number'=>'5','month'=>'Mayo'],['number'=>'6','month'=>'Junio'],['number'=>'7','month'=>'Julio'],['number'=>'8','month'=>'Agosto'],['number'=>'9','month'=>'Septiembre'],['number'=>'10','month'=>'Octubre'],['number'=>'11','month'=>'Noviembre'],['number'=>'12','month'=>'Diciembre']])->pluck('month','number')->ToArray();
         return view('admin.pdf.reports')->with('startDate',$startDate)
-                                        ->with('endDate',$endDate);
+                                        ->with('endDate',$endDate)
+                                        ->with('months',$months);
     }
 
 
@@ -74,7 +76,8 @@ class PdfController extends Controller
 
     $purchases= \App\Purchase::where('status','=','realizada')
                            ->whereMonth('created_at','>=',$request->from_number)
-                            ->whereMonth('created_at','<=',$request->to_number)->orderBy('created_at','ASC')->get();
+                            ->whereMonth('created_at','<=',$request->to_number)
+                            ->whereYear('created_at','=',DB::raw('year(now())'))->orderBy('id','ASC')->get();
    if($purchases->isEmpty()){
 
     flash("No hay compras en los meses seleccionados" , 'warning')->important();
@@ -117,12 +120,12 @@ class PdfController extends Controller
 
     $sales= \App\Invoice::where('status','=','activo')
                            ->whereMonth('created_at','>=',$request->from_number)
-                            ->whereMonth('created_at','<=',$request->to_number)->orderBy('created_at','ASC')->get();
+                            ->whereMonth('created_at','<=',$request->to_number)
+                            ->whereYear('created_at','=',DB::raw('year(now())'))->orderBy('created_at','ASC')->get();
    if($sales->isEmpty()){
 
     flash("No hay compras en los meses seleccionados" , 'warning')->important();
     return redirect()->route('admin.reportSales');
-
 
    }else{
 
@@ -185,6 +188,50 @@ class PdfController extends Controller
              ->where('c.bill','>','0')->distinct()->get();
             
         return $this->createPDF($invoices,$clients,$vistaurl);
+    }
+  
+
+  //********************Para reporte de productos vendidos*****************************************
+
+    public function createReportSalesProducts(MonthRequest $request){
+      
+    $vistaurl="admin.pdf.reportSalesProducts";
+    
+
+    $products=DB::table('invoices_products as ip')
+             ->join('products as p','product_id','=','p.id')     
+                 ->select('code',DB::raw('sum(ip.subTotal) as total,sum(amount)as amount'),'p.name', DB::raw('month(ip.created_at) as month'))
+                 ->groupBy('code','p.name',DB::raw('month(ip.created_at)'))
+                 ->where('p.status','=','activo')
+                 ->whereMonth('ip.created_at','>=',$request->from_number)
+                 ->whereMonth('ip.created_at','<=',$request->to_number)
+                 ->whereYear('ip.created_at','=',DB::raw('year(now())'))
+                 ->orderBy('ip.id','ASC')
+                 ->orderBy('p.name','ASC')->get();
+
+    if($products->isEmpty()){
+
+    flash("No hay productos vendidos en los meses seleccionados" , 'warning')->important();
+    return redirect()->route('pdfReport');
+
+   }else{
+
+     $month=collect([]);
+     $m=0;
+     
+     foreach ($products as $key => $value) {
+       $a=0;
+       if ($m != $value->month){
+          $m=$value->month;
+          $a=$a+1;
+          $month->push($m);
+          
+     }
+   }
+ }
+
+    return $this->createPDF($products,$month,$vistaurl);
+
     }
 
 }
