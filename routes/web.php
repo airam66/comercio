@@ -107,6 +107,10 @@ Route::get('/viewReportPurchase','PdfController@viewReportPurchase')->name('admi
 //*******************Reporte de compras por proveedores************************************************
  Route::get('createReportPPurchase','PdfController@createReportPPurchase')->name('createReportPPurchase');
 
+//*******************Reporte de productos vendidos mensualmente************************************************
+ Route::get('createReportSalesProducts','PdfController@createReportSalesProducts')->name('createReportSalesProducts');
+
+
 //************************************Rutas para facturas de compras***********************************
 Route::resource('purchasesInvoice','PurchasesInvoiceController'); 
 Route::get('/completeOrder','PurchasesInvoiceController@completeOrder');
