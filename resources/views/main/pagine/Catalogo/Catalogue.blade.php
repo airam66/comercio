@@ -39,9 +39,8 @@
                        @endif
                       </div>
                         <div class="text-center">
-                           <h4 style="height: 50px;">{{$product->name}}</h4>
+                           <h5 style="height: 40px;"><b>{{strtoupper($product->name)}}</b></h5>
                            <div class="mi_letter">
-                             <h5>${{$product->wholesale_price}}c/u por mayor</h5>
                              <h5>${{$product->retail_price}}c/u</h5>
                            </div>
                           
@@ -77,7 +76,7 @@
                        @endif
                       </div>
                         <div class="text-center">
-                           <h4 style="height: 40px;">{{$product->name}}</h4>                        
+                           <h5 style="height: 35px;"><b>{{strtoupper($product->name)}}</b></h5>                        
                         </div>
                         <div class="text-right" >
 

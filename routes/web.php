@@ -168,7 +168,7 @@ Route::group(['middleware'=>'adminUser'],function(){
  Route::get('users/create','UsersController@create')->name('users.create');
  Route::put('users/{user}','UsersController@update')->name('users.update');
  Route::get('users/{user}/edit','UsersController@edit')->name('users.edit');
- Route::delete('users/{user}','UsersController@destroy')->name('users.destroy');
+ Route::get('users/{user}/destroy','UsersController@destroy')->name('users.destroy');
    //*********************Rutas para imagenes del carrusel de la pagina web*******************************
   Route::resource('carrusel','CarruselController');
  //*******************administrar datos de pagina web****************************************************
