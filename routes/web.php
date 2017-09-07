@@ -99,7 +99,7 @@ Route::group(['middleware' => 'purchaseUser'],function(){
 //*************************************Rutas para pdf*****************************************************
   Route::get('pdfReport','PdfController@index')->name('pdfReport');
   Route::get('reportStock', 'PdfController@createReportStock')->name('reportStock');
-
+  Route::get('reportRanKing', 'PdfController@createReportRanking')->name('reportRanKing');
   //********************Reporte de compras mensuales*****************************************************
 Route::get('/reportPurchase','PdfController@createReportPurchases')->name('admin.reportPurchase');
 Route::get('/viewReportPurchase','PdfController@viewReportPurchase')->name('admin.viewReportPurchase');

@@ -49,9 +49,8 @@ margin:auto;
 
                  @else
                             <li><a href="{{url('/carrito')}}" id="cart">
-                            <b><span class="glyphicon glyphicon-shopping-cart">
-                    
-                                    {{$shoppingcart->productsSize()}}
+                            <b>Mi Carrito <span class="glyphicon glyphicon-shopping-cart">
+                                     {{$shoppingcart->productsSize()}}
                                   </span></b>
                                   </a>
                              </li>

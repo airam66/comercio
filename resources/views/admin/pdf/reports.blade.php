@@ -24,6 +24,11 @@
                       <input name="today" value="{{date('Y-m-d')}}" type="hidden">
                       <a href="{{route('reportStock')}}" target="_blank" ><button class="btn btn-primary">Ver</button></a></td>
                     </tr>
+                    <tr>
+                    <td>2</td>
+                      <td>Reporte de productos más vendidos</td>
+                      <td><a href="{{route('reportRanKing')}}" target="_blank" ><button class="btn btn-primary">Ver</button></a></td>
+                    </tr>
                      
                   </tbody></table>
                 </div><!-- /.box-body -->

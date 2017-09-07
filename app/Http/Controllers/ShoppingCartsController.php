@@ -87,7 +87,7 @@ class ShoppingCartsController extends Controller
     public function update(Request $request, $id)
     {
         $shoppingcart=ShoppingCart::find($id);
-            dd($request);
+         
         $idarticulo = $request->get('product_id');
         $idshoppingcart = $request->get('dproduct_id');
         $amount = $request->get('damount');
@@ -160,10 +160,15 @@ class ShoppingCartsController extends Controller
     }
 
     public function confirmOrderOnline(Request $request){
+        //dd($request);
+        $this->validate($request,[
+          'fecha1'=>'required',
+        ]);
+
         $shoppingcart_id=\Session::get('shoppingcart_id');
         $shoppingcart=ShoppingCart::findOrCreateBySessionID($shoppingcart_id);
         $shoppingcart->status='confirmar';
-        dd($request);
+        $shoppingcart->delivery_date=$request->fecha1;
         $shoppingcart->save();
 
         return view('main.pagine.shoppingcart.confirmOrderOnline')->with('shoppingcart',$shoppingcart);

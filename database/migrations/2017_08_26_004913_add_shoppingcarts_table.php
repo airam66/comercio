@@ -17,7 +17,7 @@ class AddShoppingCartsTable extends Migration
             $table->increments('id');
             $table->dateTime('delivery_date');
             $table->decimal('total',9,2);
-            $table->enum('status', ['confirmar','pendiente','proceso','preparado','entregado','cancelado'])->default('pendiente');
+            $table->enum('status', ['online','confirmar','pendiente','proceso','preparado','entregado','cancelado'])->default('online');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
