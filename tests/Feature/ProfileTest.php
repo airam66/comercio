@@ -23,7 +23,7 @@ class ProfileTest extends TestCase
            ->seeInElement('h4',$user->role->name)
            ->seeInElement('h4',$user->email)
            ->click('Cambiar Contraseña')
-           ->seePageIs(route('users.editPassword'));
+           ->seePageIs(route('users.modifyMyPassword'));
 
     }
 }

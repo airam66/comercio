@@ -193,7 +193,6 @@ position: relative;
 min-height: 1px;
 padding-right: 15px;
 padding-left: 15px;
-
 }
 
 .pull-left {
@@ -206,4 +205,13 @@ padding-left: 15px;
 
 .total{
   margin-left: 320px;
+}
+
+.col-xs {    
+float: left;    
+width:50%;
+position: relative;
+min-height: 1px;
+padding-right: 15px;
+padding-left: 0px;
 }

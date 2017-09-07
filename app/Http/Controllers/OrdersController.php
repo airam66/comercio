@@ -162,13 +162,16 @@ class OrdersController extends Controller
 
   	$order=Order::find($id);
       $order->total=$request->get('total'); 
-      $order->delivery_date=date("Y-m-d",strtotime($request->get('datetimepicker3')));
+      $order->delivery_date=$request->get('datepicker');
+      $payment=Payment::all()->last();
 
       if ($order->total>0){
                  $order->save();
                  $client=Client::find($order->client_id);
                  $client->bill=$request->get('balance');
                  $client->save();
+                 $payment->balance_paid=$request->get('balance');
+                 $payment->save();
             }
             else{
                   flash("Debe ingresar al menos un producto" , 'success')->important();

@@ -29,16 +29,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => 'Administrador',
         'email' => $faker->unique()->safeEmail,
-        'cuit'=>0,
+        'cuit'=>'27357817310',
         'address'=> 'Ragone N°3',
         'location'=>'Salta',
         'phone'=>0,
         'password' => $password ?: $password = bcrypt('secret'),
-
-
         'remember_token' => str_random(10), 
-
-
         'role_id'=>function(){
             return factory(\App\Role::class)->create()->id;
         }, 
@@ -226,7 +222,6 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
 
         'total' => $faker->randomNumber(2),
         'status'=>'pendiente',
-        'advance'=>$faker->randomNumber(2),
         'delivery_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
         'client_id'=>function(){
             return factory(\App\Client::class)->create()->id;
@@ -234,6 +229,22 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
         
     ];
 });
+
+
+$factory->define(App\Payment::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+
+        'order_id'=>function(){
+            return factory(\App\Order::class)->create()->id;
+        },
+        'amount_paid'=>$faker->randomNumber(2),
+        'balance_paid'=>$faker->randomNumber(2),
+        
+    ];
+});
+
 
 $factory->define(App\OrderProduct::class, function (Faker\Generator $faker) {
    

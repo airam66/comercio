@@ -33,4 +33,8 @@ class Order extends Model
         
     }
 
+    public function totalPayments(){
+    return $this->payments()->sum('amount_paid');
+  }
+
 }

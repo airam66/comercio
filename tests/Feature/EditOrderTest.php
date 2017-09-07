@@ -11,6 +11,7 @@ use App\Client;
 use App\Product;
 use App\Order;
 use App\OrderProduct;
+use App\Payment;
 
 class EditOrderTest extends TestCase
 {
@@ -43,7 +44,13 @@ class EditOrderTest extends TestCase
             'client_id'=>$client->id,
             'delivery_date'=>\Carbon\Carbon::now()->addDay(7),
             'total'=>206.8,
-            'advance'=>100
+
+            ]);
+
+        $payment=factory(Payment::class)->create([
+            'order_id'=>$order->id,
+            'amount_paid'=>100.8,
+            'balance_paid'=>106.0,
 
             ]);
 
@@ -63,8 +70,7 @@ class EditOrderTest extends TestCase
             'subTotal'=>154
             ]);
 
-        $balance=$order->total-$order->advance;
-        $client->bill=$balance;
+        $client->bill=$payment->balance_paid;
         $client->save();
 
         $this->actingAs($user);
@@ -73,7 +79,7 @@ class EditOrderTest extends TestCase
              ->seeInElement('h3','Editar pedido')
              ->see($order->id)
              ->see($order->created_at->format('d/m/Y'))
-             ->see($order->delivery_date->format('d/m/Y'))
+             ->see($order->delivery_date->format('Y/m/d'))
              ->see($client->cuil)
              ->see($client->name)
              ->within('#details',function() use($prod1,$prod2,$detail1,$detail2){
@@ -90,16 +96,15 @@ class EditOrderTest extends TestCase
             })
             ->within('#table-total',function() use($order){
              $this->see($order->total)
-                  ->see($order->advance)
+                  ->see($order->totalPayments())
                   ->see($order->client->bill);
                      })
              ->press('X')
              ->dontSeeInElement(".table-striped",$prod1->code)
-             ->within('#table-total',function() use($order,$detail1){
+             ->within('#table-total',function() use($order){
                 
-            })
-             ->press('guardar')
-             ->see('Listado de pedidos');
+            });
+             
     }
 
     
