@@ -6,63 +6,78 @@ use Illuminate\Http\Request;
 use App\ShoppingCartProduct;
 use App\ShoppingCart;
 use App\Product;
+use App\Order;
 use Illuminate\Support\Facades\DB;
+use DateTime;
 class ShoppingCartsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-       //
+    public function indexWeb()
+    {   
+        $user=\Auth::user();
+        $shoppingcarts=ShoppingCart::all();
+        foreach ($shoppingcarts as $value) {
+                    $date1 = new DateTime($value->created_at);
+                    $date2 = new DateTime("now");
+                    $diff = $date1->diff($date2);
+            if ($value->status=='online') {
+                ShoppingCart::destroy($value->id);
+            }
+            if (($value->status=='confirmar')&&($diff->days>6)) {
+                ShoppingCart::destroy($value->id);
+            }
+        }
+
+        $dateNow = new DateTime("now");
+        $orders=Order::where('client_id','=',$user->client_id)->orderBy('id','ASC')->get();
+        $shoppingcarts=ShoppingCart::where('client_id','=',$user->client_id)
+                                    ->where('status','=','confirmar')->orderBy('id','ASC')->get();
+        return view('main.pagine.shoppingcart.indexWeb')->with('shoppingcarts',$shoppingcarts)
+                                                        ->with('orders',$orders)
+                                                        ->with('dateNow',$dateNow);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function index()
+    {
+       $shoppingcarts=ShoppingCart::all();
+        foreach ($shoppingcarts as $value) {
+                    $date1 = new DateTime($value->created_at);
+                    $date2 = new DateTime("now");
+                    $diff = $date1->diff($date2);
+            if ($value->status=='online') {
+                ShoppingCart::destroy($value->id);
+            }
+            if (($value->status=='confirmar')&&($diff->days>6)) {
+                ShoppingCart::destroy($value->id);
+            }
+        }
+        $shoppingcarts=ShoppingCart::where('status','=','confirmar')->orderBy('id','ASC')->get();
+
+        return view('admin.orders.indexWeb')->with('shoppingcarts',$shoppingcarts);
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
+        //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit()
     {
         $shoppingcart_id=\Session::get('shoppingcart_id');
         $shoppingcart=ShoppingCart::findOrCreateBySessionID($shoppingcart_id);
 
-        $ShoppingCartProducts=$shoppingcart->ShoppingCartProducts()->get();
+        $details2=$shoppingcart->ShoppingCartProducts()->get();
 
         $details= DB::table('shoppingcart_product as scp')
                           ->join('products as p','scp.product_id','=','p.id')
@@ -85,7 +100,9 @@ class ShoppingCartsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        //dd($request);
+        $user=\Auth::user();
         $shoppingcart=ShoppingCart::find($id);
          
         $idarticulo = $request->get('product_id');
@@ -113,8 +130,8 @@ class ShoppingCartsController extends Controller
 
             }
         $shoppingcart->total=$shoppingcart->total(); 
-        if($shoppingcart->user_id==null){
-            $shoppingcart->user_id=$request->user_id;
+        if($shoppingcart->client_id==null){
+            $shoppingcart->client_id=$user->client_id;
             }
 
       if ($shoppingcart->total>0){

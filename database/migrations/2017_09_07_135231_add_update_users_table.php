@@ -14,13 +14,10 @@ class AddUpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            
-            $table->integer('role_id')->unsigned();
-            $table->integer('cuit');
-            $table->string('address');
-            $table->string('location');
-            $table->double('phone');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+           // $table->integer('role_id')->unsigned();
+           // $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->integer('client_id')->unsigned()->nullable();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

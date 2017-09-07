@@ -34,17 +34,17 @@
                <hr> 
                
               
-              {!! Field::text('name',Auth::user()->name)!!}
-              {!! Field::number('cuit',Auth::user()->cuit)!!}  
+              {!! Field::text('name',$user->name)!!}
+              {!! Field::number('cuil',$client->cuil)!!}  
               
                <h3>Información de contacto</h3>
                <hr>
               <label> Localidad</label><br>
-              {!! Form::select('location',['Rosario de Lerma'=>'Rosario de Lerma','Salta'=>'Salta','San Lorenzo'=>'San Lorenzo','Cerrillos'=>'Cerrillos','Chicoana'=>'Chicoana','La Merced'=>'La Merced'],Auth::user()->location,['class'=>'form-control chosen-select'])!!} 
+              {!! Form::select('location',['Rosario de Lerma'=>'Rosario de Lerma','Salta'=>'Salta','San Lorenzo'=>'San Lorenzo','Cerrillos'=>'Cerrillos','Chicoana'=>'Chicoana','La Merced'=>'La Merced'],$client->location,['class'=>'form-control chosen-select'])!!} 
             
-               {!! Field::text('address',Auth::user()->address)!!}
+               {!! Field::text('address',$client->address)!!}
              
-              {!! Field::number('phone',Auth::user()->phone)!!}
+              {!! Field::number('phone',$client->phone)!!}
               
                {!! Field::email('email',Auth::user()->email,['disabled'])!!}
          

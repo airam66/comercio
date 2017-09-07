@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
     protected function index(Request $request){
-        $users=User::SearchUserName($request->name)->orderBy('name','ASC')->paginate(10);
+        $users=User::SearchUserName($request->name)->where('role_id','<>',5)->orderBy('name','ASC')->paginate(10);
        
         return view('admin.users.index')->with('users',$users);
     

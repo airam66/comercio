@@ -61,6 +61,13 @@ margin:auto;
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                                                     <li>
+                                      <a href="{{ route('MisCarritos') }}">
+                                            Mis Carritos
+                                        </a>
+
+                                    </li>
+                                    <hr>
                                     <li>
                                       <a href="{{ route('webUsers.edit') }}">
                                             Editar Perfil
@@ -78,8 +85,7 @@ margin:auto;
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </li>
-                                    
+                                    </li>                                 
                                    
                                 </ul>
                             </li>
