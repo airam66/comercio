@@ -44,7 +44,7 @@
                             <div class="form-group{{ $errors->has('datepicker') ? ' has-error' : '' }}">
                             <div class="form-group">
                                   <div class='input-group date' >
-                                      <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" value="{{ $order->delivery_date }}">
+                                      <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" value="{{date('Y/m/d', strtotime($order->delivery_date))}}">
                                       <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                       </span>
@@ -182,13 +182,13 @@
                         <tr>
                           <th>Adelanto</th>
                           <td>
-                              $<input disabled id="advance" value="{{$order->advance}}" name="advance" type="number" class="mi_factura">
+                              $<input disabled id="advance" value="{{$order->totalPayments()}}" name="advance" type="number" class="mi_factura">
                                      
                                 
                         </td>
                         </tr>
                         <tr>
-                          <th>Saldo:</th>
+                          <th>Saldo a pagar:</th>
                           <td>$<input type="number" name="balance" id="balance" value="{{$order->client->bill}}" step="any" class="mi_factura"></td>
                         </tr>
                       </table>

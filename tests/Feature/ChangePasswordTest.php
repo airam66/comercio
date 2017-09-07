@@ -18,7 +18,7 @@ class ChangePasswordTest extends TestCase
 
       $this->actingAs($user);
 
-      $this->visit(route('users.editPassword'))
+      $this->visit(route('users.modifyMyPassword'))
            ->type('secret',"password")
            ->type('1234567',"newpassword")
            ->type('1234567',"newpassword_confirmation")
@@ -34,7 +34,7 @@ class ChangePasswordTest extends TestCase
 
       $this->actingAs($user);
 
-      $this->visit(route('users.editPassword'))
+      $this->visit(route('users.modifyMyPassword'))
            ->type('12345678',"password")
            ->type('1234567',"newpassword")
            ->type('12345679',"newpassword_confirmation")

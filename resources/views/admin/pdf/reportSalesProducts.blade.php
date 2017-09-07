@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Reporte de Productos Vendidos</title>
+      <link rel="shortcut icon" type="image/x-ico" href="{{ asset('images/logoss.ico') }}">
     <link rel="stylesheet" href="{{'css/pdf.css'}}" media="all" />
   </head>
   <body >

@@ -67,7 +67,7 @@
              </div>
              
              <div>
-             <div class="col-xs-6 pull-left">
+             <div class="col-xs pull-left">
              <table>
                 <tr>
                    <th>Fecha</th>
