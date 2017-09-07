@@ -30,7 +30,7 @@ class ShoppingCart extends Model
 		if(empty($shoppingcarts)){
 			return ShoppingCart::createWithoutSession();
 		}
-		else{if ($shoppingcarts->status!='pendiente'){
+		else{if ($shoppingcarts->status!='online'){
 				return ShoppingCart::createWithoutSession();
 			}else{
 				return $shoppingcarts;
@@ -45,7 +45,7 @@ class ShoppingCart extends Model
 
 	public static function createWithoutSession(){
 		return ShoppingCart::create([
-			'status' => 'pendiente',
+			'status' => 'online',
 			'total'=>0,
 			]);
 	}

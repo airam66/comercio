@@ -234,4 +234,20 @@ class PdfController extends Controller
 
     }
 
+    //**********************Reporte de Articulos mas vendidos**************************
+    public function createReportRanKing(){
+      $vistaurl="admin.pdf.reportRanKing";
+      $invoices=DB::table('invoices_products as ip')
+                    ->join('products as p','p.id','=','ip.product_id')
+                    ->select(DB::raw('sum(ip.subTotal) as price, sum(ip.amount) as cant'),'p.name','p.code')
+                    ->groupBy('p.name','p.code')
+                    ->orderBy('cant','DES')
+                    ->limit(20)->get();
+      
+      $products=Product::all();
+
+      return $this->createPDF($invoices,$products,$vistaurl);
+
+    }
+
 }
