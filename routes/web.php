@@ -183,7 +183,11 @@ Route::group(['middleware'=>'adminUser'],function(){
   //------------------------------Reporte de moviemientos-------------------------------------------
 
   Route::get('reportMovements/{startDate}/{endDate}/','PdfController@createReportMovements')->name('reportMovements');
+
  });
+
+
+ Route::get('reportWeeklySales','PdfController@reportWeeklySales')->name('reportWeeklySales');
 
 //**********************CALENDARIO DE PEDIDOS***********************************************************
 Route::get('/calendar','CalendarsController@calendar')->name('calendar');

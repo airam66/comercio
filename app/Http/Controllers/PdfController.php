@@ -8,6 +8,7 @@ use App\Product;
 use App\Provider;
 use App\Purchase;
 use App\InvoiceProduct;
+use App\Invoice;
 use App\Order;
 use App\Client;
 use App\Brand;
@@ -279,6 +280,41 @@ class PdfController extends Controller
       $pdf->loadHTML($view);
 
       return $pdf->stream();
+    }
+
+    //**********************Reporte de ventas semanales********************************
+
+    public function reportWeeklySales(Request $request){
+
+     $date=$request->weekDay;
+     $d=date("d",strtotime($date));
+     $m=date("m",strtotime($date));
+     $y=date("Y",strtotime($date));
+     $weekEnd = \Carbon\Carbon::create($y, $m, $d,0);
+     $weekEnd->addDays(6);
+     
+     $vistaurl="admin.pdf.reportWeeklySales";
+
+     $invoices= Invoice::whereDate('created_at','>=',$request->weekDay)
+                          ->whereDate('created_at','<=',$weekEnd)
+                          ->orderBy('id','ASC')->get();
+                
+  
+     if ($invoices->isEmpty()){
+          
+      flash("No hay ventas en el período de fechas ingresado" , 'warning')->important();
+     
+
+       return redirect()->route('admin.reportSales');
+      }
+
+   
+      $view= \View::make($vistaurl,compact('invoices','','d','m','y'))->render();
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+
+      return $pdf->stream();
+
     }
 
 }

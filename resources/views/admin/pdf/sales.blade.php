@@ -37,8 +37,38 @@
                       </td>
                     
                     </tr>
-                    <tr>
+                      <tr>
                       <td>2</td>
+                      <td>Reporte de Ventas Semanales</td>
+                      <td>
+                       <form action='reportWeeklySales'  method="GET" target="_blank" >
+                         
+                           <div class="input-group date col-md-6">
+                               <div class="form-group{{ $errors->has('weekDay') ? ' has-error' : '' }}">
+                                <input type="text" class="form-control" name="weekDay" data-date-end-date="0d" placeholder="Seleccione un dia" id="weekDay">
+                                @if ($errors->has('weekDay'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('weekDay') }}</strong>
+                                    </span>
+                                @endif
+                               </div>
+                              <div class="input-group-addon">
+                                  <button type="submit" class="btn btn-primary">
+                                      Ver
+                                  </button>
+                            
+                              </div>
+                          </div>
+                              
+                              
+                                
+                        </form>
+                        
+                      </td>
+                    
+                    </tr>
+                    <tr>
+                      <td>3</td>
                       <td>Reporte de Ventas a Clientes</td>
                       <td>
                         <form action='createReportCOrder'  method="GET" target="_blank" >
@@ -89,6 +119,16 @@
          language: "es",
          autoclose: true,
          format:"yyyy/mm/dd"
+    });
+});
+
+$('input').each(function() {
+    $(this).datepicker({
+         language: "es",
+         autoclose: true,
+         format:"yyyy/mm/dd",
+         daysOfWeekDisabled: "1,2,3,4,5,6",
+         calendarWeeks: true
     });
 });
 
