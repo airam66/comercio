@@ -43,7 +43,6 @@ class Client extends Model
 
 
     public function scopeSearchClient($query,$name){
-
         return $query->where('name','LIKE',"%" . $name . "%");
                      
     }

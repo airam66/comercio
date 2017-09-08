@@ -37,7 +37,13 @@ class ShoppingCart extends Model
 			}
 		}
 
-	}    
+	}  
+
+	public function scopeSearchOrder($query,$fecha1,$fecha2){
+       return $query->whereDate('created_at','>=',$fecha1)
+       				->whereDate('created_at','<=',$fecha2);   
+
+    }  
 
 	public static function findBySeccion($shoppingcart_id){
 		return ShoppingCart::find($shoppingcart_id);

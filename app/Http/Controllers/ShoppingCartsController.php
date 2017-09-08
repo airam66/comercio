@@ -7,6 +7,8 @@ use App\ShoppingCartProduct;
 use App\ShoppingCart;
 use App\Product;
 use App\Order;
+use App\OrderProduct;
+use App\Client;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 class ShoppingCartsController extends Controller
@@ -38,9 +40,12 @@ class ShoppingCartsController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-       $shoppingcarts=ShoppingCart::all();
+       
+       $shoppingcarts=ShoppingCart::orderBy('id','DESC')
+                                    ->where('status','=','confirmar')
+                                    ->paginate(15);
         foreach ($shoppingcarts as $value) {
                     $date1 = new DateTime($value->created_at);
                     $date2 = new DateTime("now");
@@ -52,24 +57,56 @@ class ShoppingCartsController extends Controller
                 ShoppingCart::destroy($value->id);
             }
         }
-        $shoppingcarts=ShoppingCart::where('status','=','confirmar')->orderBy('id','ASC')->get();
+
+       $fecha1=$request->fecha1;
+       $fecha2=$request->fecha2;
+
+      if ($request->searchClient!=''){
+         $client= Client::SearchClient($request->searchClient)->first();
+          if ($client != null){
+          $shoppingcarts=$client->shoppingcart()->paginate(15);
+         }
+         else{
+            $shoppingcarts = Collection::make();
+         }
+      }
+
+      if($request->fecha1!='' and $request->fecha2!=''){
+         $fecha1=$request->fecha1;
+         $fecha2=$request->fecha2;
+         $shoppingcarts=ShoppingCart::SearchOrder($request->fecha1,$request->fecha2)
+                                    ->where('status','=','confirmar')
+                                    ->orderBy('id','DESC')->paginate(15);
+      }
 
         return view('admin.orders.indexWeb')->with('shoppingcarts',$shoppingcarts);
     }
 
-    public function create()
+    public function createOrders($id)
     {
-        //
-    }
+        $shoppingcart=ShoppingCart::find($id);
+        $shoppingcartproducts=$shoppingcart->ShoppingCartProducts()->get();
+        
+        $order=Order::create([
+            'client_id'=>$shoppingcart->client_id,
+            'delivery_date'=>$shoppingcart->delivery_date,
+            'total'=>$shoppingcart->total,
+            'status'=>'pendiente',
+            'discount'=>0,
+        ]);
+        foreach ($shoppingcartproducts as $detalle) {
+            $orderproduct=OrderProduct::create([
+                'order_id'=>$order->id,
+                'product_id'=>$detalle->product_id,
+                'amount'=>$detalle->amount,
+                'subTotal'=>$detalle->subTotal,
+                'price'=>$detalle->price,
+        ]);
+        }
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
+        $shoppingcart->status='pendiente';
+        $shoppingcart->save();
+        return redirect()->route('orders.index');
     }
 
     public function edit()

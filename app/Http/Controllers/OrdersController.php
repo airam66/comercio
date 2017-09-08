@@ -21,13 +21,10 @@ class OrdersController extends Controller
        $fecha2=$request->fecha2;
        
        $orders->each(function($orders){
-     
           $orders->client;
-       
+        });
 
-     });
-
-        if ($request->searchClient!=''){
+      if ($request->searchClient!=''){
          $client= Client::SearchClient($request->searchClient)->first();
           if ($client != null){
           $orders=$client->orders()->paginate(15);
@@ -35,25 +32,18 @@ class OrdersController extends Controller
          else{
             $orders = Collection::make();
          }
-     }
-
-    
+      }
 
       if($request->fecha1!='' and $request->fecha2!=''){
-
          $fecha1=$request->fecha1;
          $fecha2=$request->fecha2;
          $orders=Order::SearchOrder($request->fecha1,$request->fecha2)
                             ->orderBy('id','DESC')->paginate(15);
-
-
-     }
+      }
       
-
       return view('admin.orders.index')->with('orders',$orders)->with('fecha1',$fecha1)->with('fecha2',$fecha2);
-      
-
     }
+
     
     public function create()
     {
