@@ -36,6 +36,7 @@ class ShoppingCartsProductsController extends Controller
      */
     public function store(Request $request)
     {
+        $user=\Auth::user();
         $shoppingcart_id=\Session::get('shoppingcart_id');
         $shoppingcart=ShoppingCart::findOrCreateBySessionID($shoppingcart_id);
         
@@ -70,8 +71,8 @@ class ShoppingCartsProductsController extends Controller
         }
         
         $shoppingcart->total=$shoppingcart->total();  
-        if($shoppingcart->user_id==null){
-            $shoppingcart->user_id=$request->user_id;
+        if($shoppingcart->client_id==null){
+            $shoppingcart->client_id=$user->client_id;
             }
         
         $shoppingcart->save();

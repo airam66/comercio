@@ -61,11 +61,11 @@
                             <label for="cuit" class="col-md-4 control-label">CUIT</label>
 
                             <div class="col-md-6">
-                                <input id="cuit" type="text" class="form-control" name="cuit" value="{{ old('cuit') }}" required autofocus>
+                                <input id="cuil" type="text" class="form-control" name="cuil" value="{{ old('cuil') }}" required autofocus>
 
-                                @if ($errors->has('cuit'))
+                                @if ($errors->has('cuil'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('cuit') }}</strong>
+                                        <strong>{{ $errors->first('cuil') }}</strong>
                                     </span>
                                 @endif
                             </div>

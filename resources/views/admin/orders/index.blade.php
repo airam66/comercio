@@ -79,7 +79,7 @@
                               <td>{{$order->created_at->format('d/m/Y')}}</td>
                               <td>{{date('d/m/Y', strtotime($order->delivery_date))}}</td>
                               <td>{{$order->client->name}}</td>
-                              <td>${{$order->client->bill}}</td>
+                              <td>${{$order->total-$order->totalPayments()}}</td>
                               <td>
                               {!! Form::open(['route'=>['orders.changeStatus',$order->id],'method'=> 'PUT']) !!}         
 			                        

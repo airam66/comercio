@@ -22,6 +22,15 @@ class Client extends Model
         return $this->hasMany('App\Order');
     }
 
+     public function shoppingcart()
+    {
+        return $this->hasMany('App\Order');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
     public static function clientByCuil($term){
 
         return static::select('id', 'name','cuil','address' ,'phone','email')
@@ -34,7 +43,6 @@ class Client extends Model
 
 
     public function scopeSearchClient($query,$name){
-
         return $query->where('name','LIKE',"%" . $name . "%");
                      
     }
