@@ -20,14 +20,49 @@
                     <tr>
                       <td>1</td>
                       <td>Reporte de Compras Mensuales</td>
-                      <td><a data-toggle="modal" id="first" data-title="detail" data-target="#chooseMonths"><button class="btn btn-block btn-primary btn-xs">Ver</button></a></td>
-                      @include('admin.pdf.chooseMonths')
+                      <td>
+                        <form action="createReportSalesProducts"  method="GET" target="_blank">
+                          
+                          <div class="input-group date">
+                            <div class="input-group input-daterange">
+                              <div class="input-group-addon">DESDE</div>
+                                {!! Form::select('from_number',$months ,null, ['class'=>'form-control','placeholder'=>'......  Seleccione un mes  ..... '])!!}
+                                 
+                             <div class="input-group-addon">HASTA</div>
+                                {!! Form::select('to_number',$months ,null, ['class'=>'form-control','placeholder'=>'...... Seleccione un mes  ..... '])!!}
+                             <div class="input-group-addon">
+                    
+                                <button type="submit" class="btn btn-primary">
+                                  Ver
+                      </button>
+                  </div>
+                </div>
+              </div>
+                         </form> 
+                      </td>
+                     
                     
                     </tr>
                     <td>2</td>
                       <td>Reporte de Compras a Proveedores</td>
-                      <td><a data-toggle="modal" id="first" data-title="detail" data-target="#chooseDate"><button class="btn btn-block btn-primary btn-xs">Ver</button></a></td>
-                      @include('admin.pdf.ChooseDate')
+                      <td>
+                       <form action='createReportPPurchase'  method="GET" target="_blank" >
+              <div class="input-group date">
+                 <div class="input-group input-daterange">
+                  <div class="input-group-addon">DESDE</div>
+                    <input type="text" class="form-control" name="fecha1" data-date-end-date="0d" placeholder="Seleccione una fecha" id="fecha1">
+                  <div class="input-group-addon">HASTA</div>
+                  <input type="text" class="form-control" name="fecha2" data-date-end-date="0d" placeholder="Seleccione una fecha" id="fecha2">
+                  <div class="input-group-addon">
+                    
+                    <button type="submit" class="btn btn-primary">
+                                  Ver
+                      </button>
+                  </div>
+                </div>
+              </div>
+         </form>
+         </td>
                     
                     </tr>
                     

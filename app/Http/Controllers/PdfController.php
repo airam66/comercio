@@ -11,6 +11,7 @@ use App\InvoiceProduct;
 use App\Order;
 use App\Client;
 use App\Brand;
+use App\Movement;
 use App\Http\Requests\MonthRequest;
 
 use Illuminate\Support\Facades\DB;
@@ -248,6 +249,23 @@ class PdfController extends Controller
 
       return $this->createPDF($invoices,$products,$vistaurl);
 
+    }
+
+
+    public function createReportMovements($startDate,$endDate){
+        
+        $movements=Movement::searchMovement($startDate,$endDate)->orderBy('id','DESC')->paginate(15);
+        $totalOutcomes=Movement::totalOutcomesByDate($startDate,$endDate);
+        $totalIncomes=Movement::totalIncomesByDate($startDate,$endDate);
+
+        $vistaurl="admin.movements.pdfMovements";
+ 
+      $date = date('Y-m-d');
+      $view= \View::make($vistaurl,compact('movements','totalOutcomes','totalIncomes','startDate','endDate','date'))->render();
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+
+      return $pdf->stream();
     }
 
 }

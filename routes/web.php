@@ -201,6 +201,7 @@ Route::get('users/{user}','UsersController@show')->name('users.show');
  });
 
 
+Route::get('reportMovements/{startDate}/{endDate}/','PdfController@createReportMovements')->name('reportMovements');
 //Nueva ruta
 
 });

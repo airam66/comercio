@@ -14,7 +14,7 @@
       <h1>Reporte de Productos Vendidos</h1>
       
     </header>
-  <h2>Fecha: {{date('d-m-Y')}}</h2>
+ <h3>Fecha de emisión: {{date('d-m-Y')}}</h3>
   @php ($a = 0)   
   @php ($m = 0) 
   @foreach($data2 as $month)

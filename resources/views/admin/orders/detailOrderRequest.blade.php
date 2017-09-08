@@ -68,11 +68,10 @@
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th>Nombre</th>
-                          
-                          <th>Precio Compra</th>
+                          <th>Producto</th>  
+                          <th>Precio</th>
                           <th>Cantidad</th>
-                          <th>Subtotal Estimado</th>
+                          <th>Subtotal</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -91,15 +90,49 @@
                 </div><!-- /.row -->
 
                 <div class="row">
-                  <!-- accepted payments column -->
                   <div class="col-xs-6">
+                     <div class="text-center" style="background-color: gray;">
+                    <h3 style="color:white;">Pagos</h3>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tr>
+                          <th class="text-center">Fecha</th>
+                           <th class="text-center">Monto pagado</th>
+                           <th class="text-center">Saldo a pagar</th>
+                        </tr>
+                        <tbody>
+                           @foreach($payments as $payment)
+                           <tr>
+                             <td class="text-center">{{$payment->created_at->format('d/m/Y')}}</td>
+                             <td class="text-center">${{$payment->amount_paid}}</td>
+                             <td class="text-center">${{$payment->balance_paid}}</td>
+                           </tr>
+
+                            @endforeach
+                        </tbody>
+                      </table>
+                    </div>
                   </div><!-- /.col -->
+
                   <div class="col-xs-6">
                   <div class="text-center" style="background-color: gray;">
                     <h3 style="color:white;">Total</h3>
                     </div>
                     <div class="table-responsive">
                       <table class="table">
+                        <tr>
+                          <th style="width:50%">Subtotal:</th>
+                          @if($order->discount!=0)
+                            <td>${{($order->total/9)*10}}</td>
+                          @else
+                            <td>${{$order->total}}</td>
+                          @endif
+                        </tr>
+                        <tr>
+                          <th>Descuento</th>
+                          <td>{{$order->discount}}%</td>
+                        </tr>
                         <tr>
                           <th>Total:</th>
                           <td>${{$order->total}}</td>
