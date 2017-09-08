@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $table="orders";
-    protected $fillable= ['client_id','advance','delivery_date','total','status'];
+    protected $fillable= ['client_id','discount','delivery_date','total','status'];
 
   
     
      public function client(){
-
         return $this->belongsTo ('App\Client');
     }
 

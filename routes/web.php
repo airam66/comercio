@@ -145,8 +145,9 @@ Route::group(['middleware' => 'orderUser'],function(){
   Route::get('orderPayment/{id}/registerPayment','OrdersController@registerPayment')->name('orderPayment.register');
   Route::post('orderPayment/{id}/storePayment','OrdersController@storePayment')->name('OrderPayment.store');
 
-  Route::put('orders/changeStatus/{order}','OrdersController@changeStatus')->name('orders.changeStatus');
- 
+ Route::put('orders/changeStatus/{order}','OrdersController@changeStatus')->name('orders.changeStatus');
+ Route::resource('shoppingcarts','ShoppingCartsController',['only'=>['index']]);
+ Route::get('shoppingcarts/createOrders/{id}','ShoppingCartsController@createOrders')->name('shoppingcarts.createOrders');
 });
 Route::group(['middleware' => 'orderUser','saleUser'],function(){
   //para buscar productos
@@ -233,6 +234,7 @@ Route::patch('my_profile/changePassword','UserWebController@changePassword')->na
 //****************************Rutas para carrito de compras************************************
 Route::resource('shoppingcartsproducts','ShoppingCartsProductsController',['only'=>['store']]);
 Route::get('/shoppingcartsproducts/{id}/destroy','ShoppingCartsProductsController@destroy')->name('shoppingcartsproducts.destroy');
+Route::get('/MisCarritos','ShoppingCartsController@indexWeb')->name('MisCarritos');
 route::get('/carrito','ShoppingCartsController@edit');
 Route::resource('shoppingcarts','ShoppingCartsController',['only'=>['update']]);
 Route::get('my_order/pdf','ShoppingCartsController@pdfOrderOnline')->name('my_order.pdf');

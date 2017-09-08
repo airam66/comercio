@@ -8,25 +8,26 @@ use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\WebUserRequest;
 use App\User;
 use App\Role;
+use App\Client;
 
 class UserWebController extends Controller
 {
 
   public function index(Request $request){
 
-    $users=User::searchUserName($request->name)->orderBy('name')->paginate('15');
+    $users=User::searchUserName($request->name)->where('role_id','=',5)->orderBy('name')->paginate('15');
    return view('admin.users.indexUsersWeb')->with('users',$users);
   }
 
    public function edit(){
-
-    return view('main.pagine.webUsers.edit');
+    $user=\Auth::user();
+    $client=Client::find($user->client_id);
+    return view('main.pagine.webUsers.edit')->with('user',$user)->with('client',$client);
    }
 
     public function changeDatas(WebUserRequest $request){
-
-   $user=\Auth::user();
-    $user->fill($request->all());
+    $user=\Auth::user();
+    $user->fill($request->all());  
     $user->password=bcrypt($request->newpassword);
       if($request->file('photo')){
                  $file =$request->file('photo');
@@ -37,8 +38,12 @@ class UserWebController extends Controller
                       $user->photo_name=$name;
                     }
           }
+    $client=Client::find($user->client_id);
+    $client->fill($request->all());
 
+    $client->save();
     $user->save();
+
     flash("Sus datos se cambiaron correctamente ", 'success')->important();
      
        return redirect()->route('webUsers.edit');

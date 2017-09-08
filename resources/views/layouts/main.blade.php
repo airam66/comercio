@@ -197,6 +197,7 @@
                   </a>
                   <ul class="treeview-menu">
                     <li class="active"><a href="{{route('orders.index')}}"><i class="fa fa-circle-o"></i>Lista de pedidos</a></li>
+                    <li class="active"><a href="{{route('shoppingcarts.index')}}"><i class="fa fa-circle-o"></i>Lista de pedidos Web</a></li>
                     <li class="active"><a href="{{route('calendar')}}" target="_blank"><i class="fa fa-circle-o"></i>Calendario</a></li>
                     
                   </ul>

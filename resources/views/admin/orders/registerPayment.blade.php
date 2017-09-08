@@ -68,7 +68,7 @@
                          </div> 
                          <div class="col-md-4 col-md-offset-0">
                           
-                           <h4>Saldo : {{$order->client->bill}}</h4>
+                           <h4>Saldo : {{$order->total-$order->totalPayments()}}</h4>
 
                          </div>
 
@@ -96,7 +96,7 @@
              <div class="row">
              <div class="controls col-md-4">
              <label>Saldo:
-             <input type="number" id="balance" name="balance" value="{{$order->client->bill}}" readonly="true" class="mi_factura"  step="any" ></label>
+             <input type="number" id="balance" name="balance" value="{{$order->total-$order->totalPayments()}}" readonly="true" class="mi_factura"  step="any" ></label>
               </div>
              </div>
               
@@ -135,11 +135,11 @@ $('#Rode').on('keyup', function(){
 
   $rode=$(this).val();
 
-  $balance={{$order->client->bill}};
+  $balance={{$order->total-$order->totalPayments()}};
   if ($rode>$balance){
     alert('La cantidad ingresada es mayor al saldo');
     $('#Rode').val('');
-    $balance={{$order->client->bill}};
+    $balance={{$order->total-$order->totalPayments()}};
     $('#balance').val($balance);
   }else{
     $balance=$balance-$rode;

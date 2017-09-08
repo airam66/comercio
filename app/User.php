@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','cuit', 'phone','location','address','email','photo_name', 'password','role_id',
+        'name','email','photo_name', 'password','role_id','client_id',
     ];
 
     /**
@@ -39,6 +40,11 @@ class User extends Authenticatable
     public function standard(){
        return $this->role_id===5;
     }
+
+   public function client(){
+        return $this->hasOne('App\Client');
+   }
+    
 
 
      public function shoppingCarts()

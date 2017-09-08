@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShoppingCart extends Model
 {
 	protected $table="shoppingcarts";
-	protected $fillable = ['status','user_id','total','delivery_date'];
+	protected $fillable = ['status','clien_id','total','delivery_date'];
 
 	public function ShoppingCartProducts(){
 		return $this->hasMany('App\ShoppingCartProduct');
@@ -37,7 +37,13 @@ class ShoppingCart extends Model
 			}
 		}
 
-	}    
+	}  
+
+	public function scopeSearchOrder($query,$fecha1,$fecha2){
+       return $query->whereDate('created_at','>=',$fecha1)
+       				->whereDate('created_at','<=',$fecha2);   
+
+    }  
 
 	public static function findBySeccion($shoppingcart_id){
 		return ShoppingCart::find($shoppingcart_id);
@@ -51,7 +57,10 @@ class ShoppingCart extends Model
 	}
 
 	public function user(){
-
         return $this->belongsTo ('App\User');
+    }
+
+     public function client(){
+        return $this->belongsTo ('App\Client');
     }
 }

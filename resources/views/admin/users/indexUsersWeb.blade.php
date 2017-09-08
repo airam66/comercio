@@ -36,13 +36,13 @@
        
           <tbody>
              @foreach($users as $user) 
-
+              
                 <tr role="row" class="odd">
                   <td>{{$user->name}}</td>
                   <td>{{$user->email}}</td>
-                  <td>{{$user->phone}}</td>
-                  <td>{{$user->address}}</td>
-                  <td>{{$user->location}}</td>
+                  <td>{{App\Client::find($user->client_id)['phone']}}</td>
+                  <td>{{App\Client::find($user->client_id)['address']}}</td>
+                  <td>{{App\Client::find($user->client_id)['location']}}</td>
                 </tr>
             @endforeach
           </tbody>
