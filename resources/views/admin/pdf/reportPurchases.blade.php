@@ -13,6 +13,7 @@
       <h1>Reporte de Compras</h1>
       
     </header>
+     <h3>Fecha de emisión: {{date('d-m-Y')}}</h3>
 
   @php ($a = 0)   
   @php ($m = 0) 

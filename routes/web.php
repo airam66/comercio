@@ -178,6 +178,10 @@ Route::group(['middleware'=>'adminUser'],function(){
   Route::resource('movements','MovementsController',['only'=>['create','store','index']]);
   
   Route::resource('webUser','UserWebController',['only'=>'index']);
+
+  //------------------------------Reporte de moviemientos-------------------------------------------
+
+  Route::get('reportMovements/{startDate}/{endDate}/','PdfController@createReportMovements')->name('reportMovements');
  });
 
 //**********************CALENDARIO DE PEDIDOS***********************************************************
@@ -201,8 +205,6 @@ Route::get('users/{user}','UsersController@show')->name('users.show');
  });
 
 
-Route::get('reportMovements/{startDate}/{endDate}/','PdfController@createReportMovements')->name('reportMovements');
-//Nueva ruta
 
 });
 Auth::routes();

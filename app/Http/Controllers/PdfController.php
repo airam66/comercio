@@ -13,7 +13,7 @@ use App\Client;
 use App\Brand;
 use App\Movement;
 use App\Http\Requests\MonthRequest;
-
+use App\Http\Requests\DateRequest;
 use Illuminate\Support\Facades\DB;
 
 class PdfController extends Controller
@@ -67,9 +67,7 @@ class PdfController extends Controller
        
     $months=collect([['number'=>'1','month'=>'Enero'],['number'=>'2','month'=>'Febrero'],['number'=>'3','month'=>'Marzo'],['number'=>'4','month'=>'Abril'],['number'=>'5','month'=>'Mayo'],['number'=>'6','month'=>'Junio'],['number'=>'7','month'=>'Julio'],['number'=>'8','month'=>'Agosto'],['number'=>'9','month'=>'Septiembre'],['number'=>'10','month'=>'Octubre'],['number'=>'11','month'=>'Noviembre'],['number'=>'12','month'=>'Diciembre']])->pluck('month','number')->ToArray();
 
-      $date='viewReportPurchase';
-
-     return view('admin.pdf.purchases')->with('months',$months)->with('date',$date);
+     return view('admin.pdf.purchases')->with('months',$months);
 
     }
 
@@ -78,7 +76,7 @@ class PdfController extends Controller
     $purchases= \App\Purchase::where('status','=','realizada')
                            ->whereMonth('created_at','>=',$request->from_number)
                             ->whereMonth('created_at','<=',$request->to_number)
-                            ->whereYear('created_at','=',DB::raw('year(now())'))->orderBy('id','ASC')->get();
+                            ->whereYear('created_at','=',DB::raw('year(now())'))->orderBy('created_at','ASC')->get();
    if($purchases->isEmpty()){
 
     flash("No hay compras en los meses seleccionados" , 'warning')->important();
@@ -112,8 +110,7 @@ class PdfController extends Controller
        
     $months=collect([['number'=>'1','month'=>'Enero'],['number'=>'2','month'=>'Febrero'],['number'=>'3','month'=>'Marzo'],['number'=>'4','month'=>'Abril'],['number'=>'5','month'=>'Mayo'],['number'=>'6','month'=>'Junio'],['number'=>'7','month'=>'Julio'],['number'=>'8','month'=>'Agosto'],['number'=>'9','month'=>'Septiembre'],['number'=>'10','month'=>'Octubre'],['number'=>'11','month'=>'Noviembre'],['number'=>'12','month'=>'Diciembre']])->pluck('month','number')->ToArray();
 
-       $date='viewReportSales';
-     return view('admin.pdf.sales')->with('months',$months)->with('date',$date);
+     return view('admin.pdf.sales')->with('months',$months);
 
     }
 
@@ -144,14 +141,13 @@ class PdfController extends Controller
     
       $vistaurl="admin.pdf.reportSales";
      
-     
       return $this->createPDF($sales,$month,$vistaurl);
 
     }
 
   }
   
-  public function createReportPPurchase(Request $request){
+  public function createReportPPurchase(DateRequest $request){
        
         $vistaurl="admin.pdf.reportProviderPurchases";
 
@@ -168,11 +164,20 @@ class PdfController extends Controller
              ->whereDate('p.created_at','>=',$request->fecha1)
              ->whereDate('p.created_at','<=',$request->fecha2)
              ->where('p.status','=','realizada')->distinct()->get();
-            
+    
+     if ($invoices->isEmpty()){
+          
+      flash("No hay compras en el período de fechas ingresado" , 'warning')->important();
+     
+
+       return redirect()->route('admin.reportPurchase');
+      }
+
         return $this->createPDF($invoices,$provider,$vistaurl);
     }
 
-    public function createReportCOrder(Request $request){
+    public function createReportCOrder(DateRequest $request){
+
        
       $vistaurl="admin.pdf.reportClientOrder";
 
@@ -180,13 +185,21 @@ class PdfController extends Controller
                           ->whereDate('created_at','<=',$request->fecha2)
                           ->orderBy('created_at','ASC')->get();
                 
-    $clients=DB::table('clients as c')
+     $clients=DB::table('clients as c')
              ->join('orders as o','c.id','=','o.client_id')
              ->select('client_id','c.name','c.address','c.phone','c.bill')
              ->groupBy('client_id','c.name','c.address','c.phone','c.bill')
              ->whereDate('o.created_at','>=',$request->fecha1)
              ->whereDate('o.created_at','<=',$request->fecha2)
              ->where('c.bill','>','0')->distinct()->get();
+     if ($invoices->isEmpty()){
+          
+      flash("No hay ventas en el período de fechas ingresado" , 'warning')->important();
+     
+
+       return redirect()->route('admin.reportSales');
+      }
+
             
         return $this->createPDF($invoices,$clients,$vistaurl);
     }
