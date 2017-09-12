@@ -272,8 +272,11 @@ class OrdersController extends Controller
       ->select('p.id','p.name as product_name','dp.price','dp.amount','dp.subTotal')
       ->where('dp.order_id','=',$id)->get();
 
+       $payments=$order->payments()->get(); 
+
       return view('admin.orders.detailOrderRequest')->with('order',$order)
-                                                   ->with('details',$details); 
+                                                   ->with('details',$details)
+                                                   ->with('payments',$payments); 
    
 
     }

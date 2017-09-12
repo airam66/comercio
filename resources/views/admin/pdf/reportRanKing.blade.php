@@ -11,7 +11,7 @@
         <img src="{{ asset('images/cotillon.png ') }}" >
       </div>
       <h1>LISTADO DE PRODUCTOS MÁS VENDIDOS</h1>
-      Fecha de emisió: {{date('d').'/'.date('m').'/'.date('Y')}}
+      <h3>Fecha de emisión: {{date('d-m-Y')}}</h3>
       
     </header>        
          
@@ -19,9 +19,9 @@
              <table>
               <thead>
                <tr>
-                <th>Codigo</th>
+                <th>Código</th>
                 <th>Descripción</th>
-                <th>Catidad</th>
+                <th>Cantidad</th>
                 <th>Importe</th>
                 </tr>
                 </thead> 
@@ -32,7 +32,7 @@
                             <td class="text-center">{{$product->code}}</td>
                             <td class="text-center">{{$product->name}}</td>
                             <td class="text-center">{{$product->cant}}</td>
-                            <td class="text-center">{{$product->price}}</td>
+                            <td class="text-center">${{$product->price}}</td>
                           </tr>
 
                      @endforeach 

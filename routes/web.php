@@ -13,7 +13,7 @@ Route::group(['middleware' => 'auth'], function(){
   Route::group(['middleware' => 'standard'], function () {
          Route::get('/admin', function(){
           return view('admin.home');
-          });
+          })->name('admin');
       });
 });
 
@@ -22,9 +22,7 @@ Route::group(['middleware' => 'auth'], function(){
 //##########################################################################################################
 Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::group(['middleware' => 'standard'], function () {
-         Route::get('/admin', function(){
-          return view('admin.home');
-          });
+         
   //******************************Rutas para lineas******************************************
   Route::resource('lines','LinesController');
   Route::get('/lines/{id}/desable','LinesController@desable')->name('lines.desable');
@@ -179,7 +177,15 @@ Route::group(['middleware'=>'adminUser'],function(){
   Route::resource('movements','MovementsController',['only'=>['create','store','index']]);
   
   Route::resource('webUser','UserWebController',['only'=>'index']);
+
+  //------------------------------Reporte de moviemientos-------------------------------------------
+
+  Route::get('reportMovements/{startDate}/{endDate}/','PdfController@createReportMovements')->name('reportMovements');
+
  });
+
+
+ Route::get('reportWeeklySales','PdfController@reportWeeklySales')->name('reportWeeklySales');
 
 //**********************CALENDARIO DE PEDIDOS***********************************************************
 Route::get('/calendar','CalendarsController@calendar')->name('calendar');
@@ -202,7 +208,6 @@ Route::get('users/{user}','UsersController@show')->name('users.show');
  });
 
 
-//Nueva ruta
 
 });
 Auth::routes();

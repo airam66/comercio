@@ -5,7 +5,12 @@
 
    <div class="box-header ">
       <div class="row">
-           <h2 class="box-title col-md-5">Listado de Movimientos</h2>
+         @if($fecha1 == $fecha2)
+             <h2 class="box-title col-md-5">Movimientos del día.</h2>
+         @else
+             <h2 class="box-title col-md-5">Movimientos desde {{date("d-m-Y",strtotime($fecha1))}} hasta {{date("d-m-Y",strtotime($fecha2))}}.</h2>
+         @endif
+         
       </div>
       <div class="row">
         <div class='col-sm-2 pull-right'>
@@ -18,11 +23,11 @@
               <div class="input-group date">
                  <div class="input-group input-daterange">
                   <div class="input-group-addon">DESDE</div>
-                    <input type="text" class="form-control" name="fecha1" data-date-end-date="0d" placeholder="Seleccione una fecha">
+                    <input type="text" class="form-control" id="fecha1" name="fecha1" data-date-end-date="0d" placeholder="Seleccione una fecha">
                   <div class="input-group-addon">HASTA</div>
-                  <input type="text" class="form-control" name="fecha2" data-date-end-date="0d" placeholder="Seleccione una fecha">
+                  <input type="text" class="form-control" id="fecha2" name="fecha2" data-date-end-date="0d" placeholder="Seleccione una fecha">
                   <div class="input-group-addon">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" name="searchDate">
                                   <i class="fa fa-calendar"></i>
                                   </button>
                   </div>
@@ -33,15 +38,12 @@
             
          </div>
          <br>
-         <form route='movements.today'  method="GET">
-                 <input name="today" value="{{date('Y-m-d')}}" type="hidden">
-                 <button type="submit" class="btn btn-primary">
-                                  HOY
-                 </button>
-         </form>
+        
        </div>
 
-       <div class="box-body" id="orders">              
+    
+
+       <div class="box-body" id="movements">              
           @if($movements->isNotEmpty()) 
              <table id="table table-striped" class="display table table-hover" cellspacing="0" width="100%">
           
@@ -73,7 +75,7 @@
             <br>
             <div class="row">
               <div class="pull-right" >
-	            <table class="table table-bordered" style="width: 150px;">
+	            <table class="table table-bordered" id="box" style="width: 150px;">
                     <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL CAJA</th>
 	                </tr>
@@ -83,7 +85,7 @@
 	             </table>
 	           </div>
 	           <div class=" pull-right">
-	             <table class="table table-bordered" style="width: 150px">
+	             <table class="table table-bordered" id="outcomes" style="width: 150px">
 	                <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL SALIDAS</th>
 	                </tr>
@@ -93,7 +95,7 @@
 	             </table>
 	            </div>
 	            <div class=" pull-right">
-	             <table class="table table-bordered" style="width: 150px">
+	             <table class="table table-bordered" id="incomes" style="width: 150px">
 	                <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL ENTRADAS</th>
 	                </tr>
@@ -104,22 +106,23 @@
 	             </table>
 	            </div>
             </div>
-         <div class="text-center">
-         {!!$movements->render()!!}
-        </div>
-        @elseif($fecha1 == null && $fecha2 == null)
-          <div class="alert alert-dismissable alert-warning">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <p>No hubo moviemientos el día de hoy.</p>
-        </div>
+        
+
+          <div class="row">
+           <a href="{{route('reportMovements',[$fecha1,$fecha2])}}" target="_blank" >
+              <button type="button" id="btn_search" class="btn btn-primary">Generar PDF</button></a>
+          </div>
         @else
          <div class="alert alert-dismissable alert-warning">
           <button type="button" class="close" data-dismiss="alert">×</button>
-          <p>No se encontró ningún movimiento entre {{$fecha1}} y {{$fecha2}} .</p>
+          <p>No hay movimientos.</p>
         </div>
         
 
         @endif
+         <div class="text-center">
+         {!!$movements->render()!!}
+        </div>
 
      </div>
  </div>
@@ -133,7 +136,7 @@ $('.input-daterange input').each(function() {
     $(this).datepicker({
          language: "es",
          autoclose: true,
-         format:"yyyy/mm/dd"
+         format:"yyyy-mm-dd"
     });
 });
 </script>
