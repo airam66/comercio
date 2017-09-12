@@ -13,7 +13,7 @@ Route::group(['middleware' => 'auth'], function(){
   Route::group(['middleware' => 'standard'], function () {
          Route::get('/admin', function(){
           return view('admin.home');
-          });
+          })->name('admin');
       });
 });
 
@@ -22,9 +22,7 @@ Route::group(['middleware' => 'auth'], function(){
 //##########################################################################################################
 Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
   Route::group(['middleware' => 'standard'], function () {
-         Route::get('/admin', function(){
-          return view('admin.home');
-          });
+         
   //******************************Rutas para lineas******************************************
   Route::resource('lines','LinesController');
   Route::get('/lines/{id}/desable','LinesController@desable')->name('lines.desable');

@@ -295,21 +295,29 @@ class PdfController extends Controller
      
      $vistaurl="admin.pdf.reportWeeklySales";
 
-     $invoices= Invoice::whereDate('created_at','>=',$request->weekDay)
-                          ->whereDate('created_at','<=',$weekEnd)
-                          ->orderBy('id','ASC')->get();
+     $products=DB::table('invoices_products as ip')
+                 ->join('invoices as i','invoice_id','=','i.id')
+                 ->join('products as p','product_id','=','p.id')     
+                 ->select('code',DB::raw('sum(ip.subTotal) as total,sum(amount)as amount'),'p.name')
+                 ->groupBy('code','p.name')
+                 ->where('i.status','=','activo')
+                 ->whereDate('ip.created_at','>=',$date)
+                 ->whereDate('ip.created_at','<=',$weekEnd)
+                 ->where('brand_id','=',1)
+                 ->orderBy('ip.id','ASC')
+                 ->orderBy('p.name','ASC')->get();
                 
   
-     if ($invoices->isEmpty()){
+     if ($products->isEmpty()){
           
-      flash("No hay ventas en el período de fechas ingresado" , 'warning')->important();
+      flash("No hay ventas en la semana ".$date , 'warning')->important();
      
 
        return redirect()->route('admin.reportSales');
       }
 
    
-      $view= \View::make($vistaurl,compact('invoices','','d','m','y'))->render();
+      $view= \View::make($vistaurl,compact('products','','d','m','y'))->render();
       $pdf=\App::make('dompdf.wrapper');
       $pdf->loadHTML($view);
 

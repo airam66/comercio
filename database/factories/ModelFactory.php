@@ -264,3 +264,48 @@ $factory->define(App\OrderProduct::class, function (Faker\Generator $faker) {
       
     ];
 });
+
+$factory->define(App\Invoice::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+
+        'total' => $faker->randomNumber(2),
+        'status'=>'activo',
+        'discount'=>10,
+        'client_id'=>function(){
+            return factory(\App\Client::class)->create()->id;
+        } 
+        
+    ];
+});
+
+$factory->define(App\InvoiceProduct::class, function (Faker\Generator $faker) {
+   
+
+    return [ 
+        'invoice_id'=>function(){
+            return factory(\App\Purchase::class)->create()->id;
+        }, 
+       'product_id'=>function(){
+            return factory(\App\Product::class)->create()->id;
+        }, 
+        'price' =>function (array $invoiceProduct) {
+           return App\Product::find($invoiceProduct['product_id'])->retail_price;
+        },
+        'amount'=>1,
+        'subTotal'=>$faker->randomNumber(2),
+      
+    ];
+});
+
+$factory->define(App\Movement::class, function (Faker\Generator $faker) {
+   
+    return [ 
+        'concept'=>'Pago de prestamo',
+        'type'=>'salida',
+        'rode'=>$faker->randomNumber(2),
+        
+    ];
+});
+

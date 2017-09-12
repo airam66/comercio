@@ -13,7 +13,7 @@ class LoginPageWebTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_login_in_page_web_user_Estan()
+    public function test_login_in_page_web_user_Stan()
     {
       $role=factory(Role::class)->create(['name'=>'Estandar',]);
       $user=factory(User::class)->create(['email'=>'fairam66@gmail.com','role_id'=>$role->id,]);

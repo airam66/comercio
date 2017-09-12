@@ -39,29 +39,27 @@
                     </tr>
                       <tr>
                       <td>2</td>
-                      <td>Reporte de Ventas Semanales</td>
+                      <td>Reporte de Productos Vendidos Semanalmente</td>
                       <td>
                        <form action='reportWeeklySales'  method="GET" target="_blank" >
                          
-                           <div class="input-group date col-md-6">
+                           <div class="col-md-8 pull-left">
                                <div class="form-group{{ $errors->has('weekDay') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" name="weekDay" data-date-end-date="0d" placeholder="Seleccione un dia" id="weekDay">
+                                <input type="text" class="form-control" name="weekDay" data-date-end-date="0d" placeholder="Seleccione el primer día de la semana" id="weekDay">
                                 @if ($errors->has('weekDay'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('weekDay') }}</strong>
                                     </span>
                                 @endif
                                </div>
-                              <div class="input-group-addon">
+                              
+                          </div> 
+                          <div class="pull-left">
                                   <button type="submit" class="btn btn-primary">
                                       Ver
                                   </button>
                             
-                              </div>
-                          </div>
-                              
-                              
-                                
+                            </div>                               
                         </form>
                         
                       </td>

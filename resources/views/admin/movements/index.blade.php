@@ -27,7 +27,7 @@
                   <div class="input-group-addon">HASTA</div>
                   <input type="text" class="form-control" id="fecha2" name="fecha2" data-date-end-date="0d" placeholder="Seleccione una fecha">
                   <div class="input-group-addon">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" name="searchDate">
                                   <i class="fa fa-calendar"></i>
                                   </button>
                   </div>
@@ -43,7 +43,7 @@
 
     
 
-       <div class="box-body" id="orders">              
+       <div class="box-body" id="movements">              
           @if($movements->isNotEmpty()) 
              <table id="table table-striped" class="display table table-hover" cellspacing="0" width="100%">
           
@@ -75,7 +75,7 @@
             <br>
             <div class="row">
               <div class="pull-right" >
-	            <table class="table table-bordered" style="width: 150px;">
+	            <table class="table table-bordered" id="box" style="width: 150px;">
                     <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL CAJA</th>
 	                </tr>
@@ -85,7 +85,7 @@
 	             </table>
 	           </div>
 	           <div class=" pull-right">
-	             <table class="table table-bordered" style="width: 150px">
+	             <table class="table table-bordered" id="outcomes" style="width: 150px">
 	                <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL SALIDAS</th>
 	                </tr>
@@ -95,7 +95,7 @@
 	             </table>
 	            </div>
 	            <div class=" pull-right">
-	             <table class="table table-bordered" style="width: 150px">
+	             <table class="table table-bordered" id="incomes" style="width: 150px">
 	                <tr style="background-color: #d8d4d4;">
 	                  <th  class="text-center">TOTAL ENTRADAS</th>
 	                </tr>
@@ -115,7 +115,7 @@
         @else
          <div class="alert alert-dismissable alert-warning">
           <button type="button" class="close" data-dismiss="alert">×</button>
-          <p>No se encontró ningún movimiento en el período ingresado .</p>
+          <p>No hay movimientos.</p>
         </div>
         
 
