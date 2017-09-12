@@ -57,10 +57,10 @@ class ShoppingCart extends Model
 	}
 
 	public function user(){
-        return $this->belongsTo ('App\User');
+        return $this->belongsTo('App\User');
     }
 
      public function client(){
-        return $this->belongsTo ('App\Client');
+        return $this->belongsTo('App\Client');
     }
 }

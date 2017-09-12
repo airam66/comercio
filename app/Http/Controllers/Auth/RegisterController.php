@@ -52,7 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'cuil'=>'required|numeric|unique:clients',
+            'cuil'=>'required|numeric',
             'phone'=>'required|numeric',
             'address'=>'required|max:250',
             'location'=>'required',
@@ -67,8 +67,11 @@ class RegisterController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
-        $Client=Client::create([
+    {   
+        $Client=Client::clientByCuil($data['cuil']);
+
+        if (empty($Client[0]->id)) {
+           $Client=Client::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'cuil'=>$data['cuil'],
@@ -77,6 +80,16 @@ class RegisterController extends Controller
             'location'=>$data['location'],
             'bill'=>0,
         ]);
+        }else{
+            $Client=Client::find($Client[0]->id);
+            $Client->name=$data['name'];
+            $Client->email=$data['email'];
+            $Client->address=$data['address'];
+            $Client->phone=$data['phone'];
+            $Client->location=$data['location'];
+            $Client->save();
+        }
+        
 
 
         return User::create([
