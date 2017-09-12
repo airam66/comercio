@@ -46,7 +46,7 @@ class UserWebController extends Controller
 
     flash("Sus datos se cambiaron correctamente ", 'success')->important();
      
-       return redirect()->route('webUsers.edit');
+    return redirect()->back();
    
    }
 

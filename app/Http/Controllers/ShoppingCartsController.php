@@ -215,6 +215,9 @@ class ShoppingCartsController extends Controller
 
     public function confirmOrderOnline(Request $request){
         //dd($request);
+        $user=\Auth::user();
+        $client=Client::find($user->client_id);
+        $dateNow = new DateTime("now");
         $this->validate($request,[
           'fecha1'=>'required',
         ]);
@@ -225,6 +228,10 @@ class ShoppingCartsController extends Controller
         $shoppingcart->delivery_date=$request->fecha1;
         $shoppingcart->save();
 
-        return view('main.pagine.shoppingcart.confirmOrderOnline')->with('shoppingcart',$shoppingcart);
+        return view('main.pagine.shoppingcart.confirmOrderOnline')->with('user',$user)
+                                                                  ->with('shoppingcart',$shoppingcart)
+                                                                  ->with('client',$client)
+                                                                  ->with('dateNow',$dateNow);
+
     }
 }
