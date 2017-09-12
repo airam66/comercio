@@ -24,7 +24,7 @@ class Client extends Model
 
      public function shoppingcart()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\ShoppingCart');
     }
 
     public function user(){

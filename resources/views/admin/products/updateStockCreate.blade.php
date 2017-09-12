@@ -32,6 +32,7 @@
                    </div>
                    
                     <div class="col-md-4 pull-left ">
+                          <input id="stock" class="form-control" name="code" type="hidden" >
                          {!!Field::text('name',null,['disabled'])!!}
                     </div>
                     <div class="col-md-2">
@@ -44,10 +45,10 @@
                  
               </div>
               <div class="form-group pull-right">
-                        {!! Form::submit('Guardar',['class'=>'btn btn-primary'])!!}
+                    <input class="btn btn-primary" type="submit" value="Guardar" id="btn_add">
               </div>
-              </div>
-                </div>
+             
+             
               </section><!-- /.content -->
               {!! Form::close() !!}
              </div>
@@ -96,17 +97,32 @@ $('#searchProducts').on('keyup', function(){
 </script>
 
 <script >
-  function complete($id,$code,$name,$stock){
-  
-
-    
-     $('#code').val($code);
+  function complete($id,$code,$name,$price_b,$price_c,$stock){
+    $('#stock').val($stock);
+    $('#code').val($code);
     $('#product_id').val($id);
     $('#name').val($name);
     $('#favoritesModalProduct').modal('hide');
   };
+</script>
 
+<script>
+    $('#btn_add').on('click',function(){
+        cargar();
+    });
 
+  function cargar(){
+    stock=$('#stock').val();
+    amount=$('#amount').val();
+    
+  if (amount>0){
+      if (parseInt(amount)>parseInt(stock)){
+        alert ('La cantidad a vender supera el stock');
+      }
+  }else{
+        alert("Error al ingresar detalle de la cotización, revise la cantidad del producto a vender");
+  }
+}
 </script>
 
 @endsection

@@ -251,7 +251,7 @@ class ProductsController extends Controller
       
     }
 
-    //**************************** ACTUALIZAR MATERIALES*****************************************************************
+    //**************************** ACTUALIZAR MATERIALES***************************************
 
      public function updateStockCreate(){
        $brand=Brand::where('name','=','CREATÚ')->pluck('id');
@@ -279,10 +279,8 @@ class ProductsController extends Controller
     public function updateStockCreateProduct(Request $request){
 
       $this->validate($request,[
-          'code'=>'required|exists:products,code',
+          'code'=>'required',
           'amount'=>'required',
-          
-          
         ]);
      
         $product= Product::find($request->product_id);

@@ -9,6 +9,8 @@ use App\OrderProduct;
 use App\Client;
 use App\Payment;
 use App\Movement;
+use App\Invoice;
+use App\InvoiceProduct;
 use App\Http\Requests\OrderRequest;
 use Illuminate\Support\Collection as Collection;
 
@@ -158,7 +160,7 @@ class OrdersController extends Controller
       if ($order->total>0){
                  $order->save();
                  $client=Client::find($order->client_id);
-                 $client->bill=$request->get('balance');
+                 $client->bill=$client->bill+$request->get('balance');
                  $client->save();
                  $payment->balance_paid=$request->get('balance');
                  $payment->save();
@@ -208,7 +210,7 @@ class OrdersController extends Controller
   	flash("El pedido ha sido dado de baja exitosamente" , 'success')->important();
      
 
-       return redirect()->route('orders.index');
+      return redirect()->back();
   }
 
 //***************************GENERAR PDF PARA IMPRIMIR PEDIDO****************************************
@@ -245,8 +247,8 @@ class OrdersController extends Controller
                  $payment=new Payment;
                  $payment->order_id=$order->id;
                  $payment->amount_paid=$request->get('Rode');
-                 $payment->balance_paid=$client->bill-$payment->amount_paid;
-                 $client->bill=$request->get('balance');
+                 $payment->balance_paid=($order->total-$order->totalPayments())-$payment->amount_paid;
+                 $client->bill=$client->bill-$payment->amount_paid;
                  $payment->save();
                  $client->save();
                  $income=new Movement();
@@ -282,18 +284,59 @@ class OrdersController extends Controller
     }
 //************************cambiar estado***************************************
     public function changeStatus(Request $request,$id){
+        $order=Order::find($id);
+    if ($request->status<>'entregado'){ 
+        flash("El pedido N°". $order->id . " de ".$order->client->name." cambió de ".$order->status." a ".$request->status , 'success')->important();
+        $order->fill($request->all());
+        $order->save();
+        return redirect()->route('orders.index');
 
-     $order=Order::find($id);
+    }else{
+          $details= DB::table('order_product as dp')
+          ->join('products as p','dp.product_id','=','p.id')
+          ->select('p.id','p.name as product_name','dp.price','dp.amount','dp.subTotal')
+          ->where('dp.order_id','=',$id)->get();
+          //verifica en Stock
+          $cant = 0;
+          $band = 0;
+          while ( $cant< count($details) && $band==0) {
+              $product=Product::find($details[$cant]->id);
+              if ($details[$cant]->amount>$product->stock) {
+                    flash("Actualice el Stock de ".$product->name." antes continuar con la operacion" , 'danger')->important();
+                    return redirect()->back();
+                    $band=1;
+              }
+              $cant = $cant+1;
+          }
+          if ($band==0) {
+              $venta = new Invoice;
+              $venta->total=$order->total;
+              $venta->status='Activo';
+              $venta->client_id=$order->client_id;
+              $venta->discount=$order->discount;
+              $venta->save();
+              //detalle de venta
+              
+              $cont = 0;
+              while ( $cont < count($details) ) {
+                  $detalle = new InvoiceProduct();
+                  $detalle->invoice_id=$venta->id; 
+                  $detalle->product_id=$details[$cont]->id;
+                  $detalle->amount=$details[$cont]->amount;
+                  $detalle->price=$details[$cont]->price;
+                  $detalle->subTotal=$details[$cont]->amount*$details[$cont]->price;
+                  $detalle->save();
+                  $cont = $cont+1;
 
-     flash("El pedido N°". $order->id . " de ".$order->client->name." cambió de ".$order->status." a ".$request->status , 'success')->important();
+              }
+              $order->fill($request->all());
+              $order->save();
+
+              flash("El pedido N°". $order->id . " de ".$order->client->name." cambió de ".$order->status." a ".$request->status , 'success')->important();
+              return redirect()->route('orders.index');
+              }      
+     }
      
-     $order->fill($request->all());
-     $order->save();
-
-
-       return redirect()->route('orders.index');
-
-    
     }
 
     
