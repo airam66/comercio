@@ -573,16 +573,28 @@ img .user-image {
 }
 
 
-.dropdown-menu {
+.dropdown .dropdown-menu{
     background-color: #870a0a !important;
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu> li > a {
     color: #fff !important;
    
 }
 
-.dropdown-menu > li > a:hover {
+.dropdown-menu> li > a:hover {
     background-color: #c93131!important;
    
 }
+
+.table-bordered th{
+    color: white;
+    background-color:#28272c  !important;
+}
+
+.mi_factura{
+
+  background:none;
+  border:none;
+}
+

@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="{{asset('template/bootstrap/css/bootstrap.css')}}"> 
   <link rel="stylesheet" href="{{asset('template/styles.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/chosen/chosen.css')}}">
-  
+   <!-- Date Picker -->
+  <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}">
 
 <style>
 body{
@@ -136,6 +137,10 @@ margin:auto;
  <script src= "{{asset('template/jquery/js/jquery-3.2.1.js')}}"></script>
  <script src= "{{asset('template/bootstrap/js/bootstrap.js')}}"></script>
  <script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
+  <!-- datepicker -->
+ <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+ <script src="{{asset('plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
+     
    
  @yield('js')
  
