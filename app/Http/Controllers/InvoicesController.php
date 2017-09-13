@@ -79,7 +79,7 @@ class InvoicesController extends Controller
                   flash("Debe ingresar al menos un producto" , 'danger')->important();
             }
            
-            //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE VENTA//++++++++++++++++++
+            //+++++++++++++INICIAMOS CAPTURA DE VARIABLES ARREGLO[] PARA DETALLEDE VENTA//++++++++++++++
             $idarticulo = $request->get('dproduct_id');
             $amount = $request->get('damount');
             $price = $request->get('dprice');
@@ -216,12 +216,12 @@ public function searchDate(Request $request){
         
         $invoice= Invoice::find($id);
         
-         $invoiceProducts=InvoiceProduct::where('invoices_id','=',$id)->get();
-                 foreach ($purchaseProducts as $purchaseProduct) {
+         $invoiceProducts=InvoiceProduct::where('invoice_id','=',$id)->get();
+                 foreach ($invoiceProducts as $invoiceProduct) {
                     $product=Product::find($invoiceProduct->product_id);
-                    $product->stock = $product->stock-$invoiceProduct->amount;
+                    $product->stock = $product->stock+$invoiceProduct->amount;
                     $product->save();
-                    $purchaseProduct->delete();
+                    $invoiceProduct->delete();
                 }
 
         $invoice->status='inactivo';

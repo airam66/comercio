@@ -55,9 +55,9 @@
 		                 <th>Fecha Entrega</th>
 		                <th>Cliente</th>
                     <th>Saldo a pagar</th>
-		                <th>Estado</th>
 		                <th></th>
-                    <th></th>
+		                <th></th>
+ 
                </tr>
 		        </thead>
 		     
@@ -68,13 +68,17 @@
 			                <tr>
                               <td>{{$order->created_at->format('d/m/Y')}}</td>
                               <td>{{date('d/m/Y', strtotime($order->delivery_date))}}</td>
-                              <td>{{$order->client->name}}</td>
+                             <td>
+                             @if ($order->client!=null)
+                              {{$order->client->name}}
+                              @endif
+                                </td>
                               <td>${{$order->total}}</td>
                               <th>       
                                  <a href="{{route('shoppingcarts.createOrders',$order->id)}}"> <button  type="button" class="btn btn-success"  ><i class="glyphicon glyphicon-check"></i> 
                                  </button></a>                               
-                                </td>
-                                <td>
+                              </th>
+                              <th>
                                   {!!Form::open(['route'=>['orders.destroy',$order->id],'method'=>'DELETE'])!!}
                                         <button type="" onclick="return confirm('¿Seguro dará de baja este pedido?')" class="btn btn-danger" name="delete">
                                           <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ></span>

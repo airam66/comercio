@@ -139,7 +139,7 @@
                         </tr>
                         <tr>
                           <th>Saldo a pagar:</th>
-                          <td>${{$order->client->bill}}</td>
+                          <td>${{$order->total-$order->totalPayments()}}</td>
                         </tr>
                       </table>
                     </div>

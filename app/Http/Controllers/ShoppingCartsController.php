@@ -15,6 +15,7 @@ class ShoppingCartsController extends Controller
 {
     public function indexWeb()
     {   
+
         $user=\Auth::user();
         $shoppingcarts=ShoppingCart::all();
         foreach ($shoppingcarts as $value) {
@@ -79,7 +80,7 @@ class ShoppingCartsController extends Controller
                                     ->orderBy('id','DESC')->paginate(15);
       }
 
-        return view('admin.orders.indexWeb')->with('shoppingcarts',$shoppingcarts);
+        return view('admin.orders.indexWeb')->with('shoppingcarts',$shoppingcarts)->with('fecha1',$fecha1)->with('fecha2',$fecha2);
     }
 
     public function createOrders($id)
