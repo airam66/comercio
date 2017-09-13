@@ -1,11 +1,12 @@
 @extends('layouts.my_template')
 
 @section('content')
+ <div class="content-wrap centering">
       <div class="mi_letter text-center">
                   <h3>Mi Carrito</h3>
        <img src="{{ asset('images/line.png')}}" alt=""> 
       <br>
-      Señor/a {{\Auth::user()->name}} Ud. posee 6 días desde el dia de la fecha para acercarse a nuestra direccion y confirmar su compra. Muchas Gracias.<br>
+      Señor/a {{\Auth::user()->name}} Ud. tiene 6 días desde el día de la fecha para acercarse a nuestro local y confirmar su compra. Muchas Gracias.<br>
 
 
 @if($dateNow->diff($user->updated_at)->days>0)
@@ -44,4 +45,9 @@
            <br><br>
       </div>
 @endif
+
+<div class="mi_letter text-center">
+     <img src="{{ asset('images/line.png')}}" alt=""> 
+</div> 
+</div>
 @endsection

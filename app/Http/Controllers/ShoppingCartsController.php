@@ -217,13 +217,13 @@ class ShoppingCartsController extends Controller
         $client=Client::find($user->client_id);
         $dateNow = new DateTime("now");
         $this->validate($request,[
-          'fecha1'=>'required',
+          'datepicker'=>'required',
         ]);
 
         $shoppingcart_id=\Session::get('shoppingcart_id');
         $shoppingcart=ShoppingCart::findOrCreateBySessionID($shoppingcart_id);
         $shoppingcart->status='confirmar';
-        $shoppingcart->delivery_date=$request->fecha1;
+        $shoppingcart->delivery_date=$request->datepicker;
         $shoppingcart->save();
 
         return view('main.pagine.shoppingcart.confirmOrderOnline')->with('user',$user)

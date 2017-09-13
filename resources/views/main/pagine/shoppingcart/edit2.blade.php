@@ -15,7 +15,7 @@
             @php ($a = 0)
             @foreach($details as $detail)
             <tr class="selected" id={{$a}}>
-                <td><a href="{{route('shoppingcartsproducts.destroy',$detail->shopping_cart_id)}}" type="button" class="btn btn-danger" onclick="deletefila({{$a}},{{$detail->subTotal}});">X</a></td>
+                <td  width="2%"><a href="{{route('shoppingcartsproducts.destroy',$detail->shopping_cart_id)}}" type="button" class="btn btn-danger" onclick="deletefila({{$a}},{{$detail->subTotal}});">X</a></td>
               <td> 
               <input readonly type="hidden" name="product_id[]" value="{{$detail->product_id}}">
               <input readonly type="hidden" name="dproduct_id[]" value="{{$detail->shopping_cart_id}}">
@@ -23,8 +23,8 @@
                         <img src="{{asset('images/products/'.$detail->extension)}}" width="40" height="40" >
                     @endif {{$detail->product_name}}</td> 
               <td>$ {{$detail->price}}</td> 
-              <td><input type="number" name="damount[]" value="{{$detail->amount}}"></td> 
-              <td>$ {{$detail->subTotal}}</td>
+              <td><input type="number" name="damount[]" value="{{$detail->amount}}" style="width:100px;"></td> 
+              <td>${{$detail->subTotal}}</td>
              </tr>
 
               @php ($a++) 
@@ -34,20 +34,23 @@
     </div>
              
     <div class="form-group col-md-offset-8">
-    {!! Form::submit('Actualizar carrito',['class'=>'btn btn-success'])!!}
+    {!! Form::submit('ACTUALIZAR CARRITO',['class'=>'btn btn-success'])!!}
     </div>
 
               <div class="row">
-                  <div class="col-xs-6 pull-right">
-                      <div class="text-center" style="background-color: gray;">
-                        <h3 style="color:white;">Total</h3>
-                      </div>
+                  <div class="col-md-4 pull-right">
                     <div class="table-responsive">
-                      <table class="table">
+                      <table class="table table-bordered">
+                      <thead>
                         <tr>
-                          <th class="text-center">Total:</th>
-                          <td class="text-center">$<input disabled type="number" id="TotalCompra" name="TotalCompra" value="{{$shoppingcart->total}}" step="any" class="mi_factura"></td>
+                        <th class="text-center">Total</th>
                         </tr>
+                      </thead>
+                        <tbody>
+                        <tr>
+                          <td class="text-right">$<input disabled type="number" id="TotalCompra" name="TotalCompra" value="{{$shoppingcart->total}}" step="any" class="mi_factura" class="mi_factura"></td>
+                        </tr>
+                        <tbody>
                       </table>
                     </div>
                   </div>

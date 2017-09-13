@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShoppingCart extends Model
 {
 	protected $table="shoppingcarts";
-	protected $fillable = ['status','clien_id','total','delivery_date'];
+	protected $fillable = ['status','client_id','total','delivery_date'];
 
 	public function ShoppingCartProducts(){
 		return $this->hasMany('App\ShoppingCartProduct');

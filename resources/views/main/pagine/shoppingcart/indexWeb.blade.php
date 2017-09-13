@@ -1,13 +1,14 @@
 @extends('layouts.my_template')
 
 @section('content')
+ <div class="content-wrap centering">
 		      <div class="mi_letter text-center">
-                  <h1>Mis pedidos</h1>
+                  <h3>Mis pedidos</h3>
                   <img src="{{ asset('images/line.png')}}" alt=""> 
 		      </div>
-<div class="mi_letter">
-      <h3>Pedidos confirmados</h3>
-</div>
+
+     <h2 class="intro">Pedidos confirmados.</h2>
+
 	@if($orders->isNotEmpty()) 
 		<div class="box-body">              
 		 <table id="tabla table-striped" class="table table-striped table-bordered table-condensed table-hover" cellspacing="0" width="100%">
@@ -41,17 +42,15 @@
 		</div>
 	@else
 	<div>
-		Ud. no posee Pedidos confirmado
+		Ud. no tiene pedidos confirmados.
 	</div>
 	@endif
 	<br>
-	<div class="mi_letter">
-          <h3>Pedidos a confirmados</h3>
-    </div>
+	<h2 class="intro">Pedidos a confirmar.</h2>
 	@if($shoppingcarts->isNotEmpty()) 
 
 		<div class="box-body">              
-		 <table id="tabla table-striped" class="table table-striped table-bordered table-condensed table-hover" cellspacing="0" width="100%">
+		 <table id="tabla table-striped" class="table table-striped table-condensed table-hover" cellspacing="0" width="100%">
 		       
 		        <thead>
 		            <tr>
@@ -62,7 +61,7 @@
 		                <th>Total</th>
 		                <th>Saldo</th>
 		                <th>Para confirmar</th>		
-		                <th></th>                   
+		                               
 		            </tr>
 		        </thead>       
 				<tbody>
@@ -70,14 +69,15 @@
 		       <tr role="row" class="odd">
 		            <td class="text-center">{{$cart->id}}</td>
 		            <td>{{$cart->created_at->format('d-m-Y')}}</td>
-		            <td>{{substr($cart->delivery_date,0,10)}}</td>
+		            <td>{{date('d-m-Y', strtotime($cart->delivery_date))}}
+		           </td>
 		            @if($cart->status=='confirmar')
 		            	<td> A confirmar</td>
 		            @endif
 		            <td>$ {{$cart->total}}</td>  
 		            <td>$ {{$cart->total}}</td>  
 		            <td> {{6-$dateNow->diff($cart->created_at)->days}} Días</td> 
-		            <th></th>                    
+		                               
 		        </tr>
 		   @endforeach
 
@@ -86,8 +86,11 @@
 		</div>
 	@else
 	<div>
-		Ud. no posee Pedidos a confirmado
+		Ud. no tiene pedidos confirmados.
 	</div>
 	@endif
-
+<div class="mi_letter text-center">
+     <img src="{{ asset('images/line.png')}}" alt=""> 
+</div>
+</div>
 @endsection
