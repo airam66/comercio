@@ -364,8 +364,8 @@ $('#search').on('keyup', function(){
 }
 
 function deletefila(index,subTotal){
-  TotalVenta= parseFloat($('#total').val())-subTotal;
-  $('#total').val(TotalVenta);
+   total=Math.round((parseFloat($('#total').val())-subTotal)*100)/100;
+  $('#total').val(total);
   $('#'+index).remove();
 
   if($('#total').val() != 0){

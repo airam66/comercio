@@ -59,6 +59,7 @@
 		                <th>Fecha de Entrega</th>
 		                <th>Estado</th>
 		                <th>Total</th>
+		                <th>Saldo</th>
 		                <th>Para confirmar</th>		
 		                               
 		            </tr>
@@ -73,7 +74,8 @@
 		            @if($cart->status=='confirmar')
 		            	<td> A confirmar</td>
 		            @endif
-		            <td>$ {{$cart->total}}</td>   
+		            <td>$ {{$cart->total}}</td>  
+		            <td>$ {{$cart->total}}</td>  
 		            <td> {{6-$dateNow->diff($cart->created_at)->days}} Días</td> 
 		                               
 		        </tr>

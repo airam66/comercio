@@ -26,14 +26,21 @@ class InvoicesController extends Controller
       $fecha2=$request->fecha2;
      $invoices=Invoice::orderBy('id','DESC')->paginate(15);
 
-      if($request->fecha1!='' and $request->fecha2!=''){
+      if ($request->searchClient!=''){
+         $client= Client::SearchClient($request->searchClient)->first();
+          if ($client != null){
+          $Invoices=$client->invoices()->paginate(15);
+         }
+         else{
+            $invoices = Collection::make();
+         }
+      }
 
+      if($request->fecha1!='' and $request->fecha2!=''){
          $fecha1=$request->fecha1;
          $fecha2=$request->fecha2;
          $invoices=Invoice::SearchInvoice($request->fecha1,$request->fecha2)
                             ->orderBy('id','DESC')->paginate(15);
-
-
      }
       
       return view('admin.invoices.index')->with('invoices',$invoices)->with('fecha1',$fecha1)->with('fecha2',$fecha2);
@@ -71,9 +78,10 @@ class InvoicesController extends Controller
             if ($venta->total>0){
                  $venta->save();
                  $income=new Movement();
-                 $income->concept="Venta N° ".$invoice->id;
+                 $income->concept="Venta N° ".$venta->id;
                  $income->type="entrada";
                  $income->rode=$venta->total;
+                 $income->save();
             }
             else{
                   flash("Debe ingresar al menos un producto" , 'danger')->important();
@@ -211,11 +219,11 @@ public function searchDate(Request $request){
 
     //********************************Desabilitar una factura**************************************//
 
-       public function desable($id)
+    public function desable($id)
     {   
-        
+        $movement=Movement::SearchConcept("Venta N° ".$id)->get();
+        Movement::destroy($movement[0]->id);
         $invoice= Invoice::find($id);
-        
          $invoiceProducts=InvoiceProduct::where('invoice_id','=',$id)->get();
                  foreach ($invoiceProducts as $invoiceProduct) {
                     $product=Product::find($invoiceProduct->product_id);

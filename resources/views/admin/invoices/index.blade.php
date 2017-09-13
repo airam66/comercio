@@ -9,9 +9,18 @@
       <h2 class="box-title col-md-5">Listado de Ventas</h2>
   </div>
       <div class="row">
-        <div class='col-sm-2 pull-right'>
-          <input type ='button' class="btn btn-success "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
-        </div>
+      <div class='col-sm-4 pull-right'>
+          <br>
+            <form route='orders.index'  method="GET">
+            <div class="input-group">
+              <input type="text" name="searchClient" class="form-control" placeholder="Nombre..."> 
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+           </form>
+       </div>
+        
         <br>
         <div class='col-sm-6 pull-left'>
             <form route='invoices.index'  method="GET">
@@ -32,7 +41,12 @@
             </form>
 
         </div>
+
       </div>
+      <br>
+      <div class='col-sm-2 pull-left'>
+          <input type ='button' class="btn btn-success "  value = 'Agregar' onclick="location.href = '{{ route('invoices.create') }}'"/> 
+        </div>
 
 </div>
 

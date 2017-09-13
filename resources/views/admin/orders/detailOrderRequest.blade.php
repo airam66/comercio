@@ -95,6 +95,7 @@
                     <h3 style="color:white;">Pagos</h3>
                     </div>
                     <div class="table-responsive">
+                    @if($payments->isNotEmpty())
                       <table class="table">
                         <tr>
                           <th class="text-center">Fecha</th>
@@ -112,6 +113,9 @@
                             @endforeach
                         </tbody>
                       </table>
+                    @else
+                    <div class="text-center">No se registraron pagos</div>
+                    @endif
                     </div>
                   </div><!-- /.col -->
 

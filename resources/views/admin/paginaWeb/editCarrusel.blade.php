@@ -1,5 +1,11 @@
 @extends('layouts.main')
-
+@section('style')
+<style>
+#mdialTamanio{
+  width: 200% !important;
+}
+</style>
+@endsection
 @section('content')
   <div class="container-fluid spark-screen">
     <div class="row">
