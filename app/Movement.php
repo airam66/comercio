@@ -50,5 +50,9 @@ class Movement extends Model
     	 return Movement::movementToday()->where('type','=','salida')->pluck('rode')->sum();
     }
 
+    public static function scopeSearchConcept($query,$concept){
+         return Movement::where('concept','LIKE',"%" . $concept . "%");
+    }
+
 
 }

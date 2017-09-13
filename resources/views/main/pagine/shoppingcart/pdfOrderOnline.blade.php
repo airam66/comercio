@@ -29,9 +29,9 @@
       </div>
       <div class="client">
        <p class="name"><b>Fecha de pedido: {{$shoppingCart->created_at->format('d-m-y')}}</b></p>
-       <p class="name"><b>Nombre:</b> {{$shoppingCart->user->name}}  <b>--   CUIT/CUIL:</b> {{$shoppingCart->user->cuil}} <b>--   Telefono: {{$shoppingCart->user->phone}}</b></p>
-       <p class="name"> <b>Dirección:</b> {{$shoppingCart->user->address}} 
-       <b>   --Localidad:</b> {{$shoppingCart->user->location}} 
+       <p class="name"><b>Nombre:</b> {{$shoppingCart->client->name}}  <b>--   CUIT/CUIL:</b> {{$shoppingCart->client->cuil}} <b>--   Telefono: {{$shoppingCart->client->phone}}</b></p>
+       <p class="name"> <b>Dirección:</b> {{$shoppingCart->client->address}} 
+       <b>   --Localidad:</b> {{$shoppingCart->client->location}} 
        </p>
       </div>
              <table>

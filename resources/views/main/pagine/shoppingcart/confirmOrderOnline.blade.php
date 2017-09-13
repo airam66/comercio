@@ -5,7 +5,7 @@
                   <h3>Mi Carrito</h3>
        <img src="{{ asset('images/line.png')}}" alt=""> 
       <br>
-      Señor/a {{\Auth::user()->name}} Ud. pose 6 dia desde el dia de la fecha para acercarse a nuestrad direccion y confirmar su compra. Muchas Gracias.<br>
+      Señor/a {{\Auth::user()->name}} Ud. posee 6 días desde el dia de la fecha para acercarse a nuestra direccion y confirmar su compra. Muchas Gracias.<br>
 
 
 @if($dateNow->diff($user->updated_at)->days>0)

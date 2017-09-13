@@ -41,7 +41,7 @@
 		</div>
 	@else
 	<div>
-		Ud. no posee Pedidos pedidos confirmado
+		Ud. no posee Pedidos confirmado
 	</div>
 	@endif
 	<br>
@@ -60,6 +60,7 @@
 		                <th>Fecha de Entrega</th>
 		                <th>Estado</th>
 		                <th>Total</th>
+		                <th>Saldo</th>
 		                <th>Para confirmar</th>		
 		                <th></th>                   
 		            </tr>
@@ -73,7 +74,8 @@
 		            @if($cart->status=='confirmar')
 		            	<td> A confirmar</td>
 		            @endif
-		            <td>$ {{$cart->total}}</td>   
+		            <td>$ {{$cart->total}}</td>  
+		            <td>$ {{$cart->total}}</td>  
 		            <td> {{6-$dateNow->diff($cart->created_at)->days}} Días</td> 
 		            <th></th>                    
 		        </tr>
@@ -84,7 +86,7 @@
 		</div>
 	@else
 	<div>
-		Ud. no posee Pedidos pedidos a confirmado
+		Ud. no posee Pedidos a confirmado
 	</div>
 	@endif
 

@@ -2,6 +2,10 @@
 <html>
 <head>
 <meta charset='utf-8' />
+    <link rel="shortcut icon" type="image/x-ico" href="{{ asset('images/logoss.ico') }}">
+    <!-- CSRF Token -->
+    
+    <title>CreaTú</title>
 
 <link href="{{asset('plugins/fullcalendar/fullcalendar.min.css')}}" rel='stylesheet' />
 <link href="{{asset('plugins/fullcalendar/fullcalendar.print.min.css')}}" rel='stylesheet' media='print' />
@@ -73,7 +77,7 @@
                 center: 'title',
                 right: 'month,basicWeek,basicDay'
             },
-            defaultDate: '2017-08-12',
+            defaultDate: '2017-09-12',
             locale:initialLocaleCode,
             navLinks: true, // can click day/week names to navigate views
             editable: false,
@@ -186,12 +190,12 @@ body {
 
 </style>
 </head>
-<body>
+<body style="background-color: #dfefff;">
 <div id='wrap'>
 
         @include('admin.orders.asideStatus')
 
-    <div id='calendar'></div>
+    <div id='calendar' style="background-color: #FFFFFF;"></div>
 <div style='clear:both'></div>
 
 </div>
